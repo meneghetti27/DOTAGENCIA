@@ -11,7 +11,27 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
 - Conceito da marca: "dot" = ponto. Frase-chave: **"Todo grande resultado começa em um ponto."**
   Use esse trocadilho do ponto (bolinha azul, ponto final em destaque) sempre que fizer sentido.
 
-## Estilo visual (obrigatório)
+## Site oficial
+
+- Publicado em: https://claude.ai/artifact/LrAMsj9fehJMrUnzLa7bzm. A cópia do código está em `site/index.html`.
+  Para editar o site, atualize o artifact nesse mesmo link (não crie outro).
+- Título: **"dot. Marketing de Alta Conversão"**. Subtítulo: "Sites + Google Ads que transformam busca em cliente".
+- Seções: 001 A dot (manifesto "Feito pra quem quer vender.") · 002 Serviços · 003 Método · 004 Resultado · 005 Contato.
+- **Serviços**: 01 Sites · 02 Landing pages · 03 Google Ads · 04 Perfil no Google (Perfil da Empresa / Maps).
+- **Método dot**: 01 Diagnóstico → 02 Execução → 03 Otimização (relatório todo mês).
+- Manifesto: "A gente não faz um pouco de tudo. A gente faz o que traz cliente."
+- **Dados que a dot usa** (sempre com a fonte):
+  - 53% desistem se o site demora mais de 3 s no celular (Google)
+  - 0,05 s para formar a primeira impressão de um site (Lindgaard et al., 2006)
+  - 27,6% dos cliques vão para o 1º resultado orgânico (Backlinko)
+  - US$ 8 de lucro médio para cada US$ 1 em Google Ads (Google Economic Impact, EUA)
+  - +300% de contatos com site novo + Google Ads (resultado de cliente)
+- **WhatsApp / contato**: (51) 98906-1441
+- Identidade no site: fundo `#05060D`, azul `#2B6BFF`, azul claro `#8FB0FF`, gelo `#DCE6FF`, cinza `#A4AAC0`.
+  Fontes: **Inter Tight 900** (títulos gigantes em maiúsculas, bem apertados), **Sriracha** (uma palavra "pincelada" por título, inclinada -3°),
+  **JetBrains Mono** (rótulos numerados tipo `001`, botões). Esfera azul 3D, bordas em gradiente azul, botão flutuante do WhatsApp.
+
+## Estilo visual dos posts (obrigatório)
 
 Referências em `referencias/`. Sempre olhe para elas antes de criar algo novo.
 
