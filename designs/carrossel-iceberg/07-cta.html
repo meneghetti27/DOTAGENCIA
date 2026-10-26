@@ -4,9 +4,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:Inter,sans-serif;color:#fff;position:relative}
 .layer{position:absolute;inset:0}
-.scene{background:url(assets/s7-cena.png) center/cover}
+.scene{background:url(assets/s7-cena.png) center 0px/cover no-repeat}
 .top{z-index:1;background:linear-gradient(180deg,rgba(3,5,14,0.7) 0%,rgba(3,5,14,0.52) 28%,rgba(3,5,14,0) 52%)}
-.cut{background:url(assets/s7-recorte.png) center/cover;z-index:4}
+.cut{background:url() center 0px/cover no-repeat;z-index:4}
 .head{position:absolute;top:56px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;z-index:8}
 .ico{width:44px;height:44px;border-radius:50%;background:#0B1230;border:1.5px solid rgba(120,160,255,.5);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;letter-spacing:-.05em;box-shadow:0 0 18px rgba(61,110,245,.5)}
 .ico i{font-style:normal;color:#3D6EF5}
@@ -37,7 +37,8 @@ body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:I
 .frase b{font-weight:800;color:#fff}.frase b.bl{color:#8FB0FF}
 .foot{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:14px;letter-spacing:.16em;color:#7A8194;z-index:8}
 .count{position:absolute;top:62px;right:58px;z-index:8;font-size:18px;font-weight:600;padding:8px 16px;border-radius:99px;background:rgba(10,16,40,.7);border:1px solid rgba(143,176,255,.35)}
-.gauge{position:absolute;right:58px;top:640px;height:500px;width:120px;z-index:8;font-size:15px;font-weight:600;letter-spacing:.08em;color:#8E9CC0}
+.gauge{position:absolute;right:40px;top:640px;height:500px;width:140px;z-index:8;font-size:15px;font-weight:600;letter-spacing:.08em;color:#B4C1E2;text-shadow:0 1px 8px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.9)}
+.gauge:before{content:"";position:absolute;right:-18px;top:-28px;bottom:-28px;width:150px;border-radius:22px;background:linear-gradient(90deg,rgba(3,5,14,0),rgba(3,5,14,.55) 45%,rgba(3,5,14,.7));z-index:-1}
 .gauge .ln{position:absolute;right:0;top:0;bottom:0;width:2px;background:linear-gradient(#8FB0FF,rgba(143,176,255,.12))}
 .gauge .tk{position:absolute;right:0;display:flex;align-items:center;gap:10px;transform:translateY(-50%);white-space:nowrap}
 .gauge .tk:after{content:"";width:14px;height:2px;background:#8FB0FF}
@@ -50,7 +51,7 @@ body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:I
 <div class="rot">DE VOLTA À SUPERFÍCIE</div>
 <div class="glow2">POR VOCÊ.</div>
 <div class="title"><span class="l1"><span class="b2">A</span><span> DOT MERGULH</span><span class="b1">A</span></span><span class="l2"><span class="b1">P</span><span>OR VOCÊ</span><span class="b1">.</span></span></div>
-<div class="layer cut"></div>
+
 <div class="layer fade"></div>
 <div class="layer vig"></div>
 <div class="layer parts"><i class="bo" style="left:304px;top:574px;width:8px;height:8px"></i><i class="bo" style="left:199px;top:244px;width:18px;height:18px"></i><i class="bo" style="left:524px;top:766px;width:4px;height:4px"></i><i class="bo" style="left:669px;top:389px;width:4px;height:4px"></i><i class="bo" style="left:238px;top:614px;width:4px;height:4px"></i><i class="bo" style="left:221px;top:416px;width:10px;height:10px"></i><i class="bo" style="left:714px;top:604px;width:4px;height:4px"></i><i class="bo" style="left:729px;top:296px;width:4px;height:4px"></i><i class="bo" style="left:795px;top:812px;width:6px;height:6px"></i><i class="bo" style="left:213px;top:760px;width:14px;height:14px"></i><i class="bo" style="left:376px;top:217px;width:4px;height:4px"></i><i class="bo blur" style="left:286px;top:466px;width:14px;height:14px"></i><i class="bo blur" style="left:270px;top:754px;width:14px;height:14px"></i><i class="bo" style="left:335px;top:275px;width:18px;height:18px"></i><i class="bo blur" style="left:342px;top:551px;width:18px;height:18px"></i><i class="bo blur" style="left:214px;top:747px;width:18px;height:18px"></i><i class="bo" style="left:658px;top:866px;width:6px;height:6px"></i><i class="bo blur" style="left:587px;top:965px;width:14px;height:14px"></i><i class="bo blur" style="left:614px;top:540px;width:14px;height:14px"></i><i class="bo" style="left:865px;top:968px;width:6px;height:6px"></i><i class="bo" style="left:233px;top:758px;width:6px;height:6px"></i><i class="bo" style="left:687px;top:676px;width:8px;height:8px"></i><i class="bo" style="left:896px;top:629px;width:8px;height:8px"></i><i class="bo" style="left:773px;top:244px;width:8px;height:8px"></i><i class="bo" style="left:674px;top:598px;width:4px;height:4px"></i><i class="bo" style="left:925px;top:520px;width:6px;height:6px"></i></div>

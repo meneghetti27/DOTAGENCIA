@@ -53,6 +53,12 @@ Carrosséis prontos (7 slides cada): `designs/carrossel-iceberg/` (Google Ads), 
    desfoque em letras `{b1}X{/b}`, anotações HUD (ponto → etiqueta), medidor lateral (profundidade, T-3…, 1★…5★),
    partículas (`bolhas`/`faiscas`), frase + rodapé, `extra_html` (ex.: botão do WhatsApp no último slide).
 6. Revisar a `visao-geral.jpg`: legibilidade do título, nada colado no cabeçalho, anotações fora do título e da frase.
+7. Checklist de erros já cometidos (revisar slide a slide em tamanho grande):
+   - recorte cobrindo letra do título (usar `desloc`/`desloc_recorte` no slides.json para descer cena/recorte, ou tirar o recorte);
+   - frase de baixo quebrando com palavra órfã na 2ª linha (encurtar: cabe ~60 caracteres numa linha);
+   - etiqueta HUD encostando no medidor lateral ou apontando para área vazia/escura;
+   - cena estourada de branco ou escura demais; cor fora da paleta (ex.: bandeira vermelha → `--forca 0.8`);
+   - rodapé repetindo o medidor: usar fonte do dado e/ou "ARRASTE →".
 
 ## A agência
 

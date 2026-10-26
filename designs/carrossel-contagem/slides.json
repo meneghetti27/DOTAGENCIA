@@ -37,7 +37,7 @@
    "l1": "{b2}S{/b}EU CLIENTE NÃ{b1}O{/b}",
    "l2": "{b1}E{/b}SPERA{b1}.{/b}",
    "frase": "<b>53%</b> desistem se o site demora <b class=bl>mais de 3 segundos.</b>",
-   "rodape": "FONTE: GOOGLE",
+   "rodape": "FONTE: GOOGLE  ·  ARRASTE →",
    "medidor": 0,
    "particulas": "faiscas",
    "anotacoes": [
@@ -59,7 +59,7 @@
    "l1": "{b2}F{/b}UNCIONA{b1}?{/b}",
    "l2": "{b1}N{/b}O CELULAR{b1}?{/b}",
    "frase": "Seu cliente te procura pelo celular. <b class=bl>Se quebra ali, ele vai embora.</b>",
-   "rodape": "T-2",
+   "rodape": "ARRASTE →",
    "medidor": 1,
    "particulas": "faiscas",
    "anotacoes": [
@@ -87,8 +87,8 @@
    "rotulo": "T-1 · PRIMEIRA IMPRESSÃO",
    "l1": "{b2}0{/b},05 SEGUND{b1}O{/b}",
    "l2": "{b1}D{/b}E IMPRESSÃO{b1}.{/b}",
-   "frase": "É o tempo pra decidir se confia no seu site. <b class=bl>Design profissional não é luxo.</b>",
-   "rodape": "FONTE: LINDGAARD ET AL., 2006",
+   "frase": "Tempo pra decidir se confia em você. <b class=bl>Design profissional não é luxo.</b>",
+   "rodape": "FONTE: LINDGAARD ET AL., 2006  ·  ARRASTE →",
    "medidor": 2,
    "particulas": "faiscas"
   },
@@ -98,9 +98,9 @@
    "escurecer_topo": 0.8,
    "rotulo": "IGNIÇÃO · CONTATO",
    "l1": "{b2}U{/b}M TOQU{b1}E{/b}",
-   "l2": "{b1}P{/b}RO WHATSAPP{b1}.{/b}",
+   "l2": "{b1}P{/b}RO WHATSAPP{b2}.{/b}",
    "frase": "Botão visível em toda tela: <b class=bl>quem quer comprar não pode procurar.</b>",
-   "rodape": "IGNIÇÃO",
+   "rodape": "ARRASTE →",
    "medidor": 3,
    "particulas": "faiscas",
    "anotacoes": [
@@ -116,12 +116,12 @@
   {
    "arquivo": "06-orbita",
    "cena": "assets/s6-cena.png",
-   "escurecer_topo": 0.6,
+   "escurecer_topo": 0.88,
    "rotulo": "ÓRBITA · GOOGLE",
    "l1": "{b2}P{/b}RONTO PR{b1}A{/b}",
    "l2": "{b1}S{/b}ER ENCONTRADO{b1}.{/b}",
    "frase": "Site rápido + Google Ads: <b class=bl>sua empresa na órbita de quem procura.</b>",
-   "rodape": "ÓRBITA",
+   "rodape": "ARRASTE →",
    "medidor": 4,
    "particulas": "faiscas",
    "anotacoes": [

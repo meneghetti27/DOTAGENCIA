@@ -24,19 +24,20 @@
    "anotacoes": [
     {
      "x": 300,
-     "y": 600,
+     "y": 670,
      "lx": 190,
-     "ly": 700,
+     "ly": 770,
      "texto": "O que todo mundo vê"
     },
     {
      "x": 610,
-     "y": 900,
+     "y": 970,
      "lx": 470,
-     "ly": 1060,
+     "ly": 1100,
      "texto": "<b>O que traz cliente</b>"
     }
-   ]
+   ],
+   "desloc": 70
   },
   {
    "arquivo": "02-ponta",
@@ -48,7 +49,7 @@
    "l2": "{b1}E{/b} APARECER{b1}.”{/b}",
    "topo_titulo": 166,
    "frase": "É o que todo mundo acha. <b class=bl>O resultado está embaixo d'água.</b>",
-   "rodape": "PROFUNDIDADE: 0 M",
+   "rodape": "PROFUNDIDADE: 0 M  ·  ARRASTE →",
    "medidor": 0,
    "particulas": "faiscas",
    "anotacoes": [
@@ -69,8 +70,8 @@
    "rotulo": "NÍVEL 01 · 10 METROS",
    "l1": "{b2}P{/b}ALAVRA-CHAV{b1}E{/b}",
    "l2": "{b1}E{/b}RRADA AFUNDA{b1}.{/b}",
-   "frase": "Aparecer pra “grátis” e “barato” só queima verba. <b class=bl>Negativar termos é metade do jogo.</b>",
-   "rodape": "PROFUNDIDADE: 10 M",
+   "frase": "“Grátis” e “barato” só queimam verba. <b class=bl>Negativar termos é metade do jogo.</b>",
+   "rodape": "PROFUNDIDADE: 10 M  ·  ARRASTE →",
    "medidor": 1,
    "particulas": "bolhas",
    "anotacoes": [
@@ -100,34 +101,34 @@
   {
    "arquivo": "04-naufragio",
    "cena": "assets/s4-cena.png",
-   "escurecer_topo": 0.92,
+   "escurecer_topo": 0.9,
    "rotulo": "NÍVEL 02 · 200 METROS",
    "l1": "{b2}C{/b}LIQUE BO{b1}M{/b},",
    "l2": "{b1}S{/b}ITE RUIM{b1}.{/b}",
    "frase": "Anúncio que leva pra site lento é <b class=bl>dinheiro indo pro fundo.</b>",
-   "rodape": "PROFUNDIDADE: 200 M",
+   "rodape": "PROFUNDIDADE: 200 M  ·  ARRASTE →",
    "medidor": 2,
    "particulas": "bolhas",
    "anotacoes": [
     {
-     "x": 300,
-     "y": 720,
+     "x": 330,
+     "y": 760,
      "lx": 210,
-     "ly": 620,
+     "ly": 640,
      "texto": "Carregando… <b>8 s</b>"
     },
     {
-     "x": 610,
-     "y": 840,
-     "lx": 700,
-     "ly": 700,
+     "x": 640,
+     "y": 820,
+     "lx": 760,
+     "ly": 680,
      "texto": "Sem botão de <b>WhatsApp</b>"
     },
     {
-     "x": 420,
-     "y": 1000,
-     "lx": 300,
-     "ly": 1110,
+     "x": 470,
+     "y": 960,
+     "lx": 330,
+     "ly": 1090,
      "texto": "Quebra no <b>celular</b>"
     }
    ]
@@ -141,7 +142,7 @@
    "l1": "{b2}S{/b}EM RASTREA{b1}R{/b},",
    "l2": "{b1}É{/b} TIRO NO ESCURO{b1}.{/b}",
    "frase": "Medir conversões mostra <b class=bl>qual anúncio traz cliente de verdade.</b>",
-   "rodape": "PROFUNDIDADE: 1.000 M",
+   "rodape": "PROFUNDIDADE: 1.000 M  ·  ARRASTE →",
    "medidor": 3,
    "particulas": "bolhas",
    "extra_html": "<div style='position:absolute;left:607px;top:570px;width:300px;height:300px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(220,235,255,.95) 0%,rgba(120,165,255,.55) 12%,rgba(61,110,245,.18) 40%,transparent 70%);z-index:6;mix-blend-mode:screen'></div>",
@@ -163,46 +164,47 @@
    "rotulo": "NÍVEL 04 · 4.000 METROS",
    "l1": "{b2}O{/b}TIMIZA{b1}R{/b}",
    "l2": "{b1}T{/b}ODA SEMANA{b1}.{/b}",
-   "frase": "Lances, horários e regiões: <b class=bl>é isso que separa gasto de investimento.</b>",
-   "rodape": "PROFUNDIDADE: 4.000 M",
+   "frase": "Lances, horários e regiões: <b class=bl>é isso que vira investimento.</b>",
+   "rodape": "PROFUNDIDADE: 4.000 M  ·  ARRASTE →",
    "medidor": 4,
    "particulas": "bolhas",
    "extra_html": "<div style='position:absolute;left:540px;top:800px;width:760px;height:760px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(61,110,245,.45),transparent 65%);z-index:1'></div>",
    "anotacoes": [
     {
      "x": 420,
-     "y": 720,
+     "y": 800,
      "lx": 190,
-     "ly": 640,
+     "ly": 700,
      "texto": "Lances"
     },
     {
      "x": 650,
-     "y": 700,
+     "y": 780,
      "lx": 830,
-     "ly": 600,
+     "ly": 660,
      "texto": "Horários"
     },
     {
      "x": 400,
-     "y": 1020,
+     "y": 1080,
      "lx": 210,
-     "ly": 1100,
+     "ly": 1170,
      "texto": "Regiões"
     },
     {
      "x": 680,
-     "y": 1010,
-     "lx": 850,
-     "ly": 1100,
+     "y": 1070,
+     "lx": 720,
+     "ly": 1170,
      "texto": "Termos <b>negativos</b>"
     }
-   ]
+   ],
+   "desloc_recorte": 80,
+   "desloc": 0
   },
   {
    "arquivo": "07-cta",
    "cena": "assets/s7-cena.png",
-   "recorte": "assets/s7-recorte.png",
    "escurecer_topo": 0.7,
    "rotulo": "DE VOLTA À SUPERFÍCIE",
    "l1": "{b2}A{/b} DOT MERGULH{b1}A{/b}",

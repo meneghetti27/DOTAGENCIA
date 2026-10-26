@@ -26,9 +26,9 @@ TPL = r"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 *{box-sizing:border-box;margin:0;padding:0}
 body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:Inter,sans-serif;color:#fff;position:relative}
 .layer{position:absolute;inset:0}
-.scene{background:url(%(cena)s) center/cover}
+.scene{background:url(%(cena)s) center %(desloc)spx/cover no-repeat}
 .top{z-index:1;background:linear-gradient(180deg,rgba(3,5,14,%(esc)s) 0%%,rgba(3,5,14,%(esc2)s) 28%%,rgba(3,5,14,0) 52%%)}
-.cut{background:url(%(recorte)s) center/cover;z-index:4}
+.cut{background:url(%(recorte)s) center %(desloc_cut)spx/cover no-repeat;z-index:4}
 .head{position:absolute;top:56px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;z-index:8}
 .ico{width:44px;height:44px;border-radius:50%%;background:#0B1230;border:1.5px solid rgba(120,160,255,.5);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;letter-spacing:-.05em;box-shadow:0 0 18px rgba(61,110,245,.5)}
 .ico i{font-style:normal;color:#3D6EF5}
@@ -59,7 +59,8 @@ body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:I
 .frase b{font-weight:800;color:#fff}.frase b.bl{color:#8FB0FF}
 .foot{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:14px;letter-spacing:.16em;color:#7A8194;z-index:8}
 .count{position:absolute;top:62px;right:58px;z-index:8;font-size:18px;font-weight:600;padding:8px 16px;border-radius:99px;background:rgba(10,16,40,.7);border:1px solid rgba(143,176,255,.35)}
-.gauge{position:absolute;right:58px;top:640px;height:500px;width:120px;z-index:8;font-size:15px;font-weight:600;letter-spacing:.08em;color:#8E9CC0}
+.gauge{position:absolute;right:40px;top:640px;height:500px;width:140px;z-index:8;font-size:15px;font-weight:600;letter-spacing:.08em;color:#B4C1E2;text-shadow:0 1px 8px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.9)}
+.gauge:before{content:"";position:absolute;right:-18px;top:-28px;bottom:-28px;width:150px;border-radius:22px;background:linear-gradient(90deg,rgba(3,5,14,0),rgba(3,5,14,.55) 45%%,rgba(3,5,14,.7));z-index:-1}
 .gauge .ln{position:absolute;right:0;top:0;bottom:0;width:2px;background:linear-gradient(#8FB0FF,rgba(143,176,255,.12))}
 .gauge .tk{position:absolute;right:0;display:flex;align-items:center;gap:10px;transform:translateY(-50%%);white-space:nowrap}
 .gauge .tk:after{content:"";width:14px;height:2px;background:#8FB0FF}
@@ -158,7 +159,8 @@ def build(cfg_path):
             l1=letras(s["l1"]), l2=letras(s["l2"]),
             l2txt=l2txt, cut=f'<div class="layer cut"></div>' if s.get("recorte") else "",
             parts=particulas(s.get("particulas"), i), hud_svg="".join(svg), hud_lb="".join(lbs),
-            n=i, total=total, gauge=gauge, extra=s.get("extra_html", ""), frase=s.get("frase", ""), rodape=s.get("rodape", ""))
+            n=i, total=total, gauge=gauge, extra=s.get("extra_html", ""), frase=s.get("frase", ""), rodape=s.get("rodape", ""),
+            desloc=s.get("desloc", 0), desloc_cut=s.get("desloc_recorte", s.get("desloc", 0)))
         open(os.path.join(base, s["arquivo"] + ".html"), "w").write(html)
     # render
     import subprocess

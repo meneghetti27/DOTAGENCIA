@@ -28,7 +28,7 @@
    "l1": "{b2}S{/b}EM AVALIAÇÃ{b1}O{/b},",
    "l2": "{b1}V{/b}OCÊ SOME{b1}.{/b}",
    "frase": "Perfil vazio parece empresa fechada. <b class=bl>O cliente passa direto.</b>",
-   "rodape": "NÍVEL 1★",
+   "rodape": "ARRASTE →",
    "medidor": 0,
    "particulas": "faiscas",
    "anotacoes": [
@@ -49,7 +49,7 @@
    "l1": "{b2}4{/b},9 ESTRELA{b1}S{/b}",
    "l2": "{b1}V{/b}ENDE SOZINHO{b1}.{/b}",
    "frase": "Entre duas empresas, o cliente escolhe <b class=bl>a que tem mais estrelas.</b>",
-   "rodape": "NÍVEL 2★",
+   "rodape": "ARRASTE →",
    "medidor": 1,
    "particulas": "faiscas",
    "anotacoes": [
@@ -69,8 +69,8 @@
    "rotulo": "SUPERNOVA",
    "l1": "{b2}C{/b}RÍTICA SEM RESPOST{b1}A{/b}",
    "l2": "{b1}E{/b}XPLODE{b1}.{/b}",
-   "frase": "Responda toda avaliação, até a ruim: <b class=bl>quem lê vê como você trata cliente.</b>",
-   "rodape": "NÍVEL 3★",
+   "frase": "Responda até a ruim: <b class=bl>quem lê vê como você trata cliente.</b>",
+   "rodape": "ARRASTE →",
    "medidor": 2,
    "particulas": "faiscas",
    "anotacoes": [
@@ -79,7 +79,7 @@
      "y": 760,
      "lx": 300,
      "ly": 930,
-     "texto": "<b style=\"color:#FA5F6D\">★☆☆☆☆</b> sem resposta"
+     "texto": "<b style=\"color:#FA5F6D\">★</b><span style=\"color:#5D6585\">★★★★</span> sem resposta"
     }
    ]
   },
@@ -91,7 +91,7 @@
    "l1": "{b2}P{/b}ERFIL COMPLET{b1}O{/b}",
    "l2": "{b1}A{/b}TRAI{b1}.{/b}",
    "frase": "Fotos, horário, telefone e site: <b class=bl>cada detalhe puxa cliente pra você.</b>",
-   "rodape": "NÍVEL 4★",
+   "rodape": "ARRASTE →",
    "medidor": 3,
    "particulas": "faiscas",
    "anotacoes": [
@@ -128,20 +128,20 @@
   {
    "arquivo": "06-brilho",
    "cena": "assets/s6-cena.png",
-   "escurecer_topo": 0.6,
+   "escurecer_topo": 0.5,
    "rotulo": "ENERGIA CONSTANTE",
    "l1": "{b2}P{/b}EÇA AVALIAÇÃ{b1}O{/b}",
    "l2": "{b1}T{/b}ODO DIA{b1}.{/b}",
-   "frase": "Cliente feliz esquece. <b class=bl>Mande o link no WhatsApp depois do serviço.</b>",
-   "rodape": "NÍVEL 4★",
+   "frase": "Cliente feliz esquece. <b class=bl>Mande o link no WhatsApp.</b>",
+   "rodape": "ARRASTE →",
    "medidor": 3,
    "particulas": "faiscas",
    "anotacoes": [
     {
-     "x": 720,
-     "y": 820,
-     "lx": 360,
-     "ly": 980,
+     "x": 533,
+     "y": 850,
+     "lx": 330,
+     "ly": 1010,
      "texto": "Link de avaliação no <b>WhatsApp</b>"
     }
    ]
