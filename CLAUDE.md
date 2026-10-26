@@ -33,6 +33,18 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
 
 ## Nível de qualidade desejado (padrão "foda") — LEIA ANTES DE CRIAR
 
+**POST DE EXEMPLO PRINCIPAL: `referencias/inspiracao/setup-aventura-exemplo-principal.jpg`** (o dono escolheu este como o alvo).
+- A imagem é uma **cena ilustrada inteira (full-bleed)**, gerada por IA: personagem 3D estilo cinema/Pixar hiper-detalhado,
+  com **humor e atitude** (camaleão de capacete, óculos pixelados "deal with it", chiclete), num cenário com fumaça,
+  faíscas, lava, poeira e profundidade de campo.
+- O título fica **dentro da cena**: 2 linhas, condensado, com **textura suja/gasta**, a 2ª linha em degradê da cor da marca,
+  e o personagem **na frente** de parte das letras.
+- Cabeçalho pequeno com logo + nome + @ verificado. Detalhes de "interface de design" (ícones de ferramentas) na lateral.
+- Para a dot: mesma pegada, mas com **luz e atmosfera azuis** (neon azul, partículas azuis, fundo escuro).
+- Claude NÃO consegue gerar essa cena com código/3D de objeto. Fluxo: Claude escreve o prompt → o dono gera na IA de imagem
+  → Claude recorta o personagem, monta título com textura e camadas e exporta.
+
+
 O dono quer posts **mais modernos e profissionais**, com **imagens 3D/fotorrealistas, iluminação cinematográfica e qualidade insana**.
 Inspirações (de outras agências, só como referência de nível, **nunca copiar**): `referencias/inspiracao/`.
 
