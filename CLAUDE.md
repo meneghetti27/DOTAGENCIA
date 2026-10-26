@@ -33,47 +33,94 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
 
 ## Estilo visual dos posts (obrigatório)
 
-Referências em `referencias/`. Sempre olhe para elas antes de criar algo novo.
+Referências em `referencias/` (10 posts). **Olhe as imagens antes de criar qualquer post.**
+Todo post tem que parecer da mesma família: se colocar lado a lado com as referências, ninguém pode notar diferença.
 
-### Formato
-- Posts do Instagram: **1080 × 1350 px (4:5)**, retrato.
-- Margem lateral de ~90 px. O texto fica alinhado à esquerda ou centralizado; nunca colado na borda.
+### Formato e grid
+- **1080 × 1350 px (4:5)**, retrato. Margem lateral de ~90 px (cards podem ir até ~130 px da borda).
+- Tudo respira: muito espaço escuro entre os blocos. Nunca encher a tela.
+- Ritmo vertical do layout central (o mais usado):
+  | Faixa (y) | Conteúdo |
+  |---|---|
+  | ~85 px | Cabeçalho `dot. │ @MARKETINGDOTAGENCY`, centralizado |
+  | 130–210 | Frase de abertura em serifada itálica |
+  | 210–460 | **PALAVRA-HERÓI** gigante |
+  | 500–980 | Visual central (card, gráfico, objeto 3D) |
+  | 1000–1260 | Fechamento: frase pequena ou rótulo + título de 2 linhas + texto de apoio |
+  | ~1250 | Nota de rodapé pequena (fonte / "Valores ilustrativos.") |
+
+### Dois layouts
+1. **Central (padrão, 7 de 10 posts)**: tudo centralizado; cabeçalho `dot. │ @MARKETINGDOTAGENCY` no topo
+   (logo branco, barra vertical fina cinza, @ em cinza claro).
+   Refs: 01, 03, 06, 07, 08, 09, 10.
+2. **À esquerda (apresentação, listas e mockups)**: logo `dot.` grande no canto superior esquerdo, @ ou tema
+   ("GOOGLE ADS") no canto superior direito, títulos alinhados à esquerda. Refs: 02, 04, 05.
 
 ### Cores
 | Uso | Cor |
 |---|---|
-| Fundo principal (quase preto azulado) | `#05060A` (variações `#04050A` a `#0A0F1F`) |
-| Azul da marca (destaque) | `#3D6EF5` (faixa `#2F5BEA` – `#5082FB`) |
-| Azul profundo (base dos gradientes) | `#1F4FE1` |
-| Azul claro (topo dos gradientes) | `#A9C1FF` → `#E8EEFF` |
-| Texto principal | `#FFFFFF` |
-| Texto secundário | cinza-azulado claro `#B8BFCC` |
-| Texto pequeno / fonte de dados | cinza `#7A8194` |
+| Fundo | `#05060A` quase preto azulado, com **brilho radial azul-marinho** (`#0B1A4A` → `#12275E`) atrás do visual central |
+| Gradiente da palavra-herói (cima → baixo) | `#E4ECFF` → `#B6CBFF` → `#5F8FFE` |
+| Gradiente do título azul de fechamento | `#87A9FF` (topo) → `#3D6EF5` → `#2F5BEA` (base) |
+| Azul da marca / bordas ativas / glow | `#3D6EF5` (faixa `#2F5BEA`–`#5082FB`) |
+| Serifada itálica e rótulos espaçados | azul claro `#9DB5FF` (rótulos às vezes `#7B97D6`) |
+| Fundo de card | gradiente `#0E142A` → `#0B1023` |
+| Texto principal | `#FFFFFF` · secundário `#B8BFCC` · nota de rodapé `#7A8194` |
+| Negativo / "erro" (queda, risco, tachado) | vermelho-coral `#FA5F6D`, com glow; rótulo `#FF8D96` |
+| Estrelas de avaliação | dourado `#FFCA50` (vazias em cinza-azulado) |
+| Palavra "errada" (ex.: MITO) | cinza claro chapado `#EBEBEB`, **sem gradiente** |
 
 - **Sempre fundo escuro.** Nunca fundo branco ou claro.
-- **Brilho azul (glow)**: halos radiais azuis suaves atrás dos títulos e elementos, e um brilho azul vindo de baixo ou de um canto.
-- **Gradiente nos títulos de destaque**: de cima (branco/lavanda claro) para baixo (azul `#3D6EF5`). Também vale para o branco: branco puro em cima e levemente azulado embaixo.
+- O azul é a única cor de destaque. Vermelho e dourado só com significado (erro e estrelas).
 
 ### Tipografia
-- **Títulos**: fonte condensada, extra pesada, **TUDO EM MAIÚSCULAS** (estilo **Anton**). Bem grandes, com espaçamento entre linhas apertado.
-  Normalmente, uma parte do título fica em branco e a palavra-chave em **azul com gradiente e glow**.
-- **Textos de apoio**: **Inter**, regular, em cinza claro. As palavras importantes vão em **negrito branco**.
-- **Frase de abertura elegante** (opcional): serifada itálica (estilo **Playfair Display Italic**), em azul claro, ex.: *"o primeiro do Google"*.
-- **Etiqueta/selo**: retângulo azul levemente **inclinado** (~-3°) com texto branco em negrito, sem maiúsculas (ver `05-3-sinais`).
-- **@MARKETINGDOTAGENCY**: maiúsculo, pequeno, cinza, com **espaçamento entre letras bem largo**.
-- **Números de lista**: `01`, `02`, `03` na fonte condensada, em azul com gradiente.
+| Papel | Fonte | Como usar |
+|---|---|---|
+| Palavra-herói / títulos | **Anton** (condensada, extra pesada) | MAIÚSCULAS, entrelinha ~0,9, tracking 0; a palavra-herói ocupa quase toda a largura (até ~830 px) |
+| Frase de abertura | **Playfair Display Italic** | minúsculas, ~64–72 px, azul claro; é o começo da frase que a palavra-herói termina |
+| Textos de apoio | **Inter** Regular | 28–34 px, branco/cinza; **o final da frase em Inter Bold branco** |
+| Rótulos | **Inter SemiBold** | MAIÚSCULAS, ~26 px, letter-spacing ~0,3 em, azul claro ("VERDADE", "ORÇAMENTO DIÁRIO") |
+| @MARKETINGDOTAGENCY | Inter Medium | maiúsculas, ~20 px, letter-spacing ~0,35 em, cinza claro |
+| Nomes em cards | Inter Bold ou **Plus Jakarta Sans** ExtraBold | ~34 px |
+| Números | **Anton** | sempre com gradiente branco → azul, mesmo dentro de cards |
 
-### Elementos recorrentes
-- **Logo "dot."**: branco, negrito, minúsculo, com o ponto em azul. Fica no canto superior esquerdo (ou inferior esquerdo).
-- **Cabeçalho**: logo à esquerda + @MARKETINGDOTAGENCY (ou tema, ex.: "GOOGLE ADS") à direita. Ou o @ centralizado no topo.
-  Variação: `dot. | @MARKETINGDOTAGENCY` centralizado.
-- **Esfera azul 3D** com brilho, cortada pela borda da tela (canto superior direito). Bolinha azul pequena como "ponto final".
-- **Cards "vidro"**: retângulo escuro, cantos arredondados (~24 px), borda fina azul ou cinza translúcida, leve brilho.
-- **Mockups de interface**: janela de navegador (`suaempresa.com.br`), barra de pesquisa do Google (branca, arredondada, com glow), anúncio "Patrocinado", botão azul "Falar no WhatsApp".
-- **Linha azul curta** (~95 px) como divisor antes do texto de apoio.
-- **CTA de carrossel**: botão circular azul com seta → + "Arraste para o lado e conheça a dot." / "Arraste e veja como resolver →".
-- Grade em perspectiva sutil no chão, cone de luz (holofote) e objetos 3D (ex.: troféu) para dar impacto.
-- Quando houver dado/estatística: número gigante em azul com glow + fonte pequena embaixo (ex.: "Fonte: estudo Backlinko...").
+### A fórmula do texto (estrutura que se repete)
+1. **Abertura em serifada itálica** (curiosidade, minúscula, sem ponto):
+   *"o primeiro do Google"*, *"o cliente escolhe pelas"*, *"quanto custa anunciar no Google?"*,
+   *"leva 20 anos para construir uma"*, *"o custo de não aparecer"*.
+2. **PALAVRA-HERÓI** gigante com gradiente, que completa a frase: `#1`, `ESTRELAS`, `VOCÊ DECIDE.`, `REPUTAÇÃO`, `300`, `MITO`.
+3. **Visual que prova a ideia** (ver abaixo).
+4. **Fechamento em 2 linhas Anton**: **linha 1 branca** (preparação) + **linha 2 azul com gradiente** (a virada), **terminando com ponto ou "?"**.
+   Ex.: "PEÇA AVALIAÇÃO PRA / **TODO CLIENTE FELIZ.**", "COMECE PEQUENO. / **ESCALE O QUE FUNCIONA.**",
+   "QUANTAS ESTÃO INDO / **PRO SEU CONCORRENTE?**", "E 5 MINUTOS / **PARA ARRUINAR.**".
+   Às vezes vem antes uma linha pequena em Inter ("Você escolheria qual?", "leva em média") ou um rótulo espaçado ("VERDADE").
+5. **Texto de apoio** (opcional, 1–2 linhas): começa normal e **termina em negrito**.
+   Ex.: "Caro é anúncio mal configurado. **Bem feito, ele se paga.**", "Site fora do ar, anúncio enganoso, avaliação sem resposta. **Cuide de cada detalhe.**"
+6. **Rodapé honesto**: "Fonte: …", "Valores ilustrativos.", "Exemplo ilustrativo." ou "— Autor" em citações.
+
+### Visual central (escolha 1 por post)
+- **Card de vidro**: cantos ~28 px, fundo `#0E142A`→`#0B1023`, borda 2 px `#3D6EF5` com **glow azul externo** quando é o card "bom/ativo".
+- **Comparação A × B** (ref 06): card ruim em cima, apagado (texto cinza, borda quase invisível, 2 estrelas) e card bom embaixo, mais largo, aceso (borda azul + glow, 5 estrelas, nota grande em Anton).
+- **Interface simulada** (ref 07): rótulo espaçado, valor grande em Anton (`R$ 50` + `/dia` cinza menor), slider azul com bolinha branca brilhante, pílulas com contorno ("Pausa quando quiser", "Sem fidelidade").
+- **Gráfico** (ref 08): linha azul clara com glow e área azul embaixo, linhas de grade sutis, ponto branco no pico, queda em vermelho com ponto vermelho; rótulos em Inter Bold maiúsculo (azul claro / vermelho).
+- **Conta / fórmula** (ref 09): `10 × 30 = 300` dentro de um card, números em Anton com gradiente, operadores azuis, legenda pequena embaixo de cada número.
+- **Objetos 3D azuis** (refs 01, 02, 05, 09, 10): esfera, cubos arredondados, rosquinha (torus), troféu. Material de plástico/vidro azul brilhante, luz suave, alguns desfocados (profundidade). Podem sair pela borda ou ficar atrás dos números.
+- **Mockups** (refs 03, 04): janela de navegador com `suaempresa.com.br`, barra de pesquisa do Google, anúncio "Patrocinado", botão "Falar no WhatsApp".
+- **Lista em cards** (ref 05): `01 02 03` em Anton azul + frase em Inter; etiqueta azul inclinada (~-3°).
+- **Tachado** (ref 10): palavra cinza com uma linha vermelha grossa, arredondada, com glow, cruzando na diagonal.
+- **Holofote** (ref 01): cone de luz atrás do objeto principal.
+
+### Detalhes que fazem diferença
+- O título gigante pode **sobrepor** o objeto 3D ou o card (camadas = profundidade).
+- **Glow azul** atrás de títulos azuis e de cards ativos. Nunca sombra preta dura.
+- Pontos finais em títulos são intencionais e lembram o "dot." (ponto).
+- Acentos e cedilhas em Anton precisam caber: deixe espaço acima da palavra-herói.
+- No máximo **~25 palavras** no post inteiro (fora a nota de rodapé).
+
+## Temas e formatos de conteúdo
+- **Estatística** com fonte (01, 09) · **Comparação** (06) · **Mito × Verdade** (10) · **Citação famosa adaptada ao negócio** (08)
+- **Simulação de ferramenta** (07) · **Pergunta provocativa** (03, 04) · **Lista de sinais/erros** (05) · **Apresentação da marca** (02)
+- Assuntos: Google Ads (custo, orçamento, aparecer no topo), sites que convertem, avaliações e Perfil no Google, reputação, concorrência, WhatsApp.
 
 ## Tom dos textos
 
@@ -100,3 +147,8 @@ Referências em `referencias/`. Sempre olhe para elas antes de criar algo novo.
 | `referencias/03-mas-ele-vende.jpg` | Pergunta provocativa, mockup de navegador com botão WhatsApp |
 | `referencias/04-voce-aparece.jpg` | Google Ads, barra de pesquisa e anúncio patrocinado |
 | `referencias/05-3-sinais.jpg` | Lista numerada em cards, etiqueta azul inclinada |
+| `referencias/06-estrelas.jpg` | Comparação Empresa A × B com estrelas (avaliações) |
+| `referencias/07-voce-decide.jpg` | Simulador de orçamento diário com slider e pílulas |
+| `referencias/08-reputacao.jpg` | Citação (Warren Buffett) com gráfico de subida e queda em vermelho |
+| `referencias/09-custo-de-nao-aparecer.jpg` | Número gigante com cubos 3D e conta 10 × 30 = 300 |
+| `referencias/10-mito-google-ads-caro.jpg` | Mito × Verdade, MITO tachado em vermelho, rosquinha 3D |
