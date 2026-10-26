@@ -4,6 +4,7 @@
 Uso: python3 tools/buscar-imagens.py "termo em inglês" pasta_saida [quantidade] [bing|aberta]
 - bing (padrão): melhores imagens. Faça UMA busca por vez com pausa (~20 s); rajadas fazem o Bing devolver
   resultados aleatórios — confira os títulos em fontes.txt.
+- nasa: biblioteca da NASA (foguetes, astronautas, Terra, galáxias) em alta resolução, API aberta.
 - aberta: Openverse (Flickr) + Wikimedia Commons; fotos mais "documentais", também com limite de requisições.
 Google e DuckDuckGo exigem desafio anti-robô: não usar.
 Projeto fictício de treino: as imagens servem só de teste.
@@ -34,6 +35,11 @@ if fonte == "bing":
             if d.get("murl"):
                 cands.append((d["murl"], 0, 0, d.get("t", "")))
         time.sleep(3)
+if fonte == "nasa":
+    q = urllib.parse.urlencode({"q": termo, "media_type": "image", "page_size": qtd * 2})
+    for it in json.loads(get("https://images-api.nasa.gov/search?" + q))["collection"]["items"]:
+        href = it["links"][0]["href"].replace("~medium.", "~large.").replace("~thumb.", "~large.")
+        cands.append((urllib.parse.quote(href, safe=":/~"), 0, 0, it["data"][0].get("title", "")))
 # Openverse (Flickr, Wikimedia, etc.)
 for page in ((1, 2) if fonte == "aberta" else ()):
     try:
