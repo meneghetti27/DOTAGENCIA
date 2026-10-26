@@ -19,7 +19,8 @@ const panel=(w,h,col,int,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry
 panel(3,8,0x3d6ef5,+q.get('pb')||6,6,1,-4);   // azul atrás direita
 panel(3,8,0x87a9ff,+q.get('pb')||6,-6,0,-4);  // azul claro atrás esquerda
 panel(6,2,0xffffff,+q.get('pw')||2.5,0,7,2);  // softbox branco em cima
-panel(2,6,0x2f5bea,(+q.get('pb')||6)*0.5,7,0,4); // azul lateral frontal
+panel(2,6,q.get('fw')?0xffffff:0x2f5bea,q.get('fw')?+q.get('fw'):(+q.get('pb')||6)*0.5,7,0,4); // lateral frontal (azul ou branca com fw)
+if(q.get('strip')) panel(0.5,9,0xffffff,+q.get('strip'),-5,2,5); // faixa branca fina: reflexo nítido no vidro
 if(q.get('hdr')) {scene.environment=hdr;} else {scene.environment=pm.fromScene(es,0.02).texture;}
 scene.environmentIntensity=+q.get('env')||1;
 if(q.get('tint')) setTimeout(()=>{},0);
