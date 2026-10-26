@@ -3,6 +3,33 @@
 Este repositório é a memória da **dot.** Leia este arquivo inteiro antes de criar qualquer design, post ou página.
 Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualize este arquivo** e faça commit.
 
+## ⭐ MÉTODO OFICIAL DE POSTS (aprovado pelo dono: "muito top, guarda essa forma de fazer")
+
+Post aprovado: `designs/2026-10-site-lento-v6.png` · Modelo para copiar: `designs/modelos/post-cena-ia.html`
+Alvo de qualidade: `referencias/inspiracao/setup-aventura-exemplo-principal.jpg`
+
+**Passo a passo**
+1. **Conceito com humor**: personagem/cena que vira metáfora da mensagem (ex.: esqueleto de óculos pixelados que morreu
+   esperando o site carregar, caneca "SÓ MAIS UM MINUTO...").
+2. **Claude escreve o prompt** (em inglês) → **o dono gera a imagem na IA** (Midjourney/ChatGPT/Gemini) e manda.
+   Prompt sempre com: personagem 3D cinematográfico hiper-detalhado, estilo Pixar + realismo, **neon azul vivo `#3D6EF5`**,
+   rim light ciano, faíscas/partículas azuis, névoa volumétrica, profundidade de campo, cores saturadas,
+   personagem nos 2/3 de baixo e **espaço escuro no topo para o título**, 4:5.
+3. **Montagem (Claude)**:
+   - Imagem em tela cheia 1080×1350 (`saturate(1.15) contrast(1.05)`); recorte do personagem com `rembg` numa camada **acima** do título.
+   - **Título em 2 linhas, fonte League Gothic** (ultra-condensada), maiúsculas, bloco de ~720 px centralizado:
+     linha 1 branca 178 px · linha 2 **206 px** com degradê **horizontal** `#DCE6FF → #8FB0FF → #4F80FF → #3D6EF5` e brilho azul desfocado atrás.
+   - O personagem cobre **só a parte de baixo da linha 2**.
+   - **Desfoque em algumas letras** (1ª e última de cada linha, `blur(2.5–4px)`). **Sem ranhuras/textura.**
+   - Cabeçalho tipo perfil centralizado: ícone redondo "dot." + **Agência dot.** + selo azul de verificado, `@marketingdotagency` embaixo.
+   - Coluna de ícones de ferramenta de design à esquerda do título; faíscas azuis **na frente** das letras.
+   - **Frase de baixo obrigatória** (o dono reclamou quando sumiu): 1 linha Inter 30 px sobre degradê escuro,
+     com números/palavras-chave em negrito (destaque em `#8FB0FF`), e a fonte do dado em caixa alta pequena embaixo.
+   - Vinheta leve. Exportar com `node tools/post-to-png.js`.
+
+**Não fazer (reprovado)**: fonte Anton no título desse estilo, ranhuras nas letras, objeto 3D isolado em fundo liso (v3/v4),
+foto de banco recortada com filtro azul (v2), cards e mockups como visual principal.
+
 ## A agência
 
 - Nome: **dot.** (sempre minúsculo, com o ponto azul no final)
@@ -52,7 +79,7 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
   - Bloco do título com ~720 px de largura, as duas linhas com larguras parecidas; o personagem cobre só a parte de baixo da linha 2.
   - Cabeçalho tipo perfil: ícone redondo "dot." + **Agência dot.** + selo azul de verificado, `@marketingdotagency` embaixo.
   - Ícones de ferramenta de design em coluna à esquerda do título; faíscas azuis na frente das letras.
-  - **Nada de texto na base**: a imagem respira até embaixo.
+  - Frase de baixo com o dado + fonte (obrigatória).
 - Primeira tentativa nesse fluxo: `designs/2026-10-site-lento-v5.png` (esqueleto de óculos pixelado esperando o site carregar).
   Receita da montagem:
   - Cena da IA em tela cheia (1080×1350); recorte do personagem com `rembg` numa camada acima do título.

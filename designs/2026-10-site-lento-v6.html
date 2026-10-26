@@ -34,6 +34,11 @@ body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:I
 .sparks i.m{width:5px;height:5px}
 .sparks i.l{width:9px;height:9px;filter:blur(2.5px);opacity:.7}
 .sparks i.t{width:16px;height:3px;border-radius:3px;transform:rotate(-35deg)}
+.fade{z-index:4;background:linear-gradient(180deg,transparent 76%,rgba(4,5,10,.72) 88%,rgba(4,5,10,.92) 100%)}
+.stat{position:absolute;left:0;right:0;bottom:58px;text-align:center;z-index:6;font-size:30px;color:#D9DEEA;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.stat b{font-weight:800;color:#fff}
+.stat b.bl{color:#8FB0FF}
+.foot{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:14px;letter-spacing:.14em;color:#7A8194;z-index:6}
 .vig{z-index:5;background:radial-gradient(120% 90% at 50% 45%,transparent 60%,rgba(0,0,0,.45) 100%)}
 </style></head><body>
 <div class="layer scene"></div>
@@ -43,7 +48,10 @@ body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:I
  <span class="l2"><span class="b1">V</span><span>ER SEU SIT</span><span class="b1">E.</span></span>
 </div>
 <div class="layer cut"></div>
+<div class="layer fade"></div>
 <div class="layer vig"></div>
+<div class="stat"><b>53%</b> desistem se o site demora <b class="bl">mais de 3 segundos.</b></div>
+<div class="foot">FONTE: GOOGLE</div>
 <div class="head">
  <div class="ico">dot<i>.</i></div>
  <div class="who"><b>Agência dot.
