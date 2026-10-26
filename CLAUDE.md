@@ -50,12 +50,16 @@ O que faz esses posts parecerem profissionais:
 6. **Acabamento**: textura/grão sutil, vinheta, gradiente de cor nas bordas, detalhes de "interface de design"
    (caixa de seleção com cantos), contador de carrossel.
 
-### Fluxo de produção (Claude não gera fotos/3D sozinho)
-1. Claude cria o conceito e escreve o **prompt da imagem** (em inglês) para o dono gerar numa IA de imagem
-   (Midjourney, ChatGPT/DALL·E, Gemini, Freepik, Leonardo…), sempre com a luz azul da dot e fundo escuro, em 4:5.
-2. O dono manda a imagem gerada.
-3. Claude recorta o objeto (remoção de fundo com `rembg`) para colocar o título **entre o fundo e o objeto**,
-   monta o layout em HTML/CSS e exporta PNG 1080×1350 com o Playwright.
+### Fluxo de produção (o que funciona)
+- **Objetos 3D fotorrealistas**: modelos gratuitos da **Poly Haven** renderizados com three.js num estúdio escuro
+  com softboxes azuis (reflexos azuis no metal). Ferramentas e passo a passo em `tools/render3d/`.
+  Modelos úteis: pocket_watch, alarm_clock_01, dartboard, magnifying_glass_01, Megaphone_01, vintage_telephone_wall_clock,
+  security_camera_01, digital_wrist_watch, desk_lamp_arm_01.
+- **Fotos**: o projeto é fictício (não será postado), então imagens podem vir de qualquer lugar da internet.
+- O título gigante fica **atrás** do objeto (z-index) e o objeto sobrepõe parte das letras.
+- Acabamento obrigatório: brilho azul atrás do objeto, partículas de luz, degradê escuro na base para o texto, grão e vinheta.
+- ❌ Não usar foto de banco com fundo recortado e filtro azul chapado (ficou "muito feio", v2 reprovada).
+- ✅ Referência aprovada como caminho: `designs/2026-10-site-lento-v3.png`.
 
 ## Estilo visual dos posts (obrigatório)
 

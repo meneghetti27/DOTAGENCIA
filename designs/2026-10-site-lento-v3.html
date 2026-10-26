@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:Inter,sans-serif;color:#fff;position:relative}
+.layer{position:absolute;inset:0}
+.spot{background:
+ radial-gradient(34% 26% at 52% 56%,rgba(61,110,245,.62) 0%,rgba(30,60,170,.30) 42%,rgba(4,5,10,0) 76%),
+ radial-gradient(70% 30% at 50% 0%,rgba(90,120,255,.16),rgba(4,5,10,0) 70%)}
+.head{position:absolute;top:62px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:18px;z-index:5}
+.logo{font-weight:800;font-size:36px;letter-spacing:-.05em}
+.logo i{font-style:normal;color:#3D6EF5}
+.bar{width:2px;height:28px;background:#5a6070}
+.handle{font-weight:500;font-size:19px;letter-spacing:.32em;color:#C9CEDA}
+.serif{position:absolute;top:122px;left:0;right:0;text-align:center;font-family:"Playfair Display";font-style:italic;font-size:66px;color:#9DB5FF;z-index:5}
+.hero{position:absolute;top:206px;left:0;right:0;text-align:center;font-family:Anton;font-size:196px;line-height:1;white-space:nowrap;
+ background:linear-gradient(180deg,#F2F5FF 10%,#C4D4FF 55%,#6E98FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent;z-index:1;
+ filter:drop-shadow(0 0 40px rgba(61,110,245,.25))}
+.obj{position:absolute;left:560px;top:300px;height:900px;transform:translateX(-50%) rotate(14deg);z-index:2;
+ filter:drop-shadow(0 50px 70px rgba(0,0,0,.75)) drop-shadow(0 0 60px rgba(61,110,245,.45))}
+.p{position:absolute;border-radius:50%;background:#BFD0FF;z-index:3;box-shadow:0 0 12px 3px rgba(120,160,255,.8)}
+.fade{z-index:3;background:linear-gradient(180deg,rgba(4,5,10,0) 64%,rgba(4,5,10,.82) 76%,#04050A 87%)}
+.close{position:absolute;top:1060px;left:0;right:0;text-align:center;font-family:Anton;font-size:92px;line-height:.98;z-index:5}
+.close .w{color:#fff}
+.close .bl{background:linear-gradient(180deg,#9DB5FF 0%,#3D6EF5 60%,#2F5BEA 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(61,110,245,.6))}
+.sub{position:absolute;top:1262px;left:0;right:0;text-align:center;font-size:27px;color:#C5CAD6;z-index:5}
+.sub b{color:#fff}
+.foot{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:15px;color:#5E6577;z-index:5}
+.grain{z-index:6;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vig{z-index:6;background:radial-gradient(120% 90% at 50% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.6) 100%)}
+</style></head><body>
+<div class="layer spot"></div>
+<div class="head"><span class="logo">dot<i>.</i></span><span class="bar"></span><span class="handle">@MARKETINGDOTAGENCY</span></div>
+<div class="serif">seu cliente espera só</div>
+<div class="hero">3 SEGUNDOS.</div>
+<img class="obj" src="assets/relogio-3d.png" alt="">
+<i class="p" style="left:180px;top:560px;width:5px;height:5px;opacity:.8"></i>
+<i class="p" style="left:240px;top:760px;width:3px;height:3px;opacity:.6"></i>
+<i class="p" style="left:880px;top:520px;width:4px;height:4px;opacity:.7"></i>
+<i class="p" style="left:930px;top:820px;width:6px;height:6px;opacity:.5;filter:blur(1px)"></i>
+<i class="p" style="left:140px;top:930px;width:4px;height:4px;opacity:.4"></i>
+<i class="p" style="left:820px;top:420px;width:3px;height:3px;opacity:.6"></i>
+<div class="layer fade"></div>
+<div class="close"><span class="w">53% DESISTEM</span><br><span class="bl">ANTES DE TE CONHECER.</span></div>
+<div class="sub">Site lento não é detalhe. <b>É cliente indo pro concorrente.</b></div>
+<div class="foot">Fonte: Google.</div>
+<div class="layer grain"></div>
+<div class="layer vig"></div>
+</body></html>

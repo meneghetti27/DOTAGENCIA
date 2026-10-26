@@ -1,0 +1,3 @@
+node_modules/
+tools/render3d/models/
+tools/render3d/*.hdr
