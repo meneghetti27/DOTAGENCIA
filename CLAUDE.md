@@ -31,6 +31,32 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
   Fontes: **Inter Tight 900** (títulos gigantes em maiúsculas, bem apertados), **Sriracha** (uma palavra "pincelada" por título, inclinada -3°),
   **JetBrains Mono** (rótulos numerados tipo `001`, botões). Esfera azul 3D, bordas em gradiente azul, botão flutuante do WhatsApp.
 
+## Nível de qualidade desejado (padrão "foda") — LEIA ANTES DE CRIAR
+
+O dono quer posts **mais modernos e profissionais**, com **imagens 3D/fotorrealistas, iluminação cinematográfica e qualidade insana**.
+Inspirações (de outras agências, só como referência de nível, **nunca copiar**): `referencias/inspiracao/`.
+
+O que faz esses posts parecerem profissionais:
+1. **Uma imagem-herói forte é o post.** Um objeto ou personagem fotorrealista/3D que é uma **metáfora visual** da mensagem
+   (bomba feita de dinheiro = lead que vai explodir; dardo no alvo = direção certa; marionetista = manipulação).
+   Cards, mockups e gráficos viram secundários ou saem.
+2. **Iluminação cinematográfica**: fundo escuro (low-key), luz de recorte (rim light) no objeto, holofote vindo de cima,
+   brilho/névoa volumétrica, partículas, profundidade de campo. Na dot, **toda a luz é azul** (`#3D6EF5` / `#87A9FF`).
+3. **Camadas texto × imagem**: o título gigante fica **atrás** do objeto/pessoa (a cabeça ou o objeto cobre parte das letras)
+   ou o objeto sai por cima do título. Isso dá profundidade 3D.
+4. **Tipografia enorme e ultra-condensada** ocupando a largura toda, em branco com gradiente leve para cinza/azul.
+   Uma palavra de destaque na cor da marca. Às vezes letras vazadas (contorno).
+5. **Pouquíssimo texto** na capa: frase curta acima + título gigante + no máximo 1 linha pequena ou etiqueta inclinada.
+6. **Acabamento**: textura/grão sutil, vinheta, gradiente de cor nas bordas, detalhes de "interface de design"
+   (caixa de seleção com cantos), contador de carrossel.
+
+### Fluxo de produção (Claude não gera fotos/3D sozinho)
+1. Claude cria o conceito e escreve o **prompt da imagem** (em inglês) para o dono gerar numa IA de imagem
+   (Midjourney, ChatGPT/DALL·E, Gemini, Freepik, Leonardo…), sempre com a luz azul da dot e fundo escuro, em 4:5.
+2. O dono manda a imagem gerada.
+3. Claude recorta o objeto (remoção de fundo com `rembg`) para colocar o título **entre o fundo e o objeto**,
+   monta o layout em HTML/CSS e exporta PNG 1080×1350 com o Playwright.
+
 ## Estilo visual dos posts (obrigatório)
 
 Referências em `referencias/` (10 posts). **Olhe as imagens antes de criar qualquer post.**
@@ -152,3 +178,12 @@ Todo post tem que parecer da mesma família: se colocar lado a lado com as refer
 | `referencias/08-reputacao.jpg` | Citação (Warren Buffett) com gráfico de subida e queda em vermelho |
 | `referencias/09-custo-de-nao-aparecer.jpg` | Número gigante com cubos 3D e conta 10 × 30 = 300 |
 | `referencias/10-mito-google-ads-caro.jpg` | Mito × Verdade, MITO tachado em vermelho, rosquinha 3D |
+
+### Inspirações externas (`referencias/inspiracao/`)
+| Arquivo | O que aproveitar |
+|---|---|
+| `alaska-3-motivos.jpg` | Título ultra-condensado enorme, objeto fotorrealista (bomba de dinheiro) sobrepondo o título, etiqueta inclinada |
+| `alaska-ia-no-feed.jpg` | Título gigante atrás do personagem, letras vazadas, "?" na cor de destaque, caixa de seleção com cantos |
+| `seta-direcao-certa.jpg` | Layout à esquerda, objeto 3D com luz na cor da marca, gráfico brilhando no fundo, CTA de arrastar |
+| `next-mentira.jpg` | Pessoa na frente da palavra gigante "MENTIRA.", holofote azul, metáfora visual (marionetes) |
+| `setup-aventura.jpg` | Personagem 3D hiper-detalhado, luz cinematográfica, partículas, textura no título |
