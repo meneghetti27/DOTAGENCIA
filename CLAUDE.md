@@ -59,15 +59,8 @@ O que faz esses posts parecerem profissionais:
 - O título gigante fica **atrás** do objeto (z-index) e o objeto sobrepõe parte das letras.
 - Acabamento obrigatório: brilho azul atrás do objeto, partículas de luz, degradê escuro na base para o texto, grão e vinheta.
 - ❌ Não usar foto de banco com fundo recortado e filtro azul chapado (ficou "muito feio", v2 reprovada).
-- ✅ Caminho certo: `designs/2026-10-site-lento-v3.png` ("mais perto") → `v4` (mais profissional).
-- Receita da v4 (luz de produto premium):
-  - Render: `el=6&az=-48&key=0.5&env=1.2&pb=14&pw=4&fw=1.2&strip=10&tint=%23eef2ff&zoom=1.25` em 2600 px.
-    Azul **só nos reflexos do metal** (softboxes azuis atrás); a frente recebe luz **branca** (`fw`) para o objeto ficar nítido.
-    Nunca deixar o objeto todo lavado de azul.
-  - Pós: bloom nos realces (PIL), remover alpha < 70 (evita halo fantasma).
-  - Cena: feixe de luz de cima, halo azul atrás do objeto, chão escuro com horizonte iluminado, sombra de contato,
-    reflexo no chão (espelhado com `transform-origin:50% 50%`), poucas partículas, grão e vinheta.
-  - Texto mínimo: serifada + palavra-herói + 2 linhas de fechamento + fonte em caixa alta pequena. Sem frase de apoio na capa.
+- ✅ `designs/2026-10-site-lento-v3.png` ficou "mais perto".
+- ❌ `v4` (chão espelhado, relógio em pé, luz branca na frente, sem frase de apoio) foi reprovada: "muito pior que a anterior".
 
 ## Estilo visual dos posts (obrigatório)
 
