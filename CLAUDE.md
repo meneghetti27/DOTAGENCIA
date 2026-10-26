@@ -32,6 +32,28 @@ Alvo de qualidade: `referencias/inspiracao/setup-aventura-exemplo-principal.jpg`
 **Não fazer (reprovado)**: fonte Anton no título desse estilo, ranhuras nas letras, objeto 3D isolado em fundo liso (v3/v4),
 foto de banco recortada com filtro azul (v2), cards e mockups como visual principal.
 
+## ⭐ CARROSSÉIS (método atual: fotos reais + gerador)
+
+Carrosséis prontos (7 slides cada): `designs/carrossel-iceberg/` (Google Ads), `designs/carrossel-contagem/` (sites),
+`designs/carrossel-estrelas/` (Perfil no Google/avaliações). Cada pasta tem `slides.json`, `assets/` e `visao-geral.jpg`.
+
+**Receita**
+1. **Formato famoso + metáfora visual única** para o carrossel inteiro (iceberg/mergulho, contagem regressiva/foguete,
+   universo/estrelas). Cada slide = 1 ideia, com título em 2 linhas e frase de baixo com negrito azul.
+2. **Imagens**: `python3 tools/buscar-imagens.py "termo em inglês" pasta 20 [bing|nasa|aberta]` → olhar `folha.jpg`.
+   - `nasa` = melhor fonte (API aberta, fotos espetaculares em 1920px+: foguetes, astronautas, Terra, galáxias).
+   - `bing` = ótimas fotos, mas embaralha resultados com buscas seguidas: conferir títulos em `fontes.txt`.
+   - `aberta` (Openverse/Wikimedia) = fotos documentais; Google e DuckDuckGo bloqueiam (não usar).
+3. **Cor da dot em todas**: `python3 tools/grade.py foto.jpg cena.png --foco X Y [--descer N] [--zoom Z] [--escuro E]`
+   (recorte 4:5, sombras navy, luzes gelo, cor viva, bloom, vinheta). `--descer` abre espaço escuro no topo para o título.
+4. **Recorte na frente do título** com rembg (`u2net` em imagem ≤ 900 px para não estourar memória). Só usar quando o
+   objeto cobre no máximo a parte de baixo da 2ª linha: se cobrir palavras importantes, tirar o recorte ou descer a cena.
+5. **Gerador**: `python3 tools/carrossel.py designs/<pasta>/slides.json [slide ...]` monta HTML + PNG de todos os slides:
+   cabeçalho perfil, contador n/7, rótulo de nível, título League Gothic com ajuste automático de largura (máx. 880 px),
+   desfoque em letras `{b1}X{/b}`, anotações HUD (ponto → etiqueta), medidor lateral (profundidade, T-3…, 1★…5★),
+   partículas (`bolhas`/`faiscas`), frase + rodapé, `extra_html` (ex.: botão do WhatsApp no último slide).
+6. Revisar a `visao-geral.jpg`: legibilidade do título, nada colado no cabeçalho, anotações fora do título e da frase.
+
 ## A agência
 
 - Nome: **dot.** (sempre minúsculo, com o ponto azul no final)
