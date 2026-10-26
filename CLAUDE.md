@@ -43,6 +43,15 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
 - Para a dot: mesma pegada, mas com **luz e atmosfera azuis** (neon azul, partículas azuis, fundo escuro).
 - Claude NÃO consegue gerar essa cena com código/3D de objeto. Fluxo: Claude escreve o prompt → o dono gera na IA de imagem
   → Claude recorta o personagem, monta título com textura e camadas e exporta.
+- **Primeiro post nesse fluxo: `designs/2026-10-site-lento-v5.png`** (esqueleto de óculos pixelado esperando o site carregar).
+  Receita da montagem:
+  - Cena da IA em tela cheia (1080×1350); recorte do personagem com `rembg` numa camada acima do título.
+  - Título em 2 linhas Anton (150 px branco + 168 px degradê `#BFD1FF→#5F8FFE→#2F5BEA`) com brilho azul desfocado atrás,
+    posicionado para a cabeça do personagem cobrir a parte de baixo da 2ª linha.
+  - Textura gasta no título: filtro SVG `feTurbulence baseFrequency="0.035 0.09" numOctaves=5` +
+    `feColorMatrix` alpha = `-10*R + 7.6` (arranhões horizontais discretos, nada de granulado).
+  - Cabeçalho `dot. │ @MARKETINGDOTAGENCY`, toolbar de designer na lateral esquerda, dado + fonte em 1 linha embaixo.
+  - Texto com humor: "ELE SÓ QUERIA / VER SEU SITE." (o personagem e a piada vendem a mensagem; o dado vem pequeno).
 
 
 O dono quer posts **mais modernos e profissionais**, com **imagens 3D/fotorrealistas, iluminação cinematográfica e qualidade insana**.

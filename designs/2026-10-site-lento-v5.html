@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1350px;overflow:hidden;background:#04050A;font-family:Inter,sans-serif;color:#fff;position:relative}
+.layer{position:absolute;inset:0}
+.scene{background:url(assets/esqueleto-cena.png) center/cover}
+.cut{background:url(assets/esqueleto-recorte.png) center/cover;z-index:3}
+/* cabeçalho */
+.head{position:absolute;top:58px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;z-index:6}
+.logo{font-weight:800;font-size:34px;letter-spacing:-.05em}
+.logo i{font-style:normal;color:#3D6EF5}
+.bar{width:2px;height:26px;background:rgba(255,255,255,.35)}
+.handle{font-weight:600;font-size:17px;letter-spacing:.32em;color:#D5DBEA}
+/* título com textura gasta */
+.title{position:absolute;top:222px;left:0;right:0;text-align:center;font-family:Anton;line-height:.92;z-index:2;filter:url(#gasto)}
+.title .l1{display:block;font-size:150px;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.55)}
+.title .l2{display:block;font-size:168px;background:linear-gradient(180deg,#BFD1FF 0%,#5F8FFE 45%,#2F5BEA 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.glow2{position:absolute;top:368px;left:0;right:0;text-align:center;font-family:Anton;font-size:168px;line-height:.92;color:#3D6EF5;opacity:.55;filter:blur(26px);z-index:1}
+/* toolbar de designer na lateral */
+.tools{position:absolute;left:34px;top:300px;display:flex;flex-direction:column;gap:20px;z-index:6;opacity:.75}
+.tools svg{width:22px;height:22px;stroke:#DCE4FF;fill:none;stroke-width:1.6}
+/* base */
+.fade{z-index:4;background:linear-gradient(180deg,transparent 74%,rgba(4,5,10,.7) 86%,rgba(4,5,10,.92) 100%)}
+.stat{position:absolute;left:0;right:0;bottom:56px;text-align:center;z-index:6;font-size:30px;color:#D9DEEA}
+.stat b{font-weight:800;color:#fff}
+.stat b.bl{color:#7FA3FF}
+.foot{position:absolute;left:0;right:0;bottom:24px;text-align:center;font-size:14px;letter-spacing:.12em;color:#7A8194;z-index:6}
+.vig{z-index:5;background:radial-gradient(120% 90% at 50% 45%,transparent 60%,rgba(0,0,0,.5) 100%)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <filter id="gasto" x="-5%" y="-5%" width="110%" height="110%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.035 0.09" numOctaves="5" seed="11" result="n"/>
+  <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -10 0 0 0 7.6" result="m"/>
+  <feComposite in="SourceGraphic" in2="m" operator="in"/>
+ </filter>
+</svg>
+<div class="layer scene"></div>
+<div class="glow2">VER SEU SITE.</div>
+<div class="title"><span class="l1">ELE SÓ QUERIA</span><span class="l2">VER SEU SITE.</span></div>
+<div class="layer cut"></div>
+<div class="layer fade"></div>
+<div class="layer vig"></div>
+<div class="head"><span class="logo">dot<i>.</i></span><span class="bar"></span><span class="handle">@MARKETINGDOTAGENCY</span></div>
+<div class="tools">
+ <svg viewBox="0 0 24 24"><path d="M5 3l12 9-6 1-3 6z"/></svg>
+ <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+ <svg viewBox="0 0 24 24"><path d="M6 4h12M12 4v16M9 20h6"/></svg>
+ <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+ <svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/></svg>
+</div>
+<div class="stat"><b>53%</b> desistem se o site demora <b class="bl">mais de 3 segundos.</b></div>
+<div class="foot">FONTE: GOOGLE</div>
+</body></html>
