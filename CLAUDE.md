@@ -11,7 +11,9 @@ Alvo de qualidade: `referencias/inspiracao/setup-aventura-exemplo-principal.jpg`
 **Passo a passo**
 1. **Conceito com humor**: personagem/cena que vira metáfora da mensagem (ex.: esqueleto de óculos pixelados que morreu
    esperando o site carregar, caneca "SÓ MAIS UM MINUTO...").
-2. **Claude escreve o prompt** (em inglês) → **o dono gera a imagem na IA** (Midjourney/ChatGPT/Gemini) e manda.
+2. **Claude escreve o prompt** (em inglês) e **gera a imagem sozinho** com `python3 tools/gerar-imagem.py "prompt" saida.png`
+   (precisa de `GEMINI_API_KEY` ou `OPENAI_API_KEY` no ambiente; sem chave, o dono gera na IA e manda).
+   O gerador gratuito Pollinations foi testado e tem qualidade ruim + marca d'água: não usar.
    Prompt sempre com: personagem 3D cinematográfico hiper-detalhado, estilo Pixar + realismo, **neon azul vivo `#3D6EF5`**,
    rim light ciano, faíscas/partículas azuis, névoa volumétrica, profundidade de campo, cores saturadas,
    personagem nos 2/3 de baixo e **espaço escuro no topo para o título**, 4:5.
