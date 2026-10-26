@@ -43,7 +43,17 @@ Toda vez que o dono corrigir algo ("não é assim", "sempre faça X"), **atualiz
 - Para a dot: mesma pegada, mas com **luz e atmosfera azuis** (neon azul, partículas azuis, fundo escuro).
 - Claude NÃO consegue gerar essa cena com código/3D de objeto. Fluxo: Claude escreve o prompt → o dono gera na IA de imagem
   → Claude recorta o personagem, monta título com textura e camadas e exporta.
-- **Primeiro post nesse fluxo: `designs/2026-10-site-lento-v5.png`** (esqueleto de óculos pixelado esperando o site carregar).
+- **Versão mais próxima do alvo: `designs/2026-10-site-lento-v6.png`** (v5 reprovada pela fonte e pelas ranhuras).
+  Ajustes da v6 (copiar sempre):
+  - Fonte do título **League Gothic** (ultra-condensada e alta), NÃO Anton. Linha 1: 178 px branca. Linha 2: 206 px, um pouco maior.
+  - Linha 2 com degradê **horizontal** `#DCE6FF → #8FB0FF → #4F80FF → #3D6EF5` (no exemplo, amarelo → laranja).
+  - **Desfoque em algumas letras** (profundidade de campo): 1ª letra de cada linha e última letra, `blur(2.5–4px)`.
+  - **Sem ranhuras/textura** nas letras.
+  - Bloco do título com ~720 px de largura, as duas linhas com larguras parecidas; o personagem cobre só a parte de baixo da linha 2.
+  - Cabeçalho tipo perfil: ícone redondo "dot." + **Agência dot.** + selo azul de verificado, `@marketingdotagency` embaixo.
+  - Ícones de ferramenta de design em coluna à esquerda do título; faíscas azuis na frente das letras.
+  - **Nada de texto na base**: a imagem respira até embaixo.
+- Primeira tentativa nesse fluxo: `designs/2026-10-site-lento-v5.png` (esqueleto de óculos pixelado esperando o site carregar).
   Receita da montagem:
   - Cena da IA em tela cheia (1080×1350); recorte do personagem com `rembg` numa camada acima do título.
   - Título em 2 linhas Anton (150 px branco + 168 px degradê `#BFD1FF→#5F8FFE→#2F5BEA`) com brilho azul desfocado atrás,
