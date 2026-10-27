@@ -55,3 +55,24 @@ A dot cuida do seu Perfil no Google de ponta a ponta.
 Qual nota sua empresa tem hoje? Conta aqui nos comentários 👇
 
 #perfildaempresa #googlemeunegocio #avaliacoes #googlemaps #marketinglocal #portoalegre #agenciademarketing
+
+---
+
+## 4. APRESENTAÇÃO: QUEM É A DOT (`designs/carrossel-dot/`)
+
+Todo grande resultado começa em um ponto. 🔵
+
+Prazer, somos a dot. Uma agência de Porto Alegre que não faz um pouco de tudo:
+a gente faz o que traz cliente.
+
+🔹 Sites que viram conversa no WhatsApp
+🔹 Landing pages pra cada anúncio
+🔹 Google Ads pra você aparecer no topo
+🔹 Perfil no Google completo e bem avaliado
+
+Nosso método: diagnóstico → execução → otimização, com relatório todo mês.
+O que não traz cliente, sai.
+
+Bora começar o seu ponto? 📲 (51) 98906-1441
+
+#agenciademarketing #marketingdigital #portoalegre #googleads #criacaodesites #pequenasempresas #dot

@@ -1,0 +1,175 @@
+{
+ "total": 7,
+ "medidor": null,
+ "slides": [
+  {
+   "arquivo": "01-capa",
+   "cena": "assets/s1-cena.png",
+   "escurecer_topo": 0.3,
+   "rotulo": "PRAZER, SOMOS A DOT",
+   "l1": "{b2}T{/b}ODO GRANDE RESULTAD{b1}O{/b}",
+   "l2": "{b1}C{/b}OMEÇA EM UM PONTO{b1}.{/b}",
+   "frase": "Cada luz é alguém procurando o que você vende. <b class=bl>Arraste →</b>",
+   "rodape": "AGÊNCIA DOT · PORTO ALEGRE",
+   "medidor": null,
+   "particulas": "faiscas",
+   "anotacoes": [
+    {
+     "x": 620,
+     "y": 780,
+     "lx": 830,
+     "ly": 660,
+     "texto": "Seu <b>cliente</b>"
+    }
+   ],
+   "extra_html": "<div style=\"position:absolute;left:608px;top:768px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E6EEFF,#4A82FF 42%,#1640C8);box-shadow:0 0 40px 10px rgba(61,110,245,.85),0 0 120px 30px rgba(61,110,245,.35);z-index:6\"></div>"
+  },
+  {
+   "arquivo": "02-quem",
+   "cena": "assets/s2-cena.png",
+   "escurecer_topo": 0.55,
+   "rotulo": "QUEM SOMOS",
+   "l1": "{b2}A{/b} GENTE É A DO{b1}T{/b}",
+   "l2": "{b1}O{/b} PONTO DE PARTIDA{b1}.{/b}",
+   "frase": "Agência de Porto Alegre: <b class=bl>sites e Google Ads que vendem.</b>",
+   "rodape": "ARRASTE →",
+   "medidor": null,
+   "particulas": "faiscas",
+   "extra_html": "<div style=\"position:absolute;left:527px;top:642px;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E6EEFF,#4A82FF 42%,#1640C8);box-shadow:0 0 40px 10px rgba(61,110,245,.85),0 0 120px 30px rgba(61,110,245,.35);z-index:6\"></div>"
+  },
+  {
+   "arquivo": "03-foco",
+   "cena": "assets/s3-cena.png",
+   "escurecer_topo": 0.75,
+   "rotulo": "NOSSO FOCO",
+   "l1": "{b2}A{/b} GENTE NÃO FA{b1}Z{/b}",
+   "l2": "{b1}U{/b}M POUCO DE TUDO{b1}.{/b}",
+   "frase": "A gente faz uma coisa só: <b class=bl>o que traz cliente.</b>",
+   "rodape": "ARRASTE →",
+   "medidor": null,
+   "particulas": "faiscas",
+   "anotacoes": [
+    {
+     "x": 560,
+     "y": 900,
+     "lx": 780,
+     "ly": 1040,
+     "texto": "<b>Você</b> aqui"
+    }
+   ]
+  },
+  {
+   "arquivo": "04-servicos",
+   "cena": "assets/s4-cena.png",
+   "escurecer_topo": 0.6,
+   "rotulo": "O QUE A GENTE FAZ",
+   "l1": "{b2}S{/b}ITES {b1}+{/b}",
+   "l2": "{b1}G{/b}OOGLE ADS{b1}.{/b}",
+   "frase": "Topo da busca + <b class=bl>site que vira conversa.</b>",
+   "rodape": "ARRASTE →",
+   "medidor": null,
+   "particulas": "faiscas",
+   "anotacoes": [
+    {
+     "x": 567,
+     "y": 640,
+     "lx": 250,
+     "ly": 600,
+     "texto": "<b>01</b> Sites"
+    },
+    {
+     "x": 567,
+     "y": 780,
+     "lx": 250,
+     "ly": 760,
+     "texto": "<b>02</b> Landing pages"
+    },
+    {
+     "x": 567,
+     "y": 920,
+     "lx": 250,
+     "ly": 920,
+     "texto": "<b>03</b> Google Ads"
+    },
+    {
+     "x": 567,
+     "y": 1060,
+     "lx": 250,
+     "ly": 1080,
+     "texto": "<b>04</b> Perfil no Google"
+    }
+   ],
+   "desloc": 140
+  },
+  {
+   "arquivo": "05-metodo",
+   "cena": "assets/s5-cena.png",
+   "escurecer_topo": 0.8,
+   "rotulo": "COMO A GENTE TRABALHA",
+   "l1": "{b2}O{/b} MÉTOD{b1}O{/b}",
+   "l2": "{b1}D{/b}OT{b1}.{/b}",
+   "frase": "Relatório todo mês. <b class=bl>O que não traz cliente, sai.</b>",
+   "rodape": "ARRASTE →",
+   "medidor": null,
+   "particulas": "faiscas",
+   "anotacoes": [
+    {
+     "x": 430,
+     "y": 740,
+     "lx": 200,
+     "ly": 640,
+     "texto": "<b>01</b> Diagnóstico"
+    },
+    {
+     "x": 700,
+     "y": 760,
+     "lx": 880,
+     "ly": 650,
+     "texto": "<b>02</b> Execução"
+    },
+    {
+     "x": 560,
+     "y": 1000,
+     "lx": 560,
+     "ly": 1120,
+     "texto": "<b>03</b> Otimização"
+    }
+   ]
+  },
+  {
+   "arquivo": "06-resultado",
+   "cena": "assets/s6-cena.png",
+   "escurecer_topo": 0.7,
+   "rotulo": "RESULTADO",
+   "l1": "{b2}+{/b}300{b1}%{/b}",
+   "l2": "{b1}D{/b}E CONTATOS{b1}.{/b}",
+   "tam1": 230,
+   "frase": "Site novo + Google Ads: <b class=bl>mais conversa virando venda.</b>",
+   "rodape": "RESULTADO DE CLIENTE · ARRASTE →",
+   "medidor": null,
+   "particulas": "faiscas",
+   "anotacoes": [
+    {
+     "x": 650,
+     "y": 820,
+     "lx": 360,
+     "ly": 980,
+     "texto": "Decolagem <b>garantida</b>"
+    }
+   ]
+  },
+  {
+   "arquivo": "07-cta",
+   "cena": "assets/s7-cena.png",
+   "escurecer_topo": 0.4,
+   "rotulo": "SEU PRÓXIMO PASSO",
+   "l1": "{b2}B{/b}ORA COMEÇA{b1}R{/b}",
+   "l2": "{b1}O{/b} SEU PONTO{b1}?{/b}",
+   "frase": "Chama a dot e <b class=bl>coloca sua empresa no mapa.</b>",
+   "rodape": "@MARKETINGDOTAGENCY",
+   "medidor": null,
+   "particulas": "faiscas",
+   "extra_html": "<div style='position:absolute;left:50%;top:1010px;transform:translateX(-50%);z-index:8;display:flex;align-items:center;gap:16px;padding:22px 40px;border-radius:99px;background:linear-gradient(90deg,#4F80FF,#2F5BEA);box-shadow:0 0 50px rgba(61,110,245,.8),inset 0 1px 0 rgba(255,255,255,.35);font-size:30px;font-weight:800;white-space:nowrap'><svg width='34' height='34' viewBox='0 0 24 24' fill='#fff'><path d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.2-.7-2.7-1.1-4.4-3.8-4.6-4-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z'/></svg>(51) 98906-1441</div>"
+  }
+ ]
+}
