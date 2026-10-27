@@ -16,7 +16,7 @@
    "l1": "{b2}S{/b}EU SITE TE{b1}M{/b}",
    "l2": "{b1}3{/b} SEGUNDOS{b1}.{/b}",
    "frase": "Depois disso, o cliente decola pro concorrente. <b class=bl>Arraste e confira →</b>",
-   "rodape": "T-3",
+   "rodape": "CONTAGEM REGRESSIVA",
    "medidor": 0,
    "particulas": "faiscas",
    "anotacoes": [
@@ -87,7 +87,7 @@
    "rotulo": "T-1 · PRIMEIRA IMPRESSÃO",
    "l1": "{b2}0{/b},05 SEGUND{b1}O{/b}",
    "l2": "{b1}D{/b}E IMPRESSÃO{b1}.{/b}",
-   "frase": "Tempo pra decidir se confia em você. <b class=bl>Design profissional não é luxo.</b>",
+   "frase": "Tempo pra decidir se confia em você. <b class=bl>Design não é luxo.</b>",
    "rodape": "FONTE: LINDGAARD ET AL., 2006  ·  ARRASTE →",
    "medidor": 2,
    "particulas": "faiscas"
@@ -98,7 +98,7 @@
    "escurecer_topo": 0.8,
    "rotulo": "IGNIÇÃO · CONTATO",
    "l1": "{b2}U{/b}M TOQU{b1}E{/b}",
-   "l2": "{b1}P{/b}RO WHATSAPP{b2}.{/b}",
+   "l2": "{b1}P{/b}RO WHATSAP{b1}P{/b}.",
    "frase": "Botão visível em toda tela: <b class=bl>quem quer comprar não pode procurar.</b>",
    "rodape": "ARRASTE →",
    "medidor": 3,
