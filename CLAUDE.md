@@ -60,6 +60,12 @@ Carrosséis prontos (7 slides cada): `designs/carrossel-iceberg/` (Google Ads), 
    - cena estourada de branco ou escura demais; cor fora da paleta (ex.: bandeira vermelha → `--forca 0.8`);
    - rodapé repetindo o medidor: usar fonte do dado e/ou "ARRASTE →".
 
+## Capa com animal "brabo" (aprovado como direção, estilo do camaleão da Setup)
+`designs/carrossel-dot/01-capa.png`: foto real de lobo (Bing) recortada com rembg, tom frio + luz azul de recorte,
+óculos pixelados "deal with it" desenhados em PIL, fundo = cidade à noite desfocada + névoa e brasas azuis.
+Título atrás do animal: as pontas das orelhas cobrem só a base da 2ª linha (`desloc_recorte` ajusta).
+Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
+
 ## A agência
 
 - Nome: **dot.** (sempre minúsculo, com o ponto azul no final)

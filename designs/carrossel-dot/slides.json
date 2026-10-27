@@ -4,16 +4,19 @@
  "slides": [
   {
    "arquivo": "01-capa",
-   "cena": "assets/p3.png",
-   "escurecer_topo": 0.55,
+   "cena": "assets/capa-lobo-fundo.png",
+   "escurecer_topo": 0.35,
    "rotulo": "PRAZER, SOMOS A DOT",
-   "l1": "{b2}T{/b}ODO GRANDE RESULTAD{b1}O{/b}",
-   "l2": "{b1}C{/b}OMEÇA EM UM PONTO{b1}.{/b}",
-   "frase": "Agência de Porto Alegre. <b class=bl>Sites e Google Ads que trazem cliente.</b>",
+   "l1": "{b2}A{/b} DOT CAÇ{b1}A{/b}",
+   "l2": "{b1}C{/b}LIENTE PRA VOC{b1}Ê.{/b}",
+   "frase": "Agência de Porto Alegre. <b class=bl>Sites + Google Ads que trazem cliente.</b>",
    "rodape": "ARRASTE →",
    "medidor": null,
-   "particulas": null,
-   "extra_html": "<div style=\"position:absolute;left:701px;top:470px;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E6EEFF,#4A82FF 42%,#1640C8);box-shadow:0 0 30px 8px rgba(61,110,245,.9);z-index:6\"></div>"
+   "particulas": "faiscas",
+   "extra_html": "",
+   "recorte": "assets/lobo-camada.png",
+   "topo_titulo": 176,
+   "desloc_recorte": 22
   },
   {
    "arquivo": "02-quem",
