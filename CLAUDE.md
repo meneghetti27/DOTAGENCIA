@@ -60,6 +60,16 @@ Carrosséis prontos (7 slides cada): `designs/carrossel-iceberg/` (Google Ads), 
    - cena estourada de branco ou escura demais; cor fora da paleta (ex.: bandeira vermelha → `--forca 0.8`);
    - rodapé repetindo o medidor: usar fonte do dado e/ou "ARRASTE →".
 
+## ⭐ VÍDEO REELS EM COLAGEM POP-ART RETRÔ (aprovado pelo dono: "tá top, salva como fazer")
+
+Receita completa, código Remotion, imagens e ferramentas: **`videos/devoradora-pop/COMO-FAZER.md`**.
+Resumo do que o dono cobrou:
+- Recriar referência = **praticamente igual**: comparar lado a lado nos mesmos segundos e copiar cada cena (posição, tamanho, cor, movimento).
+- "Cores da dot" num vídeo vibrante = manter a paleta da referência e trocar **só o vermelho dos fundos** pelo azul da dot
+  (não pintar tudo de azul: ficou monótono e foi reprovado).
+- **Textura em tudo, fundos inclusive**: papel, grão animado, poeira, vinheta. Recortes posterizados com retícula (cara de impresso).
+- Fotos **retrô** (anos 50/60), não foto de banco moderna. Claude busca sozinho (pngwing) e recorta com rembg.
+
 ## Capa com animal "brabo" (aprovado como direção, estilo do camaleão da Setup)
 `designs/carrossel-dot/01-capa.png`: foto real de lobo (Bing) recortada com rembg, tom frio + luz azul de recorte,
 óculos pixelados "deal with it" desenhados em PIL, fundo = cidade à noite desfocada + névoa e brasas azuis.
