@@ -70,6 +70,13 @@ Resumo do que o dono cobrou:
 - **Textura em tudo, fundos inclusive**: papel, grão animado, poeira, vinheta. Recortes posterizados com retícula (cara de impresso).
 - Fotos **retrô** (anos 50/60), não foto de banco moderna. Claude busca sozinho (pngwing) e recorta com rembg.
 
+## ⭐ VÍDEO REELS EM TIPOGRAFIA CINÉTICA (aprovado pelo dono: "tá top")
+
+Vídeo, receita, código e imagens: **`videos/sistema/COMO-FAZER.md`** ("O sistema por trás do crescimento").
+Cenas claras (degradê branco → gelo → azul) alternando com pretas de brilho azul, Inter Tight com palavras entrando
+com borrão de movimento, texto digitado com cursor, câmera atravessando o texto, ícones 3D desfocados,
+pílulas de vidro com os serviços, e os **posts e o site reais da dot** como prova de trabalho. Fecho com o manifesto.
+
 ## Capa com animal "brabo" (aprovado como direção, estilo do camaleão da Setup)
 `designs/carrossel-dot/01-capa.png`: foto real de lobo (Bing) recortada com rembg, tom frio + luz azul de recorte,
 óculos pixelados "deal with it" desenhados em PIL, fundo = cidade à noite desfocada + névoa e brasas azuis.
