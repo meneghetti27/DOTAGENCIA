@@ -1,0 +1,111 @@
+<title>Central Plágio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: uma coluna estreita, cara de ficha impressa P&B; o único acento é o vermelho, como os posts do perfil */
+:root{
+  --bg:#ffffff; --fg:#0b0b0b; --muted:#5d5d5d; --line:#d9d9d9; --panel:#f3f3f3; --accent:#d4202c;
+  --display:"Archivo Black", "Arial Black", Impact, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0d;--fg:#f2f2f2;--muted:#a3a3a3;--line:#2c2c2c;--panel:#171717;--accent:#ff4a55;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0d0d;--fg:#f2f2f2;--muted:#a3a3a3;--line:#2c2c2c;--panel:#171717;--accent:#ff4a55;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+header{display:grid;gap:10px}
+.handle{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--display);font-size:clamp(44px,11vw,84px);line-height:.9;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1 .dot{color:var(--accent)}
+.lede{color:var(--muted);max-width:60ch;margin:0}
+h2{font-family:var(--display);font-size:22px;margin:0 0 14px;letter-spacing:-.01em}
+section{display:grid}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.links a{display:grid;gap:2px;padding:14px 16px;border:1.5px solid var(--fg);color:var(--fg);text-decoration:none;min-width:0}
+.links a:hover,.links a:focus-visible{background:var(--fg);color:var(--bg);outline:none}
+.links b{font-weight:600}
+.links span{font-family:var(--mono);font-size:12px;color:inherit;opacity:.7}
+ol.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1.5px solid var(--fg)}
+ol.flow li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+ol.flow li .n{font-family:var(--mono);font-weight:600;color:var(--muted)}
+ol.flow li.gate .n,ol.flow li.gate strong{color:var(--accent)}
+ol.flow p{margin:2px 0 0;color:var(--muted)}
+.table{overflow-x:auto;border-top:1.5px solid var(--fg)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;white-space:nowrap}
+.chip.wait{color:var(--accent)}
+.chip.res{color:var(--muted)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.rules li{background:var(--panel);padding:14px 16px}
+.rules b{display:block;margin-bottom:2px}
+.spec{font-family:var(--mono);font-size:13px;color:var(--muted)}
+footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="handle">@plagio.zip · hip hop, trap, moda e curiosidades</div>
+    <h1>Central<br>Plágio<span class="dot">.</span></h1>
+    <p class="lede">Onde fica cada coisa e como um post sai da pesquisa até o feed. Nenhum post é agendado sem a sua aprovação na planilha.</p>
+  </header>
+
+  <section aria-labelledby="atalhos">
+    <h2 id="atalhos">Atalhos</h2>
+    <div class="links">
+      <a href="https://docs.google.com/spreadsheets/d/18nJqR6eV9i6PZiT6pNwElQcjzUbC_g6tSq03bwbITDc/edit" target="_blank" rel="noopener"><b>Aprovar a Semana 1</b><span>planilha · sim / não / ajustar</span></a>
+      <a href="https://drive.google.com/drive/folders/1uzYQtxh1DsKad4YvWvojPPZlF6OkF1vd" target="_blank" rel="noopener"><b>Pasta da Semana 1</b><span>Post NN.jpg + legendas</span></a>
+      <a href="https://drive.google.com/drive/folders/17vc5sztRO7HYptzG3Wgpymhq6KN-1d8O" target="_blank" rel="noopener"><b>PLAGIO POSTS</b><span>todas as semanas</span></a>
+      <a href="https://github.com/meneghetti27/DOTAGENCIA/blob/claude/loving-franklin-c8o6kc/plagio/COMO-FAZER.md" target="_blank" rel="noopener"><b>Como fazer</b><span>receita completa no GitHub</span></a>
+    </div>
+  </section>
+
+  <section aria-labelledby="fluxo">
+    <h2 id="fluxo">Do tema ao feed</h2>
+    <ol class="flow">
+      <li><span class="n">01</span><div><strong>Rodada de pautas</strong><p>Você pede. Eu pesquiso 10 pautas nos 3 temas e confiro os fatos.</p></div></li>
+      <li><span class="n">02</span><div><strong>Fotos e arte</strong><p>Acho as fotos na web e encaixo na moldura branca: P&amp;B, ou P&amp;B com uma cor de destaque.</p></div></li>
+      <li><span class="n">03</span><div><strong>Drive</strong><p>Subo sozinho: PLAGIO POSTS / Semana N / Post NN.jpg + Post NN - legenda.</p></div></li>
+      <li class="gate"><span class="n">04</span><div><strong>Sua aprovação</strong><p>Você marca sim, não ou ajustar na planilha APROVAÇÃO da semana.</p></div></li>
+      <li><span class="n">05</span><div><strong>Agendamento</strong><p>Só os aprovados entram na agenda, no dia e na hora da planilha.</p></div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="semana">
+    <h2 id="semana">Semana 1 · 09 a 15/11</h2>
+    <div class="table">
+      <table>
+        <thead><tr><th>Post</th><th>Assunto</th><th>Quando</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="num">06</td><td>Wu-Tang, 36 Chambers (33 anos)</td><td class="num">seg 09 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">04</td><td>Máquina do Tempo, Matuê</td><td class="num">ter 10 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">05</td><td>Sobrevivendo no Inferno</td><td class="num">qua 11 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">10</td><td>Clássico ou hype?</td><td class="num">qui 12 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">03</td><td>Virgil e Kanye na Fendi</td><td class="num">sex 13 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">09</td><td>Tupac e Biggie, 1993</td><td class="num">sáb 14 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">07</td><td>Sabotage, Rap É Compromisso</td><td class="num">dom 15 · 19h</td><td><span class="chip wait">aguarda você</span></td></tr>
+          <tr><td class="num">01</td><td>Veigh na SPFW</td><td class="num">reserva</td><td><span class="chip res">reserva</span></td></tr>
+          <tr><td class="num">08</td><td>Emicida, mixtape 2009</td><td class="num">reserva</td><td><span class="chip res">reserva</span></td></tr>
+          <tr><td class="num">02</td><td>Rap BR em Paris</td><td class="num">reserva</td><td><span class="chip res">reserva</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="regras">
+    <h2 id="regras">Regras do perfil</h2>
+    <ul class="rules">
+      <li><b>Moldura</b><span class="spec">1080×1350 branco · foto 636×796 em x 222, y 277</span></li>
+      <li><b>Cor</b>Sempre P&amp;B. No máximo uma cor de destaque.</li>
+      <li><b>Legenda</b>Título em maiúsculas, parágrafos curtos, termina com 🐈‍⬛.</li>
+      <li><b>Temas</b>Trap BR × moda · clássicos e capas · nostalgia e curiosidades.</li>
+      <li><b>Fora da moldura</b>Collabs e Reels não usam a moldura.</li>
+      <li><b>Fatos</b>Cada legenda tem a linha "conferir" e o crédito da foto.</li>
+    </ul>
+  </section>
+
+  <footer>Atualizado em 05/11/2026 · próxima etapa: definir como agendar no Instagram</footer>
+</div>
