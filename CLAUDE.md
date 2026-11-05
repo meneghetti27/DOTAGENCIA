@@ -83,6 +83,9 @@ pílulas de vidro com os serviços, e os **posts e o site reais da dot** como pr
 Título atrás do animal: as pontas das orelhas cobrem só a base da 2ª linha (`desloc_recorte` ajusta).
 Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
 
+## Projeto paralelo: @plagio.zip
+Tudo em `plagio/COMO-FAZER.md` (moldura, P&B com cor de destaque, Drive em PLAGIO POSTS / Semana N / Post NN.jpg + Post NN - legenda, upload automático via Apps Script).
+
 ## A agência
 
 - Nome: **dot.** (sempre minúsculo, com o ponto azul no final)
