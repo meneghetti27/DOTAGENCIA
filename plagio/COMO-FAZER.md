@@ -11,6 +11,9 @@ com botão **Aprovar** e **lixeira** (Excluir; dá para restaurar).
 - Nova rodada: subir os JPGs como assets do artifact (`Artifact` publish `asset:true`, `file_paths`) e criar os docs com `ArtifactData` batch.
 - Ler o resultado com `ArtifactData` query em `posts`: agendar só `status == aprovado`; `excluido` → lixeira no Drive (JPG + legenda).
 
+## Facebook: NUNCA postar
+O Instagram está ligado a uma página do Facebook só para liberar a postagem automática. **Nada vai para o Facebook**: postar só no Instagram e manter desligado o compartilhamento automático para o Facebook.
+
 ## Frequência
 **2 posts por dia: 12h e 19h.** Uma semana usa 14 posts; cada rodada deve render isso depois das exclusões.
 
