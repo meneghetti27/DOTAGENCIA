@@ -11,6 +11,9 @@ com botão **Aprovar** e **lixeira** (Excluir; dá para restaurar).
 - Nova rodada: subir os JPGs como assets do artifact (`Artifact` publish `asset:true`, `file_paths`) e criar os docs com `ArtifactData` batch.
 - Ler o resultado com `ArtifactData` query em `posts`: agendar só `status == aprovado`; `excluido` → lixeira no Drive (JPG + legenda).
 
+## Frequência
+**2 posts por dia: 12h e 19h.** Uma semana usa 14 posts; cada rodada deve render isso depois das exclusões.
+
 ## Drive (organização exigida pelo dono)
 `PLAGIO POSTS / Semana N (dd-mm a dd-mm) /` com, para cada post:
 - `Post 03.jpg`: a arte 1080x1350 como **arquivo de imagem** (nunca Doc com imagem dentro).
