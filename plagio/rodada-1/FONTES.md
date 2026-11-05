@@ -1,7 +1,7 @@
 # Plágio, rodada 1: fotos encontradas (05/11/2026)
 
 Projeto fictício/conceitual. Arte final = `NN/*_plagio.jpg` (1080x1350). Originais em `NN/fotos/`.
-Capas de disco usam `--cor --inteira` (capa inteira, sem corte, fundo preto). Fotos em P&B.
+Tudo em P&B. Capas: `--inteira` (sem corte) + `--acento` (uma cor de destaque: roxo Matuê, vermelho Racionais/Sabotage, amarelo Wu-Tang).
 
 | Pauta | Arquivo | De onde veio | Crédito / observação |
 |---|---|---|---|
