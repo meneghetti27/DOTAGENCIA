@@ -3,9 +3,13 @@
 **Central fixada no claude.ai:** https://claude.ai/artifact/HsL1Hf3SsueFcjawZ7qczc (código em `plagio/central.html`).
 Atualizar sempre esse mesmo link (status da semana, atalhos). Não criar outro.
 
-## Aprovação (regra do dono)
-**Nada é agendado sem aprovação.** Cada semana tem a planilha `APROVAÇÃO - Semana N` na pasta da semana
-(Post, assunto, dia, hora, APROVADO? sim/não/ajustar, o que mudar, links). Só agendar linhas com "sim".
+## Aprovação (regra do dono): pela Central, nunca por planilha
+**Nada é agendado sem aprovação.** A aprovação é na própria Central (link acima): cada post mostra imagem + legenda,
+com botão **Aprovar** e **lixeira** (Excluir; dá para restaurar).
+- Dados: banco do artifact, coleção `posts`, doc `s<semana>-post-NN` com `ordem, semana, titulo, assunto, quando,
+  status (pendente|aprovado|excluido), imagem (/_blob/<id>), legenda, conferir, drive_jpg, drive_legenda`.
+- Nova rodada: subir os JPGs como assets do artifact (`Artifact` publish `asset:true`, `file_paths`) e criar os docs com `ArtifactData` batch.
+- Ler o resultado com `ArtifactData` query em `posts`: agendar só `status == aprovado`; `excluido` → lixeira no Drive (JPG + legenda).
 
 ## Drive (organização exigida pelo dono)
 `PLAGIO POSTS / Semana N (dd-mm a dd-mm) /` com, para cada post:
