@@ -135,14 +135,22 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
   var col=null, ocupado={};
 
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  var toast=document.createElement('div');toast.setAttribute('role','status');
+  toast.style.cssText='position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:calc(100% - 32px);padding:12px 16px;font:600 14px/1.4 var(--body);background:var(--fg);color:var(--bg);z-index:20';
+  toast.hidden=true;document.body.appendChild(toast);var tt=null;
+  function aviso(t,erro){toast.textContent=t;toast.style.background=erro?'var(--accent)':'var(--fg)';toast.hidden=false;clearTimeout(tt);tt=setTimeout(function(){toast.hidden=true},erro?12000:2500)}
   function rotulo(s){return s==='aprovado'?'aprovado':s==='excluido'?'excluído':'aguarda você'}
 
   function mudar(id,status){
     if(!col||ocupado[id])return;
     ocupado[id]=true; render.ultimo&&render(render.ultimo);
-    col.doc(id).update({status:status,atualizado:Date.now()}).catch(function(e){
-      estado.hidden=false;
-      estado.textContent='Não deu para salvar ('+(e&&e.code||'erro')+'). Recarregue a página e tente de novo.';
+    var atual=(render.ultimo||[]).filter(function(p){return p.id===id})[0]||{};
+    var novo={};Object.keys(atual).forEach(function(k){if(k!=='id')novo[k]=atual[k]});
+    novo.status=status;novo.atualizado=Date.now();
+    col.doc(id).set(novo).then(function(){
+      aviso('Salvo: '+id.replace('s1-post-','Post ')+' '+rotulo(status)+'.',false);
+    }).catch(function(e){
+      aviso('Não salvou ('+(e&&e.code||'erro')+': '+(e&&e.message||'')+'). Me manda um print desta mensagem.',true);
     }).finally(function(){ocupado[id]=false; render.ultimo&&render(render.ultimo)});
   }
 
@@ -197,7 +205,7 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
     col=db.collection('posts');
     col.orderBy('ordem').onSnapshot(function(snap){
       clearTimeout(timer);
-      render(snap.docs.map(function(d){var x=d.data()||{};x.id=d.id;return x}));
+      render(snap.docs.map(function(d){var x=Object.assign({},d.data()||{});x.id=d.id;return x}));
     },function(e){
       clearTimeout(timer);
       estado.hidden=false;estado.textContent='Não consegui carregar os posts ('+(e&&e.code||'erro')+'). Recarregue a página.';
