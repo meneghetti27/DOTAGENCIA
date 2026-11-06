@@ -36,4 +36,5 @@ URL e senha estão no Drive em `PLAGIO POSTS / _config claude (nao apagar).txt` 
 - Achar fotos na web (projeto fictício): capas pela API do Deezer (`api.deezer.com/search/album?q=`, `cover_xl` 1000 px);
   fotos de pessoas pela og:image de matérias (Rolling Stone BR, Billboard BR, Complex, HotNewHipHop...). Bing embaralha: não usar.
 - **Sempre P&B**, ou P&B com **uma** cor de destaque: `python3 plagio/enquadrar.py FOTO -o PASTA [--foco X,Y] [--acento 340-20] [--inteira]`.
-  Capas de disco: `--inteira --acento <cor da capa>` (roxo 260-330, vermelho 340-20, amarelo 42-65).
+  **Nunca faixa preta na janela.** Capas de disco: preencher a janela (corte leve nas laterais, `--foco`); se o corte comer texto
+  da capa, `--inteira` (fundo branco, some na moldura). Cor de destaque: roxo 260-330, vermelho 340-20, amarelo 42-65.

@@ -14,7 +14,7 @@ Use --cor para manter as cores (acento de cor em look, por exemplo).
 Use --acento H1-H2 para P&B com UMA cor de destaque (matiz em graus, 0-360; varias faixas com virgula):
  vermelho 340-20 · laranja/dourado 25-50 · amarelo 45-65 · verde 80-160 · azul 190-250 · roxo/magenta 260-330.
 Use --inteira para capas de disco e imagens que nao podem ser cortadas: a imagem entra inteira
- na janela, centralizada, com fundo --fundo (preto por padrao).
+ na janela, centralizada, com fundo --fundo (branco por padrao; NUNCA faixa preta).
 Use --foco X,Y (0 a 1) para escolher a parte da foto que fica quando o corte e necessario:
  0.5,0.5 centro; 0.5,0.2 mantem mais o topo (rosto); 0.2,0.5 mantem mais a esquerda.
 """
@@ -46,7 +46,7 @@ def mascara_acento(img: Image.Image, faixas: list[tuple[float, float]]) -> Image
 
 
 def preparar(img: Image.Image, cor: bool, contraste: float, foco: tuple[float, float],
-             inteira: bool = False, fundo: str = "#000000", acento: str | None = None) -> Image.Image:
+             inteira: bool = False, fundo: str = "#ffffff", acento: str | None = None) -> Image.Image:
     img = ImageOps.exif_transpose(img)
     if img.mode in ("RGBA", "LA", "P"):
         base = Image.new("RGB", img.size, (255, 255, 255))
@@ -94,7 +94,7 @@ def main() -> int:
     ap.add_argument("--foco", default="0.5,0.5", help="ponto de corte X,Y de 0 a 1")
     ap.add_argument("--acento", help="P&B com uma cor de destaque: faixa de matiz H1-H2 (ex.: 340-20 = vermelho)")
     ap.add_argument("--inteira", action="store_true", help="nao corta: imagem inteira na janela com fundo")
-    ap.add_argument("--fundo", default="#000000", help="cor do fundo da janela com --inteira")
+    ap.add_argument("--fundo", default="#ffffff", help="cor do fundo da janela com --inteira")
     ap.add_argument("--qualidade", type=int, default=95, help="qualidade do JPG")
     args = ap.parse_args()
 
