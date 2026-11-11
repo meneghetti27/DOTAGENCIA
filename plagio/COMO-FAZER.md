@@ -45,3 +45,9 @@ URL e senha estão no Drive em `PLAGIO POSTS / _config claude (nao apagar).txt` 
 - **Sempre P&B**, ou P&B com **uma** cor de destaque: `python3 plagio/enquadrar.py FOTO -o PASTA [--foco X,Y] [--acento 340-20] [--inteira]`.
   **Nunca faixa preta na janela.** Capas de disco: preencher a janela (corte leve nas laterais, `--foco`); se o corte comer texto
   da capa, `--inteira` (fundo branco, some na moldura). Cor de destaque: roxo 260-330, vermelho 340-20, amarelo 42-65.
+
+## Agendar (Claude no Chrome, um PDF só)
+`plagio/gerar_pdf_fila.py` gera um PDF com a fila inteira (instruções + 1 página por post com imagem, link do JPG no Drive e legenda).
+O dono anexa no Claude do Chrome. Regras do PDF: conferir no Planejador o que já está agendado e deixar; agendar o resto em ordem,
+**2 por dia** (11h–13h e 18h–21h), **variando horários** (nunca o mesmo horário em dias seguidos); posts com DATA FIXA não mudam de dia;
+só Instagram, nunca Facebook; no fim listar tudo que ficou agendado.
