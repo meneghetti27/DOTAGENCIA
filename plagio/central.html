@@ -80,7 +80,7 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
 
   <section aria-labelledby="aprovar">
     <div class="head">
-      <h2 id="aprovar">Aprovar · Semana 1 (09 a 15/11)</h2>
+      <h2 id="aprovar">Aprovar posts</h2>
       <div class="tally" id="tally"></div>
     </div>
     <p class="note" id="estado">Carregando os posts…</p>
@@ -157,7 +157,7 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
   function render(posts){
     render.ultimo=posts;
     cards.textContent=''; outlist.textContent='';
-    var vivos=posts.filter(function(p){return p.status!=='excluido'});
+    var vivos=posts.filter(function(p){return p.status!=='excluido'}).sort(function(a,b){var pa=a.status==='pendente'?0:1,pb=b.status==='pendente'?0:1;return pa-pb||(a.ordem||0)-(b.ordem||0)});
     var fora=posts.filter(function(p){return p.status==='excluido'});
     var aprov=vivos.filter(function(p){return p.status==='aprovado'}).length;
     $('tally').innerHTML='<b>'+aprov+'</b> aprovados · <b>'+(vivos.length-aprov)+'</b> aguardando · <b>'+fora.length+'</b> na lixeira';
@@ -171,7 +171,7 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
       var b=el('div','body');
       var m=el('div','meta');
       m.appendChild(el('span','num',p.titulo));
-      m.appendChild(el('span',null,p.quando||'sem data'));
+      m.appendChild(el('span',null,(p.semana?p.semana.replace(/ \(.*\)/,'')+' · ':'')+(p.quando||'sem data')));
       m.appendChild(el('span','chip '+(p.status||'pendente'),rotulo(p.status)));
       b.appendChild(m);
       b.appendChild(el('p','legenda',p.legenda||''));
