@@ -11,6 +11,13 @@ com botão **Aprovar** e **lixeira** (Excluir; dá para restaurar).
 - Nova rodada: subir os JPGs como assets do artifact (`Artifact` publish `asset:true`, `file_paths`) e criar os docs com `ArtifactData` batch.
 - Ler o resultado com `ArtifactData` query em `posts`: agendar só `status == aprovado`; `excluido` → lixeira no Drive (JPG + legenda).
 
+## Pautas (cobrança do dono, 11/11/2026)
+- **Quanto mais atual, melhor.** Prioridade: assuntos da semana (notícias, lançamentos, desfiles, polêmicas, clipes, shows).
+  Clássicos e curiosidades só para completar.
+- **Título que chama atenção:** curto, provocativo, gancho de curiosidade (não só o nome do disco/artista).
+- **Foto que chama atenção:** a imagem mais forte da notícia (momento, expressão, look), nunca foto genérica, pequena ou de produto parado.
+- Histórico de reprovação: capas de disco antigas, títulos descritivos, pautas "de enciclopédia".
+
 ## Facebook: NUNCA postar
 O Instagram está ligado a uma página do Facebook só para liberar a postagem automática. **Nada vai para o Facebook**: postar só no Instagram e manter desligado o compartilhamento automático para o Facebook.
 
