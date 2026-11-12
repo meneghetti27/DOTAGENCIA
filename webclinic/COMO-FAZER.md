@@ -43,3 +43,11 @@ python3 guia.py && for f in guia-*.html; do node shot.js "$PWD/$f" "$PWD/out/${f
 ## Checklist antes de mandar
 Título sem quebrar em 3 linhas · nada encostando no título/frase · chips sem cobrir texto importante · textos dos cards legíveis
 no celular · variar formato entre posts vizinhos · conferir folha de contato de todos os posts.
+
+## Postagem (Meta Business Suite, só Instagram)
+- `posts/webclinic-40-posts-como-postar.pdf`: instruções para quem posta (outro Claude no Business Suite), cronograma
+  seg–sex 12h a partir de 16/11/2026 e uma página por post (data, arquivo/link raw do PNG, texto alternativo, legenda, hashtags).
+- `posts/legendas.txt`: as mesmas legendas em texto puro.
+- Gerar de novo: `cd gerador && python3 postar.py && node pdf.js "$PWD/postar.html" "$PWD/../posts/webclinic-40-posts-como-postar.pdf"`
+  (`page.pdf` do Chromium = texto copiável). Legendas, hashtags e datas ficam no topo de `postar.py`.
+- Regra do dono: **só Instagram** (Facebook desmarcado), feed, 1 imagem 4:5. Arte e números são exemplos ilustrativos.
