@@ -54,12 +54,9 @@ L=[
 assert len(L)==40
 TIT=["Sites que viram consulta marcada","Sua agenda não fecha às 18h","Secretária só pra atender telefone?","Instagram não marca consulta","O paciente te pesquisa antes de ligar","Paciente que esquece a consulta?","Site bonito não basta","5 coisas que todo site médico precisa","Seu site abre em 3 segundos?","Link na bio que leva pro nada","Quem marca à noite não liga de dia","Horário vago é dinheiro parado","Seu paciente está no celular","Avaliação no Google vale ouro","WhatsApp lotado de pergunta repetida?","Ninguém agenda com quem não encontra","O site trabalha enquanto você atende","Confirmação automática. Sem planilha","Seu site passa confiança?","Antes e depois da agenda online","Botão de agendar em todas as páginas","Clínica sem site parece fechada","Seu site é a sua recepção digital","Domingo, 22h. Alguém quer marcar","Pare de perder paciente na ligação","3 erros que afastam pacientes","Paciente quer facilidade","Seu concorrente já tem agenda online","Seguidor não paga consulta","Do clique à consulta","O que vai na primeira tela do site?","Mais tempo pra atender","Faltou de novo? Manda lembrete","Médico precisa de marketing?","Um site pra cada especialidade","Você aparece no Google Maps?","Como funciona a Web Clinic","Seu paciente quer marcar agora","Menos telefone, mais consulta","Vamos encher sua agenda?"]
 
-# cronograma: seg-sex 12h, a partir de 16/11/2026, pulando feriados
-FER={datetime.date(2026,12,25),datetime.date(2027,1,1)}
-d=datetime.date(2026,11,16); DATAS=[]
-while len(DATAS)<40:
-    if d.weekday()<5 and d not in FER: DATAS.append(d)
-    d+=datetime.timedelta(days=1)
+# cronograma: 4 posts por dia (9h, 12h, 15h, 19h), todos os dias, a partir de 13/11/2026
+INICIO=datetime.date(2026,11,13); HORAS=['9h','12h','15h','19h']
+DATAS=[INICIO+datetime.timedelta(days=i//4) for i in range(40)]; HR=[HORAS[i%4] for i in range(40)]
 DS=['seg','ter','qua','qui','sex','sáb','dom']
 fd=lambda d:f'{DS[d.weekday()]} {d:%d/%m/%Y}'
 
@@ -110,7 +107,7 @@ pages.append(f'''<div class="pg">{top("INSTRUÇÕES · PARA QUEM VAI POSTAR")}<d
 <div class="alert" style="margin-top:30px"><b>Só Instagram, só feed.</b> Não publicar no Facebook, não fazer Reels/Stories, não impulsionar, não marcar pessoas, não responder comentários ou mensagens sem o dono pedir.</div>
 <div class="bx" style="margin-top:26px;padding:28px 34px"><ol>{''.join(f'<li>{s[0]}</li>' for s in steps)}</ol></div>
 <div style="display:flex;gap:20px;margin-top:22px"><div class="bx" style="flex:1;padding:20px 24px"><div class="lab">ORDEM</div><div class="val">Publicar do <b>post 01 ao 40</b>, na ordem. Depois que o 01 sair, <b>fixar no perfil</b>.</div></div>
-<div class="bx" style="flex:1;padding:20px 24px"><div class="lab">CADÊNCIA</div><div class="val">Segunda a sexta, <b>12h</b>. 16/11/2026 a {DATAS[-1]:%d/%m/%Y} (sem 25/12 e 01/01).</div></div></div></div>''')
+<div class="bx" style="flex:1;padding:20px 24px"><div class="lab">CADÊNCIA</div><div class="val"><b>4 posts por dia</b>, às <b>9h, 12h, 15h e 19h</b>, todos os dias. {DATAS[0]:%d/%m} a {DATAS[-1]:%d/%m/%Y}.</div></div></div></div>''')
 
 # cuidados
 pages.append(f'''<div class="pg">{top("INSTRUÇÕES · CUIDADOS")}<div class="k">ANTES DE COMEÇAR</div><h1 style="margin-top:12px">Confira<b>estes pontos.</b></h1>
@@ -124,9 +121,9 @@ pages.append(f'''<div class="pg">{top("INSTRUÇÕES · CUIDADOS")}<div class="k"
 <li><b>Deu erro</b> (imagem cortada, conta errada, post no Facebook): apague, avise o dono e refaça.</li></ol></div></div>''')
 
 # cronograma
-rows=''.join(f'<tr><td>{i+1:02d}</td><td>{fd(DATAS[i])} · 12h</td><td>{html.escape(TIT[i])}</td><td style="color:#B5C0D0">☐</td></tr>' for i in range(40))
+rows=''.join(f'<tr><td>{i+1:02d}</td><td>{fd(DATAS[i])} · {HR[i]}</td><td>{html.escape(TIT[i])}</td><td style="color:#B5C0D0">☐</td></tr>' for i in range(40))
 half=lambda a,b:f'<table>{"".join(rows.split("</tr>")[a:b]).replace("<tr>","<tr>")}</table>'
-R=[f'<tr><td>{i+1:02d}</td><td style="width:200px">{fd(DATAS[i])} · 12h</td><td>{html.escape(TIT[i])}</td><td style="width:30px;color:#9AA8BC">☐</td></tr>' for i in range(40)]
+R=[f'<tr><td>{i+1:02d}</td><td style="width:200px">{fd(DATAS[i])} · {HR[i]}</td><td>{html.escape(TIT[i])}</td><td style="width:30px;color:#9AA8BC">☐</td></tr>' for i in range(40)]
 for k in range(2):
     pages.append(f'''<div class="pg">{top(f"CRONOGRAMA · {k+1}/2")}<div class="k">CHECKLIST</div><h1 style="margin-top:12px">{"Quando postar" if k==0 else "Continuação"}<b>{"cada um." if k==0 else "do cronograma."}</b></h1>
 <div class="bx" style="margin-top:30px;padding:16px 26px"><table>{"".join(R[k*20:(k+1)*20])}</table></div></div>''')
@@ -138,7 +135,7 @@ for i,(cap,ex,alt) in enumerate(L):
 <div style="display:flex;gap:30px;align-items:flex-start">
 <img src="pdfimg/{n:02d}.jpg" style="width:420px;border-radius:18px;border:2px solid #E2EAF4">
 <div style="flex:1;display:flex;flex-direction:column;gap:14px">
-<div class="bx" style="padding:16px 20px;background:{A};border-color:{A}"><div class="lab" style="color:#CFE6F7">QUANDO</div><div class="val" style="color:#fff;font-size:26px;font-weight:600">{fd(DATAS[i])} · 12h</div></div>
+<div class="bx" style="padding:16px 20px;background:{A};border-color:{A}"><div class="lab" style="color:#CFE6F7">QUANDO</div><div class="val" style="color:#fff;font-size:26px;font-weight:600">{fd(DATAS[i])} · {HR[i]}</div></div>
 <div class="bx" style="padding:16px 20px"><div class="lab">ONDE</div><div class="val"><b>Só Instagram</b> · feed · 1 imagem 4:5<br><span style="color:#D63848">Facebook desmarcado</span></div></div>
 <div class="bx" style="padding:16px 20px"><div class="lab">ARQUIVO</div><div class="val"><b>post-{n:02d}.png</b><br><span class="url">{url}</span></div></div>
 <div class="bx" style="padding:16px 20px"><div class="lab">TEXTO ALTERNATIVO</div><div class="val" style="font-size:16px">{esc(alt)}</div></div>
@@ -150,5 +147,5 @@ open('postar.html','w').write(f'<!doctype html><html><head><meta charset="utf-8"
 # legendas em texto puro também
 with open('../posts/legendas.txt','w') as f:
     for i,(cap,ex,alt) in enumerate(L):
-        f.write(f'===== POST {i+1:02d} · {fd(DATAS[i])} 12h · arquivo post-{i+1:02d}.png · SÓ INSTAGRAM =====\n{cap}\n\n{tags(ex)}\n\n[texto alternativo] {alt}\n\n')
+        f.write(f'===== POST {i+1:02d} · {fd(DATAS[i])} {HR[i]} · arquivo post-{i+1:02d}.png · SÓ INSTAGRAM =====\n{cap}\n\n{tags(ex)}\n\n[texto alternativo] {alt}\n\n')
 print(len(pages))
