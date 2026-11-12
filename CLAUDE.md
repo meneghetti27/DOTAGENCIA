@@ -83,6 +83,13 @@ pílulas de vidro com os serviços, e os **posts e o site reais da dot** como pr
 Título atrás do animal: as pontas das orelhas cobrem só a base da 2ª linha (`desloc_recorte` ajusta).
 Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
 
+## ⭐ WEB CLINIC (outro Instagram do dono, marca própria, NÃO segue as cores da dot)
+
+Sites que convertem para médicos. Tudo em **`webclinic/`**: receita em **`webclinic/COMO-FAZER.md`**,
+40 posts aprovados em `webclinic/posts/`, gerador em `webclinic/gerador/`, guia para o dono em `webclinic/guia/`.
+Fundo **claro** (branco/gelo), azul `#2D7FF0` + navy, Poppins, vetores 2D próprios, fotos do Pexels.
+As regras de fundo escuro / League Gothic / Anton deste arquivo valem **só para a dot**.
+
 ## A agência
 
 - Nome: **dot.** (sempre minúsculo, com o ponto azul no final)

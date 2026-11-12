@@ -1,0 +1,60 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+body{background:radial-gradient(ellipse 75% 50% at 50% 66%,#CFE3FA 0%,#EAF2FC 45%,#F7F9FC 100%)}
+.gridbg{position:absolute;inset:0;background-image:linear-gradient(rgba(45,127,240,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(45,127,240,.07) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(ellipse 60% 45% at 50% 65%,#000 20%,transparent 75%)}
+.hdr{position:absolute;top:70px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px;z-index:10}
+.hdr .nm{font-size:26px;font-weight:600;display:flex;align-items:center;gap:7px;line-height:1.1}
+.hdr .at{font-size:20px;color:var(--cinza)}
+.t{position:absolute;top:200px;width:100%;text-align:center;line-height:1;z-index:1;letter-spacing:-.04em}
+.t .a{font-size:104px;font-weight:300;color:var(--navy)}
+.t .b{font-size:150px;font-weight:700;color:var(--azul);margin-top:4px}
+.glow{position:absolute;left:50%;top:420px;width:640px;height:200px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(45,127,240,.35),transparent 70%);filter:blur(30px);z-index:0}
+.stage{position:absolute;left:0;right:0;top:540px;height:520px;perspective:2000px;z-index:3}
+.win{position:absolute;left:150px;top:0;width:780px;height:470px;border-radius:30px;background:#07142B;transform:rotateX(6deg) rotateY(-9deg) rotateZ(1.5deg);transform-origin:50% 50%;
+ overflow:hidden}
+.bar{height:56px;display:flex;align-items:center;gap:10px;padding:0 22px;background:#0C1C38;border-bottom:1px solid rgba(255,255,255,.06)}
+.bar i{width:13px;height:13px;border-radius:50%;background:#2A3B5C}
+.bar i:first-child{background:#FA5F6D}
+.url{margin-left:18px;flex:1;height:32px;border-radius:999px;background:#07142B;font:400 16px Poppins;color:#7F92B5;display:flex;align-items:center;padding:0 16px;gap:8px}
+.rec{font:500 13px Poppins;letter-spacing:.2em;color:#FA5F6D;display:flex;align-items:center;gap:8px}
+.rec:before{content:'';width:9px;height:9px;border-radius:50%;background:#FA5F6D;}
+.scr{position:relative;height:414px;padding:28px 34px}
+.scr .g{position:absolute;inset:0;background-image:linear-gradient(rgba(90,162,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(90,162,255,.08) 1px,transparent 1px);background-size:36px 36px}
+.lab{font:500 13px Poppins;letter-spacing:.22em;color:#6E84AD}
+.vit{position:absolute;right:34px;top:28px;text-align:right}
+.vit .n{font-size:84px;font-weight:600;letter-spacing:-.04em;line-height:1.05;color:#FA5F6D}
+.vit .n small{font-size:44px;font-weight:500}
+.vit2{position:absolute;right:34px;top:236px;text-align:right}
+.vit2 .n{font-size:54px;font-weight:600;letter-spacing:-.03em;line-height:1.1;color:#FF8D96}
+.ecg{position:absolute;left:0;top:96px}
+.load{position:absolute;left:34px;bottom:34px;width:380px}
+.load .tr{height:10px;border-radius:5px;background:#132646;margin-top:12px;overflow:hidden}
+.load .tr div{width:28%;height:100%;background:linear-gradient(90deg,#2D7FF0,#5AA2FF);}
+.chip{position:absolute;z-index:6;display:flex;align-items:center;gap:14px;border-radius:24px;padding:16px 22px;font:600 21px Poppins;border:2px solid #E2EAF4}
+.c1{left:90px;top:505px;background:#fff;color:var(--navy);transform:rotate(-4deg)}
+.c1 .ic{width:46px;height:46px;border-radius:14px;background:#FFE7EA;display:grid;place-items:center}
+.c1 small{display:block;font:400 15px Poppins;color:var(--cinza)}
+.cta{position:absolute;right:100px;top:985px;z-index:6}
+.phrase{position:absolute;bottom:120px;left:110px;right:110px;text-align:center;font:400 29px/1.4 Poppins;color:var(--navy);z-index:6}
+.phrase b{font-weight:700;color:var(--azul)}
+.src{position:absolute;bottom:66px;width:100%;text-align:center;font:500 15px Poppins;letter-spacing:.24em;color:#8A97AA}
+</style></head><body>
+<div class="gridbg"></div>
+<div class="hdr"><svg width="66" height="66" viewBox="0 0 118 118"><rect width="118" height="118" rx="59" fill="#0B1F3A"/><path d="M16 64H34L44 38L58 84L68 52L76 64H80" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 0L0 34L9 26L15 40L21 37L15 24L27 24Z" transform="translate(74 48)" fill="#5AA2FF"/></svg>
+<div><div class="nm">Web Clinic <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 1l2.6 2.2 3.4-.3.9 3.3 3 1.7-1.2 3.2 1.2 3.2-3 1.7-.9 3.3-3.4-.3L12 23l-2.6-2.2-3.4.3-.9-3.3-3-1.7L3.3 12 2.1 8.8l3-1.7.9-3.3 3.4.3z" fill="#2D7FF0"/><path d="M7.5 12.2l3 3 6-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="at">@webclinic</div></div></div>
+
+<div class="t"><div class="a">Seu site tá</div><div class="b">na UTI?</div></div>
+<div class="stage"><div class="win">
+<div class="bar"><i></i><i></i><i></i><div class="url"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M12 2L1 21h22z" fill="#FA5F6D"/></svg>suaclinica.com.br</div><div class="rec">AO VIVO</div></div>
+<div class="scr"><div class="g"></div>
+<div class="lab">BATIMENTO DO SITE</div>
+<svg class="ecg" width="820" height="200" viewBox="0 0 820 200"><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#5AA2FF"/><stop offset=".55" stop-color="#5AA2FF"/><stop offset=".72" stop-color="#FA5F6D"/><stop offset="1" stop-color="#FA5F6D"/></linearGradient><filter id="gl"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<g fill="none" stroke="url(#lg)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 110H60L74 92L86 110H110L124 30L144 180L160 70L172 110H230L244 95L256 110H290L302 55L318 160L330 90L340 110H400L410 100L420 110H440L448 85L458 135L466 110H820" stroke-width="4.5"/></g><circle cx="590" cy="110" r="7" fill="#FA5F6D"/></svg>
+<div class="vit"><div class="lab">CARREGAMENTO</div><div class="n">8,2<small>s</small></div></div>
+<div class="vit2"><div class="lab">PACIENTES</div><div class="n">−53%</div></div>
+<div class="load"><div class="lab">CARREGANDO SITE...</div><div class="tr"><div></div></div></div>
+</div></div></div>
+<div class="chip c1"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 3L2 21h20z" fill="none" stroke="#FA5F6D" stroke-width="2.6" stroke-linejoin="round"/><path d="M12 10v5M12 18v.5" stroke="#FA5F6D" stroke-width="2.6" stroke-linecap="round"/></svg></div><div>Paciente saiu do site<small>foi pro concorrente</small></div></div>
+<div class="cta"><span class="pill" style="box-shadow:none;border:2px solid #E2EAF4;font-size:25px;padding:10px 30px 10px 10px"><i style="width:50px;height:50px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Faça o check-up</span></div>
+<div class="phrase"><b>53%</b> dos pacientes desistem<br>se o site demora mais de <b>3 segundos.</b></div>
+<div class="src">FONTE: GOOGLE</div>
+<div class="grain" style="opacity:.07"></div></body></html>
