@@ -112,7 +112,7 @@ pages.append(f'''<div class="pg">{top("INSTRUÇÕES · PARA QUEM VAI POSTAR")}<d
 # cuidados
 pages.append(f'''<div class="pg">{top("INSTRUÇÕES · CUIDADOS")}<div class="k">ANTES DE COMEÇAR</div><h1 style="margin-top:12px">Confira<b>estes pontos.</b></h1>
 <div class="bx" style="margin-top:34px;padding:28px 34px"><ol>
-<li><b>Arroba:</b> as artes mostram <b>@webclinic</b>. Se o perfil real tiver outro @, pare e peça para o Claude gerar as artes de novo antes de postar.</li>
+<li><b>Conta certa:</b> postar só no Instagram <b>@webclinicbrasil</b> (é o @ que aparece nas artes). Se o Business Suite mostrar outra conta, pare e avise o dono.</li>
 <li><b>Arquivos:</b> use sempre o PNG em alta (link de cada página ou pasta <b>webclinic/posts/</b> do repositório DOTAGENCIA). As imagens deste PDF são só prévia.</li>
 <li><b>Legendas:</b> copie sem editar. Se o Business Suite cortar as quebras de linha, mantenha os parágrafos separados por uma linha em branco.</li>
 <li><b>Hashtags:</b> no fim da legenda, numa linha separada. Não adicionar outras.</li>

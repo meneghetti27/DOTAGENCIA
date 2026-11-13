@@ -16,7 +16,7 @@ body{{background:#F7F9FC}}
 .chip .ic{{width:46px;height:46px;border-radius:14px;background:{G};display:grid;place-items:center}} .chip small{{display:block;font-size:15px;font-weight:400;color:{C}}}
 .cnt{{position:absolute;top:84px;right:80px;font-size:17px;color:{C};letter-spacing:.1em}}
 {extra_css}</style></head><body>
-<div class="hdr">{roundlogo(62)}<div><div class="nm">webclinic {VER}</div><div class="at">@webclinic</div></div></div>
+<div class="hdr">{roundlogo(62)}<div><div class="nm">webclinic {VER}</div><div class="at">@webclinicbrasil</div></div></div>
 {body}<div class="grain" style="opacity:.05"></div></body></html>'''
 
 # POST 1 — apresentação
@@ -42,7 +42,7 @@ p1=page(f'''
 # POST 2 — UTI (from v3 html, swap header to new logo)
 import re
 s=open('post-uti3.html').read()
-s=re.sub(r'<div class="hdr">.*?</div></div></div>', f'<div class="hdr">{roundlogo(62)}<div><div class="nm">webclinic {VER}</div><div class="at">@webclinic</div></div></div>', s, count=1, flags=re.S)
+s=re.sub(r'<div class="hdr">.*?</div></div></div>', f'<div class="hdr">{roundlogo(62)}<div><div class="nm">webclinic {VER}</div><div class="at">@webclinicbrasil</div></div></div>', s, count=1, flags=re.S)
 p2=s.replace('overflow:hidden}','overflow:hidden;box-shadow:0 34px 70px -12px rgba(45,127,240,.30),0 10px 20px -8px rgba(11,31,58,.18)}',1).replace('border:2px solid #E2EAF4}','border:2px solid #E2EAF4;box-shadow:0 24px 44px -10px rgba(45,127,240,.25)}').replace('<div class="stage">','<div style="position:absolute;left:170px;top:570px;width:740px;height:480px;border-radius:60px;background:linear-gradient(135deg,#5AA2FF,#2D7FF0 55%,#1F66D1);filter:blur(40px);opacity:.2"></div><div class="stage">',1)
 
 # POST 3 — como funciona

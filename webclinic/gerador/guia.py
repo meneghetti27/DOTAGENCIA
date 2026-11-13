@@ -55,7 +55,7 @@ P(f'''<div class="k">COMO FUNCIONA</div><h1 style="margin-top:14px">Três passos
 def lab(y,num,t,d): return f'<div style="position:absolute;left:560px;top:{y}px;width:400px"><div style="display:flex;gap:12px;align-items:center"><span style="width:38px;height:38px;border-radius:50%;background:{A};color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px">{num}</span><b style="font-size:24px">{t}</b></div><div class="small" style="margin:6px 0 0 50px">{d}</div></div>'
 P(f'''<div class="k">ANATOMIA DO POST</div><h1 style="margin-top:14px">Toda peça tem<b>as mesmas 5 partes.</b></h1>
 <img class="thumb" src="th/02.jpg" style="position:absolute;left:84px;top:440px;width:440px">
-{lab(450,1,'Cabeçalho','Logo redondo, webclinic e @webclinic. Fixo, eu coloco.')}
+{lab(450,1,'Cabeçalho','Logo redondo, webclinic e @webclinicbrasil. Fixo, eu coloco.')}
 {lab(580,2,'Título em 2 linhas','Linha 1 fina (navy). Linha 2 em negrito azul: a parte que bate.')}
 {lab(730,3,'Visual','Foto, ícone vetor, card de site, busca, lista… depende do formato.')}
 {lab(880,4,'Frase de baixo','2 linhas. A 2ª linha em azul é a conclusão.')}

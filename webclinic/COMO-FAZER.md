@@ -62,4 +62,4 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
 - JPEG por destaque em `perfil/destaques-jpeg/1-sobre … 5-contato/` (0-capa.jpg + story-N.jpg) e zip `perfil/webclinic-destaques-jpeg.zip`.
 - Gerar de novo: `cd gerador && python3 stories.py && node shots.js out-st && for f in out-st/*.png; do cp $f ../perfil/destaques/story-$(basename $f); done`
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
-- Pendências do dono: @ definitivo (artes usam @webclinic) e link da bio / botão de contato (WhatsApp ou site).
+- Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).

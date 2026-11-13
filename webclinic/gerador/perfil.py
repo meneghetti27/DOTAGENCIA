@@ -8,11 +8,11 @@ OUT='../perfil'; os.makedirs(OUT+'/destaques',exist_ok=True); os.makedirs('perfi
 
 PERFIL=dict(
  nome='Web Clinic | Sites p/ médicos',
- usuario='webclinic',
+ usuario='webclinicbrasil',
  categoria='Web designer (se não existir: Agência de marketing)',
  bio='Sites que viram consulta marcada.\nPara médicos e profissionais da saúde.\nAgenda online + Google + WhatsApp.\nMande SITE no direct ↓',
- link='PREENCHER COM O DONO: link do WhatsApp (wa.me/55…) ou do site',
- botoes='Botão de contato: WhatsApp ou e-mail (PREENCHER COM O DONO). Botão de ação: nenhum.',
+ link='https://wa.me/5551989061441  (WhatsApp da Web Clinic; no campo "Links" → Adicionar link externo, título: WhatsApp)',
+ botoes='Opções de contato → WhatsApp: +55 51 98906-1441 (aparece o botão WhatsApp no perfil). Botão de ação: nenhum.',
 )
 # destaques: (nome, ícone, posts usados como stories)
 DEST=[('Sobre','Sobre',[1,37,40]),('Sites','Sites',[7,21,31,22]),('Agenda','Agenda',[2,6,24,20]),('Dicas','Dicas',[8,26,13,9]),('Contato','Contato',[])]
@@ -27,7 +27,7 @@ def story(n,nome,last=False):
 <div style="position:absolute;top:150px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px">{roundlogo(76)}<div style="font-size:30px;font-weight:600">webclinic</div></div>
 <div style="position:absolute;top:280px;left:0;right:0;text-align:center;font-size:24px;letter-spacing:.24em;color:{A};font-weight:600">{nome.upper()}</div>
 <img src="../../posts/post-{n:02d}.png" style="position:absolute;left:90px;top:400px;width:900px;border-radius:36px;border:3px solid #E2EAF4;box-shadow:0 40px 80px -20px rgba(45,127,240,.25)">
-<div style="position:absolute;bottom:200px;left:0;right:0;text-align:center;font-size:28px;color:{C}">mais no perfil · <b style="color:{A}">@webclinic</b></div></body></html>'''
+<div style="position:absolute;bottom:200px;left:0;right:0;text-align:center;font-size:28px;color:{C}">mais no perfil · <b style="color:{A}">@webclinicbrasil</b></div></body></html>'''
 contato=f'''<!doctype html><html><head><meta charset="utf-8">{STY}</head><body>
 <div style="position:absolute;top:360px;left:0;right:0;display:flex;justify-content:center">{roundlogo(300)}</div>
 <div style="position:absolute;top:760px;left:0;right:0;text-align:center;letter-spacing:-.04em;line-height:1.04"><div style="font-size:88px;font-weight:300;color:{N}">Vamos encher</div><div style="font-size:100px;font-weight:700;color:{A}">sua agenda?</div></div>
@@ -62,7 +62,7 @@ pages.append(f'''<div class="pg"><div style="display:flex;justify-content:center
 <div style="text-align:center;margin-top:50px"><div class="k">CONFIGURAÇÃO DO PERFIL</div><h1 style="font-size:88px;margin-top:18px">Perfil pronto<b>pra receber.</b></h1>
 <div style="font-size:26px;line-height:1.5;margin:28px auto 0;max-width:780px">Foto, nome, bio, link e destaques do Instagram da Web Clinic. Fazer <b style="color:{A}">antes do primeiro post</b> do plano de postagem.</div></div></div>''')
 pages.append(f'''<div class="pg">{top("ORDEM DAS TAREFAS")}<div class="k">PASSO A PASSO</div><h1 style="margin-top:12px">O que fazer<b>e onde.</b></h1>
-<div class="alert" style="margin-top:28px"><b>Pendências com o dono antes de começar:</b> (1) confirmar o @ <b>webclinic</b> (as artes usam esse @); (2) qual <b>link</b> vai na bio e no botão de contato (WhatsApp ou site).</div>
+<div class="bx" style="margin-top:28px;padding:18px 22px;font-size:20px;line-height:1.45"><b style="color:#2D7FF0">Dados confirmados pelo dono:</b> perfil <b>@webclinicbrasil</b> (é o @ que aparece nas artes) · WhatsApp <b>(51) 98906-1441</b> (link da bio e botão de contato).</div>
 <div class="bx" style="margin-top:24px;padding:28px 34px"><ol>
 <li><b>Foto de perfil</b> → instagram.com (navegador) → Perfil → Editar perfil → Alterar foto. Arquivo: <b>foto-perfil.png</b>.</li>
 <li><b>Nome, bio e link</b> → no mesmo Editar perfil (instagram.com ou app). Copiar da página 4.</li>
@@ -79,7 +79,7 @@ fld=lambda l,v,u=False:f'<div class="bx" style="padding:20px 24px"><div class="l
 pages.append(f'''<div class="pg">{top("TEXTOS DO PERFIL")}<div class="k">COPIAR E COLAR</div><h1 style="margin-top:12px">Nome, bio<b>e link.</b></h1>
 <div style="display:flex;flex-direction:column;gap:14px;margin-top:34px">
 {fld("NOME (máx. 30 caracteres; aparece em negrito e entra na busca)",PERFIL["nome"],True)}
-{fld("NOME DE USUÁRIO (confirmar com o dono)","@"+PERFIL["usuario"],True)}
+{fld("NOME DE USUÁRIO (confirmado)","@"+PERFIL["usuario"],True)}
 {fld("CATEGORIA",PERFIL["categoria"])}
 {fld("BIO (até 150 caracteres, manter as quebras de linha)",PERFIL["bio"],True)}
 {fld("LINK",PERFIL["link"])}

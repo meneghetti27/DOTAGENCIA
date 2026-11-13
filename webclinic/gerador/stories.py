@@ -130,8 +130,9 @@ dm=f'''<div style="display:flex;align-items:center;gap:20px;background:#fff;bord
 S['contato']=[
 doc(hdr(True,1,1)+f'<div class="blob" style="width:900px;height:800px;left:90px;top:520px;background:{L};opacity:.6"></div>'+
  f'<div style="position:absolute;left:290px;top:440px;z-index:3">{roundlogo(500)}</div>'+ico('calendar',110,520,190,-10)+ico('chat',790,780,190,9)+
- T('Vamos encher','sua agenda?',1040,96,124,'#fff','#fff')+
- kick('MANDE NO DIRECT',1380,'#DCEBFB')+f'<div style="position:absolute;left:80px;right:80px;top:1440px">{dm}</div>',A),
+ T('Vamos encher','sua agenda?',990,96,124,'#fff','#fff')+
+ kick('MANDE NO DIRECT',1300,'#DCEBFB')+f'<div style="position:absolute;left:80px;right:80px;top:1360px">{dm}</div>'+
+ f'<div style="position:absolute;left:80px;right:80px;top:1530px;display:flex;align-items:center;gap:22px;color:#fff;font-size:40px;font-weight:600"><span style="width:96px;height:96px;border-radius:50%;background:#fff;display:grid;place-items:center">{ic("chat",60)}</span><span><span style="display:block;font-size:22px;letter-spacing:.24em;font-weight:600;color:#DCEBFB">OU NO WHATSAPP</span>(51) 98906-1441</span></div>',A),
 ]
 jobs=[]
 for k,lst in S.items():
