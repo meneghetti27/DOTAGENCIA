@@ -97,8 +97,14 @@ html:not(.js) #pre{display:none}
 .h-hero .l{display:block;overflow:hidden;padding-bottom:.06em}
 .h-hero .l>span{display:block}
 .h-hero .l2{padding-left:16%}
-.pimg{display:inline-block;width:1.55em;height:.74em;border-radius:99px;overflow:hidden;vertical-align:-.02em;margin-left:.06em;position:relative}
-.pimg img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.pimg{display:inline-block;width:1.6em;height:.74em;border-radius:99px;overflow:hidden;vertical-align:-.02em;margin-left:.06em;position:relative;background:var(--ink);font-style:normal;box-shadow:0 30px 60px -30px rgba(11,31,58,.6)}
+.tk{position:absolute;inset:0;display:flex;align-items:center;gap:.08em;padding:0 .1em;transform:translateY(100%);opacity:0;transition:transform .9s var(--ease),opacity .6s}
+.tk.on{transform:none;opacity:1}.tk.out{transform:translateY(-100%);opacity:0}
+.tk .ic{flex:none;width:.5em;height:.5em;border-radius:50%;background:var(--blue);display:grid;place-items:center;box-shadow:0 0 0 .06em rgba(45,127,240,.25)}
+.tk .ic svg{width:45%;height:45%;color:#fff}
+.tk .tx{font-size:.112em;letter-spacing:-.01em;line-height:1.3;color:#fff;font-weight:500;white-space:nowrap}
+.tk .tx small{display:block;font-size:.78em;font-weight:400;color:rgba(255,255,255,.62);letter-spacing:0}
+@media (max-width:640px){.pimg{width:.74em}.tk{justify-content:center;padding:0}.tk .tx{display:none}}
 .h-hero em{color:var(--blue);letter-spacing:-.025em;padding-right:.04em}
 .hero .wrap{position:relative}
 .seal{position:absolute;right:var(--gut);top:calc(50px + 19.5vw);width:clamp(120px,10vw,150px);aspect-ratio:1;display:grid;place-items:center}
@@ -176,6 +182,49 @@ html.js .mani .w{opacity:.13}
 .mani .sig{margin-top:clamp(40px,6vh,70px);display:flex;gap:clamp(30px,6vw,90px);flex-wrap:wrap}
 .mani .sig div{font-size:14px;color:var(--ink2);max-width:240px;border-top:1px solid var(--line);padding-top:16px}
 .mani .sig b{display:block;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:44px;line-height:1;color:var(--ink);margin-bottom:8px}
+
+/* before / after */
+.ba{padding-top:clamp(40px,6vh,80px);padding-bottom:clamp(100px,15vh,170px)}
+.cmp-w{border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 60px 110px -60px rgba(11,31,58,.55);border:1px solid rgba(11,31,58,.07)}
+.cmp-bar{height:40px;display:flex;align-items:center;gap:7px;padding:0 16px;border-bottom:1px solid #EEF1F5;flex:none}
+.cmp-bar i{width:10px;height:10px;border-radius:50%;background:#E3E7ED}
+.cmp-bar span{margin:0 auto;font-size:12px;color:#8b95a3;display:flex;align-items:center;gap:6px;transform:translateX(-30px)}
+.cmp-bar svg{width:10px;height:10px;color:#18A058}
+.cmp{position:relative;aspect-ratio:16/8.6;cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cmp-a,.cmp-b{position:absolute;inset:0}
+.cmp-b{clip-path:inset(0 0 0 var(--x))}
+.cmp-b .ms{position:absolute;inset:0}
+.cmp-h{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:#fff;z-index:3;box-shadow:0 0 0 1px rgba(11,31,58,.08),0 0 30px rgba(0,0,0,.25)}
+.cmp-h span{position:absolute;top:50%;left:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:0 14px 34px -10px rgba(11,31,58,.45)}
+.cmp-h span svg{width:26px;height:26px}
+.cmp .tag{position:absolute;top:18px;z-index:2;font-style:normal;font-size:12.5px;font-weight:500;padding:8px 14px;border-radius:99px;pointer-events:none}
+.cmp .tag.a{left:18px;background:rgba(30,30,30,.82);color:#fff}
+.cmp .tag.b{right:18px;background:var(--blue);color:#fff}
+.ba-n{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(36px,5vh,56px)}
+.ba-n div{border-top:1px solid var(--line);padding-top:18px;font-size:15px}
+.ba-n s{display:block;color:var(--mute);text-decoration-color:rgba(250,95,109,.7);margin-bottom:8px}
+.ba-n b{display:block;font-weight:500;color:var(--ink)}
+.old{container-type:size;position:absolute;inset:0;background:#DADADA;color:#222;overflow:hidden;font-family:"Times New Roman",Times,serif}
+.old-in{position:absolute;top:0;bottom:0;left:50%;width:76cqw;transform:translateX(-50%);display:flex;flex-direction:column;background:#fff;box-shadow:0 0 0 1px #bbb}
+.o-top{background:linear-gradient(#4b7fc0,#1d4c8a);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:1.5cqw 2cqw;font-family:Arial,sans-serif}
+.o-logo{font-weight:bold;font-size:2.1cqw;line-height:1.15;text-shadow:1px 1px 0 #0a2a55}
+.o-logo small{display:block;font-weight:normal;font-size:1.05cqw;color:#dde8ff}
+.o-tel{font-weight:bold;font-size:1.35cqw;color:#ffef5a;text-align:right}
+.o-tel small{display:block;color:#fff;font-weight:normal;font-size:.95cqw}
+.o-menu{display:flex;background:linear-gradient(#f4f4f4,#c4c4c4);border-bottom:1px solid #999;font-family:Arial,sans-serif}
+.o-menu span{flex:1;text-align:center;font-size:1.1cqw;padding:.75cqw 0;border-right:1px solid #aaa;color:#002266}
+.o-mq{background:#ffffc8;color:#c00;font:bold 1.1cqw Arial,sans-serif;padding:.45cqw 1cqw;white-space:nowrap;overflow:hidden;border-bottom:1px solid #e0d890}
+.o-body{display:flex;gap:2cqw;padding:2cqw;flex:1;min-height:0;overflow:hidden}
+.o-side{width:20cqw;flex:none;display:flex;flex-direction:column;gap:1.2cqw}
+.o-side img{width:100%;height:20cqw;object-fit:cover;object-position:center 15%;filter:saturate(.55) contrast(.85) brightness(1.05);border:.35cqw double #999}
+.o-box{border:1px solid #9bb;background:#eef5f8;font:1cqw Arial,sans-serif;padding:.8cqw;color:#234}
+.o-box b{display:block;color:#1d4c8a;margin-bottom:.3cqw}
+.o-txt h4{font-size:2cqw;color:#1d4c8a;border-bottom:1px dotted #999;margin-bottom:1cqw;font-weight:bold}
+.o-txt p{font-size:1.2cqw;text-align:justify;line-height:1.35;margin-bottom:.9cqw}
+.o-txt .r{color:#c00;font-style:italic}
+.o-txt u{color:#00e}
+.o-foot{background:#1d4c8a;color:#cfd8ee;font:.95cqw Arial,sans-serif;text-align:center;padding:.8cqw}
+@container (aspect-ratio < 1){.old-in{width:100cqw;bottom:auto;height:118cqw}}
 
 /* journey */
 .jor{height:520vh;position:relative;background:var(--white)}
@@ -276,10 +325,41 @@ html.js .mani .w{opacity:.13}
 .row:hover h3{transform:translateX(14px)}
 .row:hover .n{color:var(--blue)}
 .row:hover .ar{background:var(--ink);color:#fff;border-color:var(--ink);transform:rotate(-45deg)}
-.peek{position:fixed;left:0;top:0;width:300px;height:210px;border-radius:16px;overflow:hidden;pointer-events:none;z-index:40;opacity:0;transform:translate(-50%,-50%) scale(.6);transition:opacity .35s,transform .5s var(--ease)}
-.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s}
-.peek img.on{opacity:1}
+.serv-g{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(30px,5vw,80px);align-items:start}
+.serv-g .row{grid-template-columns:64px 1fr 52px;gap:6px 24px;align-items:start;cursor:pointer}
+.serv-g .row h3{grid-column:2}.serv-g .row p{grid-column:2;grid-row:2}
+.serv-g .row .ar{grid-column:3;grid-row:1/3;align-self:center}
+.serv-g .row .n{padding-top:6px}
+.row.on .n{color:var(--blue)}.row.on h3{transform:translateX(14px)}
+.row.on .ar{background:var(--ink);color:#fff;border-color:var(--ink);transform:rotate(-45deg)}
+.row.on::before{transform:none}
+.svis{position:sticky;top:110px;height:min(620px,calc(100vh - 150px));border-radius:24px;background:var(--paper2);overflow:hidden;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;background-position:center}
+.svis::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent 40%,var(--paper2) 85%);pointer-events:none}
+.sv{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:translateY(24px) scale(.97);transition:opacity .5s,transform .8s var(--ease);z-index:1}
+.sv.on{opacity:1;transform:none;z-index:2}
+.sv-m{display:none}
+.svc{width:min(380px,86%);position:relative}
+.svc .card{background:#fff;border-radius:20px;box-shadow:0 40px 80px -40px rgba(11,31,58,.45);overflow:hidden;border:1px solid rgba(11,31,58,.06)}
+.svc .mini-b{height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid #EEF1F5}.svc .mini-b i{width:8px;height:8px;border-radius:50%;background:#E3E7ED}
+.svc .card .ms{position:relative;aspect-ratio:16/11}
+.svc .ag{padding:20px}
+.svc .g-top{padding:16px 16px 12px}.svc .g-res{padding:14px 16px 18px}
+.svc .badge{position:absolute;right:-14px;top:-16px;background:var(--blue);color:#fff;border-radius:99px;padding:10px 16px;font-weight:600;font-size:14px;box-shadow:0 16px 30px -12px rgba(45,127,240,.8);z-index:2}
+.svc .wa{position:relative;height:400px}
+.svc .wa-h{padding-top:14px}
+.sv .bub,.sv-m .bub{opacity:1;transform:none}
+.svc .nts{display:flex;flex-direction:column;gap:12px}
+.svc .nt{opacity:1;transform:none;margin:0;background:#fff;box-shadow:0 24px 50px -28px rgba(11,31,58,.5);border:1px solid rgba(11,31,58,.06)}
+.svc .nt.me{align-self:flex-end;background:#D9FDD3}
+.svc .nt.ok{background:var(--ink);color:#fff}.svc .nt.ok span{color:rgba(255,255,255,.7)}.svc .nt.ok small{color:rgba(255,255,255,.5)}
+.sv.on .nts>*{animation:rise .7s var(--ease) both}.sv.on .nts>*:nth-child(2){animation-delay:.35s}.sv.on .nts>*:nth-child(3){animation-delay:.7s}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+.chk{list-style:none;padding:8px 22px 22px}
+.chk li{display:flex;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid #EEF1F5;font-size:13.5px;color:var(--ink2);line-height:1.4}
+.chk li:last-child{border:0}
+.chk li b{display:block;color:var(--ink);font-weight:500;font-size:15px}
+.chk .ci{flex:none;width:40px;height:40px;border-radius:12px;background:#EEF5FC;color:var(--blue);display:grid;place-items:center}
+.chk .ci svg{width:20px;height:20px}
 
 /* projects */
 .proj{background:var(--paper2);overflow:hidden;position:relative}
@@ -297,10 +377,30 @@ html.js .mani .w{opacity:.13}
 .case .bar span{margin:0 auto;font-size:11.5px;color:#8b95a3;display:flex;align-items:center;gap:6px;transform:translateX(-30px)}
 .case .bar svg{width:10px;height:10px;color:#18A058}
 .case .ms{position:relative;aspect-ratio:16/9.4;height:auto}
+.case{cursor:pointer}.case .bw{transition:transform .8s var(--ease),box-shadow .8s var(--ease)}.case:hover .bw{transform:translateY(-8px);box-shadow:0 60px 100px -50px rgba(11,31,58,.6)}
 .case .cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;gap:20px}
 .case .cap b{font-weight:500;font-size:19px;letter-spacing:-.03em}
 .case .cap span{font-size:13px;color:var(--mute)}
 .proj-note{margin-top:28px;font-size:13px;color:var(--mute)}
+
+/* modal */
+.mod{position:fixed;inset:0;z-index:85;display:grid;place-items:center;pointer-events:none;visibility:hidden;transition:visibility 0s .6s}
+.mod.open{pointer-events:auto;visibility:visible;transition:none}
+.mod-bg{position:absolute;inset:0;background:rgba(5,13,26,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .5s}
+.mod.open .mod-bg{opacity:1}
+.mod-in{position:relative;width:min(1320px,calc(100vw - 48px));height:min(860px,calc(100vh - 48px));background:var(--paper);border-radius:26px;padding:clamp(20px,3vw,40px);display:flex;flex-direction:column;gap:24px;transform:translateY(40px) scale(.97);opacity:0;transition:transform .7s var(--ease),opacity .4s}
+.mod.open .mod-in{transform:none;opacity:1}
+.mod-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.mod-hd h3{font-weight:400;font-size:clamp(28px,3vw,46px);letter-spacing:-.05em;line-height:1;margin-top:10px}
+.mod-a{display:flex;gap:14px;align-items:center}
+.mod-x{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink);flex:none}
+.mod-x svg{width:20px;height:20px}
+.mod-v{flex:1;min-height:0;display:flex;gap:clamp(20px,3vw,44px);align-items:center;justify-content:center}
+.mod-d{flex:1;height:100%;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -40px rgba(11,31,58,.45);display:flex;flex-direction:column}
+.mod-ds{flex:1;position:relative}.mod-ds .ms{position:absolute;inset:0}
+.mod-p{--w:min(250px,calc((100vh - 230px)/2.06));flex:none}
+.mod-p .ms{position:absolute;inset:0}.mod-p .ms-in{top:calc(var(--w)*.12)}
+@media (max-width:900px){.mod-d{display:none}.mod-p{--w:min(270px,calc((100svh - 300px)/2.06))}.mod-hd{flex-direction:column;align-items:flex-start}.mod-in{height:calc(100svh - 24px);width:calc(100vw - 24px)}.mod-a .btn{--h:52px}}
 
 /* video */
 .vid{background:var(--night);color:#fff;position:relative;overflow:hidden}
@@ -350,6 +450,23 @@ html.js .mani .w{opacity:.13}
 .cta h2 em{color:var(--blue2);letter-spacing:-.03em}
 .cta h2 .l{display:block;overflow:hidden;padding-bottom:.05em}
 .cta h2 .l>span{display:block}
+.cta-g{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;max-width:1180px;margin:clamp(50px,8vh,80px) auto 0;text-align:left}
+.lead{background:rgba(255,255,255,.05);border:1px solid var(--line-d);border-radius:24px;padding:clamp(24px,3vw,40px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.lead h4{font-weight:500;font-size:clamp(22px,2vw,28px);letter-spacing:-.04em}
+.lead>p{color:rgba(255,255,255,.6);font-size:14.5px;margin:8px 0 22px;max-width:520px}
+.fl{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.lead label{display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:rgba(255,255,255,.6);font-weight:500}
+.lead input,.lead select{font:inherit;font-size:15px;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:14px;height:52px;padding:0 16px;outline:none;transition:border-color .3s,background .3s;width:100%;appearance:none;-webkit-appearance:none}
+.lead select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-opacity='.6' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.lead select option{color:#111}
+.lead input::placeholder{color:rgba(255,255,255,.3)}
+.lead input:focus,.lead select:focus{border-color:var(--blue2);background-color:rgba(255,255,255,.1)}
+.lead .bad{border-color:#FA5F6D}
+.lead .btn{margin-top:10px;border:0;cursor:pointer;font-family:inherit}
+.lead .err{display:block;color:#FF8D96;font-size:13px;margin-top:10px;min-height:1em}
+.cta-side{text-align:center}.cta-side .orb{margin-top:0}
+.cta-side p{color:rgba(255,255,255,.55);font-size:14px;max-width:240px;margin:26px auto 0}
+@media (max-width:900px){.cta-g{grid-template-columns:1fr}.fl{grid-template-columns:1fr}}
 .orb{width:clamp(150px,15vw,210px);aspect-ratio:1;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;text-align:center;font-weight:500;font-size:15px;line-height:1.3;margin:clamp(40px,7vh,70px) auto 0;position:relative;transition:background .4s}
 .orb:hover{background:#fff;color:var(--ink)}
 .orb svg{width:22px;height:22px;margin:0 auto 8px}
@@ -407,6 +524,12 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   .steps{grid-template-columns:1fr 1fr;padding-top:0;row-gap:50px}
   .steps svg.pl{display:none}
   .faq{grid-template-columns:1fr}
+  .serv-g{grid-template-columns:1fr}.svis{display:none}
+  .sv-m{display:grid;place-items:center;grid-column:1/-1;margin-top:18px;padding:30px 0;border-radius:18px;background:var(--paper2)}
+  .sv-m .svc{width:min(340px,90%)}
+  .serv-g .row{cursor:default}
+  .ba-n{grid-template-columns:1fr;gap:18px}
+  .cmp{aspect-ratio:4/5.4}
   .faq-l{position:static}
 }
 @media (max-width:640px){
@@ -426,7 +549,10 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   .url-pill{top:calc(3% + 12px);font-size:11px}
   .mani .big{text-indent:0}
   .mani .sig b{font-size:36px}
-  .row{grid-template-columns:44px 1fr;gap:6px 14px;align-items:start}
+  .row,.serv-g .row{grid-template-columns:40px 1fr;gap:6px 12px;align-items:start}
+  .serv-g .row .ar{display:none}
+  .cmp .tag{top:auto;bottom:12px;font-size:11px;padding:6px 10px}.cmp .tag.a{left:12px}.cmp .tag.b{right:12px}
+  .cmp-h span{width:48px;height:48px;margin:-24px 0 0 -24px}
   .row .n{font-size:18px;padding-top:4px}
   .row p{grid-column:2;font-size:14.5px}
   .row .ar{display:none}
@@ -458,6 +584,7 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   <a href="#topo" class="logo" aria-label="Web Clinic, início"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="currentColor" opacity=".08"/><path d="M5 17h6l2.4-6 3.6 12 3-8.5 1.6 2.5H27" stroke="#2D7FF0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>web<b>clinic</b></span></a>
   <ul>
     <li><a href="#metodo">Método</a></li>
+    <li><a href="#antes">Antes e depois</a></li>
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#projetos">Projetos</a></li>
     <li><a href="#duvidas">Dúvidas</a></li>
@@ -474,7 +601,7 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
       <span class="esp">Para <span>médicos, dentistas, psicólogos, nutricionistas</span> e <span>fisioterapeutas</span></span>
     </div>
     <h1 class="h-hero" aria-label="Sites que viram consulta marcada.">
-      <span class="l"><span>Sites que viram <i class="pimg"><img src="img/retrato.jpg" alt=""></i></span></span>
+      <span class="l"><span>Sites que viram <i class="pimg" aria-hidden="true"><span class="tk on"><b class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b><span class="tx">Nova consulta<small>Qui · 14:00 · pelo site</small></span></span><span class="tk"><b class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b><span class="tx">Nova consulta<small>Sex · 09:30 · Google</small></span></span><span class="tk"><b class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b><span class="tx">Nova consulta<small>Seg · 16:00 · WhatsApp</small></span></span></i></span></span>
       <span class="l l2"><span><em>consulta</em> marcada.</span></span>
     </h1>
     <a class="seal up" href="#metodo" aria-label="Ver o método"><svg viewBox="0 0 200 200"><defs><path id="cpath" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text><textPath href="#cpath" textLength="486" lengthAdjust="spacing">Sites que viram consulta marcada · Web Clinic ·</textPath></text></svg><span><svg viewBox="0 0 32 32" fill="none"><path d="M3 17h7l2.4-6 3.6 12 3-8.5 1.6 2.5H29" stroke="#5AA2FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
@@ -512,6 +639,40 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
       <div class="up"><b>Feito pra agendar.</b>Cada seção tem um papel: gerar confiança e levar até o botão.</div>
       <div class="up"><b>Do seu lado.</b>Atendimento direto pelo WhatsApp, sem termos técnicos.</div>
     </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="ba wrap" id="antes">
+  <div class="sec-h">
+    <div><span class="lbl">Antes e depois</span></div>
+    <div><h2 class="sw">O mesmo consultório. <em>Dois sites.</em></h2><p class="up">Arraste e compare. De um lado, o site que a maioria dos consultórios tem. Do outro, o que o paciente encontra quando o site é feito pela Web Clinic.</p></div>
+  </div>
+  <div class="cmp-w up">
+    <div class="cmp-bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>drahelenaprado.com.br</span></div>
+    <div class="cmp" id="cmp" style="--x:50%">
+      <div class="cmp-a"><div class="old"><div class="old-in">
+<div class="o-top"><div class="o-logo">✚ Clínica Dermatológica<small>Dra. Helena Prado · Dermatologia Clínica, Cirúrgica e Estética</small></div><div class="o-tel">(51) 3333-0000<small>Agendamentos somente por telefone</small></div></div>
+<div class="o-menu"><span>Home</span><span>Quem Somos</span><span>Especialidades</span><span>Convênios</span><span>Galeria de Fotos</span><span>Fale Conosco</span></div>
+<div class="o-mq">*** SEJA BEM-VINDO(A) AO NOSSO SITE!!! *** ATENDEMOS DIVERSOS CONVÊNIOS *** CONSULTE-NOS ***</div>
+<div class="o-body"><div class="o-side"><img src="img/dermato.jpg" alt=""><div class="o-box"><b>Horário de atendimento</b>Segunda a sexta, das 8h às 12h e das 14h às 18h.</div><div class="o-box"><b>Notícias</b>Site atualizado em 12/03/2016.</div></div>
+<div class="o-txt"><h4>Bem-vindo à nossa clínica</h4><p>A Clínica Dermatológica Dra. Helena Prado atua na área de dermatologia clínica, cirúrgica e estética, oferecendo aos seus pacientes um atendimento de excelência com profissionais altamente qualificados e equipamentos de última geração para o tratamento das afecções cutâneas, anexiais e mucosas, bem como procedimentos dermatocosméticos diversos.</p>
+<p>Realizamos tratamentos para dermatoses inflamatórias, infecciosas, neoplásicas e discromias, além de procedimentos de laserterapia, peelings químicos, toxina botulínica, preenchimentos e muito mais. Consulte a nossa página de especialidades para maiores informações.</p>
+<p class="r">Para agendar sua consulta, entre em contato através de nossos telefones em horário comercial ou compareça pessoalmente ao nosso endereço.</p><p><u>Clique aqui</u> para ver como chegar.</p></div></div>
+<div class="o-foot">© Copyright 2014 · Todos os direitos reservados · Você é o visitante nº 004213 · Melhor visualizado em 1024x768</div></div></div></div>
+      <div class="cmp-b"><div class="ms " style="--bg:#F6F1EB;--fg:#2A2019;--ac:#8C5B3F;--soft:rgba(42,32,25,.62)"><div class="ms-in">
+<div class="ms-nav"><div class="nm">Helena Prado<small>Dermatologia</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
+<div class="ms-txt"><small>Dermatologia clínica e estética</small><h3>Pele saudável começa na <i>consulta certa.</i></h3><p>Diagnóstico cuidadoso, tratamento explicado sem pressa e acompanhamento de perto.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div><div class="ms-foot"><div><b>Particular</b>e convênios</div><div><b>Moinhos</b>Porto Alegre</div></div></div>
+<div class="ms-foto"><img src="img/dermato.jpg" alt="" loading="lazy" style="object-position:center 20%"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Quinta, 14:00</b></div></div></div>
+</div></div></div>
+      <div class="cmp-h"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
+      <i class="tag a">Site comum</i><i class="tag b">Site Web Clinic</i>
+    </div>
+  </div>
+  <div class="ba-n">
+    <div class="up"><s>Agendamento só por telefone, em horário comercial.</s><b>Botão de agendar em cada tela, 24 horas.</b></div>
+    <div class="up"><s>Texto técnico e foto que não diz nada.</s><b>Sua foto e uma linguagem que o paciente entende.</b></div>
+    <div class="up"><s>No celular, abre minúsculo e ninguém lê.</s><b>Feito primeiro pro celular, onde o paciente está.</b></div>
   </div>
 </section>
 
@@ -580,11 +741,49 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
     <div><span class="lbl">O que entregamos</span></div>
     <div><h2 class="sw">Tudo que leva do clique à <em>cadeira do consultório.</em></h2><p class="up">Não é só um site bonito. É um sistema simples, pensado do primeiro clique até a consulta na sua agenda.</p></div>
   </div>
-  <div class="rows">
-    <div class="row up"><span class="n">01</span><h3>Site sob medida</h3><p>Design exclusivo, textos que explicam sem jargão e um botão de agendar em cada página.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="row up"><span class="n">02</span><h3>Agenda online</h3><p>O paciente escolhe o horário e confirma sozinho, 24 horas por dia, sem ligar.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="row up"><span class="n">03</span><h3>Google e Maps</h3><p>Perfil da Empresa configurado pra você aparecer na busca e no mapa da sua região.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="row up"><span class="n">04</span><h3>WhatsApp integrado</h3><p>Um toque e o paciente fala com você, com a mensagem já escrita.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="row up"><span class="n">05</span><h3>Lembretes automáticos</h3><p>Confirmação e lembrete antes da consulta pra diminuir as faltas.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="row up"><span class="n">06</span><h3>Rápido, seguro e ético</h3><p>Leve no celular, com cadeado de segurança e textos dentro das regras do seu conselho.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  <div class="serv-g">
+    <div class="rows">
+      <div class="row up"><span class="n">01</span><h3>Site sob medida</h3><p>Design exclusivo, textos que explicam sem jargão e um botão de agendar em cada página.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sv-m"><div class="svc"><div class="card"><div class="mini-b"><i></i><i></i><i></i></div><div class="ms " style="--bg:#EDF3FA;--fg:#11304D;--ac:#3779C2;--soft:rgba(17,48,77,.62)"><div class="ms-in">
+<div class="ms-nav"><div class="nm">Lívia Moraes<small>Pediatria</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
+<div class="ms-txt"><small>Pediatria e puericultura</small><h3>Cuidado <i>desde o primeiro dia.</i></h3><p>Consultas tranquilas, orientação clara para os pais e atendimento que a criança gosta.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div></div>
+<div class="ms-foto"><img src="img/pediatria.jpg" alt="" loading="lazy" style="object-position:62% center"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Hoje, 16:30</b></div></div></div>
+</div></div></div></div></div></div><div class="row up"><span class="n">02</span><h3>Agenda online</h3><p>O paciente escolhe o horário e confirma sozinho, 24 horas por dia, sem ligar.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sv-m"><div class="svc"><div class="card"><div class="ag"><small style="font-size:10px;letter-spacing:.16em;color:#8C5B3F;font-weight:500">AGENDAR CONSULTA</small><h5>Dra. Helena Prado</h5><div class="s">Dermatologia · Consulta de 40 min</div>
+<div class="days"><div>Seg<b>10</b></div><div>Ter<b>11</b></div><div>Qua<b>12</b></div><div class="sel">Qui<b>13</b></div><div>Sex<b>14</b></div></div>
+<div class="hrs"><div>08:00</div><div class="x">09:00</div><div>10:30</div><div class="x">11:00</div><div class="sel">14:00</div><div>15:30</div></div><div class="go">Confirmar quinta, 14:00</div></div></div></div></div></div><div class="row up"><span class="n">03</span><h3>Google e Maps</h3><p>Perfil da Empresa configurado pra você aparecer na busca e no mapa da sua região.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sv-m"><div class="svc"><span class="badge">1º na busca</span><div class="card"><div class="g-top"><div class="g-q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>dermatologista perto de mim</span></div></div><div class="g-res"><div class="g-map"></div>
+<div class="g-card top"><b>Dra. Helena Prado · Dermatologia</b><span class="st">★★★★★</span> 4,9 · Aberto agora<div class="tg"><span>Site</span><span>Agendar online</span><span>Rota</span></div></div>
+<div class="g-card dim"><b>Clínica Pele &amp; Cia</b>Sem site · Fecha às 18h</div></div></div></div></div></div><div class="row up"><span class="n">04</span><h3>WhatsApp integrado</h3><p>Um toque e o paciente fala com você, com a mensagem já escrita.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sv-m"><div class="svc"><div class="card"><div class="wa"><div class="wa-h"><i></i><div><b>Dra. Helena Prado</b><small>online</small></div></div><div class="wa-b">
+<div class="bub me">Olá! Vim pelo site e quero agendar uma consulta.<small>10:12 ✓✓</small></div>
+<div class="bub">Oi! Que bom te ver por aqui 😊 Temos quinta às 14h ou sexta às 10h30. Qual fica melhor?<small>10:13</small></div>
+<div class="bub me">Quinta às 14h!<small>10:13 ✓✓</small></div>
+<div class="bub">Perfeito, está agendado. Te mando o lembrete um dia antes. 💙<small>10:14</small></div></div></div></div></div></div></div><div class="row up"><span class="n">05</span><h3>Lembretes automáticos</h3><p>Confirmação e lembrete antes da consulta pra diminuir as faltas.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sv-m"><div class="svc"><div class="nts"><div class="nt"><span class="ap"><svg viewBox="0 0 32 32" fill="none"><path d="M3 17h7l2.4-6 3.6 12 3-8.5 1.6 2.5H29" stroke="#5AA2FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Lembrete de consulta</b><span>Olá, Mariana! Sua consulta é amanhã, quinta, às 14h. Responda 1 para confirmar.</span></div><small>ontem</small></div>
+<div class="nt me" style="align-self:flex-end"><div><b style="font-size:20px">1</b></div><small>✓✓</small></div>
+<div class="nt ok"><span class="ap" style="background:#18A058"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>Presença confirmada</b><span>Mariana S. · Qui, 13/11 às 14h</span></div><small>agora</small></div></div></div></div></div><div class="row up"><span class="n">06</span><h3>Rápido, seguro e ético</h3><p>Leve no celular, com cadeado de segurança e textos dentro das regras do seu conselho.</p><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sv-m"><div class="svc"><div class="card"><div class="mini-b"><i></i><i></i><i></i></div><ul class="chk">
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg></span><div><b>Leve e rápido</b>Abre na hora, mesmo no 4G do paciente.</div></li>
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span><div><b>Feito pro celular</b>Pensado primeiro pra tela onde ele pesquisa.</div></li>
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Cadeado de segurança</b>Conexão protegida (HTTPS) em todas as páginas.</div></li>
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><b>Dentro das regras</b>Textos alinhados às normas do seu conselho.</div></li></ul></div></div></div></div>
+    </div>
+    <div class="svis" id="svis"><div class="sv"><div class="svc"><div class="card"><div class="mini-b"><i></i><i></i><i></i></div><div class="ms " style="--bg:#EDF3FA;--fg:#11304D;--ac:#3779C2;--soft:rgba(17,48,77,.62)"><div class="ms-in">
+<div class="ms-nav"><div class="nm">Lívia Moraes<small>Pediatria</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
+<div class="ms-txt"><small>Pediatria e puericultura</small><h3>Cuidado <i>desde o primeiro dia.</i></h3><p>Consultas tranquilas, orientação clara para os pais e atendimento que a criança gosta.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div></div>
+<div class="ms-foto"><img src="img/pediatria.jpg" alt="" loading="lazy" style="object-position:62% center"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Hoje, 16:30</b></div></div></div>
+</div></div></div></div></div><div class="sv"><div class="svc"><div class="card"><div class="ag"><small style="font-size:10px;letter-spacing:.16em;color:#8C5B3F;font-weight:500">AGENDAR CONSULTA</small><h5>Dra. Helena Prado</h5><div class="s">Dermatologia · Consulta de 40 min</div>
+<div class="days"><div>Seg<b>10</b></div><div>Ter<b>11</b></div><div>Qua<b>12</b></div><div class="sel">Qui<b>13</b></div><div>Sex<b>14</b></div></div>
+<div class="hrs"><div>08:00</div><div class="x">09:00</div><div>10:30</div><div class="x">11:00</div><div class="sel">14:00</div><div>15:30</div></div><div class="go">Confirmar quinta, 14:00</div></div></div></div></div><div class="sv"><div class="svc"><span class="badge">1º na busca</span><div class="card"><div class="g-top"><div class="g-q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>dermatologista perto de mim</span></div></div><div class="g-res"><div class="g-map"></div>
+<div class="g-card top"><b>Dra. Helena Prado · Dermatologia</b><span class="st">★★★★★</span> 4,9 · Aberto agora<div class="tg"><span>Site</span><span>Agendar online</span><span>Rota</span></div></div>
+<div class="g-card dim"><b>Clínica Pele &amp; Cia</b>Sem site · Fecha às 18h</div></div></div></div></div><div class="sv"><div class="svc"><div class="card"><div class="wa"><div class="wa-h"><i></i><div><b>Dra. Helena Prado</b><small>online</small></div></div><div class="wa-b">
+<div class="bub me">Olá! Vim pelo site e quero agendar uma consulta.<small>10:12 ✓✓</small></div>
+<div class="bub">Oi! Que bom te ver por aqui 😊 Temos quinta às 14h ou sexta às 10h30. Qual fica melhor?<small>10:13</small></div>
+<div class="bub me">Quinta às 14h!<small>10:13 ✓✓</small></div>
+<div class="bub">Perfeito, está agendado. Te mando o lembrete um dia antes. 💙<small>10:14</small></div></div></div></div></div></div><div class="sv"><div class="svc"><div class="nts"><div class="nt"><span class="ap"><svg viewBox="0 0 32 32" fill="none"><path d="M3 17h7l2.4-6 3.6 12 3-8.5 1.6 2.5H29" stroke="#5AA2FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Lembrete de consulta</b><span>Olá, Mariana! Sua consulta é amanhã, quinta, às 14h. Responda 1 para confirmar.</span></div><small>ontem</small></div>
+<div class="nt me" style="align-self:flex-end"><div><b style="font-size:20px">1</b></div><small>✓✓</small></div>
+<div class="nt ok"><span class="ap" style="background:#18A058"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>Presença confirmada</b><span>Mariana S. · Qui, 13/11 às 14h</span></div><small>agora</small></div></div></div></div><div class="sv"><div class="svc"><div class="card"><div class="mini-b"><i></i><i></i><i></i></div><ul class="chk">
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg></span><div><b>Leve e rápido</b>Abre na hora, mesmo no 4G do paciente.</div></li>
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span><div><b>Feito pro celular</b>Pensado primeiro pra tela onde ele pesquisa.</div></li>
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Cadeado de segurança</b>Conexão protegida (HTTPS) em todas as páginas.</div></li>
+<li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><b>Dentro das regras</b>Textos alinhados às normas do seu conselho.</div></li></ul></div></div></div></div>
   </div>
 </section>
-<div class="peek" id="peek"><img src="img/retrato.jpg" alt="" loading="lazy"><img src="img/consulta.jpg" alt="" loading="lazy"><img src="img/clinica.jpg" alt="" loading="lazy"><img src="img/psico.jpg" alt="" loading="lazy"><img src="img/pediatria.jpg" alt="" loading="lazy"><img src="img/odonto.jpg" alt="" loading="lazy"></div>
 
 <!-- PROJECTS -->
 <section class="proj" id="projetos">
@@ -593,30 +792,40 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
       <div><span class="lbl">Conceitos de layout</span><h2 class="sw">Um site com a cara de <em>cada especialidade.</em></h2></div>
       <div class="cnt"><b id="pn">01</b> <span>/ 05</span></div>
     </div>
-    <div class="wrap"><div class="track" id="track"><article class="case"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>drahelenaprado.com.br</span></div><div class="ms " style="--bg:#F6F1EB;--fg:#2A2019;--ac:#8C5B3F;--soft:rgba(42,32,25,.62)"><div class="ms-in">
+    <div class="wrap"><div class="track" id="track"><article class="case" tabindex="0" role="button" aria-label="Abrir conceito de Dermatologia" data-t="Dermatologia · Helena Prado" data-n="Conceito 01" data-e="Dermatologia"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>drahelenaprado.com.br</span></div><div class="ms " style="--bg:#F6F1EB;--fg:#2A2019;--ac:#8C5B3F;--soft:rgba(42,32,25,.62)"><div class="ms-in">
 <div class="ms-nav"><div class="nm">Helena Prado<small>Dermatologia</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
 <div class="ms-txt"><small>Dermatologia clínica e estética</small><h3>Pele saudável começa na <i>consulta certa.</i></h3><p>Diagnóstico cuidadoso, tratamento explicado sem pressa e acompanhamento de perto.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div><div class="ms-foot"><div><b>Particular</b>e convênios</div><div><b>Moinhos</b>Porto Alegre</div></div></div>
 <div class="ms-foto"><img src="img/dermato.jpg" alt="" loading="lazy" style="object-position:center 20%"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Quinta, 14:00</b></div></div></div>
-</div></div></div><div class="cap"><b>Dermatologia · Helena Prado</b><span>01 · Conceito</span></div></article><article class="case"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>draliviamoraes.com.br</span></div><div class="ms " style="--bg:#EDF3FA;--fg:#11304D;--ac:#3779C2;--soft:rgba(17,48,77,.62)"><div class="ms-in">
+</div></div></div><div class="cap"><b>Dermatologia · Helena Prado</b><span>01 · Abrir conceito ↗</span></div></article><article class="case" tabindex="0" role="button" aria-label="Abrir conceito de Pediatria" data-t="Pediatria · Lívia Moraes" data-n="Conceito 02" data-e="Pediatria"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>draliviamoraes.com.br</span></div><div class="ms " style="--bg:#EDF3FA;--fg:#11304D;--ac:#3779C2;--soft:rgba(17,48,77,.62)"><div class="ms-in">
 <div class="ms-nav"><div class="nm">Lívia Moraes<small>Pediatria</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
 <div class="ms-txt"><small>Pediatria e puericultura</small><h3>Cuidado <i>desde o primeiro dia.</i></h3><p>Consultas tranquilas, orientação clara para os pais e atendimento que a criança gosta.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div></div>
 <div class="ms-foto"><img src="img/pediatria.jpg" alt="" loading="lazy" style="object-position:62% center"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Hoje, 16:30</b></div></div></div>
-</div></div></div><div class="cap"><b>Pediatria · Lívia Moraes</b><span>02 · Conceito</span></div></article><article class="case"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>clinicasorrir.com.br</span></div><div class="ms " style="--bg:#ECF4F1;--fg:#0F3A33;--ac:#1E8A6F;--soft:rgba(15,58,51,.62)"><div class="ms-in">
+</div></div></div><div class="cap"><b>Pediatria · Lívia Moraes</b><span>02 · Abrir conceito ↗</span></div></article><article class="case" tabindex="0" role="button" aria-label="Abrir conceito de Odontologia" data-t="Odontologia · Clínica Sorrir" data-n="Conceito 03" data-e="Odontologia"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>clinicasorrir.com.br</span></div><div class="ms " style="--bg:#ECF4F1;--fg:#0F3A33;--ac:#1E8A6F;--soft:rgba(15,58,51,.62)"><div class="ms-in">
 <div class="ms-nav"><div class="nm">Clínica Sorrir<small>Odontologia</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
 <div class="ms-txt"><small>Odontologia para toda a família</small><h3>Sorriso <i>sem medo</i> de dentista.</h3><p>Atendimento acolhedor, tecnologia moderna e um plano de tratamento que você entende.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div></div>
 <div class="ms-foto"><img src="img/odonto.jpg" alt="" loading="lazy" style="object-position:center 25%"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Amanhã, 09:00</b></div></div></div>
-</div></div></div><div class="cap"><b>Odontologia · Clínica Sorrir</b><span>03 · Conceito</span></div></article><article class="case"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>anaribeiropsi.com.br</span></div><div class="ms " style="--bg:#F0EEE8;--fg:#2E3A2E;--ac:#667C58;--soft:rgba(46,58,46,.62)"><div class="ms-in">
+</div></div></div><div class="cap"><b>Odontologia · Clínica Sorrir</b><span>03 · Abrir conceito ↗</span></div></article><article class="case" tabindex="0" role="button" aria-label="Abrir conceito de Psicologia" data-t="Psicologia · Ana Ribeiro" data-n="Conceito 04" data-e="Psicologia"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>anaribeiropsi.com.br</span></div><div class="ms " style="--bg:#F0EEE8;--fg:#2E3A2E;--ac:#667C58;--soft:rgba(46,58,46,.62)"><div class="ms-in">
 <div class="ms-nav"><div class="nm">Ana Ribeiro<small>Psicologia</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
 <div class="ms-txt"><small>Psicoterapia para adultos</small><h3>Um lugar seguro <i>pra falar.</i></h3><p>Sessões presenciais e online, no seu tempo, com escuta de verdade.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div></div>
 <div class="ms-foto"><img src="img/psico.jpg" alt="" loading="lazy" style="object-position:center 30%"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Segunda, 19:00</b></div></div></div>
-</div></div></div><div class="cap"><b>Psicologia · Ana Ribeiro</b><span>04 · Conceito</span></div></article><article class="case"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>drpauloviana.com.br</span></div><div class="ms " style="--bg:#0F1B2C;--fg:#F1F4F9;--ac:#7FB2FF;--soft:rgba(241,244,249,.62)"><div class="ms-in">
+</div></div></div><div class="cap"><b>Psicologia · Ana Ribeiro</b><span>04 · Abrir conceito ↗</span></div></article><article class="case" tabindex="0" role="button" aria-label="Abrir conceito de Cardiologia" data-t="Cardiologia · Paulo Viana" data-n="Conceito 05" data-e="Cardiologia"><div class="bw"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>drpauloviana.com.br</span></div><div class="ms " style="--bg:#0F1B2C;--fg:#F1F4F9;--ac:#7FB2FF;--soft:rgba(241,244,249,.62)"><div class="ms-in">
 <div class="ms-nav"><div class="nm">Paulo Viana<small>Cardiologia</small></div><span>Tratamentos</span><span>Sobre</span><span>Contato</span><i class="ms-b">Agendar consulta</i></div>
 <div class="ms-txt"><small>Cardiologia e check-up</small><h3>Seu coração <i>em boas mãos.</i></h3><p>Avaliação completa, exames no consultório e acompanhamento contínuo.</p><div class="ms-row"><i class="ms-b ac">Agendar consulta</i><u>Falar no WhatsApp</u></div></div>
 <div class="ms-foto"><img src="img/cardio.jpg" alt="" loading="lazy" style="object-position:35% center"><div class="ms-card"><span class="dot"></span><div>Próximo horário<b>Sexta, 10:30</b></div></div></div>
-</div></div></div><div class="cap"><b>Cardiologia · Paulo Viana</b><span>05 · Conceito</span></div></article></div>
+</div></div></div><div class="cap"><b>Cardiologia · Paulo Viana</b><span>05 · Abrir conceito ↗</span></div></article></div>
     <p class="proj-note">Exemplos ilustrativos criados pela Web Clinic. Nomes e fotos fictícios.</p></div>
   </div>
 </section>
+
+<div class="mod" id="mod" aria-hidden="true">
+  <div class="mod-bg" data-x></div>
+  <div class="mod-in" role="dialog" aria-modal="true" aria-labelledby="modt">
+    <div class="mod-hd"><div><span class="lbl" id="modl">Conceito</span><h3 id="modt"></h3></div>
+      <div class="mod-a"><a class="btn mag" id="modz" href="#" target="_blank" rel="noopener">Quero um site assim<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button class="mod-x" data-x aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div>
+    <div class="mod-v"><div class="mod-d"><div class="cmp-bar"><i></i><i></i><i></i><span id="modu"></span></div><div class="mod-ds"></div></div>
+      <div class="phone mod-p"><div class="scr on"></div></div></div>
+  </div>
+</div>
 
 <!-- VIDEO -->
 <section class="vid dark">
@@ -664,11 +873,26 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   <div class="cta-in wrap">
     <span class="lbl" style="justify-content:center">Próximo passo</span>
     <h2 style="margin-top:26px" id="ctah"><span class="l"><span>Vamos encher</span></span><span class="l"><span>sua <em>agenda?</em></span></span></h2>
-    <a class="orb mag" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener" data-cur-hide><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.3-1.96 1.35-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.92-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.69-.17 1.37z"/></svg>Chamar no<br>WhatsApp</a>
+    <div class="cta-g">
+      <form class="lead up" id="lead" novalidate>
+        <h4>Análise gratuita do seu site</h4>
+        <p>Mande seus dados e a gente te mostra, sem compromisso, o que mudaria no seu site. Ainda não tem site? A gente analisa o seu Instagram.</p>
+        <div class="fl"><label>Seu nome<input name="nome" autocomplete="name" required placeholder="Como você se chama"></label>
+        <label>Especialidade<select name="esp" required><option value="">Escolha</option><option>Medicina (clínica geral)</option><option>Dermatologia</option><option>Pediatria</option><option>Cardiologia</option><option>Ginecologia</option><option>Ortopedia</option><option>Oftalmologia</option><option>Psiquiatria</option><option>Outra especialidade médica</option><option>Odontologia</option><option>Psicologia</option><option>Nutrição</option><option>Fisioterapia</option><option>Fonoaudiologia</option><option>Clínica com várias especialidades</option></select></label></div>
+        <div class="fl"><label>Cidade<input name="cidade" autocomplete="address-level2" placeholder="Onde fica o consultório"></label>
+        <label>Site ou Instagram atual<input name="link" placeholder="@seuperfil ou seusite.com.br"></label></div>
+        <button class="btn light" type="submit">Enviar pelo WhatsApp<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <small class="err" id="lerr"></small>
+      </form>
+      <div class="cta-side up">
+        <a class="orb mag" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.3-1.96 1.35-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.92-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.69-.17 1.37z"/></svg>Prefere<br>conversar?</a>
+        <p>Fale direto com a gente no WhatsApp, sem robô e sem termos técnicos.</p>
+      </div>
+    </div>
     <div class="cta-info"><span>WhatsApp <a href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener">(51) 98906-1441</a></span><span>Instagram <a href="https://instagram.com/webclinicbrasil" target="_blank" rel="noopener">@webclinicbrasil</a></span></div>
   </div>
   <footer class="foot wrap">
-    <div class="foot-r"><span>Web Clinic · Sites que viram consulta marcada</span><span><a href="https://instagram.com/webclinicbrasil" target="_blank" rel="noopener">Instagram</a> &nbsp;·&nbsp; <a href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener">WhatsApp</a> &nbsp;·&nbsp; © 2026 Web Clinic</span></div>
+    <div class="foot-r"><span>Web Clinic · Sites que viram consulta marcada. Este site também foi feito por nós.</span><span><a href="https://instagram.com/webclinicbrasil" target="_blank" rel="noopener">Instagram</a> &nbsp;·&nbsp; <a href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener">WhatsApp</a> &nbsp;·&nbsp; © 2026 Web Clinic</span></div>
     <div class="giant" aria-hidden="true">web<b>clinic</b></div>
   </footer>
 </section>
@@ -702,7 +926,7 @@ if(!hasG||reduce){
 gsap.registerPlugin(ScrollTrigger);
 
 /* smooth scroll */
-const lenis=new Lenis({lerp:.09,smoothWheel:true});
+const lenis=new Lenis({lerp:.09,smoothWheel:true});window.__lenis=lenis;
 lenis.on('scroll',ScrollTrigger.update);
 gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
 $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=$(a.getAttribute('href'));if(t){e.preventDefault();lenis.scrollTo(t,{offset:0,duration:1.6})}}));
@@ -767,7 +991,7 @@ if(fine){
   gsap.ticker.add(()=>{rx+=(mx-rx)*.16;ry+=(my-ry)*.16;c.style.transform=`translate(${mx-4}px,${my-4}px)`;r.style.transform=`translate(${rx-r.offsetWidth/2}px,${ry-r.offsetHeight/2}px)`});
   c.style.transform='none';
   $$('a,button,summary').forEach(a=>{a.addEventListener('mouseenter',()=>r.classList.add('hov'));a.addEventListener('mouseleave',()=>r.classList.remove('hov'))});
-  $$('.case').forEach(a=>{a.addEventListener('mouseenter',()=>{r.classList.add('big');r.textContent='Ver'});a.addEventListener('mouseleave',()=>{r.classList.remove('big');r.textContent=''})});
+  $$('.case').forEach(a=>{a.addEventListener('mouseenter',()=>{r.classList.add('big');r.textContent='Abrir'});a.addEventListener('mouseleave',()=>{r.classList.remove('big');r.textContent=''})});
   $$('.mag').forEach(b=>{b.addEventListener('mousemove',e=>{const q=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-q.left-q.width/2)*.28,y:(e.clientY-q.top-q.height/2)*.35,duration:.6,ease:'power3.out'})});b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:1,ease:'elastic.out(1,.4)'}))});
 }
 
@@ -780,13 +1004,26 @@ function initJourney(ST){
   ST.create({trigger:'#metodo',start:'top top',end:'bottom bottom',onUpdate:s=>{const x=s.progress*5;const i=Math.min(4,Math.floor(x));set(i,Math.min(1,x-i))}});
 }
 function initRest(){
-  /* services peek */
-  const pk=$('#peek'),imgs=$$('img',pk);
-  if(fine&&pk){let px=0,py=0,tx=0,ty=0;
-    $$('.row').forEach((r,i)=>{r.addEventListener('mouseenter',()=>{pk.classList.add('on');imgs.forEach((m,k)=>m.classList.toggle('on',k===i))});r.addEventListener('mouseleave',()=>pk.classList.remove('on'))});
-    addEventListener('mousemove',e=>{tx=e.clientX+190;ty=e.clientY});
-    const loop=()=>{px+=(tx-px)*.12;py+=(ty-py)*.12;pk.style.left=px+'px';pk.style.top=py+'px';requestAnimationFrame(loop)};loop();}
-  /* video */
+  const tks=$$('.tk');let ti=0;if(tks.length)setInterval(()=>{const a=tks[ti];a.classList.remove('on');a.classList.add('out');setTimeout(()=>a.classList.remove('out'),900);ti=(ti+1)%tks.length;tks[ti].classList.add('on')},2600);
+  const cmp=$('#cmp');if(cmp){let drag=false;const set=x=>{const r=cmp.getBoundingClientRect();cmp.style.setProperty('--x',Math.max(3,Math.min(97,(x-r.left)/r.width*100))+'%')};
+    cmp.addEventListener('pointerdown',e=>{drag=true;set(e.clientX)});addEventListener('pointermove',e=>{if(drag)set(e.clientX)});addEventListener('pointerup',()=>drag=false);
+    if(window.gsap&&window.ScrollTrigger&&!reduce){const o={x:88};cmp.style.setProperty('--x','88%');gsap.to(o,{x:50,duration:1.8,ease:'expo.inOut',onUpdate:()=>cmp.style.setProperty('--x',o.x+'%'),scrollTrigger:{trigger:cmp,start:'top 70%'}})}}
+  const rows=$$('.serv-g .row'),svs=$$('#svis .sv');const act=i=>{rows.forEach((r,k)=>r.classList.toggle('on',k===i));svs.forEach((v,k)=>v.classList.toggle('on',k===i))};
+  if(svs.length&&matchMedia('(min-width:901px)').matches){act(0);rows.forEach((r,i)=>{r.addEventListener('mouseenter',()=>act(i));if(window.ScrollTrigger)ScrollTrigger.create({trigger:r,start:'top 58%',end:'bottom 58%',onToggle:s=>{if(s.isActive)act(i)}})})}
+  const mod=$('#mod');if(mod){const ds=$('.mod-ds',mod),ph=$('.mod-p .scr',mod);
+    const open=c=>{ds.innerHTML='';ph.innerHTML='';ds.append($('.ms',c).cloneNode(true));ph.append($('.ms',c).cloneNode(true));$('#modt').textContent=c.dataset.t;$('#modl').textContent=c.dataset.n;$('#modu').innerHTML=$('.bar span',c).innerHTML;
+      $('#modz').href='https://wa.me/5551989061441?text='+encodeURIComponent('Olá! Vi o exemplo de site de '+c.dataset.e+' no site da Web Clinic e quero um assim pro meu consultório.');
+      mod.classList.add('open');mod.setAttribute('aria-hidden','false');window.__lenis&&window.__lenis.stop();setTimeout(()=>$('.mod-x',mod).focus({preventScroll:true}),300)};
+    const close=()=>{if(!mod.classList.contains('open'))return;mod.classList.remove('open');mod.setAttribute('aria-hidden','true');window.__lenis&&window.__lenis.start()};
+    $$('.case').forEach(c=>{c.addEventListener('click',()=>open(c));c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(c)}})});
+    $$('[data-x]',mod).forEach(x=>x.addEventListener('click',close));addEventListener('keydown',e=>{if(e.key==='Escape')close()})}
+  const f=$('#lead');if(f)f.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(f),err=$('#lerr');let ok=true;
+    ['nome','esp'].forEach(n=>{const el=f.elements[n];const bad=!String(d.get(n)||'').trim();el.classList.toggle('bad',bad);if(bad)ok=false});
+    if(!ok){err.textContent='Preencha seu nome e a especialidade.';return}err.textContent='';
+    const t=['Olá! Quero a análise gratuita do meu site.','','Nome: '+d.get('nome').trim(),'Especialidade: '+d.get('esp')];
+    if(String(d.get('cidade')).trim())t.push('Cidade: '+d.get('cidade').trim());if(String(d.get('link')).trim())t.push('Site ou Instagram: '+d.get('link').trim());
+    window.open('https://wa.me/5551989061441?text='+encodeURIComponent(t.join('\n')),'_blank','noopener')});
+  /* video player */
   const v=$('#vd'),b=$('#snd');
   if(v){new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
     b.addEventListener('click',()=>{v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play()}b.innerHTML=v.muted?`<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M11 5L6 9H3v6h3l5 4V5z'/><path d='M22 9l-6 6M16 9l6 6'/></svg>`:`<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M11 5L6 9H3v6h3l5 4V5z'/><path d='M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14'/></svg>`;b.setAttribute('aria-label',v.muted?'Ligar som':'Desligar som')})}

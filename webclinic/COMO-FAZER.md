@@ -67,6 +67,7 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
 ## Site (webclinic/site) — v2
 - Direção v2 (ele achou a v1 "com cara de template de IA"): editorial, tipografia gigante Poppins + **Instrument Serif itálico** só nas palavras de destaque, fotos reais (Pexels), sem degradê no texto, sem grade de cards com ícone, sem rótulos "001".
 - Movimento: abertura com linha de batimento, rolagem suave (Lenis), GSAP ScrollTrigger: site do topo cresce até tela cheia, jornada presa (pesquisa → site → agenda → WhatsApp → consulta marcada), projetos na horizontal, cursor e botões magnéticos.
+- v3 (ele pediu "faz as coisas fazerem sentido, é um site pra vender site"): antes e depois arrastável (site comum x Web Clinic), serviços com a tela de cada um num painel fixo, projetos clicáveis (abre o exemplo no computador e no celular + "Quero um site assim" no WhatsApp), formulário de análise gratuita que monta a mensagem do WhatsApp, notificação "Nova consulta" girando no título.
 - Tudo local (sem CDN): `js/` (gsap 3.12.5, ScrollTrigger, lenis 1.1.13), `fonts/`, `img/` (fotos + vídeo "sobre nós").
 - Fonte: `gerador/site-v2-modelo.html` + `gerador/site2.py` (sites de exemplo por especialidade, serviços, FAQ, WhatsApp). Gerar: `cd gerador && python3 site2.py`.
 - Testar local: `cd site && python3 -m http.server` (por file:// as fontes não carregam).
