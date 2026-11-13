@@ -36,11 +36,10 @@ contato=f'''<!doctype html><html><head><meta charset="utf-8">{STY}</head><body>
 jobs=[]
 for nome,ic,posts in DEST:
     k=nome.lower(); open(f'perfil-html/capa-{k}.html','w').write(capa(nome,ic)); jobs.append((f'capa-{k}.html',f'destaques/capa-{k}.png'))
-    for j,n in enumerate(posts,1):
-        open(f'perfil-html/story-{k}-{j}.html','w').write(story(n,nome)); jobs.append((f'story-{k}-{j}.html',f'destaques/story-{k}-{j}.png'))
-open('perfil-html/story-contato-1.html','w').write(contato); jobs.append(('story-contato-1.html','destaques/story-contato-1.png'))
 open('perfil-jobs.txt','w').write('\n'.join(a+' '+b for a,b in jobs))
-STORIES={nome:[b for a,b in jobs if b.startswith(f'destaques/story-{nome.lower()}-')] for nome,_,_ in DEST}
+# stories v2: desenhados em stories.py (renderizados por shots.js e copiados como destaques/story-NOME-N.png)
+_sj=open('stories-jobs.txt').read().split()
+STORIES={nome:[f'destaques/story-{h[:-5]}.png' for h in _sj if h.startswith(nome.lower()+'-')] for nome,_,_ in DEST}
 
 # ---------- PDF ----------
 def esc(s): return html.escape(s).replace('\n','<br>')
@@ -106,7 +105,7 @@ pages.append(f'''<div class="pg">{top("DESTAQUES · 1/2")}<div class="k">DESTAQU
 <li>Segurar o destaque → <b>Editar destaque → Editar capa</b> → escolher <b>capa-NOME.png</b> da galeria. Centralizar (o círculo já está no meio).</li>
 <li>Ordem no perfil: <b>Sobre, Sites, Agenda, Dicas, Contato</b> (o mais recente fica à esquerda: criar na ordem inversa, começando por Contato).</li></ol></div>
 <div class="val" style="margin-top:18px;font-size:18px;color:{C}">Obs.: no manual de marca havia "Resultados"; troquei por <b style="color:{A}">Agenda</b> porque ainda não há resultados reais de clientes para mostrar.</div></div>''')
-rows=''.join(f'<div class="bx" style="padding:16px 22px"><div class="lab">{nome.upper()} · capa-{nome.lower()}.png</div><div class="val" style="font-size:17px">'+(', '.join(s.split("/")[-1] for s in STORIES[nome]))+(f' <span style="color:{C}">(posts {", ".join(f"{n:02d}" for n in posts)})</span>' if posts else ' <span style="color:{C}">(story de contato)</span>')+'</div></div>' for nome,_,posts in DEST)
+rows=''.join(f'<div class="bx" style="padding:16px 22px"><div class="lab">{nome.upper()} · capa-{nome.lower()}.png</div><div class="val" style="font-size:17px">'+(', '.join(s.split("/")[-1] for s in STORIES[nome]))+'</div></div>' for nome,_,posts in DEST)
 pages.append(f'''<div class="pg">{top("DESTAQUES · 2/2")}<div class="k">STORIES DE CADA DESTAQUE</div><h1 style="margin-top:12px">Quais stories<b>vão em cada um.</b></h1>
 <div style="display:flex;flex-direction:column;gap:12px;margin-top:30px">{rows}</div>
 <div class="bx" style="margin-top:18px;padding:16px 22px"><div class="lab">ONDE ESTÃO OS ARQUIVOS</div><div class="val" style="font-size:17px">Pasta <b>webclinic/perfil/destaques/</b> do repositório DOTAGENCIA (1080 × 1920).<br><span class="url">{RAW}destaques/NOME-DO-ARQUIVO.png</span></div></div>

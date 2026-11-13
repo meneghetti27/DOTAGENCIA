@@ -56,5 +56,10 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
 - `perfil/webclinic-configurar-perfil.pdf`: instruções para quem configura o perfil (outro Claude / Business Suite): ordem das tarefas,
   foto, nome/bio/categoria/link para copiar, prévia, 5 destaques (Sobre, Sites, Agenda, Dicas, Contato) e quais stories vão em cada um.
 - `perfil/foto-perfil.png` (1080×1080) e `perfil/destaques/` (capas `capa-*.png` + stories `story-*.png`, 1080×1920).
-- Gerar de novo: `cd gerador && python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
+- Stories dos destaques (v2, aprovados como direção: "mais visual"): `gerador/stories.py`, desenhados direto em 9:16, pouco texto,
+  vetores grandes, mockups de site/celular/agenda, fundos alternando gelo, navy e azul, indicador de página no topo.
+  Área segura: nada importante acima de y=220 nem abaixo de y=1680 (interface do Instagram).
+- JPEG por destaque em `perfil/destaques-jpeg/1-sobre … 5-contato/` (0-capa.jpg + story-N.jpg) e zip `perfil/webclinic-destaques-jpeg.zip`.
+- Gerar de novo: `cd gerador && python3 stories.py && node shots.js out-st && for f in out-st/*.png; do cp $f ../perfil/destaques/story-$(basename $f); done`
+  e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Pendências do dono: @ definitivo (artes usam @webclinic) e link da bio / botão de contato (WhatsApp ou site).
