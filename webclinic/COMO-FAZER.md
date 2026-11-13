@@ -64,7 +64,10 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
 
-## Site (webclinic/site) — v5 (atual)
+## Site (webclinic/site) — v6 (atual)
+- v6 ("sobe mais um nível"): o problema virou cena presa no scroll: três sites empilhados, o 1º fica carregando (cronômetro até 3,8 s) e leva carimbo "Fechou", o 2º (site antigo do Dr. Marcos Lima, fictício) leva "Fechou", o 3º é o da Victoria e chega "Nova consulta marcada". O topo encolhe num cartão ao rolar e as seções escuras entram como folhas arredondadas. Fonte: `gerador/site-v6-modelo.html` + `gerador/site6.py`.
+
+### v5
 - v5 (ele: "título com qualidade baixa", "site muito grande, deve ter um objetivo"): título WebGL nítido (resolução cheia, sem aberração de cor parado, sem demo automática). Narrativa única: problema (números) → a diferença (antes e depois) → como a gente faz (site nascendo) → a prova (case Victoria) → o que você recebe → quem somos (vídeo) → dúvidas → contato. Saíram a faixa de especialidades, a jornada do paciente e o "como funciona". Fonte: `gerador/site-v5-modelo.html` + `gerador/site5.py`.
 
 ### v4

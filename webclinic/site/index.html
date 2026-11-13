@@ -627,6 +627,70 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   .build{height:400vh}
 }
 
+/* ===================== V6 ===================== */
+/* cena: três sites */
+.tri{height:430vh;position:relative}
+.t-st{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(320px,.85fr) 1.5fr;gap:clamp(30px,5vw,90px);align-items:center;padding:90px var(--gut) 40px}
+.t-l{position:relative;z-index:3}
+.t-caps{position:relative;height:clamp(250px,34vh,330px);margin-top:22px}
+.tcap{position:absolute;inset:0;opacity:0;transform:translateY(34px);transition:opacity .5s var(--ease),transform .9s var(--ease);pointer-events:none}
+.tcap.on{opacity:1;transform:none}.tcap.out{opacity:0;transform:translateY(-34px)}
+.tcap h2{font-weight:400;font-size:clamp(36px,3.9vw,66px);line-height:1;letter-spacing:-.055em}
+.tcap h2 em{color:var(--blue);letter-spacing:-.02em}
+.tcap h2 em.x{color:#D9483B}
+.tcap p{margin-top:22px;max-width:400px;color:var(--ink2);font-size:16.5px}
+.tcap small{display:block;margin-top:12px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.t-dots{display:flex;gap:8px;margin-top:8px}
+.t-dots i{flex:0 0 40px;height:3px;border-radius:2px;background:var(--line);position:relative;overflow:hidden}
+.t-dots i::after{content:"";position:absolute;inset:0;background:var(--blue);transform:scaleX(var(--p,0));transform-origin:left}
+.t-r{position:relative;height:100%;display:grid;place-items:center}
+.t-stack{position:relative;width:100%;max-width:880px;aspect-ratio:16/12.6}
+.tw{position:absolute;left:0;right:0;bottom:0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 50px 100px -40px rgba(11,31,58,.45),0 0 0 1px rgba(11,31,58,.08);transform-origin:50% 100%;will-change:transform}
+.tw-bar{height:38px;display:flex;align-items:center;gap:7px;padding:0 14px;background:#EEF1F5;border-bottom:1px solid #E1E6ED;position:relative}
+.tw-bar i{width:10px;height:10px;border-radius:50%;background:#D5DBE4}
+.tw-bar .u{margin-left:14px;flex:1;max-width:60%;height:24px;border-radius:7px;background:#fff;display:flex;align-items:center;gap:6px;padding:0 10px;font-size:12px;color:#6B7789;white-space:nowrap;overflow:hidden}
+.tw-bar .tm{margin-left:auto;font-size:12px;font-weight:600;color:#D9483B;font-variant-numeric:tabular-nums;opacity:0}
+.tw-bar .xx{position:absolute;right:10px;top:7px;width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:#41526A;font-size:16px;line-height:1}
+.tw-c{position:relative;aspect-ratio:16/10;container-type:size;overflow:hidden;background:#fff}
+.tw-c>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.ld .pb{position:absolute;left:0;top:0;height:3px;width:100%;background:#2D7FF0;transform:scaleX(var(--pb,0));transform-origin:left}
+.ld .sp{position:absolute;left:50%;top:44%;width:5cqw;height:5cqw;margin:-2.5cqw;border-radius:50%;border:.5cqw solid #E6EAF0;border-top-color:#9AA6B6;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ld .sk{position:absolute;inset:6cqw 8cqw auto;display:grid;gap:2.4cqw}
+.ld .sk i{display:block;height:2.6cqw;border-radius:.6cqw;background:linear-gradient(90deg,#F0F2F6 0%,#F7F8FA 50%,#F0F2F6 100%);background-size:200% 100%;animation:shim 1.4s linear infinite}
+.ld .sk i:nth-child(1){width:30%}.ld .sk i:nth-child(2){width:62%;height:5cqw}.ld .sk i:nth-child(3){width:48%}
+.ld .sk i:nth-child(4){height:20cqw;width:100%;margin-top:2cqw}
+@keyframes shim{to{background-position:-200% 0}}
+.ld .msg{position:absolute;left:0;right:0;top:57%;text-align:center;font-size:max(11px,1.5cqw);color:#9AA6B6}
+.stamp{position:absolute;left:50%;top:52%;z-index:4;font-family:Poppins,sans-serif;transform:translate(-50%,-50%) rotate(-8deg) scale(1.6);opacity:0;font-style:normal;font-weight:600;font-size:clamp(22px,3.4vw,46px);letter-spacing:-.03em;color:#D9483B;border:3px solid #D9483B;border-radius:14px;padding:.1em .5em;background:rgba(255,255,255,.88);white-space:nowrap}
+.tw .toast{position:absolute;right:3%;top:5%;z-index:3;width:min(330px,40%);display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.95);color:#111;border-radius:16px;padding:12px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.4);opacity:0;transform:translateY(-16px)}
+.tw .toast .ap{flex:none;width:34px;height:34px;border-radius:10px;background:#5A0E12;display:grid;place-items:center;color:#fff}
+.tw .toast .ap svg{width:55%;height:55%}
+.tw .toast b{display:block;font-size:13.5px;font-weight:600;line-height:1.3}
+.tw .toast span{font-size:12px;color:#555;line-height:1.35;display:block}
+.tw .clk{position:absolute;width:22px;z-index:5;left:20%;top:80%;opacity:0;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+
+/* transição do topo: vira cartão */
+.hero4{transform-origin:50% 100%;will-change:transform}
+/* folhas arredondadas */
+.build,.vid,.cta{border-radius:44px 44px 0 0;margin-top:-44px;overflow:clip;z-index:2}
+.vid,.cta{position:relative}
+.case4{border-radius:0 0 44px 44px;overflow:clip;position:relative;z-index:2}
+
+@media (max-width:900px){
+  .tri{height:400vh}
+  .t-st{grid-template-columns:1fr;align-content:center;gap:16px;padding-top:76px;padding-bottom:20px}
+  .t-caps{height:200px;margin-top:12px}
+  .tcap h2{font-size:clamp(30px,8.4vw,40px)}
+  .tcap p{font-size:14.5px;margin-top:12px}
+  .t-r{height:auto}
+  .t-stack{aspect-ratio:16/13}
+  .tw-bar{height:30px}.tw-bar .u{height:20px;font-size:10.5px}
+  .tw .toast{width:62%;padding:8px 10px;gap:8px;border-radius:12px}.tw .toast b{font-size:11.5px}.tw .toast span{font-size:10.5px}.tw .toast .ap{width:26px;height:26px}
+  .build,.vid,.cta{border-radius:28px 28px 0 0;margin-top:-28px}
+  .case4{border-radius:0 0 28px 28px}
+}
+
 /* ===== responsive ===== */
 @media (max-width:1100px){
   .nav ul{display:none}
@@ -728,15 +792,40 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   </div>
 </section>
 
-<!-- MANIFESTO -->
-<section class="mani wrap">
-  <div><span class="lbl">O problema</span></div>
-  <div>
-    <p class="big" id="big">Antes de marcar, todo paciente pesquisa. Ele abre três sites em menos de um minuto e escolhe quem passa mais confiança. Quem tem site antigo, lento ou nenhum, nem entra na disputa. <em>A gente faz o seu ser o escolhido.</em></p>
-    <div class="sig">
-      <div class="up"><b>0,05<small>s</small></b><p>é o tempo que o paciente leva pra formar a primeira impressão do seu site.</p><span>Lindgaard et al., 2006</span></div>
-      <div class="up"><b>53<small>%</small></b><p>desistem de um site que demora mais de 3 segundos pra abrir no celular.</p><span>Google</span></div>
-      <div class="up"><b>24<small>h</small></b><p>por dia a sua agenda fica aberta, mesmo com o consultório fechado.</p><span>Agenda online Web Clinic</span></div>
+<!-- PROBLEMA: três sites -->
+<section class="tri" id="problema">
+  <div class="t-st">
+    <div class="t-l">
+      <span class="lbl">O problema</span>
+      <div class="t-caps">
+        <div class="tcap on"><h2>Antes de marcar, todo paciente <em>pesquisa.</em></h2><p>Ele abre três sites em menos de um minuto. E só um vai ganhar a consulta.</p></div>
+        <div class="tcap"><h2>O primeiro demora. <em class="x">Fechou.</em></h2><p>Mais da metade das pessoas desiste de um site que leva mais de 3 segundos pra abrir no celular.</p><small>53% · Google</small></div>
+        <div class="tcap"><h2>O segundo parece abandonado. <em class="x">Fechou.</em></h2><p>Em cinco centésimos de segundo ele já decidiu se confia ou não. Antes de ler uma linha.</p><small>0,05 s · Lindgaard et al., 2006</small></div>
+        <div class="tcap"><h2>O terceiro passa confiança. <em>Agendou.</em></h2><p>Rápido, bonito, com a cara de quem atende e o botão de agendar à mão. É esse site que a Web Clinic faz.</p></div>
+      </div>
+      <div class="t-dots" id="tdots"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="t-r">
+      <div class="t-stack" id="tstack">
+        <div class="tw" id="tw3"><div class="tw-bar"><i></i><i></i><i></i><span class="u"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>Dra. Victoria Oss-Emer · Rinoplastia</span><span class="xx">×</span></div>
+          <div class="tw-c"><picture><source media="(max-width:900px)" srcset="img/victoria/hero.jpg"><img src="img/victoria/hero.jpg" alt="Site da Dra. Victoria, feito pela Web Clinic"></picture></div>
+          <div class="toast" id="ttoast"><span class="ap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>Nova consulta marcada</b><span>Avaliação de rinoplastia · Qui, 14h · pelo site</span></div></div>
+        </div>
+        <div class="tw" id="tw2"><div class="tw-bar"><i></i><i></i><i></i><span class="u">http://www.drmarcoslima.med.br/index.php?pag=home</span><span class="xx">×</span></div>
+          <div class="tw-c"><div class="old"><div class="old-in">
+<div class="o-top"><div class="o-logo">✚ Dr. Marcos Lima<small>Otorrinolaringologia · Cirurgia Nasal e Facial</small></div><div class="o-tel">(61) 3333-0000<small>Agendamentos somente por telefone</small></div></div>
+<div class="o-menu"><span>Home</span><span>Currículo</span><span>Procedimentos</span><span>Convênios</span><span>Galeria de Fotos</span><span>Fale Conosco</span></div>
+<div class="o-mq">*** SEJA BEM-VINDO(A) AO NOSSO SITE!!! *** ATENDEMOS DIVERSOS CONVÊNIOS *** CONSULTE-NOS ***</div>
+<div class="o-body"><div class="o-side"><img src="img/retrato.jpg" alt=""><div class="o-box"><b>Horário de atendimento</b>Segunda a sexta, das 8h às 12h e das 14h às 18h.</div><div class="o-box"><b>Notícias</b>Site atualizado em 04/08/2015.</div></div>
+<div class="o-txt"><h4>Bem-vindo ao nosso site</h4><p>O Dr. Marcos Lima atua na área de otorrinolaringologia, realizando o diagnóstico e o tratamento clínico e cirúrgico das afecções do nariz, seios paranasais, faringe, laringe e ouvidos, com atendimento de excelência e equipamentos de última geração.</p>
+<p>Realizamos procedimentos de rinosseptoplastia, turbinectomia, septoplastia, sinusectomia, adenoamigdalectomia e demais cirurgias otorrinolaringológicas. Consulte a nossa página de procedimentos para maiores informações.</p>
+<p class="r">Para agendar sua consulta, entre em contato através de nossos telefones em horário comercial ou compareça pessoalmente ao nosso endereço.</p><p><u>Clique aqui</u> para ver como chegar.</p></div></div>
+<div class="o-foot">© Copyright 2014 · Todos os direitos reservados · Você é o visitante nº 004213 · Melhor visualizado em 1024x768</div></div></div></div><em class="stamp">Fechou</em>
+        </div>
+        <div class="tw" id="tw1"><div class="tw-bar"><i></i><i></i><i></i><span class="u">clinicasaudeintegrada.com.br</span><b class="tm" id="ttm">0,0 s</b></div>
+          <div class="tw-c ld" id="tld"><span class="pb"></span><div class="sk"><i></i><i></i><i></i><i></i></div><span class="sp"></span><span class="msg">Carregando…</span></div><em class="stamp">Fechou</em>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -978,6 +1067,31 @@ gsap.from('.nav',{y:-30,opacity:0,duration:1.2,ease:'expo.out',delay:.2});
 gsap.to('.hero4 .up',{opacity:1,y:0,duration:1.3,ease:'expo.out',stagger:.08,delay:.5});
 const mm=gsap.matchMedia();
 
+/* cena três sites */
+(()=>{const caps=$$('.tcap'),dots=$$('#tdots i'),ld=$('#tld'),tm=$('#ttm');let cur=-1;
+  const set=(i,p)=>{if(i!==cur){caps.forEach((c,k)=>{c.classList.toggle('on',k===i);c.classList.toggle('out',k<i)});cur=i}dots.forEach((d,k)=>d.style.setProperty('--p',k<i?1:k===i?p:0))};
+  const P=[{y:'0%',scale:1},{y:'-11%',scale:.94},{y:'-21%',scale:.88}];
+  gsap.set('#tw1',{...P[0],zIndex:3});gsap.set('#tw2',{...P[1],zIndex:2});gsap.set('#tw3',{...P[2],zIndex:1});
+  const o={t:0};
+  const t=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#problema',start:'top top',end:'bottom bottom',scrub:.6,
+    onUpdate:s=>{const x=Math.min(3.999,s.progress*4);set(Math.floor(x),x-Math.floor(x))}}});
+  t.from('#tstack .tw',{yPercent:30,opacity:0,rotate:(i)=>[-4,3,-2][i],duration:.6,stagger:.12,ease:'power2.out'},0)
+   .to('#ttm',{opacity:1,duration:.1},1)
+   .to(o,{t:3.8,duration:.8,onUpdate:()=>{tm.textContent=o.t.toFixed(1).replace('.',',')+' s';ld.style.setProperty('--pb',(o.t/3.8*.62).toFixed(3))}},1)
+   .to('#tw1 .stamp',{opacity:1,scale:1,duration:.15,ease:'back.out(2)'},1.72)
+   .to('#tw1',{xPercent:-55,yPercent:70,rotate:-16,opacity:0,duration:.3,ease:'power2.in'},1.88)
+   .to('#tw2',{...P[0],duration:.3,ease:'power2.out'},1.9).set('#tw2',{zIndex:4},1.9)
+   .to('#tw3',{...P[1],duration:.3,ease:'power2.out'},1.9)
+   .to('#tw2 .stamp',{opacity:1,scale:1,duration:.15,ease:'back.out(2)'},2.72)
+   .to('#tw2',{xPercent:55,yPercent:70,rotate:14,opacity:0,duration:.3,ease:'power2.in'},2.88)
+   .to('#tw3',{...P[0],duration:.3,ease:'power2.out'},2.9).set('#tw3',{zIndex:5},2.9)
+   .to('#ttoast',{opacity:1,y:0,duration:.2,ease:'power2.out'},3.35)
+   .to({},{duration:.45},3.55);
+})();
+
+/* topo vira cartão quando a próxima cena sobe */
+mm.add('(min-width:901px)',()=>{gsap.to('.hero4',{scale:.9,borderRadius:40,opacity:.5,ease:'none',scrollTrigger:{trigger:'.hero4',start:'top top',end:'bottom top',scrub:true}})});
+
 /* build timeline */
 (()=>{const steps=$$('.bstep'),bars=$$('#bbar i');let cur=-1;
   const set=(i,p)=>{if(i!==cur){steps.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('out',k<i)});cur=i}bars.forEach((b,k)=>b.style.setProperty('--p',k<i?1:k===i?p:0))};
@@ -1021,12 +1135,11 @@ $$('.lbl').forEach(el=>{if(el.closest('.hero4'))return;const txt=el.textContent;
 const nav=$('#nav');
 ScrollTrigger.create({start:80,end:'max',onToggle:s=>nav.classList.toggle('min',s.isActive)});
 $$('.dark').forEach(sec=>ScrollTrigger.create({trigger:sec,start:'top 40px',end:'bottom 40px',onToggle:s=>nav.classList.toggle('on-dark',s.isActive)}));
-ScrollTrigger.create({trigger:'.mani',start:'top bottom',end:'max',onToggle:s=>$('#fz').classList.toggle('on',s.isActive)});
+ScrollTrigger.create({trigger:'#problema',start:'top bottom',end:'max',onToggle:s=>$('#fz').classList.toggle('on',s.isActive)});
 
 /* reveals */
 $$('.up').forEach(el=>{if(el.closest('.hero4'))return;gsap.to(el,{opacity:1,y:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 88%'}})});
 $$('.sw').forEach(el=>gsap.to($$('.w>span',el),{y:0,yPercent:0,duration:1.2,ease:'expo.out',stagger:.04,scrollTrigger:{trigger:el,start:'top 85%'}}));
-gsap.to('#big .w',{opacity:1,stagger:.08,ease:'none',scrollTrigger:{trigger:'#big',start:'top 78%',end:'bottom 52%',scrub:true}});
 gsap.from('#ctah .l>span',{yPercent:110,duration:1.3,ease:'expo.out',stagger:.1,scrollTrigger:{trigger:'#ctah',start:'top 80%'}});
 gsap.from('.giant',{yPercent:40,ease:'none',scrollTrigger:{trigger:'.foot',start:'top bottom',end:'bottom bottom',scrub:true}});
 
