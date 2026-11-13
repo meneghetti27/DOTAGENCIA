@@ -87,6 +87,8 @@ Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
 
 Sites que convertem para médicos. Tudo em **`webclinic/`**: receita em **`webclinic/COMO-FAZER.md`**,
 40 posts aprovados em `webclinic/posts/`, gerador em `webclinic/gerador/`, guia para o dono em `webclinic/guia/`.
+Também em `webclinic/`: **perfil** (`perfil/`: foto, destaques e stories em PNG/JPEG, `destaques-sequencia/` na ordem de postar, PDFs de configuração e **`textos.md` com bio e legenda do vídeo fixado**), **vídeo "sobre nós"** (`video/`, Remotion; entregue = `video/out/webclinic-apresentacao-v2-entregue.mp4`) e **site** (`site/`, aprovado na v6; gerar com `cd webclinic/gerador && python3 site6.py`; Vercel com Root Directory `webclinic/site`).
+No site, o único exemplo de cliente é a **Dra. Victoria** (prints em `site/img/victoria/`). Histórico de versões e o que ele rejeitou: `webclinic/COMO-FAZER.md`.
 Fundo **claro** (branco/gelo), azul `#2D7FF0` + navy, Poppins, vetores 2D próprios, fotos do Pexels.
 As regras de fundo escuro / League Gothic / Anton deste arquivo valem **só para a dot**.
 

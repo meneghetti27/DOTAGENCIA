@@ -64,7 +64,7 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
 
-## Site (webclinic/site) — v6 (atual)
+## Site (webclinic/site) — v6 (atual, APROVADO em 13/11/2026)
 - v6 ("sobe mais um nível"): o problema virou cena presa no scroll: três sites empilhados, o 1º fica carregando (cronômetro até 3,8 s) e leva carimbo "Fechou", o 2º (site antigo do Dr. Marcos Lima, fictício) leva "Fechou", o 3º é o da Victoria e chega "Nova consulta marcada". O topo encolhe num cartão ao rolar e as seções escuras entram como folhas arredondadas. Fonte: `gerador/site-v6-modelo.html` + `gerador/site6.py`.
 
 ### v5
@@ -85,3 +85,9 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
 - `og.png` = print do topo em 1200x630.
 - Vercel: importar o repositório com **Root Directory = `webclinic/site`** (sem build). Depois do domínio, trocar `og:image` para URL absoluta.
 - v1 guardada em `historico/site-v1` (gerador `site-v1.py`).
+
+
+## Textos do perfil
+- Bio e legenda do vídeo fixado: `perfil/textos.md`.
+- Destaques na ordem de postar: `perfil/destaques-sequencia/`.
+- Vídeo entregue: `video/out/webclinic-apresentacao-v2-entregue.mp4`.
