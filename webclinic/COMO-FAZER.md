@@ -51,3 +51,10 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
 - Gerar de novo: `cd gerador && python3 postar.py && node pdf.js "$PWD/postar.html" "$PWD/../posts/webclinic-40-posts-como-postar.pdf"`
   (`page.pdf` do Chromium = texto copiável). Legendas, hashtags e datas ficam no topo de `postar.py`.
 - Regra do dono: **só Instagram** (Facebook desmarcado), feed, 1 imagem 4:5. Arte e números são exemplos ilustrativos.
+
+## Perfil do Instagram (foto, bio, destaques)
+- `perfil/webclinic-configurar-perfil.pdf`: instruções para quem configura o perfil (outro Claude / Business Suite): ordem das tarefas,
+  foto, nome/bio/categoria/link para copiar, prévia, 5 destaques (Sobre, Sites, Agenda, Dicas, Contato) e quais stories vão em cada um.
+- `perfil/foto-perfil.png` (1080×1080) e `perfil/destaques/` (capas `capa-*.png` + stories `story-*.png`, 1080×1920).
+- Gerar de novo: `cd gerador && python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
+- Pendências do dono: @ definitivo (artes usam @webclinic) e link da bio / botão de contato (WhatsApp ou site).
