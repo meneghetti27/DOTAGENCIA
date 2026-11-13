@@ -64,7 +64,10 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
 
-## Site (webclinic/site) — v4 (atual)
+## Site (webclinic/site) — v5 (atual)
+- v5 (ele: "título com qualidade baixa", "site muito grande, deve ter um objetivo"): título WebGL nítido (resolução cheia, sem aberração de cor parado, sem demo automática). Narrativa única: problema (números) → a diferença (antes e depois) → como a gente faz (site nascendo) → a prova (case Victoria) → o que você recebe → quem somos (vídeo) → dúvidas → contato. Saíram a faixa de especialidades, a jornada do paciente e o "como funciona". Fonte: `gerador/site-v5-modelo.html` + `gerador/site5.py`.
+
+### v4
 - v4 (ele pediu nível internacional, "coisas absurdas que geram curiosidade"): refeito do zero. Topo em **WebGL** (luz azul viva + título que distorce como líquido no mouse/dedo), seção "Como um site nasce" (o site da Dra. Victoria se monta no scroll: wireframe → tipografia → foto → identidade → botão + consulta marcada), case real com o site inteiro rolando no computador e no celular, números com fonte que contam, rótulos que se decodificam.
 - **Usar só o site da Dra. Victoria como exemplo** (artifact https://claude.ai/artifact/GgoPnPAcY8DoAKQ3pdr8xp). Prints em `site/img/victoria/`. Ele odiou os 5 sites de exemplo iguais, o preloader, o cursor customizado e o bloco "Só saúde". Ele amou a seção do vídeo (escura): é a régua de qualidade.
 - Fonte v4: `gerador/site-v4-modelo.html` + `gerador/site4.py` → `cd gerador && python3 site4.py`.
