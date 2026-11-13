@@ -64,12 +64,17 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
 
-## Site (webclinic/site) — v2
+## Site (webclinic/site) — v4 (atual)
+- v4 (ele pediu nível internacional, "coisas absurdas que geram curiosidade"): refeito do zero. Topo em **WebGL** (luz azul viva + título que distorce como líquido no mouse/dedo), seção "Como um site nasce" (o site da Dra. Victoria se monta no scroll: wireframe → tipografia → foto → identidade → botão + consulta marcada), case real com o site inteiro rolando no computador e no celular, números com fonte que contam, rótulos que se decodificam.
+- **Usar só o site da Dra. Victoria como exemplo** (artifact https://claude.ai/artifact/GgoPnPAcY8DoAKQ3pdr8xp). Prints em `site/img/victoria/`. Ele odiou os 5 sites de exemplo iguais, o preloader, o cursor customizado e o bloco "Só saúde". Ele amou a seção do vídeo (escura): é a régua de qualidade.
+- Fonte v4: `gerador/site-v4-modelo.html` + `gerador/site4.py` → `cd gerador && python3 site4.py`.
+
+### Histórico v2/v3
 - Direção v2 (ele achou a v1 "com cara de template de IA"): editorial, tipografia gigante Poppins + **Instrument Serif itálico** só nas palavras de destaque, fotos reais (Pexels), sem degradê no texto, sem grade de cards com ícone, sem rótulos "001".
 - Movimento: abertura com linha de batimento, rolagem suave (Lenis), GSAP ScrollTrigger: site do topo cresce até tela cheia, jornada presa (pesquisa → site → agenda → WhatsApp → consulta marcada), projetos na horizontal, cursor e botões magnéticos.
 - v3 (ele pediu "faz as coisas fazerem sentido, é um site pra vender site"): antes e depois arrastável (site comum x Web Clinic), serviços com a tela de cada um num painel fixo, projetos clicáveis (abre o exemplo no computador e no celular + "Quero um site assim" no WhatsApp), formulário de análise gratuita que monta a mensagem do WhatsApp, notificação "Nova consulta" girando no título.
 - Tudo local (sem CDN): `js/` (gsap 3.12.5, ScrollTrigger, lenis 1.1.13), `fonts/`, `img/` (fotos + vídeo "sobre nós").
-- Fonte: `gerador/site-v2-modelo.html` + `gerador/site2.py` (sites de exemplo por especialidade, serviços, FAQ, WhatsApp). Gerar: `cd gerador && python3 site2.py`.
+- Fonte v3 (antiga): `gerador/site-v2-modelo.html` + `gerador/site2.py` (sites de exemplo por especialidade, serviços, FAQ, WhatsApp). Gerar: `cd gerador && python3 site2.py`.
 - Testar local: `cd site && python3 -m http.server` (por file:// as fontes não carregam).
 - `og.png` = print do topo em 1200x630.
 - Vercel: importar o repositório com **Root Directory = `webclinic/site`** (sem build). Depois do domínio, trocar `og:image` para URL absoluta.

@@ -97,7 +97,7 @@ html:not(.js) #pre{display:none}
 .h-hero .l{display:block;overflow:hidden;padding-bottom:.06em}
 .h-hero .l>span{display:block}
 .h-hero .l2{padding-left:16%}
-.pimg{display:inline-block;width:1.6em;height:.74em;border-radius:99px;overflow:hidden;vertical-align:-.02em;margin-left:.06em;position:relative;background:var(--ink);font-style:normal;box-shadow:0 30px 60px -30px rgba(11,31,58,.6)}
+.pimg{display:inline-block;width:1.6em;height:.74em;border-radius:99px;overflow:hidden;vertical-align:-.02em;margin-left:.06em;position:relative;background:var(--ink);font-style:normal}
 .tk{position:absolute;inset:0;display:flex;align-items:center;gap:.08em;padding:0 .1em;transform:translateY(100%);opacity:0;transition:transform .9s var(--ease),opacity .6s}
 .tk.on{transform:none;opacity:1}.tk.out{transform:translateY(-100%);opacity:0}
 .tk .ic{flex:none;width:.5em;height:.5em;border-radius:50%;background:var(--blue);display:grid;place-items:center;box-shadow:0 0 0 .06em rgba(45,127,240,.25)}
@@ -179,9 +179,12 @@ html:not(.js) #pre{display:none}
 .mani .big{font-size:clamp(28px,3.9vw,62px);line-height:1.12;letter-spacing:-.04em;font-weight:400;text-indent:12%}
 .mani .big em{color:var(--blue);letter-spacing:-.015em}
 html.js .mani .w{opacity:.13}
-.mani .sig{margin-top:clamp(40px,6vh,70px);display:flex;gap:clamp(30px,6vw,90px);flex-wrap:wrap}
-.mani .sig div{font-size:14px;color:var(--ink2);max-width:240px;border-top:1px solid var(--line);padding-top:16px}
-.mani .sig b{display:block;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:44px;line-height:1;color:var(--ink);margin-bottom:8px}
+.mani .sig{margin-top:clamp(50px,8vh,90px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px)}
+.mani .sig div{border-top:1px solid var(--line);padding-top:22px}
+.mani .sig p{font-size:15px;color:var(--ink2);max-width:280px;margin-top:14px}
+.mani .sig span{display:block;margin-top:14px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.mani .sig b{display:block;font-weight:400;font-size:clamp(56px,6vw,96px);line-height:.9;letter-spacing:-.06em;color:var(--ink)}
+.mani .sig b small{font-size:.42em;letter-spacing:-.02em;color:var(--blue);margin-left:.06em}
 
 /* before / after */
 .ba{padding-top:clamp(40px,6vh,80px);padding-bottom:clamp(100px,15vh,170px)}
@@ -548,7 +551,7 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   .frame{clip-path:inset(3% var(--gut) 3% var(--gut) round 22px)}
   .url-pill{top:calc(3% + 12px);font-size:11px}
   .mani .big{text-indent:0}
-  .mani .sig b{font-size:36px}
+  .mani .sig{grid-template-columns:1fr;gap:30px}
   .row,.serv-g .row{grid-template-columns:40px 1fr;gap:6px 12px;align-items:start}
   .serv-g .row .ar{display:none}
   .cmp .tag{top:auto;bottom:12px;font-size:11px;padding:6px 10px}.cmp .tag.a{left:12px}.cmp .tag.b{right:12px}
@@ -578,7 +581,6 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   <div class="bt"><div class="num"><span id="pc">0</span></div><div class="wm">web<b>clinic</b></div></div>
 </div>
 
-<div class="cur"></div><div class="cur-r"></div>
 
 <header class="nav" id="nav">
   <a href="#topo" class="logo" aria-label="Web Clinic, início"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="currentColor" opacity=".08"/><path d="M5 17h6l2.4-6 3.6 12 3-8.5 1.6 2.5H27" stroke="#2D7FF0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>web<b>clinic</b></span></a>
@@ -631,9 +633,9 @@ html.js .sw .w>span{display:inline-block;transform:translateY(105%)}
   <div>
     <p class="big" id="big">Antes de marcar, todo paciente pesquisa. Ele abre três sites em menos de um minuto e escolhe quem passa mais confiança. Quem tem site antigo, lento ou nenhum, nem entra na disputa. <em>A gente faz o seu ser o escolhido.</em></p>
     <div class="sig">
-      <div class="up"><b>Só saúde.</b>A gente fala a língua do consultório e da decisão do paciente.</div>
-      <div class="up"><b>Feito pra agendar.</b>Cada seção tem um papel: gerar confiança e levar até o botão.</div>
-      <div class="up"><b>Do seu lado.</b>Atendimento direto pelo WhatsApp, sem termos técnicos.</div>
+      <div class="up"><b>0,05<small>s</small></b><p>é o tempo que o paciente leva pra formar a primeira impressão do seu site.</p><span>Lindgaard et al., 2006</span></div>
+      <div class="up"><b>53<small>%</small></b><p>desistem de um site que demora mais de 3 segundos pra abrir no celular.</p><span>Google</span></div>
+      <div class="up"><b>24<small>h</small></b><p>por dia a sua agenda fica aberta, mesmo com o consultório fechado.</p><span>Agenda online Web Clinic</span></div>
     </div>
   </div>
 </section>
@@ -910,12 +912,6 @@ initJourney(ScrollTrigger);initRest();
 
 /* cursor + magnetic */
 if(fine){
-  const c=$('.cur'),r=$('.cur-r');let mx=-100,my=-100,rx=-100,ry=-100;
-  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-  gsap.ticker.add(()=>{rx+=(mx-rx)*.16;ry+=(my-ry)*.16;c.style.transform=`translate(${mx-4}px,${my-4}px)`;r.style.transform=`translate(${rx-r.offsetWidth/2}px,${ry-r.offsetHeight/2}px)`});
-  c.style.transform='none';
-  $$('a,button,summary').forEach(a=>{a.addEventListener('mouseenter',()=>r.classList.add('hov'));a.addEventListener('mouseleave',()=>r.classList.remove('hov'))});
-  $$('.case').forEach(a=>{a.addEventListener('mouseenter',()=>{r.classList.add('big');r.textContent='Abrir'});a.addEventListener('mouseleave',()=>{r.classList.remove('big');r.textContent=''})});
   $$('.mag').forEach(b=>{b.addEventListener('mousemove',e=>{const q=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-q.left-q.width/2)*.28,y:(e.clientY-q.top-q.height/2)*.35,duration:.6,ease:'power3.out'})});b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:1,ease:'elastic.out(1,.4)'}))});
 }
 
