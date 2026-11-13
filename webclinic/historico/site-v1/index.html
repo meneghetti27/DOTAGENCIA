@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Clinic · Sites que viram consulta marcada</title>
+<meta name="description" content="A Web Clinic cria sites para médicos e profissionais da saúde que viram consulta marcada: agenda online 24h, Google e WhatsApp a um toque.">
+<meta name="theme-color" content="#050B1C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Web Clinic · Sites que viram consulta marcada">
+<meta property="og:description" content="Sites para médicos e profissionais da saúde, com agenda online 24h, Google e WhatsApp a um toque.">
+<meta property="og:image" content="og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#2D7FF0; --azul2:#5AA2FF; --navy:#0B1F3A; --noite:#050B1C; --mascara:#CFE6F7; --gelo:#EEF5FC; --cinza:#6B7A90; --coral:#FA5F6D;
+  --borda:#E2EAF4;
+  --sombra:0 60px 110px -40px rgba(11,31,58,.45), 0 22px 44px -20px rgba(45,127,240,.38);
+  --sombra-leve:0 30px 60px -30px rgba(11,31,58,.35), 0 10px 24px -14px rgba(45,127,240,.3);
+  --grad:linear-gradient(100deg,#7DB8FF 0%,#2D7FF0 60%,#1F66D1 100%);
+  --raio:28px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:Poppins,system-ui,sans-serif;color:var(--navy);background:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video,svg{display:block;max-width:100%}
+.wrap{width:min(1200px,100% - 48px);margin:0 auto}
+.k{font-size:13px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--azul);display:inline-flex;align-items:center;gap:12px}
+.k i{font-style:normal;color:var(--cinza);letter-spacing:.1em}
+.h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.045em;font-weight:300;margin-top:18px}
+.h2 b{font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--cinza);max-width:560px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:12px;height:62px;padding:0 30px;border-radius:99px;font-weight:600;font-size:17px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.btn-p{background:linear-gradient(180deg,#5AA2FF,#2D7FF0 60%,#2470DC);color:#fff;box-shadow:0 18px 40px -14px rgba(45,127,240,.85),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 26px 50px -14px rgba(45,127,240,.95),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn-g{color:#fff;border:1.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.05);backdrop-filter:blur(10px)}
+.btn-g:hover{background:rgba(255,255,255,.12);transform:translateY(-3px)}
+.btn svg{width:22px;height:22px}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* revelar no scroll */
+.rv{opacity:0;transform:translateY(40px);filter:blur(8px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1),filter 1s}
+.rv.on{opacity:1;transform:none;filter:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
+
+/* ---------- topo ---------- */
+.top{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s,box-shadow .4s,backdrop-filter .4s}
+.top .wrap{display:flex;align-items:center;height:84px;gap:28px}
+.top.sc{background:rgba(5,11,28,.72);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.marca{display:flex;align-items:center;gap:12px;color:#fff;font-weight:600;font-size:20px;letter-spacing:-.02em}
+.marca .lg{display:block;width:42px;height:42px;border-radius:50%;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.nav{display:flex;gap:30px;margin-left:auto;font-size:15px;color:rgba(255,255,255,.72)}
+.nav a:hover{color:#fff}
+.top .btn{height:48px;font-size:15px;padding:0 22px}
+.menu-m{display:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;background:radial-gradient(1200px 700px at 78% 30%,rgba(45,127,240,.38),transparent 65%),radial-gradient(900px 600px at 10% 110%,rgba(90,162,255,.25),transparent 70%),linear-gradient(180deg,#040917 0%,#071433 60%,#0B1F3A 100%);color:#fff;overflow:hidden;padding:150px 0 110px}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center}
+.agora{display:inline-flex;align-items:center;gap:12px;padding:10px 18px 10px 14px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);font-size:14px;color:rgba(255,255,255,.8)}
+.agora .dot{width:10px;height:10px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 0 rgba(250,95,109,.6);animation:ping 1.8s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(250,95,109,.55)}80%,100%{box-shadow:0 0 0 12px rgba(250,95,109,0)}}
+.agora b{color:#fff;font-weight:600}
+.cur{display:inline-block;width:2px;height:1em;background:var(--azul2);margin-left:2px;vertical-align:-2px;animation:pisca 1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.hero h1{max-width:600px;font-size:clamp(42px,4.8vw,70px);line-height:.98;letter-spacing:-.05em;font-weight:300;margin-top:28px}
+.hero h1 b{display:block;font-weight:700;background:linear-gradient(100deg,#FFFFFF 0%,#BFDCFF 40%,#5AA2FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 40px rgba(45,127,240,.35))}
+.hero .lead{color:rgba(255,255,255,.7);max-width:520px}
+.hero .ctas{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.hero .esp{margin-top:34px;font-size:14px;color:rgba(255,255,255,.5);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hero .esp span{padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.12)}
+
+/* palco 3D */
+.palco{position:relative;height:640px;perspective:2200px}
+.palco .cena{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(calc(-14deg + var(--mx,0)*8deg)) rotateX(calc(8deg + var(--my,0)*-6deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.nav-b{position:absolute;left:-10px;top:60px;width:500px;border-radius:24px;overflow:hidden;background:#fff;color:var(--navy);box-shadow:0 80px 140px -40px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);transform:translateZ(0)}
+.barra{height:48px;background:var(--gelo);display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid var(--borda)}
+.barra i{width:11px;height:11px;border-radius:50%}
+.barra .url{margin-left:12px;flex:1;height:28px;border-radius:99px;background:#fff;border:1px solid var(--borda);font-size:12px;color:var(--cinza);display:flex;align-items:center;padding:0 14px;gap:6px}
+.site{padding:28px 30px 30px;display:grid;grid-template-columns:1fr 150px;gap:22px}
+.site .tg{font-size:10px;font-weight:600;letter-spacing:.22em;color:var(--azul)}
+.site h4{font-size:30px;line-height:1.04;letter-spacing:-.035em;font-weight:300;margin:10px 0 16px}
+.site h4 b{font-weight:700}
+.ln{height:9px;border-radius:6px;background:var(--gelo);margin-bottom:8px}
+.mini-btn{display:inline-block;white-space:nowrap;margin-top:16px;padding:12px 20px;border-radius:99px;background:linear-gradient(180deg,#5AA2FF,#2D7FF0);color:#fff;font-size:13px;font-weight:600;box-shadow:0 10px 20px -8px rgba(45,127,240,.8)}
+.foto{border-radius:18px;background:linear-gradient(160deg,var(--gelo),var(--mascara));display:grid;place-items:center}
+.site .tiles{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.site .tiles div{height:74px;border-radius:16px;background:var(--gelo);display:grid;place-items:center}
+.cel{position:absolute;right:-20px;top:170px;width:250px;height:510px;border-radius:44px;padding:10px;background:linear-gradient(160deg,#2A3A57,#0B1F3A 40%,#050B1C);box-shadow:0 90px 150px -40px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.25),0 0 80px rgba(90,162,255,.25);transform:translateZ(120px)}
+.cel .tela{width:100%;height:100%;border-radius:35px;background:#fff;overflow:hidden;position:relative;color:var(--navy);padding:46px 16px 0}
+.cel .ilha{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:22px;border-radius:12px;background:var(--navy)}
+.cel h5{font-size:10px;letter-spacing:.2em;color:var(--azul);font-weight:600}
+.cel .nm{font-size:19px;font-weight:700;letter-spacing:-.02em;margin:2px 0 12px}
+.dias{display:flex;gap:5px;margin-bottom:12px}
+.dias div{flex:1;text-align:center;padding:7px 0;border-radius:12px;background:var(--gelo);font-size:9px;color:var(--cinza)}
+.dias div b{display:block;font-size:15px;color:var(--navy)}
+.dias .on{background:var(--azul);color:rgba(255,255,255,.75)} .dias .on b{color:#fff}
+.hor{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.hor div{padding:9px 0;text-align:center;border-radius:11px;border:1px solid var(--borda);font-size:12px;font-weight:500}
+.hor .x{color:#B5C0D0}
+.hor .on{background:var(--azul);color:#fff;border-color:var(--azul);box-shadow:0 8px 16px -6px rgba(45,127,240,.8)}
+.cel .conf{margin-top:12px;padding:12px;border-radius:99px;text-align:center;font-weight:600;font-size:13px;color:#fff;background:linear-gradient(180deg,#5AA2FF,#2D7FF0)}
+.chip{position:absolute;display:flex;align-items:center;gap:14px;padding:14px 20px 14px 14px;border-radius:22px;background:rgba(255,255,255,.96);color:var(--navy);box-shadow:0 40px 70px -24px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.5);font-weight:600;font-size:15px;line-height:1.2;white-space:nowrap}
+.chip small{display:block;font-weight:400;font-size:12px;color:var(--cinza)}
+.chip .ic{width:46px;height:46px;border-radius:14px;background:var(--gelo);display:grid;place-items:center}
+.c1{left:30px;top:420px;transform:translateZ(180px);animation:flutua 6s ease-in-out infinite}
+.c2{left:120px;top:-10px;transform:translateZ(90px);animation:flutua 7s ease-in-out infinite -2s}
+.c3{right:-30px;top:590px;transform:translateZ(220px);animation:flutua 6.5s ease-in-out infinite -4s}
+@keyframes flutua{50%{translate:0 -12px}}
+.bloco{position:absolute;border-radius:28%;background:linear-gradient(150deg,#fff,#EEF5FC 55%,#CFE6F7);display:grid;place-items:center;box-shadow:inset 0 3px 5px rgba(255,255,255,.9),0 30px 50px -16px rgba(0,0,0,.55)}
+.b1{width:110px;height:110px;left:40px;top:520px;filter:blur(6px);transform:translateZ(260px) rotate(-12deg)}
+.b2{width:84px;height:84px;left:330px;top:-30px;transform:translateZ(40px) rotate(10deg)}
+.rola{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);font-size:12px;letter-spacing:.24em;color:rgba(255,255,255,.4);display:flex;flex-direction:column;align-items:center;gap:10px}
+.rola i{width:1px;height:42px;background:linear-gradient(rgba(255,255,255,.5),transparent);animation:desce 2s infinite}
+@keyframes desce{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- faixa de especialidades ---------- */
+.faixa{background:var(--noite);border-top:1px solid rgba(255,255,255,.06);padding:26px 0;overflow:hidden;color:rgba(255,255,255,.62)}
+.faixa .trilho{display:flex;gap:56px;width:max-content;animation:corre 40s linear infinite}
+.faixa span{display:flex;align-items:center;gap:14px;font-size:17px;white-space:nowrap}
+.faixa span svg{width:30px;height:30px}
+@keyframes corre{to{transform:translateX(-50%)}}
+
+/* ---------- seções claras ---------- */
+section{position:relative}
+.sec{padding:140px 0}
+.clara{background:linear-gradient(180deg,#fff 0%,var(--gelo) 100%)}
+.cab{max-width:760px}
+.cab.c{margin:0 auto;text-align:center}
+.cab.c .lead{margin-left:auto;margin-right:auto}
+
+/* problema: você x concorrente */
+.duelo{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.res{perspective:1800px;position:relative;height:520px}
+.r{position:absolute;left:0;right:0;border-radius:24px;padding:26px 30px;background:#fff;box-shadow:var(--sombra-leve);display:flex;gap:18px;align-items:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),filter 1.2s,opacity 1.2s}
+.r .n{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-weight:700;font-size:22px;background:var(--gelo);color:var(--cinza);flex:none}
+.r h6{font-size:20px;font-weight:600;letter-spacing:-.01em}
+.r p{font-size:14px;color:var(--cinza);margin-top:2px}
+.r .tag{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.18em;padding:7px 12px;border-radius:99px;white-space:nowrap}
+.r1{top:40px;z-index:3}.r2{top:200px;z-index:2}.r3{top:360px;z-index:1}
+.r1 .n{background:linear-gradient(160deg,#5AA2FF,#2D7FF0);color:#fff}
+.r1 .tag{background:rgba(250,95,109,.12);color:var(--coral)}
+.r2 .tag{background:var(--gelo);color:var(--cinza)}
+.res.on .r1{transform:translateZ(70px) rotateX(6deg);box-shadow:var(--sombra),0 0 0 3px var(--coral)}
+.res.on .r2,.res.on .r3{transform:translateZ(-80px) rotateX(6deg);filter:grayscale(1) blur(2px);opacity:.55}
+.res .ok{position:absolute;right:-24px;top:-18px;z-index:5;opacity:0;transform:scale(.6);transition:all .8s cubic-bezier(.2,1.4,.3,1) .9s}
+.res.on .ok{opacity:1;transform:none}
+.lista-x{margin-top:34px;display:grid;gap:14px}
+.lista-x div{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.5}
+.lista-x svg{flex:none;width:28px;height:28px;margin-top:1px}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:22px;margin-top:70px}
+.card{position:relative;border-radius:var(--raio);background:#fff;border:1px solid var(--borda);padding:34px;overflow:hidden;box-shadow:var(--sombra-leve);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.card:hover{transform:translateY(-6px);box-shadow:var(--sombra)}
+.card h3{font-size:26px;letter-spacing:-.03em;font-weight:600;margin-top:22px}
+.card p{font-size:15.5px;line-height:1.6;color:var(--cinza);margin-top:10px;max-width:420px}
+.card .ico{width:64px;height:64px;border-radius:20px;background:linear-gradient(150deg,#fff,var(--gelo) 60%,var(--mascara));display:grid;place-items:center;box-shadow:inset 0 2px 3px #fff,0 14px 24px -12px rgba(11,31,58,.35)}
+.s4{grid-column:span 4}.s2{grid-column:span 2}.s3{grid-column:span 3}
+.card.escura{background:radial-gradient(600px 400px at 80% 0%,rgba(45,127,240,.45),transparent 70%),linear-gradient(160deg,#0B1F3A,#050B1C);color:#fff;border-color:rgba(255,255,255,.06)}
+.card.escura p{color:rgba(255,255,255,.62)}
+.card.escura .ico{background:rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.ui{margin-top:30px}
+.ui-site{display:flex;gap:18px;align-items:flex-end}
+.ui-site .nav-b{position:relative;top:0;width:100%;box-shadow:var(--sombra-leve);border:1px solid var(--borda)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slots div{padding:13px 0;text-align:center;border-radius:14px;font-size:15px;font-weight:500;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.85);background:rgba(255,255,255,.04)}
+.slots .on{background:linear-gradient(180deg,#5AA2FF,#2D7FF0);border-color:transparent;color:#fff;box-shadow:0 10px 24px -10px rgba(45,127,240,.9)}
+.mapa{height:180px;border-radius:20px;background:linear-gradient(160deg,var(--gelo),#DCEBFB);position:relative;overflow:hidden}
+.mapa svg.ruas{position:absolute;inset:0;width:100%;height:100%}
+.mapa .pin{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);filter:drop-shadow(0 12px 12px rgba(11,31,58,.3));animation:pula 2.6s cubic-bezier(.3,1.6,.5,1) infinite}
+@keyframes pula{0%,60%,100%{translate:0 0}30%{translate:0 -14px}}
+.mapa .um{position:absolute;right:14px;top:14px;padding:6px 14px;border-radius:99px;background:linear-gradient(180deg,#5AA2FF,#2D7FF0);color:#fff;font-weight:700;font-size:14px}
+.bolha{display:inline-flex;align-items:center;gap:12px;padding:16px 20px;border-radius:6px 22px 22px 22px;background:var(--gelo);font-size:15px}
+.bolha.eu{margin-left:auto;border-radius:22px 6px 22px 22px;background:#DCEBFB}
+.conv{display:flex;flex-direction:column;gap:10px}
+.lemb{border-radius:20px;border:1px solid var(--borda);padding:18px;font-size:14.5px;line-height:1.5}
+.lemb .bt{display:flex;gap:10px;margin-top:14px}
+.lemb .bt span{flex:1;text-align:center;padding:11px;border-radius:12px;font-weight:600;font-size:14px;border:1px solid var(--borda)}
+.lemb .bt span:first-child{background:var(--azul);border-color:var(--azul);color:#fff}
+.gauge{display:flex;align-items:center;gap:22px}
+.gauge b{font-size:44px;letter-spacing:-.04em}
+
+/* como funciona */
+.passos{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:80px;position:relative}
+.passos .linha{position:absolute;left:4%;right:4%;top:46px;height:120px;pointer-events:none}
+.passos .linha path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
+.passos.on .linha path{stroke-dashoffset:0}
+.passo{position:relative;z-index:1}
+.passo .num{width:92px;height:92px;border-radius:30px;background:linear-gradient(150deg,#fff,var(--gelo) 60%,var(--mascara));display:grid;place-items:center;box-shadow:inset 0 2px 3px #fff,var(--sombra-leve)}
+.passo .k{margin-top:28px}
+.passo h3{font-size:24px;letter-spacing:-.03em;font-weight:600;margin-top:8px}
+.passo p{font-size:15.5px;line-height:1.6;color:var(--cinza);margin-top:8px}
+
+/* vídeo */
+.escura-sec{background:radial-gradient(900px 600px at 20% 30%,rgba(45,127,240,.35),transparent 65%),linear-gradient(180deg,#071433,#050B1C);color:#fff;overflow:hidden}
+.escura-sec .lead{color:rgba(255,255,255,.65)}
+.video-g{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.celv{position:relative;width:340px;height:680px;margin:0 auto;border-radius:56px;padding:12px;background:linear-gradient(160deg,#2A3A57,#0B1F3A 40%,#050B1C);box-shadow:0 100px 160px -40px rgba(0,0,0,.85),0 0 120px rgba(45,127,240,.35),inset 0 1px 0 rgba(255,255,255,.25);transform:perspective(2000px) rotateY(-12deg) rotateX(6deg)}
+.celv video{width:100%;height:100%;object-fit:cover;border-radius:44px;background:#000}
+.som{position:absolute;right:30px;bottom:34px;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.4);display:grid;place-items:center;cursor:pointer;color:#fff}
+.som svg{width:24px;height:24px}
+
+/* exemplos */
+.vitrine{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:70px;perspective:2000px}
+.vitrine .nav-b{position:relative;top:0;width:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1),box-shadow .7s;box-shadow:var(--sombra-leve);border:1px solid var(--borda)}
+.vitrine .nav-b:hover{transform:translateY(-10px) rotateX(4deg);box-shadow:var(--sombra)}
+.vitrine .site{grid-template-columns:1fr 110px;padding:24px}
+.vitrine .site h4{font-size:22px;min-height:70px}
+.nota{text-align:center;font-size:13px;color:var(--cinza);margin-top:26px}
+
+/* porquê */
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:70px}
+.tres .card h3{font-size:24px}
+
+/* faq */
+.faq{max-width:860px;margin:70px auto 0}
+details{border-bottom:1px solid var(--borda);padding:28px 4px}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:20px;font-weight:600;letter-spacing:-.02em}
+summary::-webkit-details-marker{display:none}
+summary i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--gelo);position:relative;transition:transform .4s,background .4s}
+summary i:before,summary i:after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--azul);transform:translate(-50%,-50%)}
+summary i:after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .4s}
+details[open] summary i{background:var(--azul)}
+details[open] summary i:before,details[open] summary i:after{background:#fff}
+details[open] summary i:after{transform:translate(-50%,-50%) rotate(0)}
+details p{font-size:17px;line-height:1.7;color:var(--cinza);margin-top:16px;max-width:720px}
+
+/* fecho */
+.fecho{text-align:center;padding:170px 0 150px}
+.fecho .lg{width:150px;height:150px;margin:0 auto;border-radius:50%;box-shadow:0 0 120px rgba(45,127,240,.7),0 40px 80px -20px rgba(0,0,0,.6)}
+.fecho h2{font-size:clamp(46px,7vw,96px);line-height:.98;letter-spacing:-.05em;font-weight:300;margin-top:44px}
+.fecho h2 b{display:block;font-weight:700;background:linear-gradient(100deg,#fff,#BFDCFF 40%,#5AA2FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fecho .ctas{display:flex;gap:14px;justify-content:center;margin-top:46px;flex-wrap:wrap}
+.fecho .info{margin-top:30px;color:rgba(255,255,255,.55);font-size:15px}
+.aneis{position:absolute;left:50%;top:230px;transform:translate(-50%,-50%);pointer-events:none}
+.aneis i{position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(90,162,255,.25);transform:translate(-50%,-50%);animation:anel 6s ease-out infinite}
+@keyframes anel{0%{width:150px;height:150px;opacity:.9}100%{width:900px;height:900px;opacity:0}}
+
+footer{background:#03070F;color:rgba(255,255,255,.5);font-size:14px;padding:46px 0}
+footer .wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+footer .marca{font-size:17px}
+footer nav{margin-left:auto;display:flex;gap:24px}
+footer a:hover{color:#fff}
+
+.zap{position:fixed;right:24px;bottom:24px;z-index:60;width:64px;height:64px;border-radius:50%;background:linear-gradient(180deg,#5AA2FF,#2D7FF0);display:grid;place-items:center;box-shadow:0 18px 40px -10px rgba(45,127,240,.9);transition:transform .3s,opacity .4s;opacity:0;transform:scale(.6);pointer-events:none}
+.zap.on{opacity:1;transform:none;pointer-events:auto}
+.zap:hover{transform:scale(1.08)}
+.zap svg{width:30px;height:30px}
+
+/* ---------- responsivo ---------- */
+@media (max-width:1020px){
+  .nav{display:none}
+  .hero .wrap,.duelo,.video-g{grid-template-columns:1fr}
+  .hero{padding-top:130px}
+  .palco{height:560px;max-width:600px;margin:20px auto 0;width:100%}
+  .bento .s4,.bento .s2,.bento .s3{grid-column:span 6}
+  .passos{grid-template-columns:1fr 1fr;row-gap:50px}
+  .passos .linha{display:none}
+  .vitrine,.tres{grid-template-columns:1fr}
+  .res{height:500px}
+}
+@media (max-width:640px){
+  html,body{overflow-x:hidden}
+  .hero,.palco{overflow:visible}
+  .wrap{width:calc(100% - 32px)}
+  .top .wrap{height:70px}
+  .top .btn{display:none}
+  .menu-m{display:inline-flex;margin-left:auto;height:44px;padding:0 18px;font-size:14px}
+  .sec{padding:96px 0}
+  .hero{padding:110px 0 80px;min-height:auto}
+  .hero h1{margin-top:22px}
+  .agora{font-size:12.5px}
+  .btn{height:56px;font-size:16px;width:100%;justify-content:center}
+  .palco{height:580px;margin-top:10px}
+  .palco{perspective:none}.palco .cena{transform:none}
+  .palco .chip{transform:none}
+  .cel{transform:none;box-shadow:0 60px 100px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.25),0 0 80px rgba(90,162,255,.3)}
+  .palco .nav-b,.palco .bloco{display:none}
+  .cel{right:auto;left:calc(50% - 125px);top:40px}
+  .c1{left:auto;right:4px;top:auto;bottom:0}.c2{left:4px;top:-6px}.palco .c3{display:none}
+  .chip{font-size:13.5px;padding:11px 16px 11px 11px}.chip .ic{width:38px;height:38px}
+  .ui-site .site{grid-template-columns:1fr 84px!important;padding:20px}
+  .ui-site .site h4{font-size:22px}
+  .rola{display:none}
+  .card{padding:26px}
+  .passos{grid-template-columns:1fr}
+  .res{height:470px}
+  .r{padding:20px}
+  .r .tag{display:none}
+  .celv{width:280px;height:560px;transform:none}
+  summary{font-size:17.5px}
+  footer nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="top" id="topo">
+  <div class="wrap">
+    <a href="#" class="marca"><span class="lg"><svg width="100%" height="100%" viewBox="0 0 240 240"><circle cx="120" cy="120" r="118" fill="#fff" stroke="#E2EAF4" stroke-width="3"/><text x="120" y="124" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="40" letter-spacing="-1.8"><tspan fill="#0B1F3A">web</tspan><tspan fill="#2D7FF0">clinic</tspan></text><path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke="#2D7FF0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>webclinic</a>
+    <nav class="nav"><a href="#problema">Por que</a><a href="#servicos">O que fazemos</a><a href="#como">Como funciona</a><a href="#video">Vídeo</a><a href="#faq">Dúvidas</a></nav>
+    <a class="btn btn-p" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>Falar no WhatsApp</a>
+    <a class="btn btn-p menu-m" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="agora rv"><span class="dot"></span><span>Agora mesmo, alguém pesquisa <b>"<span id="busca">dermatologista perto de mim</span><span class="cur"></span>"</b></span></div>
+      <h1 class="rv d1">Seu paciente está te procurando <b>no Google agora.</b></h1>
+      <p class="lead rv d2">A Web Clinic cria sites para médicos e profissionais da saúde que fazem o que importa: <strong style="color:#fff;font-weight:600">viram consulta marcada.</strong> Agenda online 24h, Google e WhatsApp a um toque.</p>
+      <div class="ctas rv d3">
+        <a class="btn btn-p" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>Quero meu site</a>
+        <a class="btn btn-g" href="#como">Ver como funciona</a>
+      </div>
+      <div class="esp rv d4">Para <span>Médicos</span><span>Dentistas</span><span>Psicólogos</span><span>Nutricionistas</span><span>Fisioterapeutas</span></div>
+    </div>
+    <div class="palco rv d2" id="palco">
+      <div class="cena">
+        <div class="bloco b1"><svg width="60" height="60" viewBox="0 0 200 200" aria-hidden="true"><path d="M122 122l40 40" stroke="#2D7FF0" stroke-width="22" stroke-linecap="round"/><circle cx="88" cy="88" r="56" fill="#CFE6F7"/><circle cx="88" cy="88" r="56" fill="none" stroke="#0B1F3A" stroke-width="14"/><path d="M60 78a30 30 0 0 1 22-22" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="nav-b">
+          <div class="barra"><i style="background:#FA5F6D"></i><i style="background:#F5B83D"></i><i style="background:#3CC48A"></i><div class="url">🔒 draanapaula.com.br</div></div>
+          <div class="site">
+            <div><div class="tg">DERMATOLOGIA</div><h4><b>Pele saudável</b> começa na consulta certa.</h4><div class="ln" style="width:92%"></div><div class="ln" style="width:66%"></div><span class="mini-btn">Agendar consulta</span></div>
+            <div class="foto"><svg width="84" height="84" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 24c30 40 54 68 54 98a54 54 0 0 1-108 0c0-30 24-58 54-98z" fill="#2D7FF0"/><path d="M76 120a26 26 0 0 0 18 26" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/></svg></div>
+            <div class="tiles"><div><svg width="44" height="44" viewBox="0 0 200 200" aria-hidden="true"><path d="M64 30C62 82 78 106 100 112M136 30C138 82 122 106 100 112" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="64" cy="28" r="9" fill="#2D7FF0"/><circle cx="136" cy="28" r="9" fill="#2D7FF0"/><path d="M100 112C100 168 152 176 152 146" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="152" cy="130" r="24" fill="#2D7FF0"/><circle cx="152" cy="130" r="11" fill="#fff"/></svg></div><div><svg width="44" height="44" viewBox="0 0 200 200" aria-hidden="true"><rect x="28" y="42" width="144" height="132" rx="26" fill="#fff" stroke="#CFE6F7" stroke-width="4"/><path d="M28 68a26 26 0 0 1 26-26h92a26 26 0 0 1 26 26v16H28z" fill="#2D7FF0"/><rect x="60" y="26" width="14" height="32" rx="7" fill="#0B1F3A"/><rect x="126" y="26" width="14" height="32" rx="7" fill="#0B1F3A"/><rect x="48" y="98" width="20" height="16" rx="5" fill="#CFE6F7"/><rect x="76" y="98" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="104" y="98" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="132" y="98" width="20" height="16" rx="5" fill="#CFE6F7"/><rect x="48" y="124" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="76" y="124" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="132" y="124" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="48" y="150" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="76" y="150" width="20" height="16" rx="5" fill="#CFE6F7"/><rect x="104" y="150" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="132" y="150" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="99" y="117" width="34" height="30" rx="9" fill="#2D7FF0"/><path d="M108 132l5 5 10-10" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><svg width="44" height="44" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 178s-58-56-58-98a58 58 0 0 1 116 0c0 42-58 98-58 98z" fill="#2D7FF0"/><circle cx="100" cy="80" r="24" fill="#fff"/><ellipse cx="100" cy="184" rx="34" ry="8" fill="#CFE6F7"/></svg></div></div>
+          </div>
+        </div>
+        <div class="cel"><div class="tela"><div class="ilha"></div>
+          <h5>AGENDAR CONSULTA</h5><div class="nm">Dra. Ana Paula</div>
+          <div class="dias"><div>Seg<b>10</b></div><div>Ter<b>11</b></div><div>Qua<b>12</b></div><div class="on">Qui<b>13</b></div><div>Sex<b>14</b></div></div>
+          <div class="hor"><div>08:00</div><div class="x">09:00</div><div>10:30</div><div>11:00</div><div class="on">14:00</div><div class="x">15:30</div><div>17:00</div><div>18:30</div></div>
+          <div class="conf">Confirmar horário</div>
+        </div></div>
+        <div class="bloco b2"><svg width="54" height="54" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 170C40 128 24 100 24 74a38 38 0 0 1 76-8 38 38 0 0 1 76 8c0 26-16 54-76 96z" fill="#2D7FF0"/><path d="M40 100h34l10-20 16 40 12-30 8 10h40" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chip c1"><span class="ic"><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="70" fill="#2D7FF0"/><path d="M68 102l22 22 44-46" stroke="#fff" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Nova consulta marcada<small>Qui, 13 · 14h · pelo site</small></span></div>
+        <div class="chip c2"><span class="ic"><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M122 122l40 40" stroke="#2D7FF0" stroke-width="22" stroke-linecap="round"/><circle cx="88" cy="88" r="56" fill="#CFE6F7"/><circle cx="88" cy="88" r="56" fill="none" stroke="#0B1F3A" stroke-width="14"/><path d="M60 78a30 30 0 0 1 22-22" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/></svg></span><span>1º no Google<small>dermatologista perto de mim</small></span></div>
+        <div class="chip c3"><span class="ic"><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M30 52a24 24 0 0 1 24-24h76a24 24 0 0 1 24 24v44a24 24 0 0 1-24 24H74l-28 22v-22a24 24 0 0 1-16-22z" fill="#2D7FF0"/><circle cx="70" cy="74" r="7" fill="#fff"/><circle cx="92" cy="74" r="7" fill="#fff"/><circle cx="114" cy="74" r="7" fill="#fff"/><path d="M96 118h52a22 22 0 0 1 22 22v18l0 22-20-16h-54a22 22 0 0 1-22-22v-2z" fill="#CFE6F7"/></svg></span><span>Olá! Quero agendar.<small>WhatsApp · agora</small></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="rola">ROLE<i></i></div>
+</section>
+
+<div class="faixa"><div class="trilho"><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 24c30 40 54 68 54 98a54 54 0 0 1-108 0c0-30 24-58 54-98z" fill="#2D7FF0"/><path d="M76 120a26 26 0 0 0 18 26" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/></svg>Dermatologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="108" r="64" fill="#CFE6F7"/><circle cx="100" cy="108" r="50" fill="#fff"/><circle cx="82" cy="104" r="6" fill="#0B1F3A"/><circle cx="118" cy="104" r="6" fill="#0B1F3A"/><path d="M86 126a16 12 0 0 0 28 0" stroke="#2D7FF0" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M100 44c-10 0-14 10-6 14" stroke="#2D7FF0" stroke-width="7" fill="none" stroke-linecap="round"/></svg>Pediatria</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 170C40 128 24 100 24 74a38 38 0 0 1 76-8 38 38 0 0 1 76 8c0 26-16 54-76 96z" fill="#2D7FF0"/><path d="M40 100h34l10-20 16 40 12-30 8 10h40" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Cardiologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M60 40c18-10 30 0 40 0s22-10 40 0c22 12 18 44 8 66-6 14-8 52-22 52-12 0-10-38-26-38s-14 38-26 38c-14 0-16-38-22-52-10-22-14-54 8-66z" fill="#2D7FF0"/><path d="M70 62c6-6 14-6 20-2" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".7"/></svg>Odontologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-40 100 100)"><rect x="54" y="86" width="92" height="28" rx="12" fill="#2D7FF0"/><circle cx="52" cy="84" r="20" fill="#2D7FF0"/><circle cx="52" cy="116" r="20" fill="#2D7FF0"/><circle cx="148" cy="84" r="20" fill="#2D7FF0"/><circle cx="148" cy="116" r="20" fill="#2D7FF0"/></g></svg>Ortopedia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 66c-20-14-62-10-62 36 0 40 28 70 46 70 8 0 10-4 16-4s8 4 16 4c18 0 46-30 46-70 0-46-42-50-62-36z" fill="#2D7FF0"/><path d="M100 66c0-16 6-28 20-36" stroke="#0B1F3A" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M104 52c10-16 30-18 40-12-6 14-26 18-40 12z" fill="#CFE6F7"/></svg>Nutrição</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 40c-12-12-40-8-44 12-18 2-28 22-18 38-10 16 0 38 18 40 4 20 30 26 44 14z" fill="#2D7FF0"/><path d="M100 40c12-12 40-8 44 12 18 2 28 22 18 38 10 16 0 38-18 40-4 20-30 26-44 14z" fill="#5AA2FF"/><path d="M100 40v104" stroke="#fff" stroke-width="5"/><path d="M60 84c10 0 16 6 16 14M140 84c-10 0-16 6-16 14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/></svg>Psicologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M64 30C62 82 78 106 100 112M136 30C138 82 122 106 100 112" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="64" cy="28" r="9" fill="#2D7FF0"/><circle cx="136" cy="28" r="9" fill="#2D7FF0"/><path d="M100 112C100 168 152 176 152 146" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="152" cy="130" r="24" fill="#2D7FF0"/><circle cx="152" cy="130" r="11" fill="#fff"/></svg>Clínica geral</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><rect x="24" y="40" width="152" height="120" rx="28" fill="#2D7FF0"/><path d="M40 104h30l12-26 18 48 14-34 10 12h36" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Fisioterapia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 24c30 40 54 68 54 98a54 54 0 0 1-108 0c0-30 24-58 54-98z" fill="#2D7FF0"/><path d="M76 120a26 26 0 0 0 18 26" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/></svg>Dermatologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="108" r="64" fill="#CFE6F7"/><circle cx="100" cy="108" r="50" fill="#fff"/><circle cx="82" cy="104" r="6" fill="#0B1F3A"/><circle cx="118" cy="104" r="6" fill="#0B1F3A"/><path d="M86 126a16 12 0 0 0 28 0" stroke="#2D7FF0" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M100 44c-10 0-14 10-6 14" stroke="#2D7FF0" stroke-width="7" fill="none" stroke-linecap="round"/></svg>Pediatria</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 170C40 128 24 100 24 74a38 38 0 0 1 76-8 38 38 0 0 1 76 8c0 26-16 54-76 96z" fill="#2D7FF0"/><path d="M40 100h34l10-20 16 40 12-30 8 10h40" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Cardiologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M60 40c18-10 30 0 40 0s22-10 40 0c22 12 18 44 8 66-6 14-8 52-22 52-12 0-10-38-26-38s-14 38-26 38c-14 0-16-38-22-52-10-22-14-54 8-66z" fill="#2D7FF0"/><path d="M70 62c6-6 14-6 20-2" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".7"/></svg>Odontologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-40 100 100)"><rect x="54" y="86" width="92" height="28" rx="12" fill="#2D7FF0"/><circle cx="52" cy="84" r="20" fill="#2D7FF0"/><circle cx="52" cy="116" r="20" fill="#2D7FF0"/><circle cx="148" cy="84" r="20" fill="#2D7FF0"/><circle cx="148" cy="116" r="20" fill="#2D7FF0"/></g></svg>Ortopedia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 66c-20-14-62-10-62 36 0 40 28 70 46 70 8 0 10-4 16-4s8 4 16 4c18 0 46-30 46-70 0-46-42-50-62-36z" fill="#2D7FF0"/><path d="M100 66c0-16 6-28 20-36" stroke="#0B1F3A" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M104 52c10-16 30-18 40-12-6 14-26 18-40 12z" fill="#CFE6F7"/></svg>Nutrição</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 40c-12-12-40-8-44 12-18 2-28 22-18 38-10 16 0 38 18 40 4 20 30 26 44 14z" fill="#2D7FF0"/><path d="M100 40c12-12 40-8 44 12 18 2 28 22 18 38 10 16 0 38-18 40-4 20-30 26-44 14z" fill="#5AA2FF"/><path d="M100 40v104" stroke="#fff" stroke-width="5"/><path d="M60 84c10 0 16 6 16 14M140 84c-10 0-16 6-16 14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/></svg>Psicologia</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M64 30C62 82 78 106 100 112M136 30C138 82 122 106 100 112" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="64" cy="28" r="9" fill="#2D7FF0"/><circle cx="136" cy="28" r="9" fill="#2D7FF0"/><path d="M100 112C100 168 152 176 152 146" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="152" cy="130" r="24" fill="#2D7FF0"/><circle cx="152" cy="130" r="11" fill="#fff"/></svg>Clínica geral</span><span><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><rect x="24" y="40" width="152" height="120" rx="28" fill="#2D7FF0"/><path d="M40 104h30l12-26 18 48 14-34 10 12h36" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Fisioterapia</span></div></div>
+
+<section class="sec clara" id="problema">
+  <div class="wrap duelo">
+    <div>
+      <div class="k rv"><i>001</i>O problema</div>
+      <h2 class="h2 rv d1">Se não for você, <b>é o seu concorrente.</b></h2>
+      <p class="lead rv d2">Antes de marcar, o paciente pesquisa, compara e escolhe quem passa mais confiança. E marca com quem deixa tudo mais fácil.</p>
+      <div class="lista-x">
+        <div class="rv d2"><svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="70" fill="#FA5F6D"/><path d="M74 74l52 52M126 74l-52 52" stroke="#fff" stroke-width="16" stroke-linecap="round"/></svg>Sem site, você some da busca e o paciente nem chega a te conhecer.</div>
+        <div class="rv d3"><svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="70" fill="#FA5F6D"/><path d="M74 74l52 52M126 74l-52 52" stroke="#fff" stroke-width="16" stroke-linecap="round"/></svg>Site antigo, lento ou sem botão de agendar faz ele voltar pro Google.</div>
+        <div class="rv d4"><svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="70" fill="#2D7FF0"/><path d="M68 102l22 22 44-46" stroke="#fff" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Com a Web Clinic, ele te encontra, confia e marca em poucos toques.</div>
+      </div>
+    </div>
+    <div class="res rv d2" id="duelo">
+      <div class="r r1"><div class="n">1</div><div><h6>Clínica do lado</h6><p>Site com agenda online · aberto agora</p></div><span class="tag">CONCORRENTE</span></div>
+      <div class="r r2"><div class="n">2</div><div><h6>Seu consultório</h6><p>Sem site · só telefone</p></div><span class="tag">VOCÊ</span></div>
+      <div class="r r3"><div class="n">3</div><div><h6>Consultório Centro</h6><p>Página desatualizada</p></div></div>
+      <div class="chip ok"><span class="ic"><svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="70" fill="#2D7FF0"/><path d="M68 102l22 22 44-46" stroke="#fff" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Consulta marcada<small>com o concorrente</small></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="servicos" style="background:var(--gelo)">
+  <div class="wrap">
+    <div class="cab c">
+      <div class="k rv"><i>002</i>O que fazemos</div>
+      <h2 class="h2 rv d1">Tudo o que o paciente precisa <b>pra marcar com você.</b></h2>
+      <p class="lead rv d2">Não é só um site bonito. É um sistema simples, pensado do primeiro clique até a consulta na sua agenda.</p>
+    </div>
+    <div class="bento">
+      <div class="card s4 rv">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><rect x="18" y="36" width="164" height="128" rx="18" fill="#fff" stroke="#CFE6F7" stroke-width="4"/><path d="M18 54a18 18 0 0 1 18-18h128a18 18 0 0 1 18 18v8H18z" fill="#EEF5FC"/><circle cx="34" cy="49" r="4" fill="#FA5F6D"/><circle cx="46" cy="49" r="4" fill="#F5B83D"/><circle cx="58" cy="49" r="4" fill="#2D7FF0"/><rect x="34" y="78" width="54" height="66" rx="10" fill="#CFE6F7"/><circle cx="61" cy="102" r="11" fill="#2D7FF0"/><path d="M42 140a19 15 0 0 1 38 0z" fill="#2D7FF0"/><rect x="100" y="80" width="64" height="10" rx="5" fill="#0B1F3A"/><rect x="100" y="98" width="52" height="7" rx="3.5" fill="#CFE6F7"/><rect x="100" y="124" width="54" height="18" rx="9" fill="#2D7FF0"/></svg></div><h3>Site sob medida</h3><p>Design premium com a sua cara, textos claros e um botão de agendar em cada página.</p>
+        <div class="ui ui-site"><div class="nav-b"><div class="barra"><i style="background:#FA5F6D"></i><i style="background:#F5B83D"></i><i style="background:#3CC48A"></i><div class="url">🔒 ortopediajoao.com.br</div></div>
+          <div class="site" style="grid-template-columns:1fr 130px"><div><div class="tg">ORTOPEDIA</div><h4><b>Volte a se mexer</b> sem dor.</h4><div class="ln" style="width:90%"></div><span class="mini-btn">Agendar consulta</span></div><div class="foto"><svg width="70" height="70" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-40 100 100)"><rect x="54" y="86" width="92" height="28" rx="12" fill="#2D7FF0"/><circle cx="52" cy="84" r="20" fill="#2D7FF0"/><circle cx="52" cy="116" r="20" fill="#2D7FF0"/><circle cx="148" cy="84" r="20" fill="#2D7FF0"/><circle cx="148" cy="116" r="20" fill="#2D7FF0"/></g></svg></div></div></div></div>
+      </div>
+      <div class="card s2 escura rv d1">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><rect x="28" y="42" width="144" height="132" rx="26" fill="#fff" stroke="#CFE6F7" stroke-width="4"/><path d="M28 68a26 26 0 0 1 26-26h92a26 26 0 0 1 26 26v16H28z" fill="#2D7FF0"/><rect x="60" y="26" width="14" height="32" rx="7" fill="#0B1F3A"/><rect x="126" y="26" width="14" height="32" rx="7" fill="#0B1F3A"/><rect x="48" y="98" width="20" height="16" rx="5" fill="#CFE6F7"/><rect x="76" y="98" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="104" y="98" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="132" y="98" width="20" height="16" rx="5" fill="#CFE6F7"/><rect x="48" y="124" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="76" y="124" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="132" y="124" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="48" y="150" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="76" y="150" width="20" height="16" rx="5" fill="#CFE6F7"/><rect x="104" y="150" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="132" y="150" width="20" height="16" rx="5" fill="#EEF5FC"/><rect x="99" y="117" width="34" height="30" rx="9" fill="#2D7FF0"/><path d="M108 132l5 5 10-10" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Agenda online 24h</h3><p>O paciente escolhe o horário a qualquer hora, sem precisar ligar.</p>
+        <div class="ui slots"><div>08:00</div><div class="on">09:30</div><div>11:00</div><div>14:00</div><div class="on">19:00</div><div>22:30</div></div>
+      </div>
+      <div class="card s2 rv">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 178s-58-56-58-98a58 58 0 0 1 116 0c0 42-58 98-58 98z" fill="#2D7FF0"/><circle cx="100" cy="80" r="24" fill="#fff"/><ellipse cx="100" cy="184" rx="34" ry="8" fill="#CFE6F7"/></svg></div><h3>Google e Maps</h3><p>Perfil da Empresa configurado pra você aparecer na busca da sua região.</p>
+        <div class="ui mapa"><svg class="ruas" viewBox="0 0 400 180" preserveAspectRatio="none"><path d="M0 50H400M0 140H400M100 0V180M290 0V180" stroke="#fff" stroke-width="16"/><path d="M0 175L400 10" stroke="#fff" stroke-width="10"/></svg><div class="pin"><svg width="70" height="70" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 178s-58-56-58-98a58 58 0 0 1 116 0c0 42-58 98-58 98z" fill="#2D7FF0"/><circle cx="100" cy="80" r="24" fill="#fff"/><ellipse cx="100" cy="184" rx="34" ry="8" fill="#CFE6F7"/></svg></div><div class="um">1º</div></div>
+      </div>
+      <div class="card s2 rv d1">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><path d="M30 52a24 24 0 0 1 24-24h76a24 24 0 0 1 24 24v44a24 24 0 0 1-24 24H74l-28 22v-22a24 24 0 0 1-16-22z" fill="#2D7FF0"/><circle cx="70" cy="74" r="7" fill="#fff"/><circle cx="92" cy="74" r="7" fill="#fff"/><circle cx="114" cy="74" r="7" fill="#fff"/><path d="M96 118h52a22 22 0 0 1 22 22v18l0 22-20-16h-54a22 22 0 0 1-22-22v-2z" fill="#CFE6F7"/></svg></div><h3>WhatsApp a um toque</h3><p>Quem prefere conversar chega direto no seu WhatsApp, com a mensagem pronta.</p>
+        <div class="ui conv"><div class="bolha eu">Olá! Quero agendar uma consulta.</div><div class="bolha">Claro! Temos quinta às 14h. 😊</div></div>
+      </div>
+      <div class="card s2 rv d2">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 32a50 50 0 0 1 50 50v34l16 22H34l16-22V82a50 50 0 0 1 50-50z" fill="#2D7FF0"/><circle cx="100" cy="156" r="16" fill="#0B1F3A"/><path d="M72 84a28 28 0 0 1 18-26" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="150" cy="50" r="16" fill="#FA5F6D"/></svg></div><h3>Lembrete automático</h3><p>Confirmação antes da consulta pra diminuir as faltas.</p>
+        <div class="ui lemb">Olá, Maria! Sua consulta é <b>amanhã, às 14h</b>.<div class="bt"><span>Confirmar</span><span>Remarcar</span></div></div>
+      </div>
+      <div class="card s3 rv">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><path d="M30 140a70 70 0 0 1 140 0" fill="none" stroke="#CFE6F7" stroke-width="22" stroke-linecap="round"/><path d="M30 140a70 70 0 0 1 112-56" fill="none" stroke="#2D7FF0" stroke-width="22" stroke-linecap="round"/><path d="M100 140l38-44" stroke="#0B1F3A" stroke-width="10" stroke-linecap="round"/><circle cx="100" cy="140" r="14" fill="#0B1F3A"/></svg></div><h3>Rápido e feito pro celular</h3><p>A maioria dos pacientes pesquisa pelo celular. Seu site abre leve, bonito e fácil de usar com uma mão.</p>
+      </div>
+      <div class="card s3 escura rv d1">
+        <div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 24l64 24v48c0 40-28 68-64 82-36-14-64-42-64-82V48z" fill="#2D7FF0"/><path d="M100 24l64 24v48c0 40-28 68-64 82z" fill="#0B1F3A" opacity=".18"/><path d="M72 100l20 20 38-40" stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Seguro e dentro das regras</h3><p>Site com cadeado (HTTPS) e textos pensados pra respeitar as normas de publicidade do seu conselho profissional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec clara" id="como">
+  <div class="wrap">
+    <div class="cab c">
+      <div class="k rv"><i>003</i>Como funciona</div>
+      <h2 class="h2 rv d1">Do primeiro papo <b>à agenda cheia.</b></h2>
+      <p class="lead rv d2">Você cuida dos pacientes. A gente cuida de todo o resto, do domínio ao Google.</p>
+    </div>
+    <div class="passos" id="passos">
+      <svg class="linha" viewBox="0 0 1000 120" preserveAspectRatio="none"><path pathLength="1" d="M0 60H330L350 20L375 100L398 36L412 60H1000" fill="none" stroke="#2D7FF0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/></svg>
+      <div class="passo rv"><div class="num"><svg width="52" height="52" viewBox="0 0 200 200" aria-hidden="true"><path d="M30 52a24 24 0 0 1 24-24h76a24 24 0 0 1 24 24v44a24 24 0 0 1-24 24H74l-28 22v-22a24 24 0 0 1-16-22z" fill="#2D7FF0"/><circle cx="70" cy="74" r="7" fill="#fff"/><circle cx="92" cy="74" r="7" fill="#fff"/><circle cx="114" cy="74" r="7" fill="#fff"/><path d="M96 118h52a22 22 0 0 1 22 22v18l0 22-20-16h-54a22 22 0 0 1-22-22v-2z" fill="#CFE6F7"/></svg></div><div class="k"><i>01</i></div><h3>Conversa</h3><p>Entendemos sua especialidade, seu público e como você atende hoje.</p></div>
+      <div class="passo rv d1"><div class="num"><svg width="52" height="52" viewBox="0 0 200 200" aria-hidden="true"><rect x="18" y="36" width="164" height="128" rx="18" fill="#fff" stroke="#CFE6F7" stroke-width="4"/><path d="M18 54a18 18 0 0 1 18-18h128a18 18 0 0 1 18 18v8H18z" fill="#EEF5FC"/><circle cx="34" cy="49" r="4" fill="#FA5F6D"/><circle cx="46" cy="49" r="4" fill="#F5B83D"/><circle cx="58" cy="49" r="4" fill="#2D7FF0"/><rect x="34" y="78" width="54" height="66" rx="10" fill="#CFE6F7"/><circle cx="61" cy="102" r="11" fill="#2D7FF0"/><path d="M42 140a19 15 0 0 1 38 0z" fill="#2D7FF0"/><rect x="100" y="80" width="64" height="10" rx="5" fill="#0B1F3A"/><rect x="100" y="98" width="52" height="7" rx="3.5" fill="#CFE6F7"/><rect x="100" y="124" width="54" height="18" rx="9" fill="#2D7FF0"/></svg></div><div class="k"><i>02</i></div><h3>Projeto</h3><p>Design, textos e estrutura pensados pra levar o paciente até o agendamento.</p></div>
+      <div class="passo rv d2"><div class="num"><svg width="52" height="52" viewBox="0 0 200 200" aria-hidden="true"><path d="M122 122l40 40" stroke="#2D7FF0" stroke-width="22" stroke-linecap="round"/><circle cx="88" cy="88" r="56" fill="#CFE6F7"/><circle cx="88" cy="88" r="56" fill="none" stroke="#0B1F3A" stroke-width="14"/><path d="M60 78a30 30 0 0 1 22-22" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/></svg></div><div class="k"><i>03</i></div><h3>No ar</h3><p>Site publicado com agenda, WhatsApp e seu perfil no Google configurado.</p></div>
+      <div class="passo rv d3"><div class="num"><svg width="52" height="52" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 170C40 128 24 100 24 74a38 38 0 0 1 76-8 38 38 0 0 1 76 8c0 26-16 54-76 96z" fill="#2D7FF0"/><path d="M40 100h34l10-20 16 40 12-30 8 10h40" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="k"><i>04</i></div><h3>Pacientes</h3><p>Acompanhamos e ajustamos pra sua agenda continuar enchendo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec escura-sec" id="video">
+  <div class="wrap video-g">
+    <div>
+      <div class="k rv" style="color:var(--azul2)"><i style="color:rgba(255,255,255,.45)">004</i>Em 40 segundos</div>
+      <h2 class="h2 rv d1">Quem somos <b>e o que a gente faz.</b></h2>
+      <p class="lead rv d2">Dá o play com som. Em menos de um minuto você entende por que o seu site é a porta de entrada do consultório.</p>
+      <div class="ctas rv d3" style="display:flex;gap:14px;margin-top:38px;flex-wrap:wrap"><a class="btn btn-p" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>Quero conversar</a></div>
+    </div>
+    <div class="rv d2" style="position:relative">
+      <div class="celv"><video id="vid" src="midia/webclinic-apresentacao.mp4" poster="midia/poster.jpg" muted loop playsinline preload="metadata"></video>
+        <button class="som" id="som" aria-label="Ativar som"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path id="ondas" d="M23 9l-6 6M17 9l6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:#fff">
+  <div class="wrap">
+    <div class="cab c">
+      <div class="k rv"><i>005</i>Pra cada especialidade</div>
+      <h2 class="h2 rv d1">Um site com a cara <b>do seu consultório.</b></h2>
+    </div>
+    <div class="vitrine">
+      <div class="rv d0"><div class="nav-b"><div class="barra"><i style="background:#FA5F6D"></i><i style="background:#F5B83D"></i><i style="background:#3CC48A"></i><div class="url">🔒 drjoaoped.com.br</div></div>
+<div class="site"><div><div class="tg">PEDIATRIA</div><h4><b>Cuidado</b> desde o primeiro dia.</h4><div class="ln" style="width:90%"></div><div class="ln" style="width:62%"></div><span class="mini-btn">Agendar consulta</span></div><div class="foto"><svg width="64" height="64" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="108" r="64" fill="#CFE6F7"/><circle cx="100" cy="108" r="50" fill="#fff"/><circle cx="82" cy="104" r="6" fill="#0B1F3A"/><circle cx="118" cy="104" r="6" fill="#0B1F3A"/><path d="M86 126a16 12 0 0 0 28 0" stroke="#2D7FF0" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M100 44c-10 0-14 10-6 14" stroke="#2D7FF0" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div></div></div></div><div class="rv d1"><div class="nav-b"><div class="barra"><i style="background:#FA5F6D"></i><i style="background:#F5B83D"></i><i style="background:#3CC48A"></i><div class="url">🔒 clinicasorrir.com.br</div></div>
+<div class="site"><div><div class="tg">ODONTOLOGIA</div><h4><b>Sorriso</b> sem medo de dentista.</h4><div class="ln" style="width:90%"></div><div class="ln" style="width:62%"></div><span class="mini-btn">Agendar consulta</span></div><div class="foto"><svg width="64" height="64" viewBox="0 0 200 200" aria-hidden="true"><path d="M60 40c18-10 30 0 40 0s22-10 40 0c22 12 18 44 8 66-6 14-8 52-22 52-12 0-10-38-26-38s-14 38-26 38c-14 0-16-38-22-52-10-22-14-54 8-66z" fill="#2D7FF0"/><path d="M70 62c6-6 14-6 20-2" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".7"/></svg></div></div></div></div><div class="rv d2"><div class="nav-b"><div class="barra"><i style="background:#FA5F6D"></i><i style="background:#F5B83D"></i><i style="background:#3CC48A"></i><div class="url">🔒 nutricarla.com.br</div></div>
+<div class="site"><div><div class="tg">NUTRIÇÃO</div><h4><b>Comer bem</b> sem dieta impossível.</h4><div class="ln" style="width:90%"></div><div class="ln" style="width:62%"></div><span class="mini-btn">Agendar consulta</span></div><div class="foto"><svg width="64" height="64" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 66c-20-14-62-10-62 36 0 40 28 70 46 70 8 0 10-4 16-4s8 4 16 4c18 0 46-30 46-70 0-46-42-50-62-36z" fill="#2D7FF0"/><path d="M100 66c0-16 6-28 20-36" stroke="#0B1F3A" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M104 52c10-16 30-18 40-12-6 14-26 18-40 12z" fill="#CFE6F7"/></svg></div></div></div></div>
+    </div>
+    <p class="nota rv">Exemplos ilustrativos de layout.</p>
+  </div>
+</section>
+
+<section class="sec clara">
+  <div class="wrap">
+    <div class="cab c">
+      <div class="k rv"><i>006</i>Por que a Web Clinic</div>
+      <h2 class="h2 rv d1">A gente só faz <b>uma coisa.</b></h2>
+      <p class="lead rv d2">Sites para a área da saúde. Por isso cada detalhe é pensado pra rotina de consultório e pra decisão do paciente.</p>
+    </div>
+    <div class="tres">
+      <div class="card rv"><div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><path d="M64 30C62 82 78 106 100 112M136 30C138 82 122 106 100 112" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="64" cy="28" r="9" fill="#2D7FF0"/><circle cx="136" cy="28" r="9" fill="#2D7FF0"/><path d="M100 112C100 168 152 176 152 146" fill="none" stroke="#0B1F3A" stroke-width="9" stroke-linecap="round"/><circle cx="152" cy="130" r="24" fill="#2D7FF0"/><circle cx="152" cy="130" r="11" fill="#fff"/></svg></div><h3>Só saúde</h3><p>Médicos, dentistas, psicólogos, nutricionistas e fisioterapeutas. A gente fala a língua do seu paciente.</p></div>
+      <div class="card rv d1"><div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><g transform="translate(62 40) scale(3)"><path d="M0 0L0 34L9 26L15 40L21 37L15 24L27 24Z" fill="#2D7FF0" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></g></svg></div><h3>Feito pra converter</h3><p>Cada seção tem um papel: gerar confiança e levar até o botão de agendar.</p></div>
+      <div class="card rv d2"><div class="ico"><svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="74" fill="#CFE6F7"/><circle cx="100" cy="82" r="28" fill="#2D7FF0"/><path d="M52 150a48 40 0 0 1 96 0" fill="#2D7FF0"/></svg></div><h3>Do seu lado</h3><p>Atendimento direto pelo WhatsApp, sem enrolação e sem termos técnicos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="background:#fff">
+  <div class="wrap">
+    <div class="cab c">
+      <div class="k rv"><i>007</i>Dúvidas</div>
+      <h2 class="h2 rv d1">Perguntas <b>frequentes.</b></h2>
+    </div>
+    <div class="faq">
+      <details class="rv"><summary>Quanto tempo leva pra ficar pronto?<i></i></summary><p>Depende do tamanho do projeto. Na primeira conversa a gente entende o que você precisa e já te passa o prazo certinho.</p></details><details class="rv"><summary>Preciso ter domínio e hospedagem?<i></i></summary><p>Não. A gente cuida de tudo: domínio, hospedagem, cadeado de segurança e configuração. Se você já tiver um domínio, usamos o seu.</p></details><details class="rv"><summary>Funciona para clínica com vários profissionais?<i></i></summary><p>Sim. O site e a agenda podem ter vários profissionais e especialidades, cada um com seus horários.</p></details><details class="rv"><summary>Vocês configuram meu perfil no Google?<i></i></summary><p>Sim. Configuramos e otimizamos o seu Perfil da Empresa no Google, pra você aparecer na busca e no Maps da sua região.</p></details><details class="rv"><summary>Já tenho um site. Vale a pena trocar?<i></i></summary><p>A gente analisa o seu site atual sem compromisso e te mostra o que muda pra ele virar consulta marcada.</p></details><details class="rv"><summary>Os textos respeitam as regras de publicidade?<i></i></summary><p>Sim. Escrevemos pensando nas normas do seu conselho profissional: informação clara, sem promessa de resultado e sem sensacionalismo.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="escura-sec fecho">
+  <div class="aneis"><i></i><i style="animation-delay:2s"></i><i style="animation-delay:4s"></i></div>
+  <div class="wrap" style="position:relative">
+    <div class="lg rv"><svg width="100%" height="100%" viewBox="0 0 240 240"><circle cx="120" cy="120" r="118" fill="#fff" stroke="#E2EAF4" stroke-width="3"/><text x="120" y="124" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="40" letter-spacing="-1.8"><tspan fill="#0B1F3A">web</tspan><tspan fill="#2D7FF0">clinic</tspan></text><path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke="#2D7FF0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2 class="rv d1">Vamos encher <b>sua agenda?</b></h2>
+    <div class="ctas rv d2"><a class="btn btn-p" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>Falar no WhatsApp</a><a class="btn btn-g" href="https://instagram.com/webclinicbrasil" target="_blank" rel="noopener">@webclinicbrasil</a></div>
+    <p class="info rv d3">WhatsApp (51) 98906-1441 · Ou mande <b style="color:#fff">SITE</b> no direct do Instagram</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="marca"><span class="lg"><svg width="100%" height="100%" viewBox="0 0 240 240"><circle cx="120" cy="120" r="118" fill="#fff" stroke="#E2EAF4" stroke-width="3"/><text x="120" y="124" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="40" letter-spacing="-1.8"><tspan fill="#0B1F3A">web</tspan><tspan fill="#2D7FF0">clinic</tspan></text><path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke="#2D7FF0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>webclinic</a>
+    <span>Sites que viram consulta marcada.</span>
+    <nav><a href="https://instagram.com/webclinicbrasil" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener">WhatsApp</a><span>© 2026 Web Clinic</span></nav>
+  </div>
+</footer>
+
+<a class="zap" id="zap" href="https://wa.me/5551989061441?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Web%20Clinic%20e%20quero%20saber%20mais%20sobre%20um%20site%20para%20o%20meu%20consult%C3%B3rio." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg></a>
+
+<script>
+(function(){
+  var topo=document.getElementById('topo'), zap=document.getElementById('zap');
+  function sc(){var y=window.scrollY;topo.classList.toggle('sc',y>30);zap.classList.toggle('on',y>window.innerHeight*.7)}
+  addEventListener('scroll',sc,{passive:true});sc();
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.18,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv,#duelo,#passos').forEach(function(el){io.observe(el)});
+  // palco 3D acompanha o mouse
+  var palco=document.getElementById('palco');
+  if(window.matchMedia('(pointer:fine)').matches){
+    addEventListener('mousemove',function(e){palco.style.setProperty('--mx',(e.clientX/innerWidth-.5).toFixed(3));palco.style.setProperty('--my',(e.clientY/innerHeight-.5).toFixed(3))});
+  }
+  // busca digitando especialidades
+  var termos=['dermatologista perto de mim','pediatra que atende hoje','dentista com agenda online','psicólogo online','nutricionista perto de mim','cardiologista agendar consulta'];
+  var el=document.getElementById('busca'),ti=0,ci=termos[0].length,apaga=true;
+  function passo(){var t=termos[ti];if(apaga){ci--;if(ci<=0){apaga=false;ti=(ti+1)%termos.length}}else{ci++;if(ci>=termos[ti].length){apaga=true;el.textContent=termos[ti];return setTimeout(passo,2200)}}
+    el.textContent=termos[ti].slice(0,Math.max(0,ci));setTimeout(passo,apaga?28:62)}
+  setTimeout(passo,2600);
+  // vídeo: toca quando aparece; botão liga o som
+  var v=document.getElementById('vid'),som=document.getElementById('som');
+  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){v.play().catch(function(){})}else{v.pause()}})},{threshold:.4}).observe(v);
+  som.addEventListener('click',function(){v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play()}document.getElementById('ondas').setAttribute('d',v.muted?'M23 9l-6 6M17 9l6 6':'M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14');som.setAttribute('aria-label',v.muted?'Ativar som':'Desativar som')});
+})();
+</script>
+</body>
+</html>

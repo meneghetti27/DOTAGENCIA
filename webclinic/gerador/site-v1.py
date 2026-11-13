@@ -1,7 +1,7 @@
-# Gera o site da Web Clinic (../site/index.html) a partir de site-modelo.html, com vetores e logo do gerador.
+# Gera o site da Web Clinic (../site/index.html) a partir de site-v1-modelo.html, com vetores e logo do gerador.
 import re, json, urllib.parse, os
 _s=open('posts40.py').read(); exec(_s[:_s.index('P=[]')])
-html=open('site-modelo.html').read()
+html=open('site-v1-modelo.html').read()
 MSG='Olá! Vim pelo site da Web Clinic e quero saber mais sobre um site para o meu consultório.'
 ZAP='https://wa.me/5551989061441?text='+urllib.parse.quote(MSG)
 ZAPICO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>'
@@ -24,10 +24,10 @@ for k,v in rep.items(): html=html.replace(k,v)
 html=re.sub(r'\{\{ic:(\w+):(\d+)\}\}',lambda m:ico(m.group(1),int(m.group(2))),html)
 html=html.replace('.marca .lg{','.marca .lg{display:block;')
 assert '{{' not in html, re.findall(r'\{\{[^}]*\}\}',html)
-os.makedirs('../site',exist_ok=True)
-open('../site/index.html','w').write(html)
-open('../site/vercel.json','w').write('{ "cleanUrls": true }\n')
-open('../site/favicon.svg','w').write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#fff" stroke="#E2EAF4" stroke-width="2"/><path d="M8 34h16l4-10 6 20 5-14 3 4h14" fill="none" stroke="#2D7FF0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+os.makedirs('../historico/site-v1',exist_ok=True)
+open('../historico/site-v1/index.html','w').write(html)
+open('../historico/site-v1/vercel.json','w').write('{ "cleanUrls": true }\n')
+open('../historico/site-v1/favicon.svg','w').write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#fff" stroke="#E2EAF4" stroke-width="2"/><path d="M8 34h16l4-10 6 20 5-14 3 4h14" fill="none" stroke="#2D7FF0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 # imagem de compartilhamento (og.png, 1200x630)
 og=f'''<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>html,body{{width:1200px;height:630px;overflow:hidden;background:radial-gradient(900px 500px at 80% 30%,rgba(45,127,240,.45),transparent 65%),linear-gradient(180deg,#040917,#0B1F3A)}}</style></head><body>
 <div style="position:absolute;left:80px;top:70px;display:flex;align-items:center;gap:16px;color:#fff;font-size:30px;font-weight:600"><div style="width:64px;height:64px">{logo}</div>webclinic</div>

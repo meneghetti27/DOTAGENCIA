@@ -64,10 +64,12 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
 
-## Site (webclinic/site)
-- Site estático premium (1 `index.html` + `midia/` com o vídeo "sobre nós", `og.png`, `favicon.svg`, `vercel.json`).
-- Fonte: `gerador/site-modelo.html` (modelo com tokens `{{...}}`) + `gerador/site.py` (WhatsApp, faixa de especialidades, vitrine, FAQ, og.png).
-- Gerar: `cd gerador && python3 site.py` → escreve `../site/index.html`.
-- Publicar na Vercel: importar o repositório e apontar **Root Directory = `webclinic/site`** (sem build, é HTML puro).
-- Depois do domínio no ar, trocar `og:image` para URL absoluta (`https://dominio/og.png`).
-- CTA: WhatsApp `wa.me/5551989061441` com mensagem pronta + @webclinicbrasil. Sem preço e sem prazo inventado.
+## Site (webclinic/site) — v2
+- Direção v2 (ele achou a v1 "com cara de template de IA"): editorial, tipografia gigante Poppins + **Instrument Serif itálico** só nas palavras de destaque, fotos reais (Pexels), sem degradê no texto, sem grade de cards com ícone, sem rótulos "001".
+- Movimento: abertura com linha de batimento, rolagem suave (Lenis), GSAP ScrollTrigger: site do topo cresce até tela cheia, jornada presa (pesquisa → site → agenda → WhatsApp → consulta marcada), projetos na horizontal, cursor e botões magnéticos.
+- Tudo local (sem CDN): `js/` (gsap 3.12.5, ScrollTrigger, lenis 1.1.13), `fonts/`, `img/` (fotos + vídeo "sobre nós").
+- Fonte: `gerador/site-v2-modelo.html` + `gerador/site2.py` (sites de exemplo por especialidade, serviços, FAQ, WhatsApp). Gerar: `cd gerador && python3 site2.py`.
+- Testar local: `cd site && python3 -m http.server` (por file:// as fontes não carregam).
+- `og.png` = print do topo em 1200x630.
+- Vercel: importar o repositório com **Root Directory = `webclinic/site`** (sem build). Depois do domínio, trocar `og:image` para URL absoluta.
+- v1 guardada em `historico/site-v1` (gerador `site-v1.py`).
