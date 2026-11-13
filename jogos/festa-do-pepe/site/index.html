@@ -817,7 +817,7 @@ function updateCamera(dt,orbit){
   let last=tgt.clone();const n=24;
   for(let i=1;i<=n;i++){const p=tgt.clone().lerp(want,i/n);const tx=Math.floor(p.x),tz=Math.floor(p.z);
     const inHouse=inb(tx,tz)&&(indoor[I(tx,tz)]||kind[I(tx,tz)]===K.WALL);if(inHouse&&p.y>WH-.25)p.y=WH-.25;
-    if(blocksView(tx,tz)||(inb(tx,tz)&&TALL[I(tx,tz)]&&p.y<2.9)){break;}last=p;}
+    if(blocksView(tx,tz)||kAt(tx,tz)===K.GLASS||(inb(tx,tz)&&TALL[I(tx,tz)]&&p.y<2.9)){break;}last=p;}
   const back=last.clone().sub(tgt);const bl=back.length();if(bl>.35)last=tgt.clone().add(back.multiplyScalar((bl-.25)/bl));
   let look=tgt.clone().setY(tgt.y+.1);
   if(bl<1.6){const d=want.clone().sub(tgt).setY(0).normalize();const sd=new THREE.Vector3(d.z,0,-d.x);last=tgt.clone().add(d.clone().multiplyScalar(Math.max(.45,bl-.2))).add(sd.multiplyScalar(.45));last.y=tgt.y+.35;look=tgt.clone().sub(d.multiplyScalar(4));look.y=tgt.y;}
