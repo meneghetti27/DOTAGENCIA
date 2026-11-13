@@ -1,0 +1,412 @@
+[
+{
+"texto": "Antes",
+"inicio": 0.2,
+"fim": 0.28
+},
+{
+"texto": "de",
+"inicio": 0.32,
+"fim": 0.4
+},
+{
+"texto": "marcar",
+"inicio": 0.48,
+"fim": 0.72
+},
+{
+"texto": "uma",
+"inicio": 0.8,
+"fim": 0.88
+},
+{
+"texto": "consulta,",
+"inicio": 1.2,
+"fim": 1.76
+},
+{
+"texto": "o",
+"inicio": 1.8,
+"fim": 1.84
+},
+{
+"texto": "paciente",
+"inicio": 1.92,
+"fim": 2.32
+},
+{
+"texto": "pesquisa.",
+"inicio": 2.48,
+"fim": 3.04
+},
+{
+"texto": "E",
+"inicio": 3.589,
+"fim": 3.6
+},
+{
+"texto": "escolhe",
+"inicio": 3.68,
+"fim": 4.08
+},
+{
+"texto": "pelo",
+"inicio": 4.12,
+"fim": 4.24
+},
+{
+"texto": "que",
+"inicio": 4.32,
+"fim": 4.4
+},
+{
+"texto": "encontra.",
+"inicio": 4.48,
+"fim": 5.16
+},
+{
+"texto": "A",
+"inicio": 5.427,
+"fim": 5.44
+},
+{
+"texto": "Web",
+"inicio": 5.52,
+"fim": 5.68
+},
+{
+"texto": "Clinic",
+"inicio": 5.76,
+"fim": 6.08
+},
+{
+"texto": "existe",
+"inicio": 6.16,
+"fim": 6.56
+},
+{
+"texto": "pra",
+"inicio": 6.64,
+"fim": 6.72
+},
+{
+"texto": "isso.",
+"inicio": 6.8,
+"fim": 7.28
+},
+{
+"texto": "A",
+"inicio": 7.44,
+"fim": 7.52
+},
+{
+"texto": "gente",
+"inicio": 7.6,
+"fim": 7.76
+},
+{
+"texto": "cria",
+"inicio": 7.84,
+"fim": 8.08
+},
+{
+"texto": "sites",
+"inicio": 8.28,
+"fim": 8.48
+},
+{
+"texto": "para",
+"inicio": 8.6,
+"fim": 8.72
+},
+{
+"texto": "médicos",
+"inicio": 8.84,
+"fim": 9.2
+},
+{
+"texto": "e",
+"inicio": 9.227,
+"fim": 9.253
+},
+{
+"texto": "profissionais",
+"inicio": 9.28,
+"fim": 9.84
+},
+{
+"texto": "da",
+"inicio": 9.88,
+"fim": 9.92
+},
+{
+"texto": "saúde.",
+"inicio": 10.0,
+"fim": 10.8
+},
+{
+"texto": "Não",
+"inicio": 10.84,
+"fim": 10.88
+},
+{
+"texto": "é",
+"inicio": 10.96,
+"fim": 11.04
+},
+{
+"texto": "só",
+"inicio": 11.08,
+"fim": 11.16
+},
+{
+"texto": "um",
+"inicio": 11.2,
+"fim": 11.28
+},
+{
+"texto": "site",
+"inicio": 11.36,
+"fim": 11.6
+},
+{
+"texto": "bonito.",
+"inicio": 11.68,
+"fim": 12.16
+},
+{
+"texto": "É",
+"inicio": 12.549,
+"fim": 12.56
+},
+{
+"texto": "um",
+"inicio": 12.6,
+"fim": 12.64
+},
+{
+"texto": "site",
+"inicio": 12.8,
+"fim": 13.12
+},
+{
+"texto": "que",
+"inicio": 13.2,
+"fim": 13.28
+},
+{
+"texto": "vira",
+"inicio": 13.32,
+"fim": 13.52
+},
+{
+"texto": "consulta",
+"inicio": 13.6,
+"fim": 14.16
+},
+{
+"texto": "marcada.",
+"inicio": 14.28,
+"fim": 14.96
+},
+{
+"texto": "Agenda",
+"inicio": 15.32,
+"fim": 15.52
+},
+{
+"texto": "online,",
+"inicio": 15.76,
+"fim": 16.16
+},
+{
+"texto": "aberta",
+"inicio": 16.24,
+"fim": 16.56
+},
+{
+"texto": "vinte",
+"inicio": 16.72,
+"fim": 16.88
+},
+{
+"texto": "e",
+"inicio": 16.92,
+"fim": 16.96
+},
+{
+"texto": "quatro",
+"inicio": 17.0,
+"fim": 17.2
+},
+{
+"texto": "horas.",
+"inicio": 17.28,
+"fim": 17.84
+},
+{
+"texto": "Seu",
+"inicio": 18.0,
+"fim": 18.16
+},
+{
+"texto": "consultório",
+"inicio": 18.36,
+"fim": 18.72
+},
+{
+"texto": "no",
+"inicio": 18.76,
+"fim": 18.8
+},
+{
+"texto": "Google.",
+"inicio": 18.88,
+"fim": 19.28
+},
+{
+"texto": "WhatsApp",
+"inicio": 19.6,
+"fim": 20.16
+},
+{
+"texto": "a",
+"inicio": 20.32,
+"fim": 20.36
+},
+{
+"texto": "um",
+"inicio": 20.4,
+"fim": 20.48
+},
+{
+"texto": "toque.",
+"inicio": 20.64,
+"fim": 21.28
+},
+{
+"texto": "Cada",
+"inicio": 21.52,
+"fim": 21.76
+},
+{
+"texto": "detalhe",
+"inicio": 21.88,
+"fim": 22.24
+},
+{
+"texto": "pensado",
+"inicio": 22.32,
+"fim": 22.72
+},
+{
+"texto": "pra",
+"inicio": 22.8,
+"fim": 22.88
+},
+{
+"texto": "transformar",
+"inicio": 23.12,
+"fim": 23.44
+},
+{
+"texto": "visita",
+"inicio": 23.52,
+"fim": 24.0
+},
+{
+"texto": "em",
+"inicio": 24.24,
+"fim": 24.32
+},
+{
+"texto": "paciente.",
+"inicio": 24.4,
+"fim": 25.12
+},
+{
+"texto": "Você",
+"inicio": 25.632,
+"fim": 25.68
+},
+{
+"texto": "cuida",
+"inicio": 25.84,
+"fim": 26.08
+},
+{
+"texto": "das",
+"inicio": 26.16,
+"fim": 26.24
+},
+{
+"texto": "pessoas.",
+"inicio": 26.32,
+"fim": 27.08
+},
+{
+"texto": "A",
+"inicio": 27.28,
+"fim": 27.32
+},
+{
+"texto": "gente",
+"inicio": 27.36,
+"fim": 27.6
+},
+{
+"texto": "faz",
+"inicio": 27.76,
+"fim": 27.92
+},
+{
+"texto": "elas",
+"inicio": 28.0,
+"fim": 28.16
+},
+{
+"texto": "chegarem",
+"inicio": 28.2,
+"fim": 28.56
+},
+{
+"texto": "até",
+"inicio": 28.64,
+"fim": 28.8
+},
+{
+"texto": "você.",
+"inicio": 28.84,
+"fim": 29.4
+},
+{
+"texto": "Web",
+"inicio": 29.6,
+"fim": 29.76
+},
+{
+"texto": "Clinic.",
+"inicio": 29.84,
+"fim": 30.48
+},
+{
+"texto": "Manda",
+"inicio": 30.64,
+"fim": 30.88
+},
+{
+"texto": "SITE",
+"inicio": 30.96,
+"fim": 31.28
+},
+{
+"texto": "no",
+"inicio": 31.32,
+"fim": 31.36
+},
+{
+"texto": "direct.",
+"inicio": 31.44,
+"fim": 32.16
+}
+]
