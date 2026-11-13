@@ -63,3 +63,11 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
 - Gerar de novo: `cd gerador && python3 stories.py && node shots.js out-st && for f in out-st/*.png; do cp $f ../perfil/destaques/story-$(basename $f); done`
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
+
+## Site (webclinic/site)
+- Site estático premium (1 `index.html` + `midia/` com o vídeo "sobre nós", `og.png`, `favicon.svg`, `vercel.json`).
+- Fonte: `gerador/site-modelo.html` (modelo com tokens `{{...}}`) + `gerador/site.py` (WhatsApp, faixa de especialidades, vitrine, FAQ, og.png).
+- Gerar: `cd gerador && python3 site.py` → escreve `../site/index.html`.
+- Publicar na Vercel: importar o repositório e apontar **Root Directory = `webclinic/site`** (sem build, é HTML puro).
+- Depois do domínio no ar, trocar `og:image` para URL absoluta (`https://dominio/og.png`).
+- CTA: WhatsApp `wa.me/5551989061441` com mensagem pronta + @webclinicbrasil. Sem preço e sem prazo inventado.
