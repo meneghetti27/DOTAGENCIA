@@ -331,13 +331,14 @@ function furn(o){
 
 /* ============ cerveja: lugares onde procurar ============ */
 const SPECIFIC={'geladeira':['Só maionese e um pudim.','Tem refri. Só refri.'],'freezer da garagem':['Só gelo e um saco de pão.'],'freezer do deck':['Alguém já limpou esse freezer.'],'churrasqueira':['Só carvão e um choripan esquecido.'],'mesa do choripan':['Pegou um choripan. Bom, mas não é cerveja.'],'pilha de casacos na cama':['Achou um isqueiro e uma chave de carro.'],'mesa de jantar':['Só farelo de salgadinho.'],'vasão de cerâmica':['Escuro e vazio lá dentro.'],'atrás da caixa de som':['Só fio. Muito fio.'],'porta-malas do carro':['Estepe e cabo de chupeta.'],'dentro do piano':['Plim. Nada.'],'tanque cheio de gelo':['Só gelo boiando.'],'lareira':['Só cinza.']};
-const GENERIC=['Nada. Só gelo derretido.','Vazio. Alguém foi mais rápido.','Achou uma tampinha. Só a tampinha.','Nada aqui, Pepe.','Só lata vazia.','Tinha uma, mas já beberam.'];
+const GENERIC=['Nada. Só gelo derretido.','Vazio. Alguém foi mais rápido.','Achou uma tampinha. Só a tampinha.','Nada aqui, {P}.','Só lata vazia.','Tinha uma, mas já beberam.'];
 const spots=OBJ.filter(o=>o.spot).map(o=>({o,name:o.spot.n,w:o.spot.w||1,beer:false,cool:0,cx:o.x+o.w/2,cz:o.z+o.d/2}));
 function nearestSpot(px,pz){let best=null,bd=1e9;for(const s of spots){const ex=clamp(px,s.o.x,s.o.x+s.o.w),ez=clamp(pz,s.o.z,s.o.z+s.o.d);const d=Math.hypot(px-ex,pz-ez);if(d<.95&&d<bd){bd=d;best=s;}}return best;}
 
 /* ============ pessoas ============ */
-const NAMES=['gabriel','pedro luiz','enzo lino','Gonçalo','Brenda','Romanato','valentilt','Athur','matheus dalbem','art','(Catatau) Oliveira','lo','Zenker','Padoa','Maria','José','Verena','Lucas','mari lumi','miguel','Teo','Joca vitor','leo','Catatau','mateus','Paco','Be Castro','Gabriel Paim','Flakes','Bits','Lucas','Antônio','Spena','Nanda','Otto','luizao','carol prado','lucas r','babi','Alemão','Helena','Dudu','Joaquim','João','Cássio','Lara','Andreas','Marcela','Henrique','heme','gigicao','vic muller','ju','julia','ceci','fred','dudinha','helena','Paula','eric hendrix','mateus mossmann','faci','Dubal','ana bayer','karina','gabu','Gabi cezar','veronika','Paulo','Muri','Joao Krey','Bryan','Gustavo','Eduarda','Xande','Menegas','Juliano','Rafaella','cecil','junior','Giulia','Isa','Guilherme','Vaz','Joao','Paris','isa','sergio','gabriel','anna','Nadruz','Manu','Kalil','Afonso','Gabriel S','Giovana M','giordano','Antonio','Farilio','Torry','Giovanni','Gab Lucena','matheus','joaquim','matheus r.','Patrick','ane','Fernando','rafa','Duda war','Laura','gabriel 2','Artur C','João Bossa Velha','Bibi','Bárbara','Lima','Gustavo Duarte','pedro','gabo','kittor','Maria Fernanda H.','Castellan','Laura Manfroi','Giselle Furtado','Juliana Ferrari','Eduarda Laitano','Vivian','bruna ayu'];
-const disp=n=>n.charAt(0).toUpperCase()+n.slice(1);
+const NAMES=['Gabriel de Castro','Bianca','pedro luiz','enzo lino','Gonçalo','Brenda','Romanato','valentilt','Athur','matheus dalbem','art','(Catatau) Oliveira','lo','Zenker','Padoa','Maria','José','Verena','Lucas','mari lumi','miguel','Teo','Joca vitor','leo','Catatau','mateus','Paco','Be Castro','Gabriel Paim','Flakes','Bits','Lucas','Antônio','Spena','Nanda','Otto','luizao','carol prado','lucas r','babi','Alemão','Helena','Dudu','Joaquim','João','Cássio','Lara','Andreas','Marcela','Henrique','heme','gigicao','vic muller','ju','julia','ceci','fred','dudinha','helena','Paula','eric hendrix','mateus mossmann','faci','Dubal','ana bayer','karina','gabu','Gabi cezar','veronika','Paulo','Muri','Joao Krey','Bryan','Gustavo','Eduarda','Xande','Menegas','Juliano','Rafaella','cecil','junior','Giulia','Isa','Guilherme','Vaz','Joao','Paris','isa','sergio','gabriel','anna','Nadruz','Manu','Kalil','Afonso','Gabriel S','Giovana M','giordano','Antonio','Farilio','Torry','Giovanni','Gab Lucena','matheus','joaquim','matheus r.','Patrick','ane','Fernando','rafa','Duda war','Laura','gabriel 2','Artur C','João Bossa Velha','Bibi','Bárbara','Lima','Gustavo Duarte','pedro','gabo','kittor','Maria Fernanda H.','Gabriel Castellan','Laura Manfroi','Giselle Furtado','Juliana Ferrari','Eduarda Laitano','Vivian','bruna ayu'];
+const LOWER=new Set(['de','da','do','dos','das','e']);
+const disp=n=>n.split(' ').map((w,i)=>{if(i>0&&LOWER.has(w.toLowerCase()))return w.toLowerCase();if(w.startsWith('('))return '('+w.charAt(1).toUpperCase()+w.slice(2);return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
 const SKINS=['#f3d0b0','#eec3a0','#e0ac85','#c98e64','#a8704a','#8a5636','#6b4128','#f6dcc4'];
 const HAIRC=['#1c120c','#2a1a10','#3b2415','#5a3a1e','#7a4a22','#a8743a','#d6b06a','#e8d9b0','#8c2f1c','#111111','#6d6d6d'];
 const STYLES=['short','short','curly','long','long','bun','pony','cap','buzz','bucket','afro','mullet'];
@@ -416,23 +417,23 @@ const CIGGEO=new THREE.CylinderGeometry(.012,.012,.12,5),CIGMAT=new THREE.MeshBa
 
 /* ============ estado ============ */
 const game={state:'title',time:0,beers:0,caught:0,met:new Set(),beerTimer:0};
-const P={x:24.5,z:28.5,rot:Math.PI,look:PEPE_LOOK,state:'free',timer:0,immune:0,holding:false,say:'',sayT:0,hic:8,shake:0,moving:false,t:0,speed:0,jump:0};
+const P={ph:0,x:24.5,z:28.5,rot:Math.PI,look:PEPE_LOOK,state:'free',timer:0,immune:0,holding:false,say:'',sayT:0,hic:8,shake:0,moving:false,t:0,speed:0,jump:0};
 let npcs=[],gael=null,inter=null,broCool=12,chaseGap=4,toastT=0,flash=0;
 
 function addPerson(e){const m=buildPerson(e.look);e.m=m;scene.add(m.g);m.g.position.set(e.x,0,e.z);m.g.rotation.y=e.rot||0;return e;}
 
 const INTER={
-  foto:{need:6,lines:['FOTO! Sorri, Pepe!','Mais uma, essa tremeu!','Faz um joinha pra foto!'],flash:true},
+  foto:{need:6,lines:['FOTO! Sorri, {P}!','Mais uma, essa tremeu!','Faz um joinha pra foto!'],flash:true},
   selfie:{need:7,lines:['Selfie com o aniversariante!','Todo mundo junto, vem!'],flash:true},
-  parabens:{need:7,lines:['PARABÉÉÉNS, PEPE!!','Feliz aniversário, guri!','Muitos anos de vida, Pepe!']},
+  parabens:{need:7,lines:['PARABÉÉÉNS, {PU}!!','Feliz aniversário, guri!','Parabéns pros dois irmãos!','Muitos anos de vida, {P}!','Cadê o {B}? Parabéns pra vocês!']},
   abraco:{need:8,lines:['Vem cá, me dá um abraço!','Ai, que saudade de ti!','Abraço de aniversário!']},
-  historia:{need:10,lines:['Pepe, lembra daquela vez...?','Deixa eu te contar uma coisa...','E aí, como tão as coisas?','Pepe, tu tá namorando?']},
-  danca:{need:8,lines:['Vem dançar, aniversariante!','Essa é a tua música, Pepe!']},
-  churras:{need:6,lines:['Prova esse choripan, Pepe!','Pega um choripan, tá no ponto!']},
-  carro:{need:6,lines:['Pepe, segura a lanterna aqui!','Tu entende de motor?']},
-  piano:{need:7,lines:['Canta comigo, Pepe!','Pede uma música, aniversariante!']},
+  historia:{need:10,lines:['{P}, lembra daquela vez...?','Deixa eu te contar uma coisa...','E aí, como tão as coisas?','{P}, tu tá namorando?']},
+  danca:{need:8,lines:['Vem dançar, aniversariante!','Essa é a tua música, {P}!']},
+  churras:{need:6,lines:['Prova esse choripan, {P}!','Pega um choripan, tá no ponto!']},
+  carro:{need:6,lines:['{P}, segura a lanterna aqui!','Tu entende de motor?']},
+  piano:{need:7,lines:['Canta comigo, {P}!','Pede uma música, aniversariante!']},
 };
-const BYE=['Te amo, Pepe!','Aproveita, guri!','Depois a gente conversa!','Ficou ótima!','Feliz aniversário!','Vai lá, vai!'];
+const BYE=['Manda um abraço pro {B}!','Te amo, {P}!','Aproveita, guri!','Depois a gente conversa!','Ficou ótima!','Feliz aniversário!','Vai lá, vai!'];
 const GIFT=['Toma uma gelada, é teu dia!','Pega essa, tá trincando!','Presente: uma geladinha!'];
 const FACE={N:Math.PI,S:0,E:Math.PI/2,W:-Math.PI/2};
 
@@ -579,7 +580,7 @@ addEventListener('touchstart',()=>document.body.classList.add('touch'),{passive:
 const uc=$('ui'),uctx=uc.getContext('2d');let DPR=1;
 function resize(){DPR=Math.min(2,devicePixelRatio||1);const w=innerWidth,h=innerHeight;renderer.setPixelRatio(Math.min(devicePixelRatio||1,w<700?1.25:1.6));renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?72:60;camera.updateProjectionMatrix();uc.width=Math.round(w*DPR);uc.height=Math.round(h*DPR);}
 addEventListener('resize',resize);resize();
-function toast(msg,t=1.8){const el=$('toast');el.textContent=msg;el.classList.add('on');toastT=t;}
+function toast(msg,t=1.8){const el=$('toast');el.textContent=tr(msg);el.classList.add('on');toastT=t;}
 const LEVELS=[[0,'Sóbrio'],[1,'Alegrinho'],[3,'Calibrado'],[6,'Trocando as pernas'],[10,'Chapado'],[15,'Virou lenda'],[21,'Fora de controle']];
 const lvlName=b=>{let n=LEVELS[0][1];for(const [k,s] of LEVELS)if(b>=k)n=s;return n;};
 const drunk=()=>Math.min(1,game.beers/18);
@@ -594,11 +595,13 @@ const mini=document.createElement('canvas');mini.width=W*3;mini.height=H*3;(()=>
   for(const o of OBJ){if(o.k==='tree')continue;g.fillStyle='rgba(0,0,0,.35)';g.fillRect(o.x*3,o.z*3,o.w*3,o.d*3);}})();
 
 /* ============ ações ============ */
-function say(e,txt,t=1.8){e.say=txt;e.sayT=t;}
+let HERO='Pepe';const BRO=()=>HERO==='Pepe'?'Gael':'Pepe';
+const tr=t=>String(t).replace(/\{PU\}/g,HERO.toUpperCase()).replace(/\{BU\}/g,BRO().toUpperCase()).replace(/\{P\}/g,HERO).replace(/\{B\}/g,BRO());
+function say(e,txt,t=1.8){e.say=tr(txt);e.sayT=t;}
 function spawnBeer(){const free=spots.filter(s=>!s.beer&&Math.hypot(s.cx-P.x,s.cz-P.z)>4);let tot=0;for(const s of free)tot+=s.w;let r=Math.random()*tot;for(const s of free){r-=s.w;if(r<=0){s.beer=true;return;}}}
 function startDrink(from){P.state='drink';P.timer=1.3;P.holding=true;P.from=from;SFX.open();setTimeout(()=>SFX.gulp(),250);}
 function finishDrink(){P.holding=false;P.state='free';game.beers++;P.immune=Math.max(P.immune,.8);SFX.ahh();
-  const before=lvlName(game.beers-1),now=lvlName(game.beers);toast(now!==before?`+1 · Pepe tá ${now.toUpperCase()}`:`+1 cerveja${P.from?' · '+P.from:''}`);
+  const before=lvlName(game.beers-1),now=lvlName(game.beers);toast(now!==before?`+1 · {P} tá ${now.toUpperCase()}`:`+1 cerveja${P.from?' · '+P.from:''}`);
   for(let i=0;i<14;i++)emit('conf',P.x,2.2,P.z,rand(-1.5,1.5),rand(1,3),rand(-1.5,1.5),1,.12,pick([0xf4b63a,0xffffff,0xe98aa8,0x7fd3ff,0x9be36a]));
   $('beers').textContent=game.beers;$('lvl').textContent=now;}
 function trySearch(){const s=nearestSpot(P.x,P.z);if(!s)return;if(s.cool>0){toast('Já olhou ali. Tenta outro lugar.',1.2);SFX.nope();return;}
@@ -644,16 +647,18 @@ function updateNPCs(dt){
     e.t+=dt;e.cool-=dt;if(e.sayT>0)e.sayT-=dt;if(e.jump>0)e.jump=Math.max(0,e.jump-dt*2);
     const dP=dist(e,P);
     if((e.mode==='home'||e.mode==='walk')&&e.fan>0&&e.cool<=0&&chaseGap<=0&&chasers<2&&P.state==='free'&&P.immune<=0&&dP<5){
-      const near=dP<1.3;if((near&&Math.random()<e.fan*dt*3.5)||(Math.random()<e.fan*dt*.5&&losClear(e,P))){e.mode='chase';e.chaseT=0;e.repath=0;e.path=null;chasers++;chaseGap=rand(2.2,4)-drunk()*1.2;say(e,pick(['PEPE!!','Ô PEPE!','Aniversariante!','Pepeee!','PEPE, VEM CÁ!']),1.2);SFX.hey();e.jump=1;}}
+      const near=dP<1.3;if((near&&Math.random()<e.fan*dt*3.5)||(Math.random()<e.fan*dt*.5&&losClear(e,P))){e.mode='chase';e.chaseT=0;e.repath=0;e.path=null;chasers++;chaseGap=rand(2.2,4)-drunk()*1.2;say(e,pick(['{PU}!!','Ô {PU}!','Aniversariante!','{P}!!!','{PU}, VEM CÁ!']),1.2);SFX.hey();e.jump=1;}}
     if(e.bro){
-      if(broCool<=0&&P.state==='free'&&dP<1.1){broCool=rand(22,28);say(e,pick(['Toma, mano! Feliz aniversário!','Pega essa, mano, tá trincando!','Bora, mano, vira essa!','Feliz aniversário, mano!']),2.2);startDrink('do Gael');e.mode='home';e.path=null;e.wt=rand(3,6);e.jump=1;e.rot=Math.atan2(P.x-e.x,P.z-e.z);continue;}
+      e.fanT=(e.fanT||rand(3,6))-dt;if(e.fanT<=0){e.fanT=rand(4,8);let best=null,bd=2.2;for(const o of npcs){if(o===e||!o.present||o.mode!=='home')continue;const d=dist(o,e);if(d<bd){bd=d;best=o;}}
+        if(best&&dist(e,P)<16){say(best,pick(['Parabéns, {B}!','Feliz aniversário, {B}!','{BU}!!!','Muitos anos de vida, {B}!']),1.8);best.jump=1;setTimeout(()=>say(e,pick(['Valeu, valeu!','Brigadão!','Valeu! Cadê o {P}?']),1.6),700);for(let i=0;i<8;i++)emit('conf',e.x,2.2,e.z,rand(-1,1),rand(1,2.5),rand(-1,1),1,.1,pick([0xf4b63a,0xffffff,0x9fd6ff]));}}
+      if(broCool<=0&&P.state==='free'&&dP<1.1){broCool=rand(22,28);say(e,pick(['Toma, mano! Feliz aniversário pra nós!','Pega essa, mano, tá trincando!','Bora, mano, vira essa!','Feliz aniversário, mano! É nosso dia!']),2.2);startDrink('do '+BRO());e.mode='home';e.path=null;e.wt=rand(3,6);e.jump=1;e.rot=Math.atan2(P.x-e.x,P.z-e.z);continue;}
       if(broCool<-6&&e.mode!=='seek'){e.mode='seek';e.repath=0;}
       if(e.mode==='seek'){e.repath-=dt;if(e.repath<=0){e.path=findPath(e.x,e.z,P.x,P.z);e.repath=1;}followPath(e,dt,2.6);if(broCool>0)e.mode='home';continue;}
     }
     switch(e.mode){
       case 'home':{e.moving=false;if(!e.wander&&Math.hypot(e.x-e.hx,e.z-e.hz)<.2)e.rot=turn(e.rot,e.face,dt*4);
         if(e.act==='dance'&&Math.random()<dt*.5)e.face=e.rot+rand(-1.5,1.5);
-        if(e.act==='chat'&&Math.random()<dt*.04&&e.sayT<=0&&dP<7)say(e,pick(['haha','kkkkk','sério?','né?!','bah','tri!','que isso','olha o Pepe!','saúde!']),1.4);
+        if(e.act==='chat'&&Math.random()<dt*.04&&e.sayT<=0&&dP<7)say(e,pick(['haha','kkkkk','sério?','né?!','bah','tri!','que isso','olha o {P}!','saúde!']),1.4);
         if(e.act==='smoke'){e.puff-=dt;if(e.puff<=0){e.puff=rand(1.2,2.6);emit('smoke',e.x+Math.sin(e.rot)*.3,1.95,e.z+Math.cos(e.rot)*.3,rand(-.1,.1),.35,rand(-.1,.1),2,.35);}}
         if(e.act==='kiss'&&Math.random()<dt*1.2)emit('heart',e.x,2.3,e.z,rand(-.1,.1),.4,rand(-.1,.1),1.3,.25);
         if(e.act==='piano'&&Math.random()<dt*2)emit('note',e.x+.4,2.0,e.z,rand(-.2,.2),.5,rand(-.2,.2),1.4,.22,pick([0xffffff,0xf4b63a,0x7fd3ff]));
@@ -665,7 +670,7 @@ function updateNPCs(dt){
         if(dP<1.3){const dx=P.x-e.x,dz=P.z-e.z,d=Math.max(.01,Math.hypot(dx,dz));if(d>.7){e.x+=dx/d*3.2*dt;e.z+=dz/d*3.2*dt;e.moving=true;e.speedNow=3.2;}else e.moving=false;e.rot=turn(e.rot,Math.atan2(dx,dz),dt*10);}
         else followPath(e,dt,3.2);
         if(dP<.85&&P.state==='free'&&P.immune<=0)startInter(e);
-        else if(e.chaseT>6.5||dP>9||(P.state==='inter'&&inter&&inter.npc!==e)){e.cool=rand(6,12);say(e,pick(['Ah, depois!','Volta aqui, Pepe!','Ele fugiu!']),1.2);goHome(e);}
+        else if(e.chaseT>6.5||dP>9||(P.state==='inter'&&inter&&inter.npc!==e)){e.cool=rand(6,12);say(e,pick(['Ah, depois!','Volta aqui, {P}!','Ele fugiu!']),1.2);goHome(e);}
         break;}
       case 'inter':e.moving=false;break;
     }
@@ -746,7 +751,7 @@ function renderUI(){
   // nomes
   const fsN=Math.round(11*DPR);c.font=`600 ${fsN}px "Pixelify Sans", system-ui, sans-serif`;c.textBaseline='bottom';
   for(const e of npcs){if(!e.present)continue;const d=dist(e,P);const show=e===gael||d<3.2||e.mode==='chase'||e.mode==='inter';if(!show||d>22)continue;
-    const sc=toScreen(e.x,2.25*(e.look.h||1),e.z);if(!sc)continue;const label=e===gael?'GAEL (irmão)':disp(e.name);const w=c.measureText(label).width;
+    const sc=toScreen(e.x,2.25*(e.look.h||1),e.z);if(!sc)continue;const label=e===gael?BRO().toUpperCase()+' (irmão)':disp(e.name);const w=c.measureText(label).width;
     c.fillStyle='rgba(0,0,0,.6)';c.fillRect(sc[0]-w/2-4*DPR,sc[1]-fsN-3*DPR,w+8*DPR,fsN+5*DPR);c.fillStyle=e===gael?'#9fd6ff':(e.mode==='chase'?'#ffb4a0':'#f4e8c8');c.textAlign='left';c.fillText(label,sc[0]-w/2,sc[1]+1*DPR);}
   for(const e of npcs){if(!e.present||e.sayT<=0||!e.say)continue;if(dist(e,P)>14)continue;const sc=toScreen(e.x,2.5,e.z);if(!sc)continue;bubble(e.say,sc[0],sc[1]-14*DPR,{small:e.mode==='home'});}
   if(P.sayT>0){const sc=toScreen(P.x,2.4,P.z);if(sc)bubble(P.say,sc[0],sc[1],{bg:'#ffe39a'});}
@@ -767,7 +772,7 @@ function renderUI(){
   if(broCool<=0&&gael){const sc=toScreen(gael.x,2.2,gael.z);const m=50*DPR;const off=!sc||sc[0]<m||sc[1]<m||sc[0]>uc.width-m||sc[1]>uc.height-m;
     if(off){const dx=gael.x-P.x,dz=gael.z-P.z;const ang=Math.atan2(dx,dz)-camYaw;const ex=uc.width/2-Math.sin(ang)*(uc.width/2-m),ey=uc.height/2-Math.cos(ang)*(uc.height/2-m*1.8);
       c.save();c.translate(ex,ey);c.rotate(-ang+Math.PI);c.fillStyle='#000';c.beginPath();c.moveTo(0,-16*DPR);c.lineTo(11*DPR,8*DPR);c.lineTo(-11*DPR,8*DPR);c.closePath();c.fill();c.fillStyle='#9fd6ff';c.beginPath();c.moveTo(0,-12*DPR);c.lineTo(8*DPR,6*DPR);c.lineTo(-8*DPR,6*DPR);c.closePath();c.fill();c.restore();
-      bubble('Gael tem cerveja',ex,ey-18*DPR,{small:true,bg:'#9fd6ff'});}}
+      bubble(BRO()+' tem cerveja',ex,ey-18*DPR,{small:true,bg:'#9fd6ff'});}}
   if(joy.active){const ox=joy.ox*DPR,oy=joy.oy*DPR;c.strokeStyle='rgba(244,232,200,.55)';c.lineWidth=3*DPR;c.beginPath();c.arc(ox,oy,46*DPR,0,7);c.stroke();const jx=joy.x-joy.ox,jy=joy.y-joy.oy,jd=Math.hypot(jx,jy),k=Math.min(1,46/Math.max(1,jd));c.fillStyle='rgba(244,182,58,.85)';c.beginPath();c.arc(ox+jx*k*DPR,oy+jy*k*DPR,18*DPR,0,7);c.fill();}
   if(flash>0){c.fillStyle=`rgba(255,255,255,${clamp(flash,0,1)*.85})`;c.fillRect(0,0,uc.width,uc.height);}
   // efeito de bêbado: vinheta borrada
@@ -797,20 +802,38 @@ function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;
   animateAll(dt);updateSky(dt);updateCamera(dt,game.state!=='play');
   renderer.render(scene,camera);renderUI();requestAnimationFrame(loop);}
 
+/* ============ troca de personagem ============ */
+function applyHero(){
+  const heroLook=HERO==='Pepe'?PEPE_LOOK:GAEL_LOOK,broLook=HERO==='Pepe'?GAEL_LOOK:PEPE_LOOK;
+  scene.remove(P.m.g);P.look=heroLook;addPerson(P);P.m.parts.forEach(p=>p.castShadow=true);pepe.m=P.m;
+  if(gael){scene.remove(gael.m.g);gael.look=broLook;gael.name=BRO();addPerson(gael);gael.m.g.visible=gael.present;}
+  $('swap').textContent='TROCAR P/ '+BRO().toUpperCase();$('swap').setAttribute('aria-label','Trocar para o '+BRO());
+}
+function swapHero(){
+  if(game.state!=='play'||P.state==='drink'||P.state==='search')return;
+  if(P.state==='inter'&&inter){const e=inter.npc;e.cool=rand(8,14);goHome(e);inter=null;P.state='free';}
+  HERO=BRO();const px=P.x,pz=P.z,pr=P.rot;P.x=gael.x;P.z=gael.z;P.rot=gael.rot;gael.x=px;gael.z=pz;gael.rot=pr;gael.mode='home';gael.path=null;gael.wt=rand(2,5);
+  camYaw=P.rot;camPos.set(P.x-Math.sin(camYaw)*3,3,P.z-Math.cos(camYaw)*3);P.immune=1.5;applyHero();
+  for(const e of npcs)if(e.mode==='chase'){e.cool=rand(4,8);goHome(e);}
+  toast('Agora tu é o '+HERO+'!',1.6);SFX.free();
+}
+$('swap').addEventListener('click',e=>{e.stopPropagation();swapHero();});
+addEventListener('keydown',e=>{if((e.key==='q'||e.key==='Q'||e.key==='Tab')&&game.state==='play'){e.preventDefault();if(!e.repeat)swapHero();}});
+
 /* ============ fluxo ============ */
 function resetGame(){game.time=0;game.beers=0;game.caught=0;game.met=new Set();game.beerTimer=0;
-  Object.assign(P,{x:24.5,z:28.5,rot:Math.PI,state:'free',timer:0,immune:1,holding:false,sayT:0,hic:8,shake:0,jump:0});camYaw=Math.PI;camPitch=.32;
+  Object.assign(P,{ph:0,x:24.5,z:28.5,rot:Math.PI,state:'free',timer:0,immune:1,holding:false,sayT:0,hic:8,shake:0,jump:0});camYaw=Math.PI;camPitch=.32;
   for(const s of spots){s.beer=false;s.cool=0;}for(let i=0;i<6;i++)spawnBeer();setupNPCs();inter=null;broCool=10;chaseGap=4;flash=0;
   $('beers').textContent='0';$('lvl').textContent='Sóbrio';camPos.set(24.5,3.5,24.5);}
-function startGame(){audioInit();if(AC&&AC.state==='suspended')AC.resume();resetGame();game.state='play';$('title').hidden=true;$('end').hidden=true;$('hud').hidden=false;if(AC)musicNext=AC.currentTime+.1;say(P,'Bora achar uma gelada!',2.2);}
-const RANKS=[[0,'Ficou no guaraná'],[4,'Aquecendo os motores'],[8,'Aniversariante raiz'],[13,'Lenda da festa'],[19,'Pepe, vai com calma'],[26,'Imortal']];
+function startGame(who){if(who)HERO=who;audioInit();if(AC&&AC.state==='suspended')AC.resume();resetGame();applyHero();game.state='play';$('title').hidden=true;$('end').hidden=true;$('hud').hidden=false;if(AC)musicNext=AC.currentTime+.1;say(P,tr('Bora achar uma gelada!'),2.2);say(gael,'Feliz aniversário pra nós, mano!',2.6);}
+const RANKS=[[0,'Ficou no guaraná'],[4,'Aquecendo os motores'],[8,'Aniversariante raiz'],[13,'Lenda da festa'],[19,'{P}, vai com calma'],[26,'Imortal']];
 function endGame(){game.state='end';$('hud').hidden=true;try{document.exitPointerLock&&document.exitPointerLock();}catch(_){}
   let rank=RANKS[0][1];for(const [k,s] of RANKS)if(game.beers>=k)rank=s;let best=0;try{best=+localStorage.getItem('festaPepe3dRecorde')||0;if(game.beers>best)localStorage.setItem('festaPepe3dRecorde',String(game.beers));}catch(_){}
-  $('endBeers').textContent=game.beers;$('endRank').textContent=rank;$('endStats').textContent=`Te pararam ${game.caught} ${game.caught===1?'vez':'vezes'} · ${game.met.size} pessoas diferentes · ${game.beers>best?'novo recorde!':'recorde: '+Math.max(best,game.beers)}`;
+  $('endBeers').textContent=game.beers;$('endRank').textContent=tr(rank);$('endWho').textContent=`${HERO} bebeu`;$('endStats').textContent=`Te pararam ${game.caught} ${game.caught===1?'vez':'vezes'} · ${game.met.size} pessoas diferentes · ${game.beers>best?'novo recorde!':'recorde: '+Math.max(best,game.beers)}`;
   $('end').hidden=false;parabensSong();}
-$('start').addEventListener('click',startGame);$('again').addEventListener('click',startGame);
+$('start').addEventListener('click',()=>startGame('Pepe'));$('startG').addEventListener('click',()=>startGame('Gael'));$('again').addEventListener('click',()=>startGame());
 $('mute').addEventListener('click',()=>{muted=!muted;$('mute').textContent=muted?'MUDO':'SOM';if(!muted&&AC)musicNext=AC.currentTime+.05;});
 resetGame();game.time=20;
 requestAnimationFrame(loop);
-window.__festa={game,P,npcs:()=>npcs,spots,startGame,setCam:(y,p)=>{camYaw=y;camPitch=p;},renderer};
+window.__festa={pepeVis:()=>({vis:pepe.m.g.visible,cam:camera.position.toArray().map(v=>+v.toFixed(2)),gp:pepe.m.g.position.toArray().map(v=>+v.toFixed(2))}),game,P,npcs:()=>npcs,spots,startGame,setCam:(y,p)=>{camYaw=y;camPitch=p;},renderer};
 })();
