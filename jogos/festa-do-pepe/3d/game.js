@@ -131,7 +131,9 @@ const blocksView=(x,z)=>{const k=kAt(x,z);return k===K.WALL||k===K.HEDGE||k===K.
 
 /* ============ three.js ============ */
 const canvas=$('c');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+const MOBILE=(matchMedia&&matchMedia('(pointer:coarse)').matches)||Math.min(innerWidth,innerHeight)<600;
+const Q={lvl:0,pr:MOBILE?Math.min(devicePixelRatio||1,1.15):Math.min(devicePixelRatio||1,1.6),draw:MOBILE?30:45,shadowDist:MOBILE?8:14,anim:MOBILE?22:45};
+const renderer=new THREE.WebGLRenderer({canvas,antialias:!MOBILE,powerPreference:'high-performance'});
 renderer.outputEncoding=THREE.sRGBEncoding;
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
@@ -453,7 +455,7 @@ const ZONES=[
   {k:'room',tiles:freeTiles(25,6,6,3).concat(freeTiles(35,15,3,4)).concat(freeTiles(32,6,4,2)),n:6},
 ];
 const WANDER=[];for(const z of ZONES)for(const t of z.tiles)WANDER.push(t);
-function mkNPC(name,look){return{name,look,x:0,z:0,hx:0,hz:0,rot:0,face:0,t:Math.random()*10,ph:Math.random()*6,moving:false,mode:'home',path:null,cool:rand(4,14),fan:.5,types:['parabens','foto'],act:'chat',say:'',sayT:0,present:false,wander:false,wt:rand(3,10),jump:0,cig:false,holding:false,repath:0,chaseT:0,puff:rand(0,2),speedNow:0};}
+let _seedI=0;function mkNPC(name,look){return{seedI:_seedI++,name,look,x:0,z:0,hx:0,hz:0,rot:0,face:0,t:Math.random()*10,ph:Math.random()*6,moving:false,mode:'home',path:null,cool:rand(4,14),fan:.5,types:['parabens','foto'],act:'chat',say:'',sayT:0,present:false,wander:false,wt:rand(3,10),jump:0,cig:false,holding:false,repath:0,chaseT:0,puff:rand(0,2),speedNow:0};}
 function setupNPCs(){
   for(const e of npcs)scene.remove(e.m.g);npcs=[];
   const used=new Set(),names=NAMES.slice();for(let i=names.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[names[i],names[j]]=[names[j],names[i]];}
@@ -479,7 +481,7 @@ function setupNPCs(){
   while(idx<names.length){const name=take();const e=mkNPC(name,makeLook(strSeed(name+idx)));const t=pick(WANDER);e.hx=t[0]+.5;e.hz=t[1]+.5;e.wander=true;e.fan=rand(.6,1);e.types=pick([['foto','selfie'],['parabens','abraco'],['historia','parabens']]);npcs.push(e);}
   for(const e of npcs)if(e.act==='chat'&&Math.random()<.12)e.wander=true;
   gael=mkNPC('Gael',GAEL_LOOK);gael.bro=true;gael.wander=true;gael.fan=0;gael.hx=19.5;gael.hz=28.5;npcs.push(gael);
-  for(const [nm,lk,x,z] of [['Mãe',MAE_LOOK,9.5,13.5],['Pai',PAI_LOOK,24.5,29.5]]){const e=mkNPC(nm,lk);e.parent=true;e.wander=true;e.fan=0;e.hx=x;e.hz=z;e.cool=rand(20,35);npcs.push(e);}
+  for(const [nm,lk,x,z] of [['Mãe',MAE_LOOK,9.5,13.5],['Pai',PAI_LOOK,31.5,29.5]]){const e=mkNPC(nm,lk);e.parent=true;e.wander=true;e.fan=0;e.hx=x;e.hz=z;e.cool=rand(20,35);npcs.push(e);}
   const order=npcs.filter(e=>e!==gael&&!e.parent).sort(()=>Math.random()-.5);
   order.forEach((e,i)=>{if(i<50||(e.act!=='chat'&&e.act!=='dance'&&e.act!=='smoke')){e.present=true;e.x=e.hx;e.z=e.hz;e.rot=e.face;}else{e.present=false;e.arriveAt=4+(i-50)*.95;}});
   gael.present=true;gael.x=gael.hx;gael.z=gael.hz;for(const e of npcs)if(e.parent){e.present=true;e.x=e.hx;e.z=e.hz;}
@@ -515,9 +517,9 @@ function parabensSong(){if(!AC||muted)return;const N={G4:392,A4:440,B4:494,C5:52
 /* ============ cena: luz, céu, partículas ============ */
 const hemi=new THREE.HemisphereLight(0xffd2a8,0x5a4a3a,.7);scene.add(hemi);
 const amb=new THREE.AmbientLight(0xffffff,.12);scene.add(amb);
-const sun=new THREE.DirectionalLight(0xffb36b,1.6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+const sun=new THREE.DirectionalLight(0xffb36b,1.6);sun.castShadow=true;sun.shadow.mapSize.set(MOBILE?1024:2048,MOBILE?1024:2048);
 Object.assign(sun.shadow.camera,{left:-26,right:26,top:26,bottom:-26,near:1,far:160});sun.shadow.bias=-.0006;sun.shadow.normalBias=.02;scene.add(sun);scene.add(sun.target);
-const PL=[];for(let i=0;i<6;i++){const l=new THREE.PointLight(0xffc27a,0,11,1.6);scene.add(l);PL.push(l);}
+const PL=[];for(let i=0;i<(MOBILE?3:6);i++){const l=new THREE.PointLight(0xffc27a,0,11,1.6);scene.add(l);PL.push(l);}
 const skyU={top:{value:new THREE.Color()},bot:{value:new THREE.Color()}};
 const sky=new THREE.Mesh(new THREE.SphereGeometry(300,24,12),new THREE.ShaderMaterial({uniforms:skyU,side:THREE.BackSide,depthWrite:false,fog:false,
   vertexShader:'varying vec3 vP;void main(){vP=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
@@ -581,7 +583,7 @@ addEventListener('touchstart',()=>document.body.classList.add('touch'),{passive:
 
 /* ============ UI ============ */
 const uc=$('ui'),uctx=uc.getContext('2d');let DPR=1;
-function resize(){DPR=Math.min(2,devicePixelRatio||1);const w=innerWidth,h=innerHeight;renderer.setPixelRatio(Math.min(devicePixelRatio||1,w<700?1.25:1.6));renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?72:60;camera.updateProjectionMatrix();uc.width=Math.round(w*DPR);uc.height=Math.round(h*DPR);}
+function resize(){DPR=Math.min(2,devicePixelRatio||1);const w=innerWidth,h=innerHeight;renderer.setPixelRatio(Q.pr);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?72:60;camera.updateProjectionMatrix();uc.width=Math.round(w*DPR);uc.height=Math.round(h*DPR);}
 addEventListener('resize',resize);resize();
 function toast(msg,t=1.8){const el=$('toast');el.textContent=tr(msg);el.classList.add('on');toastT=t;}
 const LEVELS=[[0,'Sóbrio'],[1,'Alegrinho'],[3,'Calibrado'],[6,'Trocando as pernas'],[10,'Chapado'],[15,'Virou lenda'],[21,'Fora de controle']];
@@ -813,13 +815,22 @@ function update(dt){
 }
 function animateAll(dt){
   P.holding=P.state==='drink';animPerson(P,dt,true);if(P.immune>0&&P.state==='free')pepe.m.g.visible=Math.floor(P.t*12)%2===0;else pepe.m.g.visible=true;
-  if(++shadowFrame%15===0){for(const e of npcs){const d=dist(e,P);e.m.parts.forEach(p=>p.castShadow=d<14);}}
-  for(const e of npcs){if(!e.present)continue;const d=Math.hypot(e.x-camera.position.x,e.z-camera.position.z);e.m.g.visible=d<45;if(d<45)animPerson(e,dt,false);}
+  if(++shadowFrame%15===0){for(const e of npcs){const d=dist(e,P);e.m.parts.forEach(p=>p.castShadow=d<Q.shadowDist);}}
+  for(const e of npcs){if(!e.present)continue;const d=Math.hypot(e.x-camera.position.x,e.z-camera.position.z);e.m.g.visible=d<Q.draw;if(d<Q.anim||(d<Q.draw&&(shadowFrame+e.seedI)%3===0))animPerson(e,dt,false);}
   const tt=performance.now()/1000;ballM.position.set(22.5+(4.5)*(.5+.5*Math.sin(tt*1.8)),.16+Math.abs(Math.sin(tt*3.6))*.6,35.5);
   updateParts(dt);
 }
+/* qualidade automática: se o celular não aguenta, baixa a resolução e as sombras */
+let fpsT=0,fpsN=0,lowFor=0;
+function adaptQuality(dt){if(game.state!=='play')return;fpsT+=dt;fpsN++;if(fpsT<2)return;const fps=fpsN/fpsT;fpsT=0;fpsN=0;
+  if(fps<42&&Q.lvl<4){lowFor++;if(lowFor<1)return;lowFor=0;Q.lvl++;
+    if(Q.lvl===1){Q.pr=Math.max(.75,Q.pr*.8);}
+    else if(Q.lvl===2){sun.castShadow=false;Q.shadowDist=0;for(const e of npcs)e.m.parts.forEach(p=>p.castShadow=false);P.m.parts.forEach(p=>p.castShadow=false);}
+    else if(Q.lvl===3){Q.pr=Math.max(.6,Q.pr*.8);Q.draw=Math.min(Q.draw,22);Q.anim=14;}
+    else{Q.pr=.5;Q.draw=16;scene.remove(bgTrees);}
+    resize();}}
 let last=performance.now();
-function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;adaptQuality(dt);
   if(game.state==='play'&&!adOpen){update(dt);musicTick();if(adShown<AD_AT.length&&game.time>=AD_AT[adShown]){adShown++;openAd();}}
   animateAll(dt);updateSky(dt);updateCamera(dt,game.state!=='play');
   renderer.render(scene,camera);renderUI();requestAnimationFrame(loop);}
@@ -880,7 +891,9 @@ function resetGame(){game.time=0;game.beers=0;game.caught=0;game.met=new Set();g
   Object.assign(P,{ban:0,parent:null,ph:0,x:24.5,z:28.5,rot:Math.PI,state:'free',timer:0,immune:1,holding:false,sayT:0,hic:8,shake:0,jump:0});camYaw=Math.PI;camPitch=.32;
   for(const s of spots){s.beer=false;s.cool=0;}for(let i=0;i<6;i++)spawnBeer();setupNPCs();inter=null;broCool=10;chaseGap=4;flash=0;
   $('beers').textContent='0';$('lvl').textContent='Sóbrio';camPos.set(24.5,3.5,24.5);}
-function startGame(who){if(who)HERO=who;adShown=0;closeAd();audioInit();if(AC&&AC.state==='suspended')AC.resume();resetGame();applyHero();game.state='play';$('title').hidden=true;$('end').hidden=true;$('hud').hidden=false;if(AC)musicNext=AC.currentTime+.1;say(P,tr('Bora achar uma gelada!'),2.2);say(gael,'Feliz aniversário pra nós, mano!',2.6);}
+let wake=null;async function keepAwake(){try{if(navigator.wakeLock&&!wake){wake=await navigator.wakeLock.request('screen');wake.addEventListener('release',()=>{wake=null;});}}catch(_){}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&game.state==='play'){keepAwake();last=performance.now();}if(document.hidden&&AC)AC.suspend&&AC.suspend();else if(AC&&AC.resume)AC.resume();});
+function startGame(who){if(who)HERO=who;keepAwake();adShown=0;closeAd();audioInit();if(AC&&AC.state==='suspended')AC.resume();resetGame();applyHero();game.state='play';$('title').hidden=true;$('end').hidden=true;$('hud').hidden=false;if(AC)musicNext=AC.currentTime+.1;say(P,tr('Bora achar uma gelada!'),2.2);say(gael,'Feliz aniversário pra nós, mano!',2.6);}
 const RANKS=[[0,'Ficou no guaraná'],[4,'Aquecendo os motores'],[8,'Aniversariante raiz'],[13,'Lenda da festa'],[19,'{P}, vai com calma'],[26,'Imortal']];
 function endGame(){game.state='end';$('hud').hidden=true;try{document.exitPointerLock&&document.exitPointerLock();}catch(_){}
   let rank=RANKS[0][1];for(const [k,s] of RANKS)if(game.beers>=k)rank=s;let best=0;try{best=+localStorage.getItem('festaPepe3dRecorde')||0;if(game.beers>best)localStorage.setItem('festaPepe3dRecorde',String(game.beers));}catch(_){}

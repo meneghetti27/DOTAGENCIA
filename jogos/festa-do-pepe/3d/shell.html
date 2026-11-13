@@ -7,7 +7,8 @@
 :root{--night:#130e0b;--ink:#1e1511;--paper:#f4e8c8;--olive:#5b6142;--beer:#f4b63a;--px:'Pixelify Sans',system-ui,sans-serif;--disp:'Silkscreen','Pixelify Sans',monospace;color-scheme:dark}
 [hidden]{display:none!important}
 html,body{height:100%;margin:0;background:var(--night);color:var(--paper);overflow:hidden;font-family:var(--px)}
-body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+#pname{-webkit-user-select:text;user-select:text}
 #wrap{position:fixed;inset:0;overflow:hidden;background:var(--night)}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block}
 #ui{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
@@ -24,11 +25,11 @@ body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-c
 #mute{pointer-events:auto;font-family:var(--disp);font-size:12px;color:var(--paper);cursor:pointer;min-width:44px;min-height:40px}
 #toast{position:absolute;left:50%;top:24%;transform:translateX(-50%);font-family:var(--disp);font-size:clamp(16px,4.6vw,22px);color:var(--beer);text-shadow:2px 2px 0 #000,-1px -1px 0 #000;text-align:center;opacity:0;transition:opacity .25s;pointer-events:none;width:90%}
 #toast.on{opacity:1}
-#act{position:absolute;right:calc(max(16px,env(safe-area-inset-right,0px)) + 6px);bottom:calc(env(safe-area-inset-bottom,0px) + 26px);width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd98a,#f4b63a 45%,#c9861c);border:3px solid #000;box-shadow:0 5px 0 #000;font-family:var(--disp);font-size:14px;color:#2a1a08;pointer-events:auto;display:none;touch-action:none}
+#act{position:absolute;right:calc(max(16px,env(safe-area-inset-right,0px)) + 10px);bottom:calc(env(safe-area-inset-bottom,0px) + 30px);width:96px;height:96px;user-select:none;-webkit-user-select:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd98a,#f4b63a 45%,#c9861c);border:3px solid #000;box-shadow:0 5px 0 #000;font-family:var(--disp);font-size:14px;color:#2a1a08;pointer-events:auto;display:none;touch-action:none}
 .touch #act{display:block}
 #act.press{transform:translateY(3px);box-shadow:0 2px 0 #000}
-.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(14,9,7,.25),rgba(14,9,7,.75));padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto;pointer-events:auto}
-.card{max-width:470px;width:100%;background:rgba(30,21,17,.93);border:3px solid #000;box-shadow:0 0 0 3px var(--olive),0 10px 0 rgba(0,0,0,.5);padding:20px 18px;border-radius:8px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.screen{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;background:linear-gradient(180deg,rgba(14,9,7,.25),rgba(14,9,7,.75));padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto;pointer-events:auto}
+.card{margin:auto 0;max-width:470px;width:100%;background:rgba(30,21,17,.93);border:3px solid #000;box-shadow:0 0 0 3px var(--olive),0 10px 0 rgba(0,0,0,.5);padding:20px 18px;border-radius:8px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
 h1{font-family:var(--disp);font-weight:700;font-size:clamp(30px,9vw,46px);line-height:1;margin:0;color:var(--beer);text-shadow:3px 3px 0 #000;text-wrap:balance}
 .sub{font-size:15px;opacity:.85;margin:0}
 .rules{font-size:15px;line-height:1.45;text-align:left;margin:0;max-width:42ch}
@@ -37,7 +38,10 @@ h1{font-family:var(--disp);font-weight:700;font-size:clamp(30px,9vw,46px);line-h
 button.big{font-family:var(--disp);font-size:18px;background:var(--beer);color:#2a1a08;border:3px solid #000;box-shadow:0 5px 0 #000;padding:12px 20px;border-radius:6px;cursor:pointer}
 button.big:active{transform:translateY(3px);box-shadow:0 2px 0 #000}
 button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
-@media (max-width:560px){#swap{font-size:10px;padding:6px 6px}#clock{font-size:18px}}
+@media (max-width:560px){#swap{font-size:10px;padding:6px 6px;max-width:84px;line-height:1.15}#clock{font-size:18px}#clock small{font-size:10px}#beers{font-size:24px}.chip{padding:5px 8px}#hudBoard{max-width:170px}#hud{gap:6px}#right{gap:6px}#mute{min-width:40px;padding:4px}.card{padding:16px 14px;gap:10px}.rules{font-size:14px}h1{font-size:30px}}
+.touch .only-pc{display:none}body:not(.touch) .only-touch{display:none}
+@media (pointer:coarse){.only-pc{display:none}}
+@media (max-height:460px){.card{max-width:640px}.rules{font-size:13px}#hudBoard{display:none}}
 .board{width:100%;max-width:340px;background:rgba(0,0,0,.35);border:2px solid #000;border-radius:6px;padding:8px 10px;text-align:left}
 .board h2{font-family:var(--disp);font-size:13px;margin:0 0 6px;color:var(--beer);letter-spacing:.04em;display:flex;justify-content:space-between;gap:8px}
 .board h2 small{font-family:var(--px);font-size:11px;color:var(--paper);opacity:.7;letter-spacing:0}
@@ -95,10 +99,10 @@ button.big:disabled{opacity:.45;cursor:not-allowed}
     <div class="card">
       <h1>A Festa do Pepe e do Gael</h1>
       <p class="sub">Aniversário dos irmãos na casa da vó · sexta, 13/11 · do pôr do sol à meia-noite</p>
-      <p class="rules">Acha e bebe o <b>máximo de cerveja</b> antes da meia-noite. Tem latinha escondida em freezer, cooler, isopor, geladeira, tanque e onde menos se espera. Quando tem uma perto, aparece um brilho.<br><br>Os dois irmãos fazem aniversário e a galera toda veio: todo mundo quer o aniversariante: <b>foto, abraço, parabéns, história</b>. Quando te pegarem, aperta rápido pra escapar.<br><br>Joga de <b>Pepe</b> ou de <b>Gael</b> e troca quando quiser no botão lá em cima. O outro irmão vive cercado de gente dando parabéns, mas sempre aparece com uma gelada pra ti.<br><br>Cuidado com a <b>mãe</b> e o <b>pai</b>: eles tão vigiando. Se te pegarem bêbado, é sermão e 15 segundos de castigo sem beber.</p>
-      <p class="keys">PC: WASD anda · mouse (ou setas) gira a câmera · E ou espaço abre e escapa · Q troca de irmão<br>Celular: dedo esquerdo anda · dedo direito gira a câmera · botão amarelo abre e escapa</p>
       <div class="namebox"><label for="pname">Teu nome (vai pro placar)</label><input id="pname" maxlength="18" autocomplete="nickname" placeholder="Ex.: Joca Vitor"><p id="nameErr"></p></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="big" id="start">Jogar de Pepe</button><button class="big" id="startG" style="background:#9fd6ff">Jogar de Gael</button></div>
+      <p class="rules">Acha e bebe o <b>máximo de cerveja</b> antes da meia-noite. Tem latinha escondida em freezer, cooler, isopor, geladeira, tanque e onde menos se espera. Quando tem uma perto, aparece um brilho.<br><br>Os dois irmãos fazem aniversário e a galera toda veio: todo mundo quer o aniversariante: <b>foto, abraço, parabéns, história</b>. Quando te pegarem, aperta rápido pra escapar.<br><br>Joga de <b>Pepe</b> ou de <b>Gael</b> e troca quando quiser no botão lá em cima. O outro irmão vive cercado de gente dando parabéns, mas sempre aparece com uma gelada pra ti.<br><br>Cuidado com a <b>mãe</b> e o <b>pai</b>: eles tão vigiando. Se te pegarem bêbado, é sermão e 15 segundos de castigo sem beber.</p>
+      <p class="keys only-pc">PC: WASD anda · mouse (ou setas) gira a câmera · E ou espaço abre e escapa · Q troca de irmão</p><p class="keys only-touch">Celular: dedo esquerdo anda · dedo direito gira a câmera · botão amarelo abre e escapa</p>
       <div class="board" id="boardTitle"><h2>PLACAR DA FESTA <small>ao vivo</small></h2><ol></ol></div>
     </div>
   </div>
