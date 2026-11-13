@@ -1,0 +1,72 @@
+<title>A Festa do Pepe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Silkscreen:wght@400;700&display=swap">
+<style>
+/* Layout: jogo 3D em tela cheia; HUD fino no topo, minimapa à direita, botão de ação embaixo à direita no celular */
+:root{--night:#130e0b;--ink:#1e1511;--paper:#f4e8c8;--olive:#5b6142;--beer:#f4b63a;--px:'Pixelify Sans',system-ui,sans-serif;--disp:'Silkscreen','Pixelify Sans',monospace;color-scheme:dark}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;background:var(--night);color:var(--paper);overflow:hidden;font-family:var(--px)}
+body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+#wrap{position:fixed;inset:0;overflow:hidden;background:var(--night)}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block}
+#ui{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#hud{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:flex-start;gap:8px;pointer-events:none}
+.chip{background:rgba(30,21,17,.86);border:2px solid #000;box-shadow:inset 0 0 0 2px rgba(244,232,200,.12),0 3px 0 rgba(0,0,0,.45);padding:6px 10px;border-radius:6px}
+#beerBox{display:flex;align-items:center;gap:10px}
+#beers{font-family:var(--disp);font-size:28px;line-height:1;color:var(--beer);font-variant-numeric:tabular-nums}
+.can{width:13px;height:21px;background:linear-gradient(90deg,#b77a14,#f6c552 40%,#ffe7a6 55%,#d99a26);border-radius:3px;box-shadow:inset 0 3px 0 #cfd3d6,inset 0 -2px 0 #9aa0a4}
+#lvl{font-size:13px;opacity:.85;margin-top:2px}
+#right{display:flex;gap:8px;align-items:flex-start}
+#clock{font-family:var(--disp);font-size:22px;text-align:right;font-variant-numeric:tabular-nums;line-height:1}
+#clock small{display:block;font-family:var(--px);font-size:12px;opacity:.75;margin-top:4px}
+#mute{pointer-events:auto;font-family:var(--disp);font-size:12px;color:var(--paper);cursor:pointer;min-width:44px;min-height:40px}
+#toast{position:absolute;left:50%;top:24%;transform:translateX(-50%);font-family:var(--disp);font-size:clamp(16px,4.6vw,22px);color:var(--beer);text-shadow:2px 2px 0 #000,-1px -1px 0 #000;text-align:center;opacity:0;transition:opacity .25s;pointer-events:none;width:90%}
+#toast.on{opacity:1}
+#act{position:absolute;right:calc(max(16px,env(safe-area-inset-right,0px)) + 6px);bottom:calc(env(safe-area-inset-bottom,0px) + 26px);width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd98a,#f4b63a 45%,#c9861c);border:3px solid #000;box-shadow:0 5px 0 #000;font-family:var(--disp);font-size:14px;color:#2a1a08;pointer-events:auto;display:none;touch-action:none}
+.touch #act{display:block}
+#act.press{transform:translateY(3px);box-shadow:0 2px 0 #000}
+.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(14,9,7,.25),rgba(14,9,7,.75));padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-y:auto;pointer-events:auto}
+.card{max-width:470px;width:100%;background:rgba(30,21,17,.93);border:3px solid #000;box-shadow:0 0 0 3px var(--olive),0 10px 0 rgba(0,0,0,.5);padding:20px 18px;border-radius:8px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(30px,9vw,46px);line-height:1;margin:0;color:var(--beer);text-shadow:3px 3px 0 #000;text-wrap:balance}
+.sub{font-size:15px;opacity:.85;margin:0}
+.rules{font-size:15px;line-height:1.45;text-align:left;margin:0;max-width:42ch}
+.rules b{color:var(--beer)}
+.keys{font-size:13px;opacity:.75;margin:0;line-height:1.5}
+button.big{font-family:var(--disp);font-size:18px;background:var(--beer);color:#2a1a08;border:3px solid #000;box-shadow:0 5px 0 #000;padding:12px 20px;border-radius:6px;cursor:pointer}
+button.big:active{transform:translateY(3px);box-shadow:0 2px 0 #000}
+button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+.big-num{font-family:var(--disp);font-size:64px;line-height:1;color:var(--beer);text-shadow:4px 4px 0 #000}
+.rank{font-family:var(--disp);font-size:18px}
+.stats{font-size:14px;opacity:.85;margin:0;line-height:1.5}
+</style>
+<div id="wrap">
+  <canvas id="c"></canvas>
+  <canvas id="ui"></canvas>
+  <div id="hud" hidden>
+    <div class="chip"><div id="beerBox"><div class="can"></div><div><div id="beers">0</div><div id="lvl">Sóbrio</div></div></div></div>
+    <div id="right"><div class="chip"><div id="clock">18:00<small>sexta, 13/11</small></div></div><button class="chip" id="mute" aria-label="Som">SOM</button></div>
+  </div>
+  <div id="toast"></div>
+  <button id="act" aria-label="Ação">PEGA</button>
+  <div class="screen" id="title">
+    <div class="card">
+      <h1>A Festa do Pepe</h1>
+      <p class="sub">Aniversário na casa da vó · sexta, 13/11 · do pôr do sol à meia-noite</p>
+      <p class="rules">Acha e bebe o <b>máximo de cerveja</b> antes da meia-noite. Tem latinha escondida em freezer, cooler, isopor, geladeira, tanque e onde menos se espera. Quando tem uma perto, aparece um brilho.<br><br>A galera toda veio e todo mundo quer o aniversariante: <b>foto, abraço, parabéns, história</b>. Quando te pegarem, aperta rápido pra escapar.<br><br>O <b>Gael</b>, teu irmão, sempre aparece com uma gelada.</p>
+      <p class="keys">PC: WASD anda · mouse (ou setas) gira a câmera · E ou espaço abre e escapa<br>Celular: dedo esquerdo anda · dedo direito gira a câmera · botão amarelo abre e escapa</p>
+      <button class="big" id="start">Começar a festa</button>
+    </div>
+  </div>
+  <div class="screen" id="end" hidden>
+    <div class="card">
+      <p class="sub">00:00 · Parabéns pra você!</p>
+      <div class="big-num" id="endBeers">0</div>
+      <p class="sub">cervejas</p>
+      <div class="rank" id="endRank"></div>
+      <p class="stats" id="endStats"></p>
+      <button class="big" id="again">Jogar de novo</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
