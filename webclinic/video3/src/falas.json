@@ -1,0 +1,398 @@
+{
+"paciente": [
+{
+"texto": "Vamos",
+"inicio": 0.0,
+"fim": 0.28
+},
+{
+"texto": "lá.",
+"inicio": 0.28,
+"fim": 0.56
+},
+{
+"texto": "Sério?",
+"inicio": 2.16,
+"fim": 2.9
+},
+{
+"texto": "Caiu?",
+"inicio": 3.68,
+"fim": 4.42
+},
+{
+"texto": "Ai,",
+"inicio": 4.88,
+"fim": 5.08
+},
+{
+"texto": "não",
+"inicio": 5.18,
+"fim": 5.24
+},
+{
+"texto": "acredito.",
+"inicio": 5.24,
+"fim": 5.94
+}
+],
+"narrador": [
+{
+"texto": "Seu",
+"inicio": 0.0,
+"fim": 0.26
+},
+{
+"texto": "paciente",
+"inicio": 0.26,
+"fim": 0.76
+},
+{
+"texto": "não",
+"inicio": 0.76,
+"fim": 1.06
+},
+{
+"texto": "tem",
+"inicio": 1.06,
+"fim": 1.42
+},
+{
+"texto": "4",
+"inicio": 1.42,
+"fim": 1.7
+},
+{
+"texto": "minutos.",
+"inicio": 1.7,
+"fim": 2.18
+},
+{
+"texto": "No",
+"inicio": 2.94,
+"fim": 3.2
+},
+{
+"texto": "site",
+"inicio": 3.2,
+"fim": 3.46
+},
+{
+"texto": "da",
+"inicio": 3.46,
+"fim": 3.64
+},
+{
+"texto": "WebClinic,",
+"inicio": 3.64,
+"fim": 4.38
+},
+{
+"texto": "ele",
+"inicio": 4.46,
+"fim": 4.58
+},
+{
+"texto": "marca",
+"inicio": 4.58,
+"fim": 4.8
+},
+{
+"texto": "a",
+"inicio": 4.8,
+"fim": 4.94
+},
+{
+"texto": "consulta",
+"inicio": 4.94,
+"fim": 5.44
+},
+{
+"texto": "em",
+"inicio": 5.44,
+"fim": 5.56
+},
+{
+"texto": "8",
+"inicio": 5.56,
+"fim": 5.96
+},
+{
+"texto": "segundos.",
+"inicio": 5.96,
+"fim": 6.4
+},
+{
+"texto": "WebClinic,",
+"inicio": 7.46,
+"fim": 8.04
+},
+{
+"texto": "manda",
+"inicio": 8.16,
+"fim": 8.6
+},
+{
+"texto": "a",
+"inicio": 8.6,
+"fim": 8.64
+},
+{
+"texto": "site",
+"inicio": 8.64,
+"fim": 8.94
+},
+{
+"texto": "no",
+"inicio": 8.94,
+"fim": 9.14
+},
+{
+"texto": "Direct.",
+"inicio": 9.14,
+"fim": 9.38
+}
+],
+"ura": [
+{
+"texto": "Olá!",
+"inicio": 0.0,
+"fim": 0.24
+},
+{
+"texto": "Você",
+"inicio": 0.7,
+"fim": 0.94
+},
+{
+"texto": "ligou",
+"inicio": 0.94,
+"fim": 1.28
+},
+{
+"texto": "para",
+"inicio": 1.28,
+"fim": 1.5
+},
+{
+"texto": "a",
+"inicio": 1.5,
+"fim": 1.62
+},
+{
+"texto": "clínica",
+"inicio": 1.62,
+"fim": 1.96
+},
+{
+"texto": "bem",
+"inicio": 1.96,
+"fim": 2.28
+},
+{
+"texto": "-estar.",
+"inicio": 2.28,
+"fim": 2.58
+},
+{
+"texto": "Sua",
+"inicio": 3.3,
+"fim": 3.56
+},
+{
+"texto": "ligação",
+"inicio": 3.56,
+"fim": 4.0
+},
+{
+"texto": "é",
+"inicio": 4.0,
+"fim": 4.16
+},
+{
+"texto": "muito",
+"inicio": 4.16,
+"fim": 4.5
+},
+{
+"texto": "importante",
+"inicio": 4.5,
+"fim": 5.04
+},
+{
+"texto": "para",
+"inicio": 5.04,
+"fim": 5.34
+},
+{
+"texto": "nós.",
+"inicio": 5.34,
+"fim": 5.58
+},
+{
+"texto": "Para",
+"inicio": 6.8,
+"fim": 7.1
+},
+{
+"texto": "agendar",
+"inicio": 7.1,
+"fim": 7.38
+},
+{
+"texto": "uma",
+"inicio": 7.38,
+"fim": 7.62
+},
+{
+"texto": "consulta,",
+"inicio": 7.62,
+"fim": 8.28
+},
+{
+"texto": "tecle",
+"inicio": 8.56,
+"fim": 8.78
+},
+{
+"texto": "1.",
+"inicio": 8.78,
+"fim": 9.14
+},
+{
+"texto": "No",
+"inicio": 10.04,
+"fim": 10.3
+},
+{
+"texto": "momento,",
+"inicio": 10.3,
+"fim": 10.64
+},
+{
+"texto": "todos",
+"inicio": 11.06,
+"fim": 11.24
+},
+{
+"texto": "os",
+"inicio": 11.24,
+"fim": 11.54
+},
+{
+"texto": "nossos",
+"inicio": 11.54,
+"fim": 11.74
+},
+{
+"texto": "atendentes",
+"inicio": 11.74,
+"fim": 12.46
+},
+{
+"texto": "estão",
+"inicio": 12.46,
+"fim": 12.76
+},
+{
+"texto": "ocupados.",
+"inicio": 12.76,
+"fim": 13.4
+},
+{
+"texto": "Por",
+"inicio": 13.86,
+"fim": 14.04
+},
+{
+"texto": "favor,",
+"inicio": 14.04,
+"fim": 14.4
+},
+{
+"texto": "aguarde",
+"inicio": 14.7,
+"fim": 15.08
+},
+{
+"texto": "na",
+"inicio": 15.08,
+"fim": 15.28
+},
+{
+"texto": "linha.",
+"inicio": 15.28,
+"fim": 15.56
+},
+{
+"texto": "Sua",
+"inicio": 16.6,
+"fim": 17.0
+},
+{
+"texto": "ligação",
+"inicio": 17.0,
+"fim": 17.44
+},
+{
+"texto": "é",
+"inicio": 17.44,
+"fim": 17.6
+},
+{
+"texto": "muito",
+"inicio": 17.6,
+"fim": 17.94
+},
+{
+"texto": "importante",
+"inicio": 17.94,
+"fim": 18.5
+},
+{
+"texto": "para",
+"inicio": 18.5,
+"fim": 18.8
+},
+{
+"texto": "nós.",
+"inicio": 18.8,
+"fim": 19.04
+},
+{
+"texto": "Sua",
+"inicio": 20.12,
+"fim": 20.52
+},
+{
+"texto": "ligação",
+"inicio": 20.52,
+"fim": 20.96
+},
+{
+"texto": "é",
+"inicio": 20.96,
+"fim": 21.12
+},
+{
+"texto": "muito",
+"inicio": 21.12,
+"fim": 21.46
+},
+{
+"texto": "importante",
+"inicio": 21.46,
+"fim": 22.02
+},
+{
+"texto": "para",
+"inicio": 22.02,
+"fim": 22.32
+},
+{
+"texto": "nós.",
+"inicio": 22.32,
+"fim": 22.54
+}
+]
+}
