@@ -83,7 +83,6 @@ const Masthead: React.FC<{sec: string; claro?: boolean}> = ({sec, claro}) => (
   <div style={{position: 'absolute', left: 70, right: 70, top: 150, color: claro ? '#fff' : N, zIndex: 30}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
       <div style={{fontWeight: 700, fontSize: 40, letterSpacing: '-0.04em'}}>web<span style={{color: claro ? M : A}}>clinic</span></div>
-      <div style={{...LBL, fontSize: 25}}>Nº 02 · {sec}</div>
     </div>
     <div style={{height: 2, background: 'currentColor', marginTop: 16, opacity: 0.85}} />
   </div>
@@ -93,7 +92,6 @@ const Legenda: React.FC<{f: number; at: number; x: number; y: number; w: number;
   const k = chega(f, at, 6);
   return (
     <div style={{position: 'absolute', left: x, top: y + (1 - k) * 40, width: w, color: claro ? '#fff' : N, opacity: Math.min(1, k * 1.5), zIndex: 20}}>
-      <div style={{...LBL, color: claro ? M : A}}>{fig}</div>
       {titulo ? <div style={{...SER, fontSize: 76, lineHeight: 1, margin: '12px 0 16px'}}>{titulo}</div> : null}
       {texto ? <div style={{fontSize: 40, lineHeight: 1.32, fontWeight: 400, color: claro ? '#E8F1FD' : N}}>{texto}</div> : null}
     </div>
@@ -171,7 +169,6 @@ const Final: React.FC = () => {
         <>
           <AbsoluteFill style={{background: bg('azul'), transform: `scale(${bate}) rotate(${b < 6 ? -2 : 0}deg)`, boxShadow: '0 0 0 2000px rgba(11,31,58,.35)'}}>
             <div style={{position: 'absolute', left: 70, right: 70, top: 150, height: 2, background: '#fff', opacity: 0.85}} />
-            <div style={{position: 'absolute', left: 70, top: 176, ...LBL, color: M, fontSize: 25}}>Nº 02 · Fim</div>
             <div style={{position: 'absolute', left: 90, right: 90, top: 600}}>
               <svg width="100%" viewBox="26 86 190 100">
                 <text x="120" y="124" textAnchor="middle" fontFamily="Poppins" fontWeight={700} fontSize={40} letterSpacing={-1.8}><tspan fill="#fff">web</tspan><tspan fill={M}>clinic</tspan></text>
@@ -226,7 +223,6 @@ export const Video: React.FC = () => {
             <>
               <Masthead sec="Recepção" />
               <div style={{position: 'absolute', left: 70, top: 270, color: N}}>
-                <div style={{...LBL, color: A}}>O dia da Cláudia</div>
                 <div style={{fontWeight: 300, fontSize: 88, letterSpacing: '-0.05em', lineHeight: 1.05, marginTop: 14}}>Ela <b style={{fontWeight: 700}}>atende</b></div>
               </div>
               {itens.map(([i, n, t2], j) => {
@@ -243,7 +239,6 @@ export const Video: React.FC = () => {
               <div style={{position: 'absolute', left: 70, right: 70, top: 1220, height: 2, background: N, opacity: 0.25}} />
               <Foto f={f} src="claudia-base-imp.png" x={600} y={1000} w={600} at={2} de="dir" />
               {f >= e(1, 7) - 4 ? <Img src={staticFile('telefone-imp.png')} style={{position: 'absolute', left: 60 + t.x, top: 1300 + t.y, width: 520, transform: `rotate(${-7 + t.r * 4}deg)`, filter: SOMBRA}} /> : null}
-              <Legenda f={f} at={e(1, 14) + 4} x={70} y={1250} w={480} fig="Ao mesmo tempo" />
             </>
           );
         }}
@@ -264,7 +259,6 @@ export const Video: React.FC = () => {
               <Recado f={f} at={e(2, 20) + 4} x={90} y={1040} rot={4} sz={34} op={apaga}>Pode encaixar?</Recado>
               {f >= big - 2 ? (
                 <div style={{position: 'absolute', left: 60, right: 40, top: 1150, color: '#fff', transform: `scale(${1.15 - chega(f, big - 2, 5) * 0.15})`, transformOrigin: '0 50%'}}>
-                  <div style={{...LBL, color: M}}>De novo</div>
                   <div style={{...SER, fontSize: 196, lineHeight: 0.9, marginTop: 6}}>Qual o</div>
                   <div style={{fontWeight: 700, fontSize: 200, letterSpacing: '-0.06em', lineHeight: 0.9}}>valor?</div>
                 </div>
@@ -316,7 +310,6 @@ export const Video: React.FC = () => {
                     <div style={{background: bg('gelo'), padding: 14, boxShadow: SOMBRA_BOX, height: 520, overflow: 'hidden', position: 'relative'}}>
                       <Img src={staticFile(`paciente${i}-imp.png`)} style={{position: 'absolute', left: '50%', bottom: -120, height: 620, transform: 'translateX(-50%)', opacity: morto ? 0.45 : 1}} />
                     </div>
-                    <div style={{...LBL, fontSize: 25, color: C, marginTop: 14}}>Paciente 0{i + 1}</div>
                     <Fita x={-10} y={230} rot={-14 + i * 6} w={320} texto="DESISTIU" f={f} at={des + i * 4} />
                   </div>
                 );
@@ -347,7 +340,6 @@ export const Video: React.FC = () => {
               <Foto f={f} src="claudia-tchau-imp.png" x={560} y={430} w={470} at={2} de="dir" dx={anda * 160} />
               {f >= e(5, 48) - 2 ? (
                 <div style={{position: 'absolute', left: 70, top: 1230, color: A, transform: `scale(${1.1 - chega(f, e(5, 48) - 2, 5) * 0.1})`, transformOrigin: '0 50%'}}>
-                  <div style={{...LBL, color: N}}>Fig. 02</div>
                   <div style={{...SER, fontSize: 170, lineHeight: 1}}>Merecido.</div>
                 </div>
               ) : null}
@@ -434,7 +426,7 @@ export const Video: React.FC = () => {
             </div>
             <Rasgo cor="azul" y={1180} f={f} at={2} />
             <Foto f={f} src="claudia-cafe-imp.png" x={60} y={1010} w={620} at={3} />
-            <Legenda f={f} at={e(8, 80)} x={680} y={1300} w={340} fig="Fig. 04" texto="Ela atende quem está na recepção. O resto, o site resolve." claro />
+
           </>
         )}
       </Pagina>
