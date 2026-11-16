@@ -1,3 +1,4 @@
+import urllib.parse
 import json, html, base64, pathlib, sys
 E=html.escape
 DB=pathlib.Path(sys.argv[1]); R=pathlib.Path("/home/user/DOTAGENCIA/plagio")
@@ -6,6 +7,7 @@ def D(k): d=docs[k]; return d.get("data",d)
 local={"02":"rodada-1/drive-semana-1/Post 02.jpg","13":"rodada-2/drive/Post 13.jpg","14":"rodada-2/drive/Post 14.jpg","16":"rodada-2/drive/Post 16.jpg","19":"rodada-2/drive/Post 19.jpg",
  "21":"rodada-3/drive/Post 21.jpg","22":"rodada-3/drive/Post 22.jpg","25":"rodada-3/drive/Post 25.jpg","26":"rodada-3/drive/Post 26.jpg"}
 for n in range(42,62): local[str(n)]=f"semana-2/drive/Post {n}.jpg"
+for n in range(62,76): local[str(n)]=f"semana-3/drive/Post {n}.jpg"
 # (id, data, hora, regra)
 fila=[("s1-post-02","quinta 12/11","12:00","ja-agendado?"),("s1-post-14","quinta 12/11","19:00","ja-agendado?"),
 ("s1-post-25","sexta 13/11","12:00","ja-agendado?"),("s1-post-22","sexta 13/11","19:00","ja-agendado?"),
@@ -49,7 +51,7 @@ pags=[f"""<section><div class="tag">@plagio.zip · fila de agendamento · 12 a 2
 for i,(k,d,h,r) in enumerate(fila,1):
     x=D(k); n=x["titulo"].split()[-1]
     img=base64.b64encode((R/local[n]).read_bytes()).decode()
-    link=f"https://drive.google.com/uc?export=download&id={x['drive_jpg']}"
+    link="https://raw.githubusercontent.com/meneghetti27/DOTAGENCIA/claude/loving-franklin-c8o6kc/plagio/"+urllib.parse.quote(local[n])
     pags.append(f"""<section><div class="tag">Fila {i} de {len(fila)} · {E(x['titulo'])}</div><h1 class="q">{E(d)} às {h}</h1>
 <div class="grid"><img src="data:image/jpeg;base64,{img}"><div><p class="lab"><b>Conta @plagio.zip · SÓ Instagram (Facebook desmarcado) · Post no feed · Recorte 4:5 · Agendar, nunca publicar agora</b></p><p class="lab">Antes: confira no Planejador se este já está agendado. Se sim, pule.</p>
 <p class="lab">Regra: {E(regra_txt[r])}</p><p class="lab">Arquivo: {E(x['titulo'])}.jpg</p>

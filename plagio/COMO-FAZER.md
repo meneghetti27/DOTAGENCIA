@@ -24,7 +24,12 @@ O Instagram está ligado a uma página do Facebook só para liberar a postagem a
 ## Frequência
 **2 posts por dia: 12h e 19h.** Uma semana usa 14 posts; cada rodada deve render isso depois das exclusões.
 
-## Drive (organização exigida pelo dono)
+## Google Drive: NÃO USAR MAIS (dono, 16/11/2026)
+O dono não abre o Drive: aprova na Central e agenda pelo PDF. A partir da Semana 3 as artes ficam só no repositório
+(`plagio/semana-N/drive/Post NN.jpg`) e o PDF baixa a imagem pelo link raw do GitHub. Não criar pasta nem legenda no Drive.
+(Semanas 1 a 3 já estão lá; deixar como está.)
+
+## Drive (histórico, até a Semana 3)
 `PLAGIO POSTS / Semana N (dd-mm a dd-mm) /` com, para cada post:
 - `Post 03.jpg`: a arte 1080x1350 como **arquivo de imagem** (nunca Doc com imagem dentro).
 - `Post 03 - legenda` (Google Doc): só a legenda, terminando em 🐈‍⬛; embaixo, linha cinza com o que conferir e o crédito da foto.

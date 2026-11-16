@@ -67,6 +67,12 @@ ol.flow p{margin:2px 0 0;color:var(--muted)}
 .rules li{background:var(--panel);padding:14px 16px}
 .rules b{display:block;margin-bottom:2px}
 .spec{font-family:var(--mono);font-size:13px;color:var(--muted)}
+/* Aviso: semana ainda não agendada no Instagram */
+.naoprog{display:block;background:var(--accent);color:#fff;font-family:var(--display);font-size:clamp(22px,5.4vw,40px);line-height:1.05;text-align:center;text-transform:uppercase;letter-spacing:-.01em;padding:22px 16px;margin:0;animation:pisca 1s steps(2,start) infinite}
+.naoprog small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.04em;text-transform:none;margin-top:8px;opacity:.95}
+.card .tarja{grid-column:1/-1;background:var(--accent);color:#fff;font-family:var(--display);font-size:18px;text-transform:uppercase;text-align:center;padding:10px 12px;animation:pisca 1s steps(2,start) infinite}
+@keyframes pisca{to{visibility:hidden}}
+@media (prefers-reduced-motion:reduce){.naoprog,.card .tarja{animation:none}}
 footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 @media (max-width:620px){.card{grid-template-columns:1fr}.card img,.ph{max-width:360px}}
 </style>
@@ -83,6 +89,7 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
       <h2 id="aprovar">Aprovar posts</h2>
       <div class="tally" id="tally"></div>
     </div>
+    <p class="naoprog" id="naoprog" hidden role="alert">Não está programado ainda<small id="naoprogtxt"></small></p>
     <p class="note" id="estado">Carregando os posts…</p>
     <div class="cards" id="cards"></div>
     <details class="out" id="out" hidden>
@@ -95,6 +102,7 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
     <h2 id="atalhos">Atalhos</h2>
     <div class="links">
       <a href="https://drive.google.com/drive/folders/1uzYQtxh1DsKad4YvWvojPPZlF6OkF1vd" target="_blank" rel="noopener"><b>Pasta da Semana 1</b><span>Post NN.jpg + legendas</span></a>
+      <a href="https://drive.google.com/drive/folders/1bfIYPYrlSRvvAbdyZba4VJsz23hWAPDa" target="_blank" rel="noopener"><b>Pasta da Semana 3</b><span>23 a 29/11 · não programada</span></a>
       <a href="https://drive.google.com/drive/folders/17vc5sztRO7HYptzG3Wgpymhq6KN-1d8O" target="_blank" rel="noopener"><b>PLAGIO POSTS</b><span>todas as semanas</span></a>
       <a href="https://github.com/meneghetti27/DOTAGENCIA/blob/claude/loving-franklin-c8o6kc/plagio/COMO-FAZER.md" target="_blank" rel="noopener"><b>Como fazer</b><span>receita completa</span></a>
     </div>
@@ -164,8 +172,12 @@ footer{font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px 
     if(!posts.length){estado.hidden=false;estado.textContent='Nenhum post desta semana ainda. Quando eu terminar uma rodada, os posts aparecem aqui.';}
     else estado.hidden=true;
 
+    var np=vivos.filter(function(p){return p.programado===false});
+    $('naoprog').hidden=!np.length;
+    if(np.length){var sem={};np.forEach(function(p){sem[(p.semana||'').replace(/ \(.*\)/,'')]=1});$('naoprogtxt').textContent=Object.keys(sem).join(', ')+': '+np.length+' posts ainda fora do Instagram. Aprove e me peça o PDF de agendamento.';}
     vivos.forEach(function(p){
       var c=el('article','card'+(p.status==='aprovado'?' aprovado':''));
+      if(p.programado===false)c.appendChild(el('div','tarja','Não está programado ainda'));
       if(p.imagem){var img=el('img');img.src=p.imagem;img.alt='Arte do '+p.titulo;img.loading='lazy';c.appendChild(img)}
       else c.appendChild(el('div','ph','sem imagem'));
       var b=el('div','body');
