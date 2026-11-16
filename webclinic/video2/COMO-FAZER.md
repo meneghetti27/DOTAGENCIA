@@ -6,3 +6,8 @@
   com texto navy, grão. Fonte Poppins (300 navy/branco + 700). Quadro de referência: `estilo-E-escolhido.png`;
   comparação com os outros estilos: `estilos-video2.jpg`.
 - Mesma base técnica do vídeo 1 (`webclinic/video` na main): Remotion 1080×1920, voz Moutella (ElevenLabs v4), só efeitos sonoros.
+
+## Narração (gravada 16/11/2026, 1 take, 968 créditos)
+- Conector ElevenLabs do claude.ai (`creative_generate_speech`, `eleven_v4`, voz Moutella `X3j2R63Qu4Gdv6dsU2hB`, `generations_count: 1`
+  pra não gastar crédito). Flow: https://elevenlabs.io/app/flows/Mw6ujXwnMhfWq9eV3F08
+- Texto com tags em `roteiro.txt`. Arquivo: `public/voz-bruta.mp3` (41,3 s) → `public/voz.mp3` (loudnorm −16 LUFS).
