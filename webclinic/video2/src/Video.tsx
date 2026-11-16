@@ -20,9 +20,11 @@ const A = '#2D7FF0', N = '#0B1F3A', M = '#CFE6F7', C = '#5E6B7E';
 const P = AUD as {texto: string; inicio: number; fim: number}[];
 const fr = (s: number) => Math.round(s * FPS);
 const W = (i: number) => fr(P[i].inicio);
-export const DURACAO = fr(P[P.length - 1].fim) + fr(2.6);
+const FINAL = fr(P[P.length - 1].fim) + 10; // encerramento "boom" depois da voz
+const BOOM = FINAL + 30; // pancada da folha azul com o logo
+export const DURACAO = BOOM + fr(2.8);
 const ABRE = [0, 4, 15, 26, 30, 41, 49, 58, 74, 86];
-const CUT = [...ABRE.map((i, k) => (k === 0 ? 0 : W(i) - 5)), DURACAO];
+const CUT = [...ABRE.map((i, k) => (k === 0 ? 0 : W(i) - 5)), FINAL, DURACAO];
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const q = (f: number) => Math.floor(f / 2) * 2; // stop-motion: 12 qps
@@ -134,6 +136,66 @@ const Pagina: React.FC<{k: number; papel: string; children: (f: number) => React
     <AbsoluteFill style={{transform: `translateX(${x}px) rotate(${rot}deg)`, transformOrigin: '0% 100%', boxShadow: e < 1 ? '-30px 0 60px rgba(11,31,58,.35)' : 'none', overflow: 'hidden', fontFamily: 'Poppins', zIndex: k}}>
       <AbsoluteFill style={{background: bg(papel)}} />
       {children(f)}
+    </AbsoluteFill>
+  );
+};
+
+
+// ---------- encerramento ----------
+const FOLHAS: {papel: string; rot: number; x: number; y: number; at: number; el: React.ReactNode}[] = [
+  {papel: 'gelo', rot: -7, x: 140, y: 380, at: 0, el: <div style={{fontWeight: 700, fontSize: 300, color: A, letterSpacing: '-0.07em', lineHeight: 0.85}}>Cláu-<br />dia.</div>},
+  {papel: 'azul', rot: 6, x: 170, y: 420, at: 6, el: <div style={{fontWeight: 700, fontSize: 520, color: N, letterSpacing: '-0.09em', lineHeight: 0.8}}>47</div>},
+  {papel: 'branco', rot: -4, x: 120, y: 360, at: 14, el: <div style={{background: A, color: '#fff', fontWeight: 700, fontSize: 78, letterSpacing: '.16em', padding: '20px 30px', transform: 'rotate(-10deg)', marginTop: 200}}>DESISTIU</div>},
+  {papel: 'navy', rot: 8, x: 160, y: 400, at: 19, el: <div style={{fontWeight: 300, fontSize: 230, color: '#fff', letterSpacing: '-0.07em'}}>22:47</div>},
+  {papel: 'gelo', rot: -9, x: 150, y: 390, at: 24, el: <div style={{border: `9px solid ${A}`, padding: '16px 30px', color: A, fontWeight: 700, fontSize: 96, lineHeight: 0.95, transform: 'rotate(-8deg)', marginTop: 160}}>CONSULTA<br />MARCADA</div>},
+];
+const Final: React.FC = () => {
+  const g = useCurrentFrame();
+  if (g < FINAL) return null;
+  const f = g - FINAL, b = g - BOOM;
+  const tremor = b >= 0 && b < 14 ? (14 - b) / 14 : 0;
+  const sx = (random(`sx${q(g)}`) - 0.5) * 36 * tremor, sy = (random(`sy${q(g)}`) - 0.5) * 36 * tremor;
+  const bate = b >= 0 ? Math.max(1, 1.45 - Math.floor(b / 2) * 0.15) : 1.45;
+  const p = io(g, BOOM + 6, BOOM + 26, 0, 1, Easing.inOut(Easing.cubic));
+  return (
+    <AbsoluteFill style={{zIndex: 50, background: bg('navy'), fontFamily: 'Poppins', transform: `translate(${sx}px, ${sy}px)`, overflow: 'hidden'}}>
+      {FOLHAS.map((s, i) => {
+        if (f < s.at) return null;
+        const k = chega(f, s.at, 4);
+        return (
+          <div key={i} style={{position: 'absolute', left: s.x, top: s.y - (1 - k) * 1300, width: 780, height: 1060, background: bg(s.papel), transform: `rotate(${s.rot}deg) scale(${1.1 - k * 0.1})`,
+            boxShadow: '0 40px 70px -20px rgba(0,0,0,.55)', padding: 60, display: 'grid', placeItems: 'center', textAlign: 'center'}}>{s.el}</div>
+        );
+      })}
+      {b >= 0 ? (
+        <>
+          <AbsoluteFill style={{background: bg('azul'), transform: `scale(${bate}) rotate(${b < 6 ? -2 : 0}deg)`, boxShadow: '0 0 0 2000px rgba(11,31,58,.35)'}}>
+            <div style={{position: 'absolute', left: 70, right: 70, top: 150, height: 2, background: '#fff', opacity: 0.85}} />
+            <div style={{position: 'absolute', left: 70, top: 176, ...LBL, color: M, fontSize: 25}}>Nº 02 · Fim</div>
+            <div style={{position: 'absolute', left: 90, right: 90, top: 600}}>
+              <svg width="100%" viewBox="26 86 190 100">
+                <text x="120" y="124" textAnchor="middle" fontFamily="Poppins" fontWeight={700} fontSize={40} letterSpacing={-1.8}><tspan fill="#fff">web</tspan><tspan fill={M}>clinic</tspan></text>
+                <path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke="#fff" strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} />
+              </svg>
+            </div>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 1080, textAlign: 'center', color: '#fff', fontSize: 60, letterSpacing: '-0.03em', opacity: b >= 10 ? 1 : 0}}>
+              Sites que viram<br /><span style={{...SER, fontSize: 84}}>consulta marcada.</span>
+            </div>
+            <Recado f={b} at={22} x={210} y={1360} rot={-3} sz={50} fita>Manda <b>SITE</b> no direct</Recado>
+          </AbsoluteFill>
+          {/* estouro: pedaços de papel voando a partir do centro */}
+          {Array.from({length: 18}, (_, i) => {
+            const ang = (i / 18) * Math.PI * 2 + random(`a${i}`) * 0.4;
+            const vel = 40 + random(`v${i}`) * 50;
+            const t = q(b);
+            const x = 540 + Math.cos(ang) * vel * t, y = 960 + Math.sin(ang) * vel * t + 2.2 * t * t;
+            if (t > 26) return null;
+            return <div key={i} style={{position: 'absolute', left: x, top: y, width: 26 + random(`w${i}`) * 40, height: 18 + random(`h${i}`) * 26, background: [M, '#fff', N][i % 3],
+              transform: `rotate(${random(`r${i}`) * 360 + t * 25}deg)`, boxShadow: '0 6px 10px rgba(0,0,0,.25)', opacity: t > 20 ? (26 - t) / 6 : 1}} />;
+          })}
+          {b < 3 ? <AbsoluteFill style={{background: '#fff', opacity: b === 0 ? 0.85 : 0.35}} /> : null}
+        </>
+      ) : null}
     </AbsoluteFill>
   );
 };
@@ -371,8 +433,8 @@ export const Video: React.FC = () => {
               <div style={{fontSize: 92}}><Palavras f={f} de={80} ate={85} k0={CUT[8]} style={{fontWeight: 700}} serifIdx={[83, 84]} corIdx={{83: A, 84: A}} /></div>
             </div>
             <Rasgo cor="azul" y={1180} f={f} at={2} />
-            <Foto f={f} src="claudia-cafe-imp.png" x={-40} y={1010} w={600} at={3} />
-            <Legenda f={f} at={e(8, 80)} x={600} y={1330} w={420} fig="Fig. 04" texto="Ela atende quem está na recepção. O resto, o site resolve." claro />
+            <Foto f={f} src="claudia-cafe-imp.png" x={90} y={1050} w={580} at={3} />
+            <Legenda f={f} at={e(8, 80)} x={690} y={1330} w={330} fig="Fig. 04" texto="Ela atende quem está na recepção. O resto, o site resolve." claro />
           </>
         )}
       </Pagina>
@@ -399,6 +461,9 @@ export const Video: React.FC = () => {
         }}
       </Pagina>
 
+      {/* 11. encerramento "boom": as páginas do vídeo caem uma sobre a outra e a folha azul do logo bate por cima */}
+      <Final />
+
       {/* ---------- som ---------- */}
       <Audio src={staticFile('voz.mp3')} />
       {CUT.slice(1, -1).map((c, i) => <Sequence key={`pg${i}`} from={c} durationInFrames={40}><Audio src={staticFile(i === 2 ? 'sfx/rasgo.mp3' : 'sfx/pagina.mp3')} volume={0.55} /></Sequence>)}
@@ -414,6 +479,9 @@ export const Video: React.FC = () => {
       <Sequence from={W(64)} durationInFrames={30}><Audio src={staticFile('sfx/papelzinho.mp3')} volume={0.5} /></Sequence>
       <Sequence from={W(72) - 1} durationInFrames={60}><Audio src={staticFile('sfx/carimbo.mp3')} volume={0.75} /></Sequence>
       <Sequence from={W(88) - 2} durationInFrames={30}><Audio src={staticFile('sfx/fita.mp3')} volume={0.45} /></Sequence>
+      <Sequence from={FINAL} durationInFrames={32}><Audio src={staticFile('sfx/pilha.mp3')} volume={0.7} /></Sequence>
+      <Sequence from={BOOM - 1} durationInFrames={150}><Audio src={staticFile('sfx/boom.mp3')} volume={0.95} /></Sequence>
+      <Sequence from={BOOM + 22} durationInFrames={40}><Audio src={staticFile('sfx/fita.mp3')} volume={0.4} /></Sequence>
     </AbsoluteFill>
   );
 };
