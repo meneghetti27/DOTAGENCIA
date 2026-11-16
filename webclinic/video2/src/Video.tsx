@@ -433,8 +433,22 @@ export const Video: React.FC = () => {
               <div style={{fontSize: 92}}><Palavras f={f} de={80} ate={85} k0={CUT[8]} style={{fontWeight: 700}} serifIdx={[83, 84]} corIdx={{83: A, 84: A}} /></div>
             </div>
             <Rasgo cor="azul" y={1180} f={f} at={2} />
-            <Foto f={f} src="claudia-cafe-imp.png" x={90} y={1050} w={580} at={3} />
-            <Legenda f={f} at={e(8, 80)} x={690} y={1330} w={330} fig="Fig. 04" texto="Ela atende quem está na recepção. O resto, o site resolve." claro />
+            {f >= 3 ? (() => {
+              const k = chega(f, 3, 9);
+              const t = tremida(f, 'cafe', 0.6);
+              return (
+                <div style={{position: 'absolute', left: 80 + t.x, top: 930 + (1 - k) * 900 + t.y, width: 560, transform: `rotate(${-3 + t.r}deg)`, zIndex: 6}}>
+                  <div style={{background: bg('branco'), padding: '18px 18px 0', boxShadow: SOMBRA_BOX}}>
+                    <div style={{height: 740, background: bg('gelo'), overflow: 'hidden', position: 'relative'}}>
+                      <Img src={staticFile('claudia-cafe-imp.png')} style={{position: 'absolute', left: '50%', bottom: 0, width: 450, transform: 'translateX(-50%)'}} />
+                    </div>
+                    <div style={{...LBL, fontSize: 24, color: C, padding: '18px 4px 20px'}}>Cláudia · 15:00</div>
+                  </div>
+                  <div style={{position: 'absolute', left: 190, top: -22, width: 180, height: 46, background: 'rgba(207,230,247,.8)', mixBlendMode: 'multiply', transform: 'rotate(4deg)'}} />
+                </div>
+              );
+            })() : null}
+            <Legenda f={f} at={e(8, 80)} x={680} y={1300} w={340} fig="Fig. 04" texto="Ela atende quem está na recepção. O resto, o site resolve." claro />
           </>
         )}
       </Pagina>
