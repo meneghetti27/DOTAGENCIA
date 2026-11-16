@@ -11,6 +11,11 @@ com botão **Aprovar** e **lixeira** (Excluir; dá para restaurar).
 - Nova rodada: subir os JPGs como assets do artifact (`Artifact` publish `asset:true`, `file_paths`) e criar os docs com `ArtifactData` batch.
 - Ler o resultado com `ArtifactData` query em `posts`: agendar só `status == aprovado`; `excluido` → lixeira no Drive (JPG + legenda).
 
+## FOTO = EXATAMENTE O ASSUNTO (bronca do dono, 16/11/2026)
+Se o post fala de um tênis, a foto é ESSE tênis. Se fala de um show específico, a foto é DESSE show (ou da capa do disco ao vivo dele).
+Se fala de uma turnê, foto da turnê; de um desfile, foto do desfile. Nunca foto genérica do artista no lugar do objeto/evento.
+Não achou a foto certa? Troca a pauta.
+
 ## Pautas (cobrança do dono, 11/11/2026)
 - **Quanto mais atual, melhor.** Prioridade: assuntos da semana (notícias, lançamentos, desfiles, polêmicas, clipes, shows).
   Clássicos e curiosidades só para completar.
