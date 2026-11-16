@@ -857,7 +857,10 @@ addEventListener('keydown',e=>{if((e.key==='q'||e.key==='Q'||e.key==='Tab')&&gam
 let PLAYER='';try{PLAYER=localStorage.getItem('festaNome')||'';}catch(_){}
 const pin=$('pname');pin.value=PLAYER;
 const MED=['🥇','🥈','🥉'];let lastBoard=null,boardOK=true;
-function drawBoards(data){lastBoard=data;
+function drawChamps(data){for(const id of ['boardTitle','boardEnd','hudBoard']){const el=$(id);if(!el)continue;const t=el.querySelector('h2 .rt');if(t&&data&&data.round)t.textContent=id==='hudBoard'?`TOP 3 · RODADA ${data.round}`:`PLACAR · RODADA ${data.round}`;
+    let c=el.querySelector('.champ');if(id==='hudBoard')continue;if(!c){c=document.createElement('p');c.className='champ';el.appendChild(c);}
+    const ch=(data&&data.champions)||[];c.hidden=!ch.length;c.textContent=ch.map(x=>`🏆 Campeão da rodada ${x.round}: ${x.name} (${x.beers} 🍺)`).join(' · ');}}
+function drawBoards(data){lastBoard=data;drawChamps(data);
   for(const id of ['boardTitle','boardEnd','hudBoard']){const el=$(id);if(!el)continue;const ol=el.querySelector('ol');ol.innerHTML='';
     const old=el.querySelector('.empty');if(old)old.remove();
     if(!data||!data.top||!data.top.length){const p=document.createElement('p');p.className='empty';p.textContent=boardOK?'Ninguém pontuou ainda. Sê o primeiro!':'Placar indisponível agora.';el.appendChild(p);if(id==='hudBoard')el.hidden=true;continue;}
@@ -865,7 +868,7 @@ function drawBoards(data){lastBoard=data;
     data.top.forEach((r,i)=>{const li=document.createElement('li');if(PLAYER&&r.name.toLowerCase()===PLAYER.toLowerCase())li.className='me';
       const a=document.createElement('span');a.className='m';a.textContent=MED[i];const b=document.createElement('span');b.textContent=r.name+(id==='hudBoard'?'':' · de '+r.hero);const c=document.createElement('span');c.className='s';c.textContent=r.beers+(id==='hudBoard'?'':' 🍺');
       li.append(a,b,c);ol.appendChild(li);});
-    const h2s=el.querySelector('h2 small');if(h2s&&data.players)h2s.textContent=`ao vivo · ${data.players} ${data.players===1?'jogador':'jogadores'}`;}}
+    const h2s=el.querySelector('h2 small');if(h2s)h2s.textContent=`ao vivo · ${data.players||0} ${data.players===1?'jogador':'jogadores'}`;}}
 async function fetchBoard(){try{const r=await fetch('/api/top',{cache:'no-store'});if(!r.ok)throw 0;boardOK=true;drawBoards(await r.json());}catch(_){boardOK=false;drawBoards(lastBoard);}}
 async function sendScore(){try{const r=await fetch('/api/score',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({name:PLAYER,beers:game.beers,hero:HERO})});if(!r.ok)throw 0;boardOK=true;const d=await r.json();drawBoards(d);
     const pos=d.top.findIndex(x=>x.name.toLowerCase()===PLAYER.toLowerCase()&&x.beers===game.beers);if(pos>=0)$('endRank').textContent+=` · ${pos+1}º lugar no placar!`;}
