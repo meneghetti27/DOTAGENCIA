@@ -52,3 +52,8 @@ Direção aprovada (quadros-chave em `../../webclinic-ref` / `video2-quadros-edi
 - Texto da narração aparece como título da página (palavra por palavra), sem legenda corrida.
 - Sons gerados no ElevenLabs (Sound Effects v2, ~17 créditos cada) em `public/sfx/`: pagina, desliza, fita, papelzinho, carimbo,
   relogio, telefone (cortado em 2,6 s), notificacao, rasgo. Silêncio inicial cortado e loudnorm −18.
+
+## Legenda (16/11/2026): reprovada 6 vezes, o dono vai fazer em outro lugar
+Erros que ele apontou: (1) sem emoji; (2) emoji demais ("árvore de natal"); (3) só transcrever o roteiro do vídeo;
+(4) longa demais; (5) curta demais e sem graça. Próxima vez: perguntar antes o tamanho e mostrar 2–3 opções curtas
+de tom diferente, com 2–4 emojis, sem repetir o roteiro.
