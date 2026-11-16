@@ -1,424 +1,419 @@
-// Web Clinic, vídeo 2: "A Cláudia não dá conta" (Reels 1080x1920, 30 fps).
-// Estilo E aprovado: colagem editorial. Fotos recortadas em P&B com borda de papel branco, azul chapado,
-// papel rasgado gelo, fita adesiva, número gigante vazado, etiquetas brancas. Poppins. Sem música, só efeitos.
-// Narração ElevenLabs v4 (Moutella), tempo por palavra em audio.json (faster-whisper).
+// Web Clinic, vídeo 2: "A Cláudia não dá conta" (Reels 1080x1920, 30 fps). v2 EDITORIAL.
+// Direção aprovada (quadros-chave): revista impressa. Cabeçalho de edição (logo + fio + "Nº 02 · seção"),
+// títulos gigantes Poppins + Instrument Serif itálico, legendas de foto ("Fig. 01"), papel com fibras, rasgo com borda
+// fibrosa, fotos com retícula e borda de papel cortado, fita, carimbo com tinta. Sem emoji, pouca coisa por quadro.
+// Movimento em stop-motion (12 qps: tempo quantizado de 2 em 2 quadros + leve "tremida" de papel).
+// Sons gerados no ElevenLabs (public/sfx): página, folha deslizando, fita, recado, carimbo, relógio, telefone, notificação.
 import React from 'react';
-import {AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, Easing, delayRender, continueRender, random} from 'remotion';
+import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame, Easing, delayRender, continueRender, random} from 'remotion';
 import AUD from './audio.json';
 
-const fontFamily = 'Poppins';
 if (typeof document !== 'undefined') {
   const h = delayRender('fontes');
-  Promise.all([300, 400, 500, 600, 700].map((w) => {
-    const ff = new FontFace('Poppins', `url(${staticFile(`fonts/poppins-${w}.woff2`)}) format('woff2')`, {weight: String(w)});
-    document.fonts.add(ff);
-    return ff.load();
-  })).then(() => continueRender(h)).catch((e) => { console.error(e); continueRender(h); });
+  const fs = [300, 400, 500, 600, 700].map((w) => new FontFace('Poppins', `url(${staticFile(`fonts/poppins-${w}.woff2`)}) format('woff2')`, {weight: String(w)}));
+  fs.push(new FontFace('Serif', `url(${staticFile('fonts/instrument-serif-italic.woff2')}) format('woff2')`, {style: 'italic'}));
+  Promise.all(fs.map((ff) => { document.fonts.add(ff); return ff.load(); })).then(() => continueRender(h)).catch((e) => { console.error(e); continueRender(h); });
 }
 
 const FPS = 30;
-const A = '#2D7FF0', N = '#0B1F3A', L = '#5AA2FF', M = '#CFE6F7', G = '#EEF5FC', C = '#6B7A90';
+const A = '#2D7FF0', N = '#0B1F3A', M = '#CFE6F7', C = '#5E6B7E';
 const P = AUD as {texto: string; inicio: number; fim: number}[];
 const fr = (s: number) => Math.round(s * FPS);
 const W = (i: number) => fr(P[i].inicio);
 export const DURACAO = fr(P[P.length - 1].fim) + fr(2.6);
-
-// cenas: palavra que abre cada uma
 const ABRE = [0, 4, 15, 26, 30, 41, 49, 58, 74, 86];
-const CUT = [...ABRE.map((i, k) => (k === 0 ? 0 : W(i) - 4)), DURACAO];
+const CUT = [...ABRE.map((i, k) => (k === 0 ? 0 : W(i) - 5)), DURACAO];
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-const ease = Easing.bezier(0.2, 0.8, 0.2, 1);
-const io = (f: number, a: number, b: number, x: number, y: number, e = ease) => interpolate(f, [a, b], [x, y], {...clamp, easing: e});
-const sp = (f: number, at: number, damping = 11) => spring({frame: f - at, fps: FPS, config: {damping, mass: 0.6, stiffness: 170}});
-const treme = (f: number, amp: number, seed: string) => ({x: (random(`${seed}x${Math.floor(f / 2)}`) - 0.5) * amp, y: (random(`${seed}y${Math.floor(f / 2)}`) - 0.5) * amp});
+const q = (f: number) => Math.floor(f / 2) * 2; // stop-motion: 12 qps
+const io = (f: number, a: number, b: number, x: number, y: number, e = Easing.out(Easing.cubic)) => interpolate(q(f), [a, b], [x, y], {...clamp, easing: e});
+// entrada de papel: chega de longe, passa um tiquinho e assenta (em degraus)
+const chega = (f: number, at: number, dur = 8) => {
+  const t = interpolate(q(f), [at, at + dur], [0, 1], clamp);
+  return t < 1 ? Easing.out(Easing.back(1.4))(t) : 1;
+};
+const tremida = (f: number, seed: string, amp = 1) => ({r: (random(`${seed}r${q(f)}`) - 0.5) * 0.5 * amp, x: (random(`${seed}x${q(f)}`) - 0.5) * 2 * amp, y: (random(`${seed}y${q(f)}`) - 0.5) * 2 * amp});
+const bg = (n: string) => `url(${staticFile(`papel-${n}.jpg`)})`;
+const SOMBRA = 'drop-shadow(0 2px 1px rgba(11,31,58,.25)) drop-shadow(0 28px 34px rgba(11,31,58,.28))';
+const SOMBRA_BOX = '0 1px 1px rgba(11,31,58,.18), 0 18px 30px -12px rgba(11,31,58,.38)';
+const SER: React.CSSProperties = {fontFamily: 'Serif', fontStyle: 'italic', fontWeight: 400, letterSpacing: '-0.01em'};
+const LBL: React.CSSProperties = {fontSize: 27, fontWeight: 600, letterSpacing: '.22em', textTransform: 'uppercase'};
 
-// ---------- linguagem da colagem ----------
-const PAPEL = 'drop-shadow(7px 0 0 #fff) drop-shadow(-7px 0 0 #fff) drop-shadow(0 7px 0 #fff) drop-shadow(0 -7px 0 #fff) drop-shadow(0 26px 30px rgba(11,31,58,.38))';
-const PB = 'grayscale(1) contrast(1.18) brightness(1.04)';
-const Recorte: React.FC<{src: string; x: number; y: number; w: number; rot?: number; k?: number; cor?: boolean; op?: number; z?: number; extra?: string}> = ({src, x, y, w, rot = 0, k = 1, cor, op = 1, z = 5, extra = ''}) => (
-  <Img src={staticFile(src)} style={{position: 'absolute', left: x, top: y, width: w, transform: `rotate(${rot}deg) scale(${k})`, transformOrigin: '50% 100%',
-    filter: `${cor ? '' : PB} ${PAPEL} ${extra}`, opacity: op, zIndex: z}} />
-);
-const Etiqueta: React.FC<{f: number; at: number; x: number; y: number; rot?: number; sz?: number; escuro?: boolean; azul?: boolean; icon?: string; children: React.ReactNode; z?: number; sai?: number}> = ({f, at, x, y, rot = 0, sz = 40, escuro, azul, icon, children, z = 20, sai}) => {
-  const s = sp(f, at);
-  const o = sai === undefined ? 1 : io(f, sai, sai + 6, 1, 0);
+// ---------- peças ----------
+const Foto: React.FC<{f: number; src: string; x: number; y: number; w: number; at?: number; de?: 'baixo' | 'dir' | 'esq'; rot?: number; op?: number; seed?: string; dx?: number}> = ({f, src, x, y, w, at = 0, de = 'baixo', rot = 0, op = 1, seed = src, dx = 0}) => {
+  const k = chega(f, at, 9);
+  const t = tremida(f, seed, 0.6);
+  const off = (1 - k) * 900;
+  const tx = de === 'dir' ? off : de === 'esq' ? -off : 0, ty = de === 'baixo' ? off : 0;
   if (f < at) return null;
+  return <Img src={staticFile(src)} style={{position: 'absolute', left: x + tx + t.x + dx, top: y + ty + t.y, width: w, transform: `rotate(${rot + t.r}deg)`, filter: SOMBRA, opacity: op}} />;
+};
+const Recado: React.FC<{f: number; at: number; x: number; y: number; rot: number; sz?: number; fita?: boolean; op?: number; children: React.ReactNode}> = ({f, at, x, y, rot, sz = 46, fita, op = 1, children}) => {
+  if (f < at) return null;
+  const k = chega(f, at, 6);
+  const t = tremida(f, `rec${x}${y}`, 0.5);
   return (
-    <div style={{position: 'absolute', left: x, top: y, transform: `rotate(${rot}deg) scale(${(0.4 + s * 0.6) * (0.9 + o * 0.1)})`, opacity: Math.min(1, s * 2) * o, transformOrigin: 'left center', zIndex: z,
-      padding: `${sz * 0.5}px ${sz * 0.8}px`, borderRadius: 999, background: escuro ? N : azul ? A : '#fff', color: escuro || azul ? '#fff' : N,
-      fontWeight: 600, fontSize: sz, letterSpacing: '-0.02em', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: sz * 0.4,
-      boxShadow: '0 18px 34px -10px rgba(11,31,58,.45)'}}>
-      {icon ? <span style={{fontSize: sz * 0.95}}>{icon}</span> : null}{children}
+    <div style={{position: 'absolute', left: x + t.x, top: y - (1 - k) * 140 + t.y, transform: `rotate(${rot + t.r + (1 - k) * 8}deg) scale(${1.2 - k * 0.2})`, opacity: Math.min(1, k * 2) * op, zIndex: 10}}>
+      <div style={{background: bg('branco'), padding: `${sz * 0.42}px ${sz * 0.62}px`, fontSize: sz, fontWeight: 500, color: N, letterSpacing: '-0.015em', whiteSpace: 'nowrap', boxShadow: SOMBRA_BOX}}>{children}</div>
+      {fita ? <div style={{position: 'absolute', left: 24, top: -22, width: 150, height: 44, background: 'rgba(207,230,247,.8)', mixBlendMode: 'multiply', transform: 'rotate(-12deg)'}} /> : null}
     </div>
   );
 };
-const Fita: React.FC<{x: number; y: number; rot: number; w?: number}> = ({x, y, rot, w = 230}) => (
-  <div style={{position: 'absolute', left: x, top: y, width: w, height: 62, background: 'rgba(207,230,247,.82)', transform: `rotate(${rot}deg)`, zIndex: 12,
-    boxShadow: '0 4px 10px rgba(11,31,58,.12)', clipPath: 'polygon(2% 0,98% 4%,100% 50%,97% 100%,3% 96%,0 50%)'}} />
-);
-const borda = (seed: string, n = 22) => {
-  const pts: string[] = [];
-  for (let i = 0; i <= n; i++) pts.push(`${(i / n) * 100}% ${30 + random(`${seed}${i}`) * 55}%`);
-  return `polygon(${pts.join(',')},100% 100%,0 100%)`;
-};
-// papel rasgado: faixa gelo com borda irregular
-const Rasgo: React.FC<{y: number; cor?: string; seed?: string; z?: number}> = ({y, cor = G, seed = 'r', z = 2}) => (
-  <>
-    <div style={{position: 'absolute', left: -20, right: -20, top: y - 70, height: 90, background: cor, clipPath: borda(seed), zIndex: z, filter: 'drop-shadow(0 -6px 8px rgba(11,31,58,.15))'}} />
-    <div style={{position: 'absolute', left: 0, right: 0, top: y, bottom: 0, background: cor, zIndex: z}} />
-  </>
-);
-const Vazado: React.FC<{t: string; x: number; y: number; sz: number; k?: number; cor?: string; op?: number}> = ({t, x, y, sz, k = 1, cor = 'rgba(255,255,255,.85)', op = 1}) => (
-  <div style={{position: 'absolute', left: x, top: y, fontWeight: 700, fontSize: sz, lineHeight: 1, letterSpacing: '-0.06em', color: 'transparent', WebkitTextStroke: `6px ${cor}`,
-    transform: `scale(${k})`, transformOrigin: '50% 50%', opacity: op, zIndex: 3}}>{t}</div>
-);
-const Titulo: React.FC<{f: number; at: number; a: string; b: string; y?: number; claro?: boolean; sz?: number}> = ({f, at, a, b, y = 250, claro, sz = 96}) => {
-  const o1 = io(f, at, at + 8, 0, 1), o2 = io(f, at + 5, at + 13, 0, 1);
+const Fita: React.FC<{x: number; y: number; rot: number; w?: number; texto?: string; f?: number; at?: number}> = ({x, y, rot, w = 150, texto, f = 0, at = -1}) => {
+  if (at >= 0 && f < at) return null;
+  const k = at >= 0 ? chega(f, at, 4) : 1;
   return (
-    <div style={{position: 'absolute', left: 80, right: 80, top: y, zIndex: 25, letterSpacing: '-0.045em', lineHeight: 1.02}}>
-      <div style={{fontSize: sz, fontWeight: 300, color: claro ? '#fff' : N, opacity: o1, transform: `translateY(${(1 - o1) * 40}px)`, filter: `blur(${(1 - o1) * 10}px)`}}>{a}</div>
-      <div style={{fontSize: sz * 1.08, fontWeight: 700, color: claro ? N : A, opacity: o2, transform: `translateY(${(1 - o2) * 40}px)`, filter: `blur(${(1 - o2) * 10}px)`}}>{b}</div>
-    </div>
+    <div style={{position: 'absolute', left: x, top: y, width: w, height: texto ? 70 : 44, background: texto ? A : 'rgba(207,230,247,.8)', mixBlendMode: texto ? 'normal' : 'multiply',
+      transform: `rotate(${rot}deg) scaleX(${k})`, transformOrigin: 'left center', display: 'grid', placeItems: 'center', color: '#fff', fontWeight: 700, fontSize: 34, letterSpacing: '.18em',
+      boxShadow: texto ? '0 6px 14px -6px rgba(11,31,58,.5)' : 'none', zIndex: 12, clipPath: 'polygon(1% 4%,99% 0,100% 50%,98% 100%,2% 96%,0 50%)'}}>{texto}</div>
   );
 };
-const Grao: React.FC<{f: number}> = ({f}) => (
-  <Img src={staticFile(`grao${Math.floor(f / 2) % 4}.jpg`)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', mixBlendMode: 'multiply', opacity: 0.13, zIndex: 40}} />
+const Palavras: React.FC<{f: number; de: number; ate: number; k0: number; style?: React.CSSProperties; serifIdx?: number[]; corIdx?: Record<number, string>}> = ({f, de, ate, k0, style, serifIdx = [], corIdx = {}}) => (
+  <span style={style}>
+    {Array.from({length: ate - de + 1}, (_, j) => de + j).map((i) => {
+      const at = W(i) - k0 - 2;
+      const k = chega(f, at, 4);
+      return <span key={i} style={{display: 'inline-block', marginRight: '0.22em', opacity: f < at ? 0 : 1, transform: `translateY(${(1 - k) * 30}px)`, color: corIdx[i], ...(serifIdx.includes(i) ? SER : {})}}>{P[i].texto}</span>;
+    })}
+  </span>
 );
-const LOGO = (c1: string, c2: string, cp: string) => `<svg width="100%" viewBox="26 86 190 100"><text x="120" y="124" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="40" letter-spacing="-1.8"><tspan fill="${c1}">web</tspan><tspan fill="${c2}">clinic</tspan></text><path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke="${cp}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const Marca: React.FC<{claro?: boolean}> = ({claro}) => (
-  <div style={{position: 'absolute', top: 140, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 35}}>
-    <div style={{width: 170}} dangerouslySetInnerHTML={{__html: claro ? LOGO('#fff', M, M) : LOGO(N, A, A)}} />
+const Masthead: React.FC<{sec: string; claro?: boolean}> = ({sec, claro}) => (
+  <div style={{position: 'absolute', left: 70, right: 70, top: 150, color: claro ? '#fff' : N, zIndex: 30}}>
+    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+      <div style={{fontWeight: 700, fontSize: 40, letterSpacing: '-0.04em'}}>web<span style={{color: claro ? M : A}}>clinic</span></div>
+      <div style={{...LBL, fontSize: 25}}>Nº 02 · {sec}</div>
+    </div>
+    <div style={{height: 2, background: 'currentColor', marginTop: 16, opacity: 0.85}} />
   </div>
 );
-
-// ---------- legenda: palavras da cena entrando no tempo da voz, numa tira de papel ----------
-const Legenda: React.FC<{g: number; de: number; ate: number; escuro?: boolean}> = ({g, de, ate, escuro}) => {
-  const ws = Array.from({length: ate - de + 1}, (_, j) => de + j);
-  const vis = ws.filter((i) => g >= W(i) - 2);
-  if (!vis.length) return null;
-  // mostra no máximo as últimas 7 palavras faladas
-  const mostra = vis.slice(-7);
+const Legenda: React.FC<{f: number; at: number; x: number; y: number; w: number; fig: string; titulo?: string; texto?: string; claro?: boolean}> = ({f, at, x, y, w, fig, titulo, texto, claro}) => {
+  if (f < at) return null;
+  const k = chega(f, at, 6);
   return (
-    <div style={{position: 'absolute', left: 70, right: 70, top: 1530, display: 'flex', justifyContent: 'center', zIndex: 30}}>
-      <div style={{background: escuro ? 'rgba(255,255,255,.96)' : '#fff', padding: '16px 30px', borderRadius: 18, boxShadow: '0 16px 30px -12px rgba(11,31,58,.4)', transform: 'rotate(-1.2deg)',
-        fontSize: 46, fontWeight: 600, color: N, letterSpacing: '-0.02em', lineHeight: 1.2, textAlign: 'center', maxWidth: 940}}>
-        {mostra.map((i) => {
-          const o = io(g, W(i) - 2, W(i) + 3, 0, 1);
-          const ativo = g >= W(i) && g < fr(P[i].fim) + 4;
-          return <span key={i} style={{display: 'inline-block', marginRight: '0.22em', opacity: o, transform: `translateY(${(1 - o) * 16}px)`, color: ativo ? A : N}}>{P[i].texto}</span>;
-        })}
-      </div>
+    <div style={{position: 'absolute', left: x, top: y + (1 - k) * 40, width: w, color: claro ? '#fff' : N, opacity: Math.min(1, k * 1.5), zIndex: 20}}>
+      <div style={{...LBL, color: claro ? M : A}}>{fig}</div>
+      {titulo ? <div style={{...SER, fontSize: 76, lineHeight: 1, margin: '12px 0 16px'}}>{titulo}</div> : null}
+      {texto ? <div style={{fontSize: 40, lineHeight: 1.32, fontWeight: 400, color: claro ? '#E8F1FD' : N}}>{texto}</div> : null}
     </div>
   );
 };
+const Rasgo: React.FC<{cor: string; y: number; f: number; at?: number}> = ({cor, y, f, at = 0}) => {
+  const k = chega(f, at, 8);
+  const yy = y + (1 - k) * 700;
+  return (
+    <>
+      <Img src={staticFile(`rasgo-${cor}.png`)} style={{position: 'absolute', left: 0, top: yy - 60, width: 1080}} />
+      <div style={{position: 'absolute', left: 0, right: 0, top: yy + 200, height: 1920, background: bg(cor)}} />
+    </>
+  );
+};
+const Relogio: React.FC<{f: number; at: number; x: number; y: number; s: number}> = ({f, at, x, y, s}) => {
+  const p = io(f, at, at + 30, 0, 1);
+  return (
+    <svg style={{position: 'absolute', left: x, top: y, filter: SOMBRA}} width={s} height={s} viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="96" fill="#FAFAF7" />
+      <circle cx="100" cy="100" r="88" fill="none" stroke={N} strokeWidth="5" />
+      {Array.from({length: 12}, (_, i) => <rect key={i} x="98" y="20" width="4" height={i % 3 ? 9 : 17} fill={N} transform={`rotate(${i * 30} 100 100)`} />)}
+      <rect x="96" y="52" width="8" height="52" fill={N} transform={`rotate(${150 + p * 30} 100 100)`} />
+      <rect x="98" y="28" width="4" height="76" fill={A} transform={`rotate(${-300 * (1 - p)} 100 100)`} />
+      <circle cx="100" cy="100" r="7" fill={N} />
+    </svg>
+  );
+};
 
-// ---------- cena com corte "rasgando": a nova cena entra subindo por trás de um rasgo de papel ----------
-const Cena: React.FC<{k: number; bg: string; children: (f: number, g: number) => React.ReactNode; escuro?: boolean; marcaClara?: boolean; semMarca?: boolean}> = ({k, bg, children, escuro, marcaClara, semMarca}) => {
+// ---------- página: cada cena é uma folha que entra deslizando por cima da anterior (stop-motion) ----------
+const Pagina: React.FC<{k: number; papel: string; children: (f: number) => React.ReactNode}> = ({k, papel, children}) => {
   const g = useCurrentFrame();
   const a = CUT[k], b = CUT[k + 1];
-  if (g < a || g >= b) return null;
+  if (g < a || g >= b + 8) return null; // a folha fica embaixo enquanto a próxima entra
   const f = g - a;
-  const ent = k === 0 ? 1 : io(f, 0, 10, 0, 1, Easing.out(Easing.cubic));
-  const y = (1 - ent) * 1920;
-  const zoom = interpolate(f, [0, b - a], [1, 1.035]);
+  const e = k === 0 ? 1 : interpolate(q(f), [0, 8], [0, 1], {...clamp, easing: Easing.out(Easing.cubic)});
+  const x = (1 - e) * 1100;
+  const rot = (1 - e) * 4;
   return (
-    <AbsoluteFill style={{fontFamily, overflow: 'hidden'}}>
-      <AbsoluteFill style={{transform: `translateY(${y}px)`}}>
-        <AbsoluteFill style={{background: bg}} />
-        <AbsoluteFill style={{transform: `scale(${zoom})`}}>{children(f, g)}</AbsoluteFill>
-        {semMarca ? null : <Marca claro={marcaClara} />}
-        <Legenda g={g} de={ABRE[k]} ate={(ABRE[k + 1] ?? P.length) - 1} escuro={escuro} />
-        {k > 0 && ent < 1 ? <div style={{position: 'absolute', left: -20, right: -20, top: -80, height: 100, background: bg, clipPath: borda(`c${k}`, 26).replace('100% 100%,0 100%', '100% 100%,0 100%'), transform: 'scaleY(-1)'}} /> : null}
-      </AbsoluteFill>
-      <Grao f={g} />
+    <AbsoluteFill style={{transform: `translateX(${x}px) rotate(${rot}deg)`, transformOrigin: '0% 100%', boxShadow: e < 1 ? '-30px 0 60px rgba(11,31,58,.35)' : 'none', overflow: 'hidden', fontFamily: 'Poppins', zIndex: k}}>
+      <AbsoluteFill style={{background: bg(papel)}} />
+      {children(f)}
     </AbsoluteFill>
   );
 };
 
-// ---------- peças ----------
-const Relogio: React.FC<{f: number; at: number; x: number; y: number; s: number}> = ({f, at, x, y, s}) => {
-  const p = io(f, at, at + 26, 0, 1, Easing.out(Easing.cubic));
-  const min = -360 * (1 - p); // ponteiro de minutos dá uma volta e para no 12
-  const hora = 160 + p * 20; // ponteiro de horas chega no 6
-  return (
-    <svg style={{position: 'absolute', left: x, top: y, filter: PAPEL, zIndex: 6}} width={s} height={s} viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="92" fill="#fff" stroke={N} strokeWidth="10" />
-      {Array.from({length: 12}, (_, i) => <rect key={i} x="97" y="18" width="6" height={i % 3 ? 10 : 18} rx="3" fill={N} transform={`rotate(${i * 30} 100 100)`} />)}
-      <rect x="95" y="50" width="10" height="56" rx="5" fill={N} transform={`rotate(${hora} 100 100)`} />
-      <rect x="97" y="26" width="6" height="80" rx="3" fill={A} transform={`rotate(${min} 100 100)`} />
-      <circle cx="100" cy="100" r="9" fill={N} />
-    </svg>
-  );
-};
-const Fone: React.FC<{x: number; y: number; w: number; tocando: boolean; f: number; rot?: number}> = ({x, y, w, tocando, f, rot = -6}) => {
-  const t = tocando ? treme(f, 14, 'fone') : {x: 0, y: 0};
-  return (
-    <div style={{position: 'absolute', left: x + t.x, top: y + t.y, transform: `rotate(${rot + (tocando ? Math.sin(f * 1.7) * 3 : 0)}deg)`, zIndex: 6}}>
-      <Img src={staticFile('telefone.png')} style={{width: w, filter: `${PB} ${PAPEL}`}} />
-      {tocando ? [0, 1].map((i) => (
-        <svg key={i} style={{position: 'absolute', left: i ? w - 30 : -60, top: -40, transform: i ? 'none' : 'scaleX(-1)'}} width={90} height={120} viewBox="0 0 90 120">
-          <g fill="none" stroke="#fff" strokeWidth="9" strokeLinecap="round" opacity={0.6 + Math.sin(f / 2 + i) * 0.4}><path d="M20 30a40 40 0 0 1 0 60" /><path d="M45 15a65 65 0 0 1 0 90" /></g>
-        </svg>
-      )) : null}
-    </div>
-  );
-};
-const Celular: React.FC<{x: number; y: number; w: number; children: React.ReactNode; rot?: number}> = ({x, y, w, children, rot = 0}) => (
-  <div style={{position: 'absolute', left: x, top: y, width: w, height: w * 2.05, borderRadius: w * 0.14, background: N, padding: w * 0.035, transform: `rotate(${rot}deg)`,
-    boxShadow: '0 0 0 8px #fff, 0 50px 80px -20px rgba(0,0,0,.6)', zIndex: 8}}>
-    <div style={{width: '100%', height: '100%', borderRadius: w * 0.11, background: '#fff', overflow: 'hidden', position: 'relative'}}>{children}</div>
-  </div>
-);
-
-// ================== CENAS ==================
 export const Video: React.FC = () => {
   const e = (k: number, i: number) => W(i) - CUT[k];
   return (
-    <AbsoluteFill style={{background: A}}>
-      {/* 1. "Essa é a Cláudia." */}
-      <Cena k={0} bg={A} marcaClara>
+    <AbsoluteFill style={{background: N}}>
+      {/* 1. capa: "Essa é a Cláudia." */}
+      <Pagina k={0} papel="gelo">
         {(f) => (
           <>
-                        <Rasgo y={1330} seed="a" />
-            <Recorte src="claudia-base.png" x={170} y={500 + (1 - sp(f, 2, 13)) * 500} w={740} z={5} />
-            <Fita x={150} y={560} rot={-14} />
-            <Etiqueta f={f} at={e(0, 3)} x={470} y={760} rot={-5} sz={44} escuro icon="🪪">Cláudia · recepção</Etiqueta>
+            <Masthead sec="Recepção" />
+            <div style={{position: 'absolute', left: 58, top: 255, fontWeight: 700, fontSize: 322, lineHeight: 0.8, letterSpacing: '-0.07em', color: A, transform: `scale(${1.12 - chega(f, 0, 6) * 0.12})`, transformOrigin: '0 0'}}>Cláu-<br />dia.</div>
+            <Rasgo cor="azul" y={1180} f={f} at={2} />
+            <Foto f={f} src="claudia-base-imp.png" x={400} y={560} w={900} at={4} />
+            <Legenda f={f} at={e(0, 2)} x={70} y={1340} w={330} fig="Fig. 01" titulo="Essa é a Cláudia." claro />
           </>
         )}
-      </Cena>
+      </Pagina>
 
-      {/* 2. telefone, WhatsApp, porta, Instagram */}
-      <Cena k={1} bg={G} marcaClara>
-        {(f) => (
-          <>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 980, background: A}} />
-            <Rasgo y={1010} seed="b" />
-            <Recorte src="claudia-base.png" x={-60} y={430} w={560} z={4} />
-            <Fone x={470} y={1080} w={480} f={f} tocando={f >= e(1, 7) - 2} />
-            <Etiqueta f={f} at={e(1, 7)} x={470} y={430} rot={-6} sz={50} icon="☎️">telefone</Etiqueta>
-            <Etiqueta f={f} at={e(1, 9)} x={540} y={570} rot={4} sz={50} azul icon="💬">WhatsApp</Etiqueta>
-            <Etiqueta f={f} at={e(1, 11)} x={470} y={710} rot={-3} sz={50} icon="🔔">a porta</Etiqueta>
-            <Etiqueta f={f} at={e(1, 14)} x={500} y={850} rot={5} sz={50} escuro icon="📷">Instagram</Etiqueta>
-          </>
-        )}
-      </Cena>
+      {/* 2. telefone, WhatsApp, porta, Instagram: índice de revista */}
+      <Pagina k={1} papel="gelo">
+        {(f) => {
+          const itens: [number, string, string][] = [[7, '01', 'Telefone'], [9, '02', 'WhatsApp'], [11, '03', 'A porta'], [14, '04', 'Instagram']];
+          const t = tremida(f, 'fone', f >= e(1, 7) && f < e(1, 7) + 24 ? 7 : 0.5);
+          return (
+            <>
+              <Masthead sec="Recepção" />
+              <div style={{position: 'absolute', left: 70, top: 270, color: N}}>
+                <div style={{...LBL, color: A}}>O dia da Cláudia</div>
+                <div style={{fontWeight: 300, fontSize: 88, letterSpacing: '-0.05em', lineHeight: 1.05, marginTop: 14}}>Ela <b style={{fontWeight: 700}}>atende</b></div>
+              </div>
+              {itens.map(([i, n, t2], j) => {
+                const at = e(1, i) - 2;
+                if (f < at) return null;
+                const k = chega(f, at, 6);
+                return (
+                  <div key={n} style={{position: 'absolute', left: 70 - (1 - k) * 500, top: 520 + j * 170, display: 'flex', alignItems: 'baseline', gap: 26, color: N}}>
+                    <span style={{...SER, fontSize: 64, color: A, width: 70}}>{n}</span>
+                    <span style={{fontWeight: 700, fontSize: 96, letterSpacing: '-0.05em'}}>{t2}</span>
+                  </div>
+                );
+              })}
+              <div style={{position: 'absolute', left: 70, right: 70, top: 1220, height: 2, background: N, opacity: 0.25}} />
+              <Foto f={f} src="claudia-base-imp.png" x={600} y={1000} w={600} at={2} de="dir" />
+              {f >= e(1, 7) - 4 ? <Img src={staticFile('telefone-imp.png')} style={{position: 'absolute', left: 60 + t.x, top: 1300 + t.y, width: 520, transform: `rotate(${-7 + t.r * 4}deg)`, filter: SOMBRA}} /> : null}
+              <Legenda f={f} at={e(1, 14) + 4} x={70} y={1250} w={480} fig="Ao mesmo tempo" />
+            </>
+          );
+        }}
+      </Pagina>
 
       {/* 3. perguntas repetidas */}
-      <Cena k={2} bg={A} marcaClara escuro>
+      <Pagina k={2} papel="azul">
         {(f) => {
-          const big = sp(f, e(2, 23), 9);
-          const t = treme(f, f >= e(2, 23) ? 10 : 0, 'q');
+          const big = e(2, 23);
+          const apaga = f >= big ? 0.45 : 1;
           return (
             <>
-              <Etiqueta f={f} at={e(2, 15)} x={90} y={430} rot={-7} sz={54}>Qual o valor?</Etiqueta>
-              <Etiqueta f={f} at={e(2, 18)} x={380} y={600} rot={5} sz={54}>Atende convênio?</Etiqueta>
-              <Etiqueta f={f} at={e(2, 20)} x={120} y={770} rot={-3} sz={54}>Tem horário hoje?</Etiqueta>
-              <Etiqueta f={f} at={e(2, 15) + 6} x={600} y={330} rot={8} sz={34} escuro>Aceita Pix?</Etiqueta>
-              <Etiqueta f={f} at={e(2, 18) + 6} x={80} y={940} rot={6} sz={34} escuro>Tem estacionamento?</Etiqueta>
-              <Etiqueta f={f} at={e(2, 20) + 6} x={620} y={950} rot={-6} sz={34} escuro>Pode encaixar?</Etiqueta>
-              {f >= e(2, 23) ? (
-                <div style={{position: 'absolute', left: 60 + t.x, right: 60, top: 1080 + t.y, transform: `rotate(-4deg) scale(${0.3 + big * 0.7})`, transformOrigin: '50% 50%', zIndex: 22,
-                  background: '#fff', borderRadius: 40, padding: '40px 30px', textAlign: 'center', fontWeight: 700, fontSize: 112, color: N, letterSpacing: '-0.05em', lineHeight: 1,
-                  boxShadow: '0 30px 60px -20px rgba(11,31,58,.6)'}}>QUAL O VALOR?</div>
+              <Masthead sec="O problema" claro />
+              <Recado f={f} at={e(2, 15) - 2} x={80} y={330} rot={-4} fita op={apaga}>Qual o valor?</Recado>
+              <Recado f={f} at={e(2, 18) - 2} x={380} y={560} rot={5} op={apaga}>Atende convênio?</Recado>
+              <Recado f={f} at={e(2, 20) - 2} x={110} y={790} rot={-2} fita op={apaga}>Tem horário hoje?</Recado>
+              <Recado f={f} at={e(2, 18) + 4} x={620} y={1010} rot={-6} sz={34} op={apaga}>Aceita Pix?</Recado>
+              <Recado f={f} at={e(2, 20) + 4} x={90} y={1040} rot={4} sz={34} op={apaga}>Pode encaixar?</Recado>
+              {f >= big - 2 ? (
+                <div style={{position: 'absolute', left: 60, right: 40, top: 1150, color: '#fff', transform: `scale(${1.15 - chega(f, big - 2, 5) * 0.15})`, transformOrigin: '0 50%'}}>
+                  <div style={{...LBL, color: M}}>De novo</div>
+                  <div style={{...SER, fontSize: 196, lineHeight: 0.9, marginTop: 6}}>Qual o</div>
+                  <div style={{fontWeight: 700, fontSize: 200, letterSpacing: '-0.06em', lineHeight: 0.9}}>valor?</div>
+                </div>
               ) : null}
-              <Fita x={110} y={1060} rot={-18} />
-              <Fita x={760} y={1250} rot={14} />
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
       {/* 4. 47 vezes por dia */}
-      <Cena k={3} bg={A} marcaClara>
+      <Pagina k={3} papel="azul">
         {(f) => {
-          const n = Math.round(io(f, 0, 16, 1, 47, Easing.out(Easing.cubic)));
+          const n = Math.round(interpolate(q(f), [0, 14], [1, 47], {...clamp, easing: Easing.out(Easing.cubic)}));
           return (
             <>
-              <Vazado t={String(n)} x={60} y={330} sz={760} k={0.85 + sp(f, 0, 12) * 0.15} />
-              <Rasgo y={1180} seed="d" />
-              <Recorte src="claudia-estresse.png" x={40} y={560 + (1 - sp(f, 3, 12)) * 300} w={1000} z={5} />
-              <Fita x={70} y={620} rot={-10} />
-              <Fita x={790} y={600} rot={12} />
-              <Etiqueta f={f} at={e(3, 28)} x={600} y={1260} rot={-4} sz={60} escuro>por dia.</Etiqueta>
-              <Etiqueta f={f} at={4} x={90} y={1280} rot={5} sz={36} icon="☎️">47 chamadas</Etiqueta>
+              <Masthead sec="O problema" claro />
+              <div style={{position: 'absolute', left: 30, top: 270, fontWeight: 700, fontSize: 820, lineHeight: 0.78, letterSpacing: '-0.09em', color: N}}>{n}</div>
+              <div style={{position: 'absolute', left: 610, top: 930, color: '#fff'}}>
+                {f >= e(3, 27) - 2 ? <div style={{...SER, fontSize: 104, lineHeight: 0.9}}>vezes.</div> : null}
+                {f >= e(3, 28) - 2 ? <div style={{fontWeight: 700, fontSize: 104, letterSpacing: '-0.05em', lineHeight: 1}}>Por dia.</div> : null}
+              </div>
+              <Foto f={f} src="claudia-estresse-imp.png" x={-80} y={1130} w={1000} at={2} />
+              <Recado f={f} at={6} x={690} y={1330} rot={-3} sz={34}>Qual o valor?</Recado>
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
       {/* 5. três desistem e marcam no concorrente */}
-      <Cena k={4} bg={G} marcaClara>
+      <Pagina k={4} papel="branco">
         {(f) => {
           const des = e(4, 35);
           return (
             <>
-              <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 560, background: A}} />
-              <Rasgo y={580} seed="e" cor={G} z={1} />
-              <Titulo f={f} at={0} a="Enquanto ela" b="atende um..." y={300} claro sz={84} />
+              <Masthead sec="O problema" />
+              <div style={{position: 'absolute', left: 70, right: 70, top: 270, color: N, fontSize: 92, lineHeight: 1.04, letterSpacing: '-0.05em'}}>
+                <Palavras f={f} de={30} ate={34} k0={CUT[4]} style={{fontWeight: 300}} />
+                <br />
+                <Palavras f={f} de={35} ate={36} k0={CUT[4]} style={{fontWeight: 700}} serifIdx={[35]} corIdx={{35: A}} />
+              </div>
               {[0, 1, 2].map((i) => {
-                const at = des + i * 4;
-                const cinza = io(f, at, at + 8, 0, 1);
-                const sai = io(f, e(4, 37) + i * 3, e(4, 37) + i * 3 + 14, 0, 1, Easing.in(Easing.cubic));
+                const at = 4 + i * 2;
+                if (f < at) return null;
+                const k = chega(f, at, 7);
+                const morto = f >= des + i * 4;
+                const t = tremida(f, `pac${i}`, 0.5);
                 return (
-                  <div key={i} style={{position: 'absolute', left: 90 + i * 310 + sai * 900, top: 720 + (i === 1 ? -20 : 0), zIndex: 5, opacity: 1 - sai * 0.4}}>
-                    <Img src={staticFile(`paciente${i}.png`)} style={{height: 720, filter: `grayscale(${0.6 + cinza * 0.4}) contrast(1.1) brightness(${1 - cinza * 0.08}) ${PAPEL}`, opacity: 1 - cinza * 0.35}} />
+                  <div key={i} style={{position: 'absolute', left: 70 + i * 320 + t.x, top: 640 + (1 - k) * 900 + (i === 1 ? 30 : 0), width: 300, transform: `rotate(${[-3, 2, -1.5][i] + t.r}deg)`}}>
+                    <div style={{background: bg('gelo'), padding: 14, boxShadow: SOMBRA_BOX, height: 520, overflow: 'hidden', position: 'relative'}}>
+                      <Img src={staticFile(`paciente${i}-imp.png`)} style={{position: 'absolute', left: '50%', bottom: -120, height: 620, transform: 'translateX(-50%)', opacity: morto ? 0.45 : 1}} />
+                    </div>
+                    <div style={{...LBL, fontSize: 25, color: C, marginTop: 14}}>Paciente 0{i + 1}</div>
+                    <Fita x={-10} y={230} rot={-14 + i * 6} w={320} texto="DESISTIU" f={f} at={des + i * 4} />
                   </div>
                 );
               })}
-              <Etiqueta f={f} at={des} x={80} y={660} rot={-6} sz={40} escuro icon="📵">desistiu</Etiqueta>
-              <Etiqueta f={f} at={des + 4} x={420} y={640} rot={4} sz={40} escuro icon="📵">desistiu</Etiqueta>
-              <Etiqueta f={f} at={des + 8} x={700} y={680} rot={-3} sz={40} escuro icon="📵">desistiu</Etiqueta>
-              <Etiqueta f={f} at={e(4, 38)} x={360} y={1340} rot={-3} sz={50} azul>consultório ao lado →</Etiqueta>
+              {f >= e(4, 37) - 2 ? (
+                <div style={{position: 'absolute', left: 70, right: 70, top: 1290, color: N, opacity: Math.min(1, chega(f, e(4, 37) - 2, 6) * 1.5)}}>
+                  <div style={{height: 2, background: N, opacity: 0.25, marginBottom: 26}} />
+                  <div style={{fontSize: 64, lineHeight: 1.05, letterSpacing: '-0.04em'}}><span style={SER}>e marcam</span> <b style={{fontWeight: 700}}>no concorrente.</b></div>
+                </div>
+              ) : null}
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
       {/* 6. às seis a Cláudia vai pra casa. Merecido. */}
-      <Cena k={5} bg={A} marcaClara>
+      <Pagina k={5} papel="gelo">
         {(f) => {
-          const anda = io(f, e(5, 44), e(5, 48) + 10, 0, 1, Easing.inOut(Easing.cubic));
+          const anda = io(f, e(5, 44), e(5, 47) + 12, 0, 1, Easing.inOut(Easing.cubic));
           return (
             <>
-              <Relogio f={f} at={2} x={90} y={360} s={420} />
-              <Etiqueta f={f} at={e(5, 42)} x={130} y={830} rot={-5} sz={64} escuro>18:00</Etiqueta>
-              <Rasgo y={1200} seed="f" />
-              <Recorte src="claudia-tchau.png" x={560 + anda * 120} y={460} w={440} rot={anda * 3} z={5} />
-              <Etiqueta f={f} at={e(5, 48)} x={430} y={1260} rot={4} sz={60} icon="💙">merecido.</Etiqueta>
-              <Fita x={620} y={480} rot={-12} />
+              <Masthead sec="18:00" />
+              <Relogio f={f} at={0} x={70} y={290} s={380} />
+              <div style={{position: 'absolute', left: 70, top: 730, color: N}}>
+                {f >= e(5, 41) - 2 ? <div style={{fontWeight: 700, fontSize: 150, letterSpacing: '-0.06em', lineHeight: 0.95}}>Às seis,</div> : null}
+                <div style={{fontSize: 64, fontWeight: 300, letterSpacing: '-0.04em', lineHeight: 1.1, marginTop: 10, width: 520}}><Palavras f={f} de={43} ate={47} k0={CUT[5]} /></div>
+              </div>
+              <Foto f={f} src="claudia-tchau-imp.png" x={560} y={430} w={470} at={2} de="dir" dx={anda * 160} />
+              {f >= e(5, 48) - 2 ? (
+                <div style={{position: 'absolute', left: 70, top: 1230, color: A, transform: `scale(${1.1 - chega(f, e(5, 48) - 2, 5) * 0.1})`, transformOrigin: '0 50%'}}>
+                  <div style={{...LBL, color: N}}>Fig. 02</div>
+                  <div style={{...SER, fontSize: 170, lineHeight: 1}}>Merecido.</div>
+                </div>
+              ) : null}
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
       {/* 7. às dez da noite tem paciente querendo marcar */}
-      <Cena k={6} bg={N} marcaClara escuro>
+      <Pagina k={6} papel="navy">
         {(f) => {
-          const ok = f >= e(6, 54);
+          const msg = e(6, 54) - 2;
           return (
             <>
-              <Vazado t="22:47" x={70} y={330} sz={300} cor="rgba(90,162,255,.7)" />
-              <Celular x={250} y={640} w={420} rot={-4}>
-                <div style={{position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${G}, #fff)`}} />
-                <div style={{position: 'absolute', top: 70, left: 0, right: 0, textAlign: 'center', fontSize: 92, fontWeight: 300, color: N, letterSpacing: '-0.04em'}}>22:47</div>
-                <div style={{position: 'absolute', top: 190, left: 0, right: 0, textAlign: 'center', fontSize: 24, color: C}}>domingo</div>
-                {ok ? (
-                  <div style={{position: 'absolute', top: 280, left: 22, right: 22, background: '#fff', borderRadius: 26, padding: '20px 22px', boxShadow: '0 12px 30px rgba(11,31,58,.18)',
-                    transform: `translateY(${(1 - sp(f, e(6, 54))) * -60}px)`, opacity: Math.min(1, sp(f, e(6, 54)) * 2)}}>
-                    <div style={{fontSize: 20, color: C, fontWeight: 600}}>💬 WhatsApp · Clínica</div>
-                    <div style={{fontSize: 26, color: N, fontWeight: 500, marginTop: 6}}>Oi! Tem horário amanhã?</div>
-                    <div style={{fontSize: 20, color: C, marginTop: 10}}>✓✓ enviada · sem resposta</div>
+              <Masthead sec="Domingo" claro />
+              <div style={{position: 'absolute', left: 60, top: 260, color: '#fff', fontWeight: 300, fontSize: 290, letterSpacing: '-0.07em', lineHeight: 1}}>22:47</div>
+              <div style={{position: 'absolute', left: 70, top: 600, color: M, fontSize: 60, lineHeight: 1.1, letterSpacing: '-0.03em', width: 900}}>
+                <Palavras f={f} de={49} ate={53} k0={CUT[6]} style={{fontWeight: 300}} serifIdx={[49]} />
+              </div>
+              {f >= msg ? (
+                <div style={{position: 'absolute', left: 120, top: 860 - (1 - chega(f, msg, 7)) * 200, width: 840, transform: `rotate(-2deg)`, opacity: Math.min(1, chega(f, msg, 7) * 2)}}>
+                  <div style={{background: bg('branco'), padding: '34px 40px', boxShadow: '0 30px 60px -20px rgba(0,0,0,.6)'}}>
+                    <div style={{...LBL, color: A}}>WhatsApp · Clínica</div>
+                    <div style={{fontSize: 56, fontWeight: 500, color: N, letterSpacing: '-0.03em', margin: '16px 0 18px'}}>Oi! Tem horário amanhã?</div>
+                    <div style={{fontSize: 32, color: C}}>Enviada às 22:47 · sem resposta</div>
                   </div>
-                ) : null}
-              </Celular>
-              <Etiqueta f={f} at={e(6, 57)} x={440} y={1330} rot={5} sz={44} icon="🌙">recepção fechada</Etiqueta>
+                </div>
+              ) : null}
+              <Legenda f={f} at={e(6, 55)} x={70} y={1260} w={900} fig="Fig. 03" texto="A recepção está fechada. O paciente, não." claro />
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
       {/* 8. com a Web Clinic o site responde, mostra os horários e marca. Sozinho. */}
-      <Cena k={7} bg={G} marcaClara>
+      <Pagina k={7} papel="gelo">
         {(f) => {
-          const slot = f >= e(7, 68);
-          const marca = e(7, 70);
-          const carimbo = sp(f, e(7, 72), 8);
+          const hor = e(7, 68) - 2, marca = e(7, 70), carimbo = e(7, 72) - 1;
           const slots = ['09:00', '10:30', '14:30', '16:00', '17:30', '19:00'];
+          const ck = chega(f, carimbo, 3);
           return (
             <>
-              <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 520, background: A}} />
-              <Rasgo y={540} seed="h" cor={G} z={1} />
-              <Titulo f={f} at={0} a="Com a" b="Web Clinic" y={290} claro sz={92} />
-              <div style={{position: 'absolute', left: 90, top: 640 + (1 - sp(f, 4, 13)) * 400, width: 900, background: '#fff', borderRadius: 34, overflow: 'hidden', zIndex: 6,
-                boxShadow: '0 0 0 8px #fff, 0 40px 70px -24px rgba(11,31,58,.45)', transform: 'rotate(-2deg)'}}>
-                <div style={{height: 64, background: G, display: 'flex', alignItems: 'center', gap: 10, padding: '0 24px'}}>
-                  {['#FA5F6D', '#F5B83D', '#3CC48A'].map((c, i) => <i key={i} style={{width: 14, height: 14, borderRadius: 8, background: c}} />)}
-                  <div style={{marginLeft: 16, flex: 1, height: 38, borderRadius: 99, background: '#fff', fontSize: 20, color: C, display: 'flex', alignItems: 'center', padding: '0 18px'}}>suaclinica.com.br/agendar</div>
-                </div>
-                <div style={{padding: '34px 40px'}}>
-                  <div style={{fontSize: 22, fontWeight: 600, letterSpacing: '.2em', color: A}}>AGENDA ONLINE · 24H</div>
-                  <div style={{fontSize: 52, letterSpacing: '-0.04em', color: N, margin: '8px 0 24px'}}><b>Escolha</b> <span style={{fontWeight: 300}}>um horário</span></div>
-                  <div style={{display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16}}>
+              <Masthead sec="A solução" />
+              <div style={{position: 'absolute', left: 70, top: 270, color: N, fontSize: 96, letterSpacing: '-0.05em', lineHeight: 1.04}}>
+                <Palavras f={f} de={58} ate={59} k0={CUT[7]} style={{fontWeight: 300}} /><br />
+                <Palavras f={f} de={60} ate={61} k0={CUT[7]} style={{fontWeight: 700}} corIdx={{61: A}} />
+              </div>
+              {f >= 4 ? (
+                <div style={{position: 'absolute', left: 110, top: 600 + (1 - chega(f, 4, 9)) * 1200, width: 860, transform: 'rotate(-3deg)', background: bg('branco'), padding: '36px 42px 42px', boxShadow: SOMBRA_BOX}}>
+                  <div style={{display: 'flex', justifyContent: 'space-between'}}><div style={{...LBL, color: A}}>Agenda online · 24h</div><div style={{...LBL, fontSize: 20, color: '#9AA6B6'}}>suaclinica.com.br</div></div>
+                  <div style={{fontSize: 56, letterSpacing: '-0.04em', color: N, margin: '20px 0 26px'}}><b>Escolha</b> <span style={{fontWeight: 300}}>um horário</span></div>
+                  <div style={{display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 14}}>
                     {slots.map((s, i) => {
-                      const on = slot && i === 2;
-                      const k = slot ? sp(f, e(7, 68) + i * 2, 14) : 0;
-                      return <div key={s} style={{height: 84, borderRadius: 20, display: 'grid', placeItems: 'center', fontSize: 34, fontWeight: 600,
-                        background: on && f >= marca ? A : G, color: on && f >= marca ? '#fff' : N, border: `3px solid ${on ? A : 'transparent'}`, transform: `scale(${0.96 + k * 0.04})`}}>{s}</div>;
+                      const on = i === 2 && f >= marca;
+                      return <div key={s} style={{height: 92, display: 'grid', placeItems: 'center', fontSize: 36, fontWeight: 600, border: `2px solid ${on ? A : '#DDE4EC'}`, background: on ? A : 'transparent',
+                        color: on ? '#fff' : N, opacity: f >= hor + i ? 1 : 0.15}}>{s}</div>;
                     })}
                   </div>
-                  <div style={{marginTop: 26, height: 92, borderRadius: 99, background: `linear-gradient(180deg, ${L}, ${A})`, color: '#fff', fontSize: 38, fontWeight: 600, display: 'grid', placeItems: 'center',
-                    transform: `scale(${f >= marca && f < marca + 6 ? 0.95 : 1})`}}>Agendar consulta</div>
+                  <div style={{marginTop: 24, height: 96, background: N, color: '#fff', display: 'grid', placeItems: 'center', fontSize: 38, fontWeight: 600, transform: `scale(${f >= marca && f < marca + 4 ? 0.97 : 1})`}}>Agendar consulta</div>
                 </div>
-              </div>
-              <Etiqueta f={f} at={e(7, 65)} x={440} y={600} rot={5} sz={36} escuro icon="💬">"R$ 350 · aceita Unimed"</Etiqueta>
-              {f >= e(7, 72) ? (
-                <div style={{position: 'absolute', left: 170, top: 1140, zIndex: 24, transform: `rotate(-9deg) scale(${2.2 - carimbo * 1.2})`, opacity: Math.min(1, carimbo * 1.6), transformOrigin: '50% 50%',
-                  border: `10px solid ${N}`, borderRadius: 24, padding: '18px 40px', fontWeight: 700, fontSize: 78, color: N, letterSpacing: '-0.03em', background: 'rgba(238,245,252,.9)',
-                  boxShadow: `inset 0 0 0 6px ${G}, inset 0 0 0 12px ${N}`}}>CONSULTA MARCADA ✓</div>
               ) : null}
-              <Etiqueta f={f} at={e(7, 73)} x={640} y={1400} rot={6} sz={48} azul>sozinho.</Etiqueta>
+              {f >= e(7, 64) ? <Recado f={f} at={e(7, 64)} x={330} y={1150} rot={4} sz={36}>"R$ 350 · aceita convênio"</Recado> : null}
+              {f >= carimbo ? (
+                <div style={{position: 'absolute', left: 140, top: 1240, transform: `rotate(-11deg) scale(${1.6 - ck * 0.6})`, opacity: Math.min(1, ck * 2), mixBlendMode: 'multiply', zIndex: 15}}>
+                  <div style={{border: `9px solid ${A}`, padding: '16px 34px', color: A, fontWeight: 700, fontSize: 92, letterSpacing: '.01em', lineHeight: 0.95,
+                    WebkitMaskImage: `${bg('gelo')}`, WebkitMaskSize: '260px'}}>CONSULTA<br />MARCADA</div>
+                </div>
+              ) : null}
+              {f >= e(7, 73) - 2 ? <div style={{position: 'absolute', left: 620, top: 1500, ...SER, fontSize: 120, color: N, transform: `scale(${1.1 - chega(f, e(7, 73) - 2, 5) * 0.1})`}}>Sozinho.</div> : null}
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
-      {/* 9. a Cláudia cuida de quem chega, o site de quem procura */}
-      <Cena k={8} bg={A} marcaClara>
+      {/* 9. a Cláudia cuida de quem chega; o site, de quem procura */}
+      <Pagina k={8} papel="gelo">
         {(f) => (
           <>
-            <Rasgo y={1240} seed="i" />
-            <Recorte src="claudia-cafe.png" x={40} y={520 + (1 - sp(f, 2, 13)) * 300} w={560} z={5} />
-            <Fita x={60} y={560} rot={-12} />
-            <div style={{position: 'absolute', left: 600, top: 520 + (1 - sp(f, e(8, 80), 13)) * 600, width: 400, background: '#fff', borderRadius: 28, padding: '26px 26px', zIndex: 6,
-              boxShadow: '0 0 0 8px #fff, 0 30px 60px -20px rgba(11,31,58,.5)', transform: 'rotate(4deg)'}}>
-              <div style={{fontSize: 20, fontWeight: 600, letterSpacing: '.18em', color: A}}>AGENDA DE AMANHÃ</div>
-              {['08:00 · Marta S.', '09:30 · João P.', '11:00 · Ana L.', '14:30 · Rui M.', '16:00 · Bia C.'].map((t, i) => (
-                <div key={t} style={{marginTop: 14, padding: '12px 16px', borderRadius: 14, background: G, fontSize: 26, fontWeight: 500, color: N,
-                  opacity: io(f, e(8, 80) + 6 + i * 3, e(8, 80) + 10 + i * 3, 0, 1)}}>✓ {t}</div>
-              ))}
+            <Masthead sec="A solução" />
+            <div style={{position: 'absolute', left: 70, right: 70, top: 270, color: N, letterSpacing: '-0.05em', lineHeight: 1.04}}>
+              <div style={{fontSize: 80, fontWeight: 300}}><Palavras f={f} de={74} ate={79} k0={CUT[8]} /></div>
+              <div style={{height: 2, background: N, opacity: 0.25, margin: '30px 0'}} />
+              <div style={{fontSize: 92}}><Palavras f={f} de={80} ate={85} k0={CUT[8]} style={{fontWeight: 700}} serifIdx={[83, 84]} corIdx={{83: A, 84: A}} /></div>
             </div>
-            <Etiqueta f={f} at={e(8, 79)} x={70} y={1290} rot={-4} sz={40} icon="☕">quem chega</Etiqueta>
-            <Etiqueta f={f} at={e(8, 85)} x={520} y={1330} rot={4} sz={40} escuro icon="🔎">quem procura</Etiqueta>
+            <Rasgo cor="azul" y={1180} f={f} at={2} />
+            <Foto f={f} src="claudia-cafe-imp.png" x={-40} y={1010} w={600} at={3} />
+            <Legenda f={f} at={e(8, 80)} x={600} y={1330} w={420} fig="Fig. 04" texto="Ela atende quem está na recepção. O resto, o site resolve." claro />
           </>
         )}
-      </Cena>
+      </Pagina>
 
-      {/* 10. Web Clinic. Manda SITE no direct. */}
-      <Cena k={9} bg={G} semMarca>
+      {/* 10. assinatura */}
+      <Pagina k={9} papel="azul">
         {(f) => {
-          const s = sp(f, 2, 12);
-          const p = io(f, 6, 30, 0, 1, Easing.inOut(Easing.cubic));
+          const p = io(f, 6, 26, 0, 1, Easing.inOut(Easing.cubic));
           return (
             <>
-              <div style={{position: 'absolute', left: 0, right: 0, top: 1100, bottom: 0, background: A}} />
-              <Rasgo y={1100} seed="j" cor={A} z={1} />
-              <div style={{position: 'absolute', left: 140, right: 140, top: 520, transform: `scale(${0.7 + s * 0.3})`, opacity: Math.min(1, s * 2), zIndex: 6}}>
+              <div style={{position: 'absolute', left: 70, right: 70, top: 150, height: 2, background: '#fff', opacity: 0.85}} />
+              <div style={{position: 'absolute', left: 120, right: 120, top: 560, transform: `scale(${1.08 - chega(f, 0, 6) * 0.08})`}}>
                 <svg width="100%" viewBox="26 86 190 100">
-                  <text x="120" y="124" textAnchor="middle" fontFamily="Poppins" fontWeight={700} fontSize={40} letterSpacing={-1.8}><tspan fill={N}>web</tspan><tspan fill={A}>clinic</tspan></text>
-                  <path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke={A} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} />
+                  <text x="120" y="124" textAnchor="middle" fontFamily="Poppins" fontWeight={700} fontSize={40} letterSpacing={-1.8}><tspan fill="#fff">web</tspan><tspan fill={M}>clinic</tspan></text>
+                  <path d="M46 158H98L108 138L122 180L134 148L142 158H194" fill="none" stroke="#fff" strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} />
                 </svg>
               </div>
-              <div style={{position: 'absolute', left: 0, right: 0, top: 930, textAlign: 'center', fontSize: 44, fontWeight: 300, color: N, letterSpacing: '-0.03em', opacity: io(f, 10, 20, 0, 1), zIndex: 6}}>
-                Sites que viram <b style={{fontWeight: 700, color: A}}>consulta marcada.</b>
+              <div style={{position: 'absolute', left: 0, right: 0, top: 1000, textAlign: 'center', color: '#fff', fontSize: 52, letterSpacing: '-0.03em', opacity: f >= 10 ? 1 : 0}}>
+                Sites que viram <span style={SER}>consulta marcada.</span>
               </div>
-              <Etiqueta f={f} at={e(9, 88)} x={190} y={1260} rot={-3} sz={58} escuro icon="💬">Manda SITE no direct</Etiqueta>
-              <Fita x={150} y={1230} rot={-16} w={180} />
+              <Recado f={f} at={e(9, 88) - 2} x={190} y={1220} rot={-3} sz={58} fita>Manda <b>SITE</b> no direct</Recado>
             </>
           );
         }}
-      </Cena>
+      </Pagina>
 
       {/* ---------- som ---------- */}
       <Audio src={staticFile('voz.mp3')} />
-      {CUT.slice(1, -1).map((c, i) => <Sequence key={`w${i}`} from={c - 2} durationInFrames={30}><Audio src={staticFile('whoosh.mp3')} volume={0.45} /></Sequence>)}
-      {[3, 7, 9, 11, 14, 15, 18, 20, 28, 35, 38, 42, 48, 54, 65, 73, 79, 85, 88].map((i) => <Sequence key={`p${i}`} from={W(i)} durationInFrames={20}><Audio src={staticFile('pop.mp3')} volume={0.5} /></Sequence>)}
-      <Sequence from={W(23)} durationInFrames={30}><Audio src={staticFile('impacto.mp3')} volume={0.55} /></Sequence>
-      <Sequence from={W(26) - 4} durationInFrames={30}><Audio src={staticFile('impacto.mp3')} volume={0.6} /></Sequence>
-      {Array.from({length: 8}, (_, i) => <Sequence key={`t${i}`} from={CUT[5] + 2 + i * 3} durationInFrames={6}><Audio src={staticFile('tique.mp3')} volume={0.35} /></Sequence>)}
-      <Sequence from={W(72)} durationInFrames={40}><Audio src={staticFile('impacto.mp3')} volume={0.5} /></Sequence>
-      <Sequence from={W(72) + 4} durationInFrames={40}><Audio src={staticFile('ding.mp3')} volume={0.5} /></Sequence>
-      <Sequence from={W(86)} durationInFrames={40}><Audio src={staticFile('ding.mp3')} volume={0.45} /></Sequence>
+      {CUT.slice(1, -1).map((c, i) => <Sequence key={`pg${i}`} from={c} durationInFrames={40}><Audio src={staticFile(i === 2 ? 'sfx/rasgo.mp3' : 'sfx/pagina.mp3')} volume={0.55} /></Sequence>)}
+      <Sequence from={2} durationInFrames={40}><Audio src={staticFile('sfx/desliza.mp3')} volume={0.5} /></Sequence>
+      <Sequence from={W(7) - 3} durationInFrames={78}><Audio src={staticFile('sfx/telefone.mp3')} volume={0.32} /></Sequence>
+      {[[1, 7], [1, 9], [1, 11], [1, 14]].map(([k, i]) => <Sequence key={`l${i}`} from={W(i) - 2} durationInFrames={30}><Audio src={staticFile('sfx/desliza.mp3')} volume={0.3} /></Sequence>)}
+      {[15, 18, 20].map((i) => <Sequence key={`r${i}`} from={W(i) - 2} durationInFrames={30}><Audio src={staticFile('sfx/papelzinho.mp3')} volume={0.6} /></Sequence>)}
+      <Sequence from={W(15) + 2} durationInFrames={30}><Audio src={staticFile('sfx/fita.mp3')} volume={0.4} /></Sequence>
+      <Sequence from={W(23) - 2} durationInFrames={40}><Audio src={staticFile('sfx/desliza.mp3')} volume={0.6} /></Sequence>
+      {[0, 1, 2].map((i) => <Sequence key={`d${i}`} from={W(35) + i * 4} durationInFrames={30}><Audio src={staticFile('sfx/fita.mp3')} volume={0.45} /></Sequence>)}
+      <Sequence from={CUT[5]} durationInFrames={80}><Audio src={staticFile('sfx/relogio.mp3')} volume={0.4} /></Sequence>
+      <Sequence from={W(54) - 2} durationInFrames={60}><Audio src={staticFile('sfx/notificacao.mp3')} volume={0.45} /></Sequence>
+      <Sequence from={W(64)} durationInFrames={30}><Audio src={staticFile('sfx/papelzinho.mp3')} volume={0.5} /></Sequence>
+      <Sequence from={W(72) - 1} durationInFrames={60}><Audio src={staticFile('sfx/carimbo.mp3')} volume={0.75} /></Sequence>
+      <Sequence from={W(88) - 2} durationInFrames={30}><Audio src={staticFile('sfx/fita.mp3')} volume={0.45} /></Sequence>
     </AbsoluteFill>
   );
 };

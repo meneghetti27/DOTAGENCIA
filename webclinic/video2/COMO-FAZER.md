@@ -36,3 +36,19 @@ de quem procura." → logo + "Manda SITE no direct".
 - Render: `npm install` e
   `npx remotion render src/index.ts Apresentacao out/bruto.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell --crf=16`
   e `ffmpeg -i out/bruto.mp4 -c:v copy -af loudnorm=I=-14:TP=-1 -c:a aac -b:a 192k out/webclinic-claudia.mp4`.
+
+## v2 EDITORIAL (16/11/2026) — a v1 foi reprovada: "amador, não profissional, efeitos sonoros horríveis"
+O que estava errado na v1 (não repetir): emojis nas etiquetas, etiqueta demais por cena, legenda em caixa branca o tempo todo,
+movimento de "mola" genérico, layout centralizado repetido, rasgo desenhado em CSS, sons de banco (pop/whoosh).
+Direção aprovada (quadros-chave em `../../webclinic-ref` / `video2-quadros-editorial.jpg`): **revista impressa**.
+- Cabeçalho de edição em toda página: logo + fio fino + "Nº 02 · seção". Títulos gigantes Poppins 700/300 + Instrument Serif itálico
+  (fonte do site) nas palavras de destaque. Legendas de foto "Fig. 01" — **texto pequeno nunca abaixo de ~36–40 px, rótulos 25–27 px**
+  (o dono reclamou: "legenda imoral de pequena e ilegível").
+- Texturas reais geradas por `tools/papel.py`: papel com fibras (gelo, azul, navy, branco), rasgo com borda fibrosa, fotos com
+  retícula sutil e borda de papel cortado (`*-imp.png`). Fita adesiva, recados de papel, carimbo com tinta falhada (máscara de papel).
+- Sem emoji; no máximo 2–3 elementos por quadro; fotos saindo pela borda e na frente dos títulos.
+- Movimento em stop-motion: tempo quantizado de 2 em 2 quadros (12 qps) + leve tremida de papel por degrau; cada cena é uma folha
+  que entra deslizando por cima da anterior.
+- Texto da narração aparece como título da página (palavra por palavra), sem legenda corrida.
+- Sons gerados no ElevenLabs (Sound Effects v2, ~17 créditos cada) em `public/sfx/`: pagina, desliza, fita, papelzinho, carimbo,
+  relogio, telefone (cortado em 2,6 s), notificacao, rasgo. Silêncio inicial cortado e loudnorm −18.
