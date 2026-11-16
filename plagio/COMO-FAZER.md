@@ -17,6 +17,10 @@ com botão **Aprovar** e **lixeira** (Excluir; dá para restaurar).
 - **Título que chama atenção:** curto, provocativo, gancho de curiosidade (não só o nome do disco/artista).
 - **Foto que chama atenção:** a imagem mais forte da notícia (momento, expressão, look), nunca foto genérica, pequena ou de produto parado.
 - Histórico de reprovação: capas de disco antigas, títulos descritivos, pautas "de enciclopédia".
+- Semana 3 (16/11): reprovou TODAS as pautas de Grammy (Latin e Grammy 2027, Beyoncé, J Dilla, Don Toliver), DJ Khaled,
+  desfile Yeezy, Duquesa, Rael, Celo Dut, exposição do Racionais. Aprovou: BK' lotando estádio, 808s 18 anos, Criolo (foto forte),
+  tênis do A$AP na Puma, entrevista inédita do Tupac, recorde de ouvintes do Racionais, Drake 2 bi, turnê Usher/Chris Brown US$ 77 mi.
+  Regra prática: dinheiro e números grandes, tênis/moda, lendas (Tupac, Biggie, Kanye clássico) e rap BR grande; nada de prêmio repetido.
 
 ## Facebook: NUNCA postar
 O Instagram está ligado a uma página do Facebook só para liberar a postagem automática. **Nada vai para o Facebook**: postar só no Instagram e manter desligado o compartilhamento automático para o Facebook.
