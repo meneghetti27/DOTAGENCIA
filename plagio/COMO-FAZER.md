@@ -65,3 +65,12 @@ URL e senha estão no Drive em `PLAGIO POSTS / _config claude (nao apagar).txt` 
 O dono anexa no Claude do Chrome. Regras do PDF: conferir no Planejador o que já está agendado e deixar; agendar o resto em ordem,
 **2 por dia** (11h–13h e 18h–21h), **variando horários** (nunca o mesmo horário em dias seguidos); posts com DATA FIXA não mudam de dia;
 só Instagram, nunca Facebook; no fim listar tudo que ficou agendado.
+
+## Vídeos animados da Plágio (lições, 17/11/2026)
+- Recorte 2D animado em camadas (gato na banca) foi reprovado: "porco". Ideia sem gancho também ("não tem nada"): vídeo tem que ser publicidade da Plágio, com piada e fecho com @plagio.zip.
+- Ideia aprovada: "Entrevista de emprego do gato" (vaga de editor-chefe da Plágio). Estilos que o dono curtiu: massinha, 3D cinema, feltro.
+- Escrita gerada por IA no cenário fica com "cara de IA": gerar cena SEM texto e pôr todo texto na montagem (Remotion).
+- Kling 2.5 Turbo (imagem → vídeo) mexe a boca sem sincronizar com a fala: ficou "muito ruim". Para personagem falando, usar modelo com lip-sync
+  (Kling 3 Pro / Veo 3.1 / lipsync em cima do vídeo) ou deixar as falas fora de quadro (narração, reação de quem escuta).
+- Sempre pedir câmera em movimento nos planos.
+- Créditos ElevenLabs: perguntar antes e estimar (estimate_only). O dono mandou parar de gastar com esse vídeo.
