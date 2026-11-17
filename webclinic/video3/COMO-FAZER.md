@@ -30,3 +30,20 @@ indo pro cronômetro → cronômetro gigante "EM ESPERA ♪" com selos "+1/+2/+4
 → azul "Seu paciente não tem 4 minutos." → celular grande com 00:00→00:08 em cima → assinatura); cada plano entra com
 "soco" de 1,06→1 e empurra a câmera; legenda Poppins 66–96 px numa faixa fixa (y 1360–1660) onde nada mais aparece.
 Regra: nunca deixar a mesma composição mais de ~4 s; legenda nunca por cima de outro elemento.
+
+## v3 PREMIUM (17/11/2026) — a v2 foi reprovada no movimento ("não está premium"); o áudio ficou
+O que deixava a v2 com cara de template: interface chapada em tela cheia (parece gravação de tela), cortes secos com
+"soco" de zoom, texto parado, selos tipo adesivo ("+1 min").
+v3:
+- Celular 3D (CSS perspective + rotateX/Y/Z) flutuando num espaço escuro com luzes azuis desfocadas e grão.
+- Câmera contínua por keyframes (`CAM`) com curva in-out suave: entra no teclado do próprio celular, recua, gira.
+  Nada de corte seco na parte da ligação.
+- Desfoque de movimento real: `@remotion/motion-blur` (`CameraMotionBlur`, shutter 180°, 5 amostras) em volta da cena.
+  Render fica ~5× mais lento.
+- Cronômetro em contador mecânico (dígitos rolando) que sai da tela do celular para a frente da câmera na espera;
+  o celular recua, desfoca e fica embaixo (profundidade de campo). Rótulo em serifada "dois minutos depois…".
+- Ligação cai: flash vermelho, a luz do espaço fica vermelha, o celular despenca com gravidade.
+- Virada: círculo de luz azul se abre do centro; frases sobem de dentro de máscara; o celular do site entra em 3D;
+  contador 00:00→00:08 mecânico. Assinatura: círculo branco abre por cima, logo com o batimento se desenhando.
+- Legenda: palavras sobem de dentro de máscara, numa faixa fixa embaixo com véu escuro por trás.
+- Cuidado: quando a câmera entra no teclado, esconder cabeçalho e botões da tela (senão ficam por cima das teclas).
