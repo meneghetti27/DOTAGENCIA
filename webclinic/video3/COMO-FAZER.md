@@ -19,3 +19,14 @@ Virada clara: "Seu paciente não tem 4 minutos." + celular com o site marcando e
 `npx remotion render src/index.ts Apresentacao out/bruto.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell --crf=16`
 e `ffmpeg -i out/bruto.mp4 -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart out/webclinic-aguarde-na-linha.mp4`.
 `node_modules` é link para `../video2/node_modules`.
+
+## v2 (17/11/2026) — a v1 foi reprovada: "amador, escrita por cima, não prende, devagar"
+Diagnóstico (quadros a cada 2 s): 28 s com a mesma tela parada; 7 s sem nada no começo (00:00 apagado + toque);
+legenda pequena em itálico no meio da interface, encostando na onda e no teclado; interface em tamanho real de celular
+(miúda no vídeo); virada com título pequeno e cronômetro encavalado no celular.
+O que mudou: gancho "POV: você tenta marcar uma consulta." no quadro 0; trilha recortada de 44 para 33,6 s (URA atende em
+1,8 s, sem "Vamos lá", frase longa encurtada); edição em planos de 2–4 s (chamada → close no teclado → chamada com câmera
+indo pro cronômetro → cronômetro gigante "EM ESPERA ♪" com selos "+1/+2/+4 min" → tela vermelha "04:37 de espera. Pra nada."
+→ azul "Seu paciente não tem 4 minutos." → celular grande com 00:00→00:08 em cima → assinatura); cada plano entra com
+"soco" de 1,06→1 e empurra a câmera; legenda Poppins 66–96 px numa faixa fixa (y 1360–1660) onde nada mais aparece.
+Regra: nunca deixar a mesma composição mais de ~4 s; legenda nunca por cima de outro elemento.
