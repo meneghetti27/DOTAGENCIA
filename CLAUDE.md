@@ -309,6 +309,6 @@ Todo post tem que parecer da mesma família: se colocar lado a lado com as refer
 
 ## LinkedIn do Antônio (dono)
 Guia e textos: doc https://claude.ai/artifact/M1H7shBMAP42DdADpCv7TG. Peças em `linkedin/`: `src/` (banner.html, foto.html, cases.py gera os PDFs,
-render.js exporta) e `out/banner-linkedin.png` (1584×396: só o meio-tom da capa do portfólio + olhinhos). Os cases em PDF e a foto recortada da formatura foram reprovados ("ficaram feias"): o dono quer só o necessário (foto real nova, banner limpo, link do portfólio no Destaque).
+render.js exporta) e `out/banner-linkedin.png` (1584×396, igual à capa do portfólio: olhinhos + "Antônio Meneghetti" em Inter Bold + subtítulo + meio-tom à direita; o dono aprovou o nome escrito). `MONTAR-PERFIL-LINKEDIN.pdf` (gerado por `src/pdf_perfil.py`) = instruções + textos para o Claude no Chrome montar o perfil. Os cases em PDF e a foto recortada da formatura foram reprovados ("ficaram feias"): o dono quer só o necessário (foto real nova, banner limpo, link do portfólio no Destaque).
 Visual = o do portfólio (https://claude.ai/artifact/SzkpJxkCam8r5HVtsg2nZp): fundo #FBFBFD, meio-tom CMYK, Syne 800 (máx. ~100 px em página de 1080: é larga), Instrument Sans.
 Por enquanto **só o perfil, sem posts** (pedido do dono). dot. e Web Clinic entram como experiência em sites.

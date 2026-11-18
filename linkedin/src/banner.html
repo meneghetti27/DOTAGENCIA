@@ -1,8 +1,10 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <style>body{width:1584px;height:396px;overflow:hidden;position:relative;background:#FBFBFD}
 canvas{position:absolute;inset:0;width:100%;height:100%}
-#eyes{position:absolute;left:600px;top:150px;width:150px}</style></head><body>
-<canvas id="c"></canvas>
+#eyes{position:absolute;left:470px;top:58px;width:92px}
+.nm{position:absolute;left:470px;top:128px;font-family:Inter,"Instrument Sans",sans-serif;font-weight:700;font-size:92px;letter-spacing:-.045em;line-height:.98;color:#1D1D1F}
+.sb{position:absolute;left:472px;top:240px;font-family:Inter,sans-serif;font-size:27px;color:#55555A;letter-spacing:-.01em}</style></head><body>
+<canvas id="c"></canvas><div class="nm">Antônio Meneghetti</div><div class="sb">Designer e diretor de arte · Porto Alegre</div>
 <svg id="eyes" viewBox="0 0 46 28"><circle cx="13" cy="13" r="13.1" fill="#111"/><circle cx="13" cy="13" r="10.5" fill="#fff"/><circle cx="13" cy="13" r="6.6" fill="#F7709A"/><circle cx="13" cy="13" r="5" fill="#111"/><circle cx="15.1" cy="10.75" r="1.5" fill="#fff"/><circle cx="33.5" cy="16.5" r="10.4" fill="#111"/><circle cx="33.5" cy="16.5" r="7.8" fill="#fff"/><circle cx="33.5" cy="16.5" r="4.9" fill="#F7709A"/><circle cx="33.5" cy="16.5" r="3.7" fill="#111"/><circle cx="35.1" cy="14.8" r="1.1" fill="#fff"/></svg>
 <script>
 const cv=document.getElementById('c'),W=1584,H=396,S=2;cv.width=W*S;cv.height=H*S;const c=cv.getContext('2d');c.scale(S,S);c.globalCompositeOperation='multiply';
