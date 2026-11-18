@@ -1,22 +1,21 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><script src="ht.js"></script>
-<style>
-body{width:1584px;height:396px;overflow:hidden;position:relative}
-.t{position:absolute;left:470px;top:100px}
-.t h1{font-size:68px}
-.t p{margin-top:24px;font-size:20px;font-weight:600;color:#515154}
-.t p b{color:#1D1D1F}
-.pcs{position:absolute;left:1170px;top:40px;width:420px;height:330px}
-.pcs img{position:absolute;width:168px;border-radius:12px;box-shadow:0 18px 40px -14px rgba(0,0,0,.35);border:4px solid #fff}
-.fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,251,253,.96) 0,rgba(251,251,253,.94) 560px,rgba(251,251,253,.7) 1000px,rgba(251,251,253,0) 1584px)}
-</style></head><body>
-<canvas class="ht" id="c" style="opacity:.55"></canvas><div class="fade"></div>
-<div class="t"><h1 class="d">Design que<br>comunica<span class="mag">.</span></h1>
-<p><b>Direção de arte</b> · Identidade visual · Campanhas · Social media</p></div>
-<div class="pcs">
-<img src="../assets/94c81e28c2.webp" style="left:0;top:40px;transform:rotate(-9deg)">
-<img src="../assets/00d9a1998f.webp" style="left:120px;top:10px;transform:rotate(-1deg);z-index:2">
-<img src="../assets/7bffa1c7c1.webp" style="left:240px;top:34px;transform:rotate(8deg);z-index:3">
-</div>
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>body{width:1584px;height:396px;overflow:hidden;position:relative;background:#FBFBFD}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#eyes{position:absolute;left:600px;top:150px;width:150px}</style></head><body>
+<canvas id="c"></canvas>
+<svg id="eyes" viewBox="0 0 46 28"><circle cx="13" cy="13" r="13.1" fill="#111"/><circle cx="13" cy="13" r="10.5" fill="#fff"/><circle cx="13" cy="13" r="6.6" fill="#F7709A"/><circle cx="13" cy="13" r="5" fill="#111"/><circle cx="15.1" cy="10.75" r="1.5" fill="#fff"/><circle cx="33.5" cy="16.5" r="10.4" fill="#111"/><circle cx="33.5" cy="16.5" r="7.8" fill="#fff"/><circle cx="33.5" cy="16.5" r="4.9" fill="#F7709A"/><circle cx="33.5" cy="16.5" r="3.7" fill="#111"/><circle cx="35.1" cy="14.8" r="1.1" fill="#fff"/></svg>
 <script>
-halftone(document.getElementById('c'),(x,y,ph)=>{const d=Math.hypot((x-.86)*1.6,(y-.5)*0.6);return Math.min(.75,1.0-d*1.5+Math.sin(x*9+y*6+ph*6)*.1)},12);
+const cv=document.getElementById('c'),W=1584,H=396,S=2;cv.width=W*S;cv.height=H*S;const c=cv.getContext('2d');c.scale(S,S);c.globalCompositeOperation='multiply';
+const g=(x,y,cx,cy,rx,ry)=>Math.exp(-(((x-cx)/rx)**2+((y-cy)/ry)**2));
+const fade=x=>Math.min(1,Math.max(0,(x-800)/420));
+const layers=[
+ ['#00ADEF',(x,y)=>g(x,y,1150,40,360,260)*1.1],
+ ['#EC008C',(x,y)=>g(x,y,1560,250,380,330)*1.25],
+ ['#FFD500',(x,y)=>g(x,y,1180,430,330,200)*1.1],
+];
+const step=12;
+layers.forEach(([col,f],k)=>{c.fillStyle=col;const ox=k*4,oy=k*3;
+ for(let y=0;y<=H+step;y+=step)for(let x=0;x<=W+step;x+=step){
+  let v=f(x,y)*fade(x);v=Math.min(1,v);if(v<.04)continue;
+  c.beginPath();c.arc(x+ox,y+oy,v*step*.5,0,7);c.fill();}});
 </script></body></html>
