@@ -4,16 +4,16 @@ import {AbsoluteFill, Audio, OffthreadVideo, Img, Sequence, interpolate, spring,
 export const FPS = 24;
 const s = (x: number) => Math.round(x * FPS);
 // linha do tempo (s)
-const A = 0, B = 5, C = 10, D = 11.4, E = 14.6, F = 19.6, FIM = 23.2;
+const A = 0, B = 4.7, C = 7.2, D = 9.2, E = 11.44, F = 15.3, FIM = 19.2;
 export const DURACAO = s(FIM);
 const fora = {extrapolateLeft: 'clamp' as const, extrapolateRight: 'clamp' as const};
 const VERM = '#d42424';
 const FONT = `@font-face{font-family:Poppins;font-weight:500;src:url(${staticFile('fonts/poppins-500.woff2')})}@font-face{font-family:Poppins;font-weight:700;src:url(${staticFile('fonts/poppins-700.woff2')})}@font-face{font-family:Serif;font-style:italic;src:url(${staticFile('fonts/instrument-serif-italic.woff2')})}`;
 
-const Plano: React.FC<{src: string; som?: boolean; vol?: number; zoom?: [number, number]; origem?: string}> = ({src, som = false, vol = 1, zoom = [1, 1], origem = '50% 50%'}) => {
+const Plano: React.FC<{src: string; som?: boolean; vol?: number; zoom?: [number, number]; origem?: string; de?: number}> = ({src, som = false, vol = 1, zoom = [1, 1], origem = '50% 50%', de = 0}) => {
   const f = useCurrentFrame(), {durationInFrames: d} = useVideoConfig();
   const z = interpolate(f, [0, d], zoom, {easing: Easing.inOut(Easing.sin)});
-  return <AbsoluteFill style={{transform: `scale(${z})`, transformOrigin: origem}}><OffthreadVideo src={staticFile(src)} muted={!som} volume={vol} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></AbsoluteFill>;
+  return <AbsoluteFill style={{transform: `scale(${z})`, transformOrigin: origem}}><OffthreadVideo src={staticFile(src)} startFrom={s(de)} muted={!som} volume={vol} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></AbsoluteFill>;
 };
 
 // passagem: persiana fecha (listras pretas crescem) e abre no plano seguinte
@@ -54,9 +54,9 @@ const Cartela: React.FC<{l1: string; l2: string}> = ({l1, l2}) => {
 const Celular: React.FC = () => {
   const f = useCurrentFrame(), {fps} = useVideoConfig();
   const t = f / fps;
-  const conta = t < 0.25 ? '' : t < 1.0 ? '3' : t < 1.75 ? '2' : t < 2.5 ? '1' : '';
-  const vib = t > 2.5 && t < 2.9 ? Math.round(Math.sin(t * 90)) * 10 : 0;
-  const n = spring({frame: f - s(2.5), fps, config: {damping: 13, stiffness: 170}});
+  const conta = '';
+  const vib = (Math.floor(t * 12) % 2 ? 1 : -1) * (t < 2.4 ? 9 : 0);
+  const n = spring({frame: f - s(0.15), fps, config: {damping: 13, stiffness: 170}});
   const zoom = interpolate(t, [0, 3.2], [1, 1.08]);
   const pulso = conta ? spring({frame: f - s(conta === '3' ? 0.25 : conta === '2' ? 1.0 : 1.75), fps, config: {damping: 10, stiffness: 220}}) : 0;
   return (
@@ -68,6 +68,8 @@ const Celular: React.FC = () => {
         {Array.from({length: 9}).map((_, i) => <rect key={i} x={0} y={1180 + i * 70} width={1080} height={26} fill="#0b0b0b" opacity={0.85} />)}
       </svg>
       <div style={{position: 'absolute', inset: 0, transform: `scale(${zoom}) translateX(${vib}px) rotate(-6deg)`}}>
+        {/* ondas de toque */}
+        {[0, 1, 2].map((i) => { const k = ((t * 1.6 + i / 3) % 1); return <div key={i} style={{position: 'absolute', left: 530 - 330 - k * 160, top: 860 - 620 - k * 160, width: 660 + k * 320, height: 1240 + k * 320, border: `14px solid ${VERM}`, borderRadius: 120, opacity: 1 - k}} />; })}
         {/* aparelho chapado */}
         <div style={{position: 'absolute', left: 250, top: 300, width: 560, height: 1120, borderRadius: 70, background: '#0b0b0b'}}>
           <div style={{position: 'absolute', inset: 26, borderRadius: 50, background: n > 0.05 ? '#efece6' : '#1d1d1d', overflow: 'hidden'}}>
@@ -141,21 +143,21 @@ const Fecho: React.FC = () => {
 export const Filme: React.FC = () => (
   <AbsoluteFill style={{background: '#0b0b0b'}}>
     <style>{FONT}</style>
-    <Sequence from={s(A)} durationInFrames={s(B - A)}><Plano src="k1.mp4" som zoom={[1.05, 1.55]} origem="78% 34%" /><Abertura /></Sequence>
-    <Sequence from={s(B)} durationInFrames={s(C - B)}><Plano src="k2.mp4" som zoom={[1.15, 1.6]} origem="22% 40%" /></Sequence>
-    <Sequence from={s(C)} durationInFrames={s(D - C)}><Cartela l1="Ah, é?" l2="PROVA." /></Sequence>
-    <Sequence from={s(D)} durationInFrames={s(E - D)}><Celular /></Sequence>
-    <Sequence from={s(E)} durationInFrames={s(F - E)}><Plano src="s3.mp4" zoom={[1, 1.08]} /></Sequence>
-    <Sequence from={s(E + 1.0)} durationInFrames={s(F - E - 1.0)}><Carimbo /></Sequence>
+    <Sequence from={s(A)} durationInFrames={s(B - A)}><Plano src="k3.mp4" som zoom={[1.05, 1.5]} origem="78% 34%" /><Abertura /></Sequence>
+    <Sequence from={s(B)} durationInFrames={s(C - B)}><Plano src="s2.mp4" de={1.6} zoom={[1.1, 1.25]} origem="30% 40%" /></Sequence>
+    <Sequence from={s(C)} durationInFrames={s(D - C)}><Celular /></Sequence>
+    <Sequence from={s(D)} durationInFrames={s(E - D)}><Plano src="k3.mp4" som de={5.8} zoom={[1.45, 1.75]} origem="80% 32%" /></Sequence>
+    <Sequence from={s(E)} durationInFrames={s(F - E)}><Plano src="s3.mp4" de={1.2} zoom={[1, 1.08]} /></Sequence>
+    <Sequence from={s(E + 0.25)} durationInFrames={s(F - E - 0.25)}><Carimbo /></Sequence>
     <Sequence from={s(F)} durationInFrames={s(FIM - F)}><Fecho /></Sequence>
     {/* passagens de persiana */}
-    {[B, C, D, E, F].map((t) => <Sequence key={t} from={s(t - 0.25)} durationInFrames={s(0.5)}><Persiana /></Sequence>)}
-    {[B, C, D, E].map((t) => <Sequence key={'w' + t} from={s(t - 0.25)}><Audio src={staticFile('desliza.mp3')} volume={0.35} /></Sequence>)}
+    {[C, E, F].map((t) => <Sequence key={t} from={s(t - 0.25)} durationInFrames={s(0.5)}><Persiana /></Sequence>)}
+    {[C, E].map((t) => <Sequence key={'w' + t} from={s(t - 0.25)}><Audio src={staticFile('desliza.mp3')} volume={0.35} /></Sequence>)}
     {/* áudio */}
-    <Sequence from={s(0.2)}><Audio src={staticFile('jazz.mp3')} volume={(fr) => interpolate(fr / FPS, [0, 9.6, 10.2, 21.5, 22.6], [0.22, 0.22, 0.6, 0.6, 0], fora)} /></Sequence>
-    <Sequence from={s(D + 0.25)}><Audio src={staticFile('relogio.mp3')} volume={0.7} /></Sequence>
-    <Sequence from={s(D + 2.5)}><Audio src={staticFile('notificacao.mp3')} /></Sequence>
-    <Sequence from={s(E + 1.0)}><Audio src={staticFile('carimbo.mp3')} /></Sequence>
+    <Sequence from={s(0.2)}><Audio src={staticFile('jazz.mp3')} volume={(fr) => interpolate(fr / FPS, [0, 10.8, 11.4, 18.2, 19.0], [0.2, 0.2, 0.6, 0.6, 0], fora)} /></Sequence>
+    <Sequence from={s(C - 0.1)} durationInFrames={s(D - C + 0.5)}><Audio src={staticFile('telefone.mp3')} volume={0.8} /></Sequence>
+    
+    <Sequence from={s(E + 0.25)}><Audio src={staticFile('carimbo.mp3')} /></Sequence>
     <Sequence from={s(F)}><Audio src={staticFile('boom.mp3')} volume={0.5} /></Sequence>
   </AbsoluteFill>
 );
