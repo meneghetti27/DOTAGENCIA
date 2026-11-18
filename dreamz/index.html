@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dreamz Gallery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="dreamz — galeria de design conceitual. Identidade visual e social media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Manrope:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+@font-face{font-family:"Veneza";src:url(assets/fonts/veneza.woff2) format("woff2"),url(assets/fonts/veneza.otf) format("opentype"),url(assets/fonts/veneza.ttf) format("truetype");font-display:swap}
+/* Layout: uma noite em rolagem — 23:47 (acordando dentro do sonho) até 06:00 (o despertador toca no orçamento).
+   O fundo vai do preto ao creme do amanhecer. Visual único e deliberado: a cor é dada pela hora, não pelo tema do sistema. */
+:root{
+  color-scheme: dark;
+  --noite:#000000; --marinho:#283456; --lavanda:#7690D4; --ceu:#8AC4FE; --bebe:#A6D8FF;
+  --creme:#FEFAE2; --marrom:#704838; --nevoa:#A3AEC4; --tinta:#141a30;
+  --bg:#000000; --fg:#FEFAE2; --muted:rgba(254,250,226,.64); --line:rgba(254,250,226,.18); --accent:#8AC4FE;
+  --f-display:"Veneza","Fraunces","Cooper Black",Georgia,serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"Space Mono",ui-monospace,Menlo,monospace;
+  --gutter:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+::selection{background:var(--accent);color:var(--tinta)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+img{display:block}
+html[data-lang="pt"] [lang="en"], html[data-lang="en"] [lang="pt"]{display:none!important}
+body.trocando main, body.trocando .topo{filter:blur(6px);opacity:.5}
+main,.topo{transition:filter .35s ease,opacity .35s ease}
+
+/* ---------- acordando: pálpebras + visão embaçada ---------- */
+.palpebra{position:fixed;left:-10vw;right:-10vw;height:62vh;background:#000;z-index:90;pointer-events:none;
+  animation:6.2s cubic-bezier(.45,0,.25,1) .2s both}
+.palpebra.cima{top:0;border-radius:0 0 50% 50%/0 0 26vh 26vh;box-shadow:0 18px 50px 30px #000;animation-name:palpCima}
+.palpebra.baixo{bottom:0;border-radius:50% 50% 0 0/26vh 26vh 0 0;box-shadow:0 -18px 50px 30px #000;animation-name:palpBaixo}
+@keyframes palpCima{
+  0%{transform:translateY(0)} 16%{transform:translateY(-24%)} 24%{transform:translateY(-8%)} 30%{transform:translateY(0)}
+  46%{transform:translateY(-46%)} 52%{transform:translateY(-34%)} 56%{transform:translateY(-14%)} 61%{transform:translateY(-50%)}
+  78%{transform:translateY(-78%)} 100%{transform:translateY(-135%)}}
+@keyframes palpBaixo{
+  0%{transform:translateY(0)} 16%{transform:translateY(24%)} 24%{transform:translateY(8%)} 30%{transform:translateY(0)}
+  46%{transform:translateY(46%)} 52%{transform:translateY(34%)} 56%{transform:translateY(14%)} 61%{transform:translateY(50%)}
+  78%{transform:translateY(78%)} 100%{transform:translateY(135%)}}
+.acordando #ceu,.acordando main,.acordando .topo,.acordando .despertador{animation:embacado 7s ease-out both}
+@keyframes embacado{0%{filter:blur(22px) brightness(.5)} 30%{filter:blur(16px) brightness(.7)} 55%{filter:blur(10px) brightness(.85)}
+  80%{filter:blur(3px)} 100%{filter:blur(0) brightness(1)}}
+
+#ceu{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.grao{position:fixed;inset:-50%;width:200%;height:200%;z-index:60;pointer-events:none;opacity:.1;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grao 1s steps(6) infinite}
+@keyframes grao{0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}}
+
+/* ---------- topo ---------- */
+.topo{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding-top:calc(14px + env(safe-area-inset-top, 0px));padding-bottom:14px;padding-left:var(--gutter);padding-right:var(--gutter-r);
+  mix-blend-mode:difference;color:#FEFAE2}
+.marca-mini{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marca-mini .simbolo{width:40px;height:36px}
+.marca-mini b{font-family:var(--f-display);font-weight:800;letter-spacing:.34em;font-size:16px}
+.idioma{display:flex;gap:2px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid currentColor;border-radius:99px;padding:3px}
+.idioma button{all:unset;cursor:pointer;padding:5px 11px;border-radius:99px;white-space:nowrap}
+.idioma button[aria-pressed="true"]{background:#FEFAE2;color:#000}
+.idioma button:focus-visible{outline:2px solid #8AC4FE}
+
+.dir-topo{display:flex;align-items:center;gap:10px}
+.botao-som{all:unset;cursor:pointer;width:34px;height:34px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center}
+.botao-som[hidden]{display:none}
+.botao-som:focus-visible{outline:2px solid #8AC4FE;outline-offset:2px}
+.botao-som .barras{display:flex;align-items:flex-end;gap:2px;height:13px}
+.botao-som .barras i{width:2px;height:100%;background:currentColor;animation:barra 1s ease-in-out infinite}
+.botao-som .barras i:nth-child(2){animation-delay:.2s}.botao-som .barras i:nth-child(3){animation-delay:.4s}.botao-som .barras i:nth-child(4){animation-delay:.6s}
+@keyframes barra{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.botao-som{transform-origin:center}.botao-som .barras i{transform-origin:bottom}
+.botao-som.mudo .barras i{animation:none;transform:scaleY(.25)}
+/* ---------- mini despertador: visor LCD ao lado do logo ---------- */
+.esq-topo{display:flex;align-items:center;gap:14px}
+.despertador{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px 0 8px;border:1px solid currentColor;border-radius:99px;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.despertador svg{height:13px;width:auto;overflow:visible}
+.despertador .seg{fill:currentColor}
+.despertador .apagado{fill:currentColor;opacity:.13}
+.despertador .al{font:700 7px/1 var(--f-body);letter-spacing:.12em;opacity:.7}
+.despertador.tocando{animation:pisca .5s steps(1) infinite}
+@keyframes pisca{50%{opacity:.25}}
+
+/* ---------- estrutura ---------- */
+main{position:relative;z-index:2}
+.faixa{padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.miolo{max-width:1100px;margin:0 auto}
+.rotulo{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:flex;gap:14px;align-items:center}
+.rotulo::before{content:"";width:26px;height:1px;background:currentColor}
+.simbolo{display:block;background:currentColor;-webkit-mask:url(assets/marca/simbolo.png) center/contain no-repeat;mask:url(assets/marca/simbolo.png) center/contain no-repeat}
+.logo{display:block;background:currentColor;-webkit-mask:url(assets/marca/logo.png) center/contain no-repeat;mask:url(assets/marca/logo.png) center/contain no-repeat}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;letter-spacing:-.02em;text-wrap:balance}
+em{font-variation-settings:"SOFT" 100}
+em{font-style:italic}
+
+/* 23:47 */
+.entrada{min-height:min(92svh,900px);display:grid;place-items:center;text-align:center;padding-block:120px 110px}
+.entrada .cena-logo{position:relative;width:min(520px,78vw);aspect-ratio:1209/654;color:var(--creme);margin-inline:auto}
+.entrada .cena-logo .logo{position:absolute;inset:0;animation:esfrega 5s ease-in-out infinite;transform-origin:50% 60%}
+.brilho{position:absolute;left:51%;top:30%;width:34%;aspect-ratio:2.2;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(closest-side,var(--ceu),rgba(138,196,254,0));filter:blur(18px);animation:brilho 3.2s ease-in-out infinite}
+@keyframes brilho{0%,100%{opacity:.35;transform:translate(-50%,-50%) scale(.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+@keyframes esfrega{0%,48%,60%,100%{transform:rotate(0)}52%{transform:rotate(-.8deg) translateY(1px)}56%{transform:rotate(.8deg)}}
+.entrada h1{margin:30px auto 0;font-style:italic;font-weight:700;font-size:clamp(30px,4vw,50px);line-height:1.08;max-width:24ch}
+.entrada .sub{margin-top:16px;font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+.dormir{margin-top:44px;display:inline-flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+.estrelas-logo{position:relative;display:block}
+.estrelas-logo .est{position:absolute;height:auto;transform-origin:center;filter:drop-shadow(0 0 6px rgba(255,255,255,.45))}
+.na-entrada{width:96px;animation:zz 2.4s ease-in-out infinite}
+.na-entrada .est{animation:cintila 2.4s ease-in-out infinite}
+.na-entrada .est-2{animation-delay:.4s}.na-entrada .est-3{animation-delay:.8s}
+.credito{display:inline-block;margin-top:18px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+.credito:hover,.credito:focus-visible{color:var(--fg);border-bottom-color:currentColor}
+.entrada .credito + h1{margin-top:14px}
+@keyframes cintila{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.82);opacity:.7}}
+@keyframes zz{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+
+/* 00:00 */
+.manifesto{padding-block:clamp(90px,14vw,180px)}
+.manifesto blockquote{margin:30px 0 0;font-family:var(--f-display);font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:clamp(36px,6.2vw,92px);line-height:.98;letter-spacing:-.025em;text-wrap:balance}
+.manifesto blockquote em{font-style:italic;color:var(--accent)}
+.manifesto .traducao{margin:28px 0 0;font-family:var(--f-display);font-style:italic;font-size:clamp(22px,2.5vw,32px);color:var(--muted);max-width:30ch;line-height:1.2}
+.manifesto .texto{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px 64px;max-width:880px;margin-left:auto}
+.manifesto .texto p{margin:0;font-size:16.5px;max-width:44ch}
+.manifesto .texto p:first-of-type::first-letter{font-family:var(--f-display);font-size:3.4em;float:left;line-height:.8;padding:6px 10px 0 0;color:var(--accent)}
+
+/* 01:00 — técnicas: o que a dreamz faz, mostrado com trabalho real */
+.tecnicas{padding-block:clamp(70px,10vw,140px)}
+.tecnicas .cab-t{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:18px 40px;margin-bottom:clamp(40px,6vw,80px)}
+.tecnicas .cab-t h2{margin:16px 0 0;font-size:clamp(48px,7.5vw,108px);line-height:.9;letter-spacing:-.01em}
+.tecnicas .cab-t h2 em{color:var(--accent)}
+.tecnicas .cab-t p{margin:0;max-width:36ch;color:var(--muted)}
+.tec-bloco{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,70px);align-items:center}
+.tec-bloco + .tec-bloco{margin-top:clamp(70px,10vw,130px)}
+.tec-bloco.inv{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tec-bloco.inv .fone{margin:0 0 0 auto}
+.tec-bloco.inv .tec-txt{order:2}
+.tec-txt .tec-n{font-family:var(--f-display);font-style:italic;font-weight:700;font-size:22px;color:var(--muted)}
+.tec-txt h3{margin:6px 0 0;font-size:clamp(46px,6vw,84px);line-height:.92}
+.tec-txt h3 em{color:var(--accent)}
+.tec-txt p{margin:18px 0 0;max-width:38ch;font-size:17px}
+.passos{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:0;max-width:340px;counter-reset:p}
+.passos li{counter-increment:p;display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);font-family:var(--f-display);font-weight:800;font-size:22px}
+.passos li::after{content:"0" counter(p);font-family:var(--f-mono);font-weight:400;font-size:12px;color:var(--muted)}
+.passos li:last-child{border-bottom:1px solid var(--line)}
+.exemplo{margin:14px 0 0;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.pilha{position:relative;aspect-ratio:16/11;width:100%}
+.lamina{all:unset;cursor:zoom-in;position:absolute;left:14%;top:14%;width:68%;aspect-ratio:16/9;transform:translate(calc(var(--i) * 18px),calc(var(--i) * -16px)) rotate(calc(var(--i) * 2.5deg - 4deg));
+  transition:left .8s cubic-bezier(.3,1.2,.4,1),top .8s cubic-bezier(.3,1.2,.4,1),width .8s cubic-bezier(.3,1.2,.4,1),transform .8s cubic-bezier(.3,1.2,.4,1);transition-delay:calc(var(--i) * 70ms);z-index:calc(10 - var(--i))}
+.lamina img{width:100%;height:100%;object-fit:cover;border-radius:6px;box-shadow:0 24px 50px -16px rgba(0,0,0,.7)}
+.lamina .tag{position:absolute;left:10px;top:10px;padding:5px 10px;border-radius:99px;background:rgba(254,250,226,.92);color:#141a30;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.pilha.aberta .lamina{width:49%;transform:none}
+.pilha.aberta .lamina:nth-child(1){left:0;top:0}
+.pilha.aberta .lamina:nth-child(2){left:51%;top:0}
+.pilha.aberta .lamina:nth-child(3){left:0;top:52%}
+.pilha.aberta .lamina:nth-child(4){left:51%;top:52%}
+.pilha.aberta .lamina:hover{transform:scale(1.03);z-index:20}
+.lamina:focus-visible img{outline:2px solid var(--accent);outline-offset:3px}
+.fone{width:min(300px,100%);margin:0 auto;aspect-ratio:9/18.5;border-radius:46px;padding:11px;background:#0d0f16;box-shadow:inset 0 0 0 2px #2b2f3b,0 40px 80px -30px rgba(0,0,0,.9)}
+.fone-tela{position:relative;height:100%;border-radius:36px;overflow:hidden;background:#fbfaf6;color:#141a30;display:grid;grid-template-rows:auto auto 1fr}
+.fone-tela::before{content:"";position:absolute;left:50%;top:9px;width:90px;height:24px;border-radius:14px;background:#000;transform:translateX(-50%);z-index:3}
+.fone-perfil{display:flex;align-items:center;gap:10px;padding:44px 14px 10px}
+.fone-perfil .avatar{width:44px;height:44px;border-radius:50%;background:#141a30;color:#FEFAE2;display:grid;place-items:center;box-shadow:0 0 0 2px #fbfaf6,0 0 0 4px #7690D4}
+.fone-perfil .avatar .simbolo{width:28px;height:25px}
+.fone-perfil b{display:block;font-size:13px}
+.fone-perfil small{font-size:11px;color:#6b7390}
+.fone-abas{display:flex;justify-content:space-around;padding:6px 0;border-top:1px solid #e3e1da;font-size:14px;color:#6b7390}
+.feed{overflow:hidden;position:relative}
+.rolo{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;animation:rolaFeed 38s linear infinite}
+.feed:hover .rolo{animation-play-state:paused}
+@keyframes rolaFeed{to{transform:translateY(-50%)}}
+.rolo button{all:unset;cursor:zoom-in;display:block;aspect-ratio:4/5;background:#ddd center/cover}
+.rolo button:focus-visible{outline:2px solid #3b6fd1;outline-offset:-2px}
+
+/* 04:15 — acervo: faixas */
+.secao-obra{padding-block:clamp(60px,9vw,120px)}
+.secao-obra .cab{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:18px 40px;margin-bottom:44px}
+.secao-obra h2{margin:16px 0 0;font-size:clamp(48px,7.5vw,108px);line-height:.9;letter-spacing:-.01em}
+.secao-obra h2 em{color:var(--accent)}
+.secao-obra .cab p{margin:0;max-width:38ch;color:var(--muted)}
+
+/* faixas infinitas */
+.faixas{display:grid;gap:14px;overflow:hidden}
+.esteira{display:flex;width:max-content;gap:14px;animation:corre var(--dur) linear infinite}
+.esteira.volta{animation-direction:reverse}
+.esteira:hover{animation-play-state:paused}
+@keyframes corre{to{transform:translateX(-50%)}}
+.esteira button{all:unset;cursor:pointer;flex:none}
+.esteira.fotos img{height:clamp(160px,26vw,300px);width:auto;transition:transform .3s,filter .3s;filter:grayscale(.6) brightness(.8)}
+.esteira.fotos button:hover img,.esteira.fotos button:focus-visible img{filter:none;transform:scale(1.04)}
+.esteira.nomes button{font-family:var(--f-display);font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:clamp(48px,9vw,130px);line-height:1;letter-spacing:-.03em;padding:0 10px;color:transparent;-webkit-text-stroke:1.5px var(--muted);transition:color .2s}
+.esteira.nomes button:hover,.esteira.nomes button:focus-visible{color:var(--accent);-webkit-text-stroke-color:var(--accent)}
+.esteira.nomes button::after{content:"✦";font-size:.4em;vertical-align:middle;margin-left:28px;color:var(--accent);-webkit-text-stroke:0}
+
+/* 05:30 — perguntas de insônia */
+.insonia{padding-block:clamp(60px,9vw,120px)}
+.insonia .cab-f{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:18px 40px;margin-bottom:40px}
+.insonia h2{margin:16px 0 0;font-size:clamp(46px,7vw,100px);line-height:.9}
+.insonia h2 em{color:var(--accent)}
+.insonia .cab-f p{margin:0;max-width:34ch;color:var(--muted)}
+.perguntas{border-top:1px solid var(--line)}
+.perguntas details{border-bottom:1px solid var(--line)}
+.perguntas summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:70px minmax(0,1fr) 30px;align-items:baseline;gap:14px;padding:20px 0}
+.perguntas summary::-webkit-details-marker{display:none}
+.perguntas summary .hr{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.perguntas summary .q{font-family:var(--f-display);font-weight:800;font-size:clamp(22px,2.6vw,34px);line-height:1.1}
+.perguntas summary .mais{font-family:var(--f-display);font-size:28px;line-height:1;transition:transform .3s;text-align:right}
+.perguntas details[open] summary .mais{transform:rotate(45deg)}
+.perguntas summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.perguntas .r{margin:0 0 24px 84px;max-width:58ch;font-size:17px;color:var(--muted)}
+
+/* cursor: nuvenzinha que segue o mouse com atraso (só em mouse) */
+@media (pointer:fine){ html.cursor-nuvem,html.cursor-nuvem *{cursor:none!important} html.cursor-nuvem input,html.cursor-nuvem textarea{cursor:text!important} html.cursor-nuvem dialog,html.cursor-nuvem dialog *{cursor:auto!important} }
+.nuvem-c{position:fixed;left:0;top:0;width:46px;height:30px;margin:-15px 0 0 -23px;z-index:99;pointer-events:none;opacity:0;transition:opacity .25s}
+.nuvem-c.on{opacity:1}
+.nuvem-c .corpo-n{position:absolute;inset:0;transition:transform .25s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 0 8px color-mix(in srgb,var(--accent) 55%,transparent))}
+.nuvem-c i{position:absolute;border-radius:50%;background:var(--fg);transition:background .4s}
+.nuvem-c i:nth-child(1){left:2px;top:12px;width:18px;height:18px}
+.nuvem-c i:nth-child(2){left:12px;top:2px;width:24px;height:24px}
+.nuvem-c i:nth-child(3){left:26px;top:10px;width:18px;height:18px}
+.nuvem-c i:nth-child(4){left:9px;top:16px;width:16px;height:14px}
+.nuvem-c i:nth-child(5){left:22px;top:17px;width:14px;height:13px}
+.nuvem-c.sobre .corpo-n{transform:scale(1.35)}
+.nuvem-c.aperta .corpo-n{transform:scale(1.15,.75)}
+.nuvem-c.sobre.aperta .corpo-n{transform:scale(1.45,1)}
+.ponto-c{position:fixed;left:0;top:0;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:var(--accent);z-index:99;pointer-events:none;opacity:0;transition:opacity .25s}
+.ponto-c.on{opacity:1}
+.insone{position:fixed;left:var(--gutter);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;font-size:11px;font-weight:600;letter-spacing:.08em;mix-blend-mode:difference;color:#FEFAE2;pointer-events:none}
+.insone b{font-family:var(--f-mono);font-weight:700}
+footer .insone-f b{font-family:var(--f-mono)}
+
+/* 05:00 *//* 05:00 */
+.quem{padding-block:clamp(90px,12vw,160px)}
+.quem .grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:40px 70px;align-items:center;margin-top:30px}
+.quem .simbolo{width:min(100%,360px);aspect-ratio:728/647;color:var(--fg);margin-inline:auto}
+.quem h2{margin:0;font-size:clamp(40px,5.4vw,72px);line-height:1}
+.quem h2 em{color:var(--accent)}
+.quem p{font-size:17px;max-width:46ch;margin:22px 0 0}
+.quem .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.pilula{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.06em;text-decoration:none;border:1px solid var(--fg);border-radius:99px;padding:10px 16px}
+.pilula:hover{background:var(--fg);color:var(--bg)}
+
+/* 00:30 — o vidro (medo) */
+.frase-dreamz{margin:30px 0 0;font-family:var(--f-display);font-weight:900;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:clamp(36px,6.2vw,92px);line-height:.98;letter-spacing:-.025em;text-wrap:balance}
+.frase-dreamz em{font-style:italic;color:var(--accent)}
+.vidro-s{padding-block:clamp(70px,10vw,140px)}
+.vidro-s .pergunta{margin:28px 0 0;font-family:var(--f-display);font-style:italic;font-weight:600;font-size:clamp(22px,2.6vw,34px);line-height:1.25;max-width:34ch}
+.nome-vidro{margin:clamp(40px,6vw,80px) 0 0;font-size:clamp(34px,4.4vw,60px);line-height:1}
+.palco-medo{position:relative;display:grid;justify-items:start;margin-top:8px}
+.medo{all:unset;cursor:pointer;position:relative;display:block;-webkit-tap-highlight-color:transparent;max-width:100%}
+.medo:focus-visible{outline:2px dashed var(--accent);outline-offset:8px;border-radius:10px}
+.medo-txt{display:block;white-space:nowrap;font-family:var(--f-display);font-weight:900;font-style:italic;font-variation-settings:"SOFT" 100,"opsz" 144;
+  font-size:clamp(96px,16vw,230px);line-height:.88;letter-spacing:-.035em;padding:.02em .1em .12em .02em;color:var(--accent)}
+.medo>.medo-txt{color:transparent;background:linear-gradient(100deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.85) 47%,rgba(255,255,255,0) 54%) 150% 0/260% 100% no-repeat,linear-gradient(var(--accent),var(--accent));
+  -webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 28px rgba(138,196,254,.38));animation:reflexo 5.5s ease-in-out infinite,treme 7s infinite;transition:filter .3s}
+.medo:hover>.medo-txt{filter:drop-shadow(0 0 40px rgba(138,196,254,.7))}
+@keyframes reflexo{0%,35%{background-position:150% 0,0 0}75%,100%{background-position:-60% 0,0 0}}
+@keyframes treme{0%,84%,100%{transform:none}86%{transform:translate(-2px,1px) rotate(-.5deg)}88%{transform:translate(2px,-1px) rotate(.5deg)}90%{transform:translate(-1px,0)}92%{transform:translate(1px,1px)}}
+.cacos{position:absolute;inset:0;pointer-events:none}
+.cacos .medo-txt{position:absolute;left:0;top:0;width:100%}
+.impacto{position:absolute;width:260px;height:260px;margin:-130px 0 0 -130px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.95) 0 3%,rgba(166,216,255,.55) 12%,rgba(166,216,255,0) 60%);animation:impacto .55s ease-out forwards}
+@keyframes impacto{from{transform:scale(.2);opacity:1}to{transform:scale(1.4);opacity:0}}
+.medo.quebrado{cursor:default}
+.medo.quebrado>.medo-txt{visibility:hidden}
+.alem-medo{position:absolute;left:var(--cx,40%);top:50%;width:clamp(150px,24vw,320px);transform:translate(-50%,-50%) scale(.6);opacity:0;pointer-events:none;
+  transition:opacity 1.6s ease .9s,transform 1.8s cubic-bezier(.2,1.2,.3,1) .9s}
+.vidro-s.livre .alem-medo{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.alem-medo .est{filter:drop-shadow(0 0 10px rgba(255,255,255,.7)) drop-shadow(0 0 30px rgba(138,196,254,.6));animation:cintila 2.6s ease-in-out infinite}
+.alem-medo .est-2{animation-delay:.5s}.alem-medo .est-3{animation-delay:1s}
+.dica-vidro{margin:22px 0 0;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);transition:opacity .4s}
+.depois-vidro{margin-top:46px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:22px 60px;max-width:900px;margin-left:auto}
+.depois-vidro p{margin:0;font-size:17px;max-width:46ch}
+.vidro-s.livre .depois-vidro{opacity:1}
+.vidro-s.livre .dica-vidro{opacity:0}
+
+/* o que fazemos: lista dos 6 serviços + bloco de sites */
+.servicos{list-style:none;margin:0 0 clamp(60px,9vw,110px);padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:0 40px;counter-reset:sv}
+.servicos li{counter-increment:sv;display:grid;grid-template-columns:44px minmax(0,1fr);gap:2px 10px;padding:18px 0;border-top:1px solid var(--line)}
+.servicos li::before{content:"0" counter(sv);grid-row:span 2;font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:6px}
+.servicos b{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,2.2vw,28px);line-height:1.05}
+.servicos li > span{color:var(--muted);font-size:15px}
+.navegador{all:unset;cursor:pointer;display:block;width:100%;border-radius:14px;overflow:hidden;background:#0b0f1f;box-shadow:0 40px 80px -30px rgba(0,0,0,.9),0 0 0 1px rgba(254,250,226,.12)}
+.navegador:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.nav-barra{display:flex;align-items:center;gap:7px;padding:10px 12px;background:#e7e9ef}
+.nav-barra i{width:10px;height:10px;border-radius:50%;background:#c9ccd4}
+.nav-barra i:nth-child(1){background:#ff6b5c}.nav-barra i:nth-child(2){background:#ffc14d}.nav-barra i:nth-child(3){background:#5ccf6a}
+.nav-url{flex:1;margin-left:8px;padding:5px 12px;border-radius:99px;background:#fff;color:#141a30;font-size:11.5px;font-weight:600;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-tela{display:block;position:relative;aspect-ratio:16/10;overflow:hidden}
+.nav-tela img{display:block;width:100%;height:auto;animation:rolaSite 46s ease-in-out infinite alternate}
+@keyframes rolaSite{0%,4%{transform:translateY(0)}96%,100%{transform:translateY(var(--fim-rolagem,-87.5%))}}
+.navegador:hover .nav-tela img{animation-play-state:paused}
+
+/* criação de marca: cartão da dreamz */
+.cartao-marca{display:grid;gap:22px;justify-items:center;text-decoration:none;padding:clamp(30px,5vw,56px);border-radius:18px;background:rgba(254,250,226,.05);box-shadow:inset 0 0 0 1px var(--line);color:var(--fg)}
+.cartao-marca .logo{width:min(360px,80%);aspect-ratio:1209/654;color:var(--fg)}
+.cm-paleta{display:flex;gap:8px}.cm-paleta i{width:34px;height:34px;border-radius:50%;box-shadow:0 0 0 1px var(--line)}
+.cm-txt{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+/* posts por cliente */
+.posts-b{margin-top:clamp(70px,10vw,130px)}
+.clientes{display:grid;gap:clamp(34px,5vw,56px);margin-top:clamp(30px,4vw,50px)}
+.cliente{border-top:1px solid var(--line);padding-top:16px}
+.cl-nome{all:unset;cursor:pointer;font-family:var(--f-display);font-weight:900;font-size:clamp(28px,3.4vw,46px);line-height:1}
+.cl-nome:hover,.cl-nome:focus-visible{color:var(--accent)}
+.cl-artes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:16px}
+.cl-artes button{all:unset;cursor:zoom-in;display:block;aspect-ratio:4/5;overflow:hidden;border-radius:6px}
+.cl-artes img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.cl-artes button:hover img,.cl-artes button:focus-visible img{transform:scale(1.05)}
+.cl-artes button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:700px){.cl-artes{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.estampas-b{margin-top:clamp(70px,10vw,130px)}
+.estampas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-height:120px}
+.estampas img{width:100%;border-radius:8px}
+/* três estrelas */
+.estrelas-t{margin-top:44px!important}
+.tres-est{width:120px;margin:18px 0 0}
+.tres{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:0}
+.tres li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 16px;padding:14px 0;border-top:1px solid var(--line);font-size:16px}
+.tres li b{font-family:var(--f-display);font-weight:900;font-size:24px;line-height:1.1}
+.fecho-est{font-family:var(--f-display);font-style:italic;font-size:clamp(20px,2.2vw,26px)!important;line-height:1.25}
+@media (max-width:560px){.tres li{grid-template-columns:1fr}}
+
+/* 05:00 — a logo conta nossa história */
+.sub-logo{margin:0;font-size:clamp(28px,3vw,40px);line-height:1}
+.quem .grade .sub-logo + p{margin-top:16px}
+.tit-logo{margin:18px 0 clamp(30px,4vw,50px)!important}
+
+/* 05:15 — missão, visão e valores */
+.crenca{padding-block:clamp(70px,10vw,130px)}
+.crenca h2{margin:16px 0 0;font-size:clamp(46px,7vw,100px);line-height:.92}
+.crenca h2 em{color:var(--accent)}
+.mv{display:grid;grid-template-columns:1fr;gap:56px;margin-top:clamp(36px,5vw,60px)}
+.mv-r{font-size:13px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.mv p{margin:14px 0 0;font-family:var(--f-display);font-weight:800;font-size:clamp(28px,3.6vw,50px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance}
+.mv>div{padding-top:22px;border-top:2px solid var(--fg)}
+.valores-r{display:block;margin:clamp(60px,8vw,100px) 0 0;font-size:13px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.valores{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 40px;counter-reset:vl}
+.valores li{counter-increment:vl;padding:28px 0;border-top:1px solid var(--line)}
+.valores b{display:flex;align-items:baseline;gap:14px;font-family:var(--f-display);font-weight:900;font-size:clamp(40px,5vw,72px);line-height:1}
+.valores b::before{content:"0" counter(vl);font-family:var(--f-mono);font-weight:400;font-size:12px;color:var(--muted)}
+.valores p{margin:12px 0 0;font-size:18px;max-width:40ch}
+
+/* 06:00 — acordou? conversa de bom dia que vira mensagem no WhatsApp */
+.amanhecer{padding-block:clamp(70px,10vw,130px) 60px}
+.acordar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(30px,6vw,80px);align-items:center}
+.acordar h2{margin:18px 0 0;font-size:clamp(52px,8vw,120px);line-height:.88;letter-spacing:-.02em}
+.acordar h2 em{color:var(--marrom)}
+.acordar .intro{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(20px,2.2vw,28px);max-width:30ch;margin:22px 0 0;line-height:1.2}
+.outros{margin-top:30px;display:grid;gap:10px;font-size:14px}
+.outros .linha{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.outros code{font-family:var(--f-body);font-weight:700;user-select:all}
+.copiar{all:unset;cursor:pointer;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid currentColor}
+.copiar:focus-visible{outline:2px solid var(--marrom);outline-offset:2px}
+.conversa{border-radius:28px;overflow:hidden;background:rgba(254,250,236,.72);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 40px 80px -30px rgba(20,26,48,.55),inset 0 0 0 1px rgba(255,255,255,.7);color:#141a30;display:grid;grid-template-rows:auto 1fr auto;height:min(620px,80vh)}
+.conversa .topo-c{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(20,26,48,.92);color:#FEFAE2}
+.conversa .topo-c .av{width:40px;height:40px;border-radius:50%;background:#FEFAE2;color:#141a30;display:grid;place-items:center}
+.conversa .topo-c .av .simbolo{width:26px;height:23px}
+.conversa .topo-c b{display:block;font-size:15px}
+.conversa .topo-c small{font-size:12px;color:#8AC4FE}
+.conversa .topo-c .hora-c{margin-left:auto;font-family:var(--f-mono);font-size:12px;opacity:.7}
+.msgs{overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.msg{max-width:82%;padding:10px 14px;border-radius:18px;font-size:15px;line-height:1.4;animation:surge .35s cubic-bezier(.2,.9,.3,1.2) both;overflow-wrap:anywhere}
+@keyframes surge{from{opacity:0;transform:translateY(8px) scale(.97)}}
+.msg.bot{align-self:flex-start;background:#fff;border-bottom-left-radius:6px;box-shadow:0 2px 6px rgba(20,26,48,.08)}
+.msg.eu{align-self:flex-end;background:#283456;color:#FEFAE2;border-bottom-right-radius:6px}
+.msg.digitando{display:flex;gap:4px;padding:14px}
+.msg.digitando i{width:7px;height:7px;border-radius:50%;background:#7690D4;animation:pula 1s infinite}
+.msg.digitando i:nth-child(2){animation-delay:.15s}.msg.digitando i:nth-child(3){animation-delay:.3s}
+@keyframes pula{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.msg .zap{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;text-decoration:none;background:#141a30;color:#FEFAE2;padding:13px 16px;border-radius:14px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.msg .zap svg{width:18px;height:18px}
+.msg .zap:focus-visible{outline:2px solid #704838;outline-offset:2px}
+.resposta{padding:12px 14px 14px;border-top:1px solid rgba(20,26,48,.1);background:rgba(255,255,255,.5)}
+.chips-r{display:flex;flex-wrap:wrap;gap:8px}
+.chips-r button{all:unset;cursor:pointer;padding:9px 14px;border-radius:99px;border:1.5px solid #283456;font-size:14px;font-weight:600}
+.chips-r button:hover,.chips-r button:focus-visible{background:#283456;color:#FEFAE2}
+.digita{display:flex;gap:8px}
+.digita input{flex:1;min-width:0;font:inherit;font-size:16px;color:#141a30;background:#fff;border:0;border-radius:99px;padding:12px 16px;box-shadow:inset 0 0 0 1px rgba(20,26,48,.15)}
+.digita input:focus-visible{outline:2px solid #7690D4}
+.digita button{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;background:#283456;color:#FEFAE2;display:grid;place-items:center;font-size:18px}
+.digita button:focus-visible{outline:2px solid #704838;outline-offset:2px}
+.digita .pula{width:auto;padding:0 14px;border-radius:99px;background:transparent;color:#283456;box-shadow:inset 0 0 0 1.5px #283456;font-size:12px;font-weight:700}
+
+/* bocejo: depois de 20 s parado, a tela pesa e as pálpebras caem */
+.sonolento{position:fixed;inset:0;z-index:88;pointer-events:none;opacity:0;transition:opacity .35s ease}
+.sonolento.on{opacity:1;transition:opacity 2.5s ease}
+.sonolento .vela{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.15),rgba(0,0,0,.6))}
+.sonolento .pp{position:absolute;left:-10vw;right:-10vw;height:56vh;background:#000;transform:translateY(-100%)}
+.sonolento .pp.cima{top:0;border-radius:0 0 50% 50%/0 0 22vh 22vh;box-shadow:0 16px 46px 26px #000}
+.sonolento .pp.baixo{bottom:0;transform:translateY(100%);border-radius:50% 50% 0 0/22vh 22vh 0 0;box-shadow:0 -16px 46px 26px #000}
+.sonolento.on .pp.cima{animation:pesaC 7s ease-in-out 1.5s infinite}
+.sonolento.on .pp.baixo{animation:pesaB 7s ease-in-out 1.5s infinite}
+@keyframes pesaC{0%{transform:translateY(-100%)}30%{transform:translateY(-58%)}38%{transform:translateY(-88%)}62%{transform:translateY(-42%)}70%{transform:translateY(-80%)}100%{transform:translateY(-100%)}}
+@keyframes pesaB{0%{transform:translateY(100%)}30%{transform:translateY(58%)}38%{transform:translateY(88%)}62%{transform:translateY(42%)}70%{transform:translateY(80%)}100%{transform:translateY(100%)}}
+.sonolento .zzz{position:absolute;right:16%;top:30%;font-family:var(--f-display);font-style:italic;font-weight:900;color:#FEFAE2;font-size:clamp(30px,4vw,54px);text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.sonolento .zzz i{display:inline-block;font-style:inherit;opacity:0}
+.sonolento.on .zzz i{animation:zzzz 3s ease-in-out infinite}
+.sonolento.on .zzz i:nth-child(2){animation-delay:.5s;font-size:.8em}.sonolento.on .zzz i:nth-child(3){animation-delay:1s;font-size:.62em}
+@keyframes zzzz{0%{opacity:0;transform:translate(0,14px)}30%{opacity:1}100%{opacity:0;transform:translate(26px,-40px)}}
+.sonolento .dica-s{position:absolute;left:0;right:0;bottom:calc(14% + env(safe-area-inset-bottom,0px));text-align:center;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(254,250,226,.75)}
+
+/* chuva no vidro e relâmpago distante */
+.relampago{position:fixed;inset:0;z-index:44;pointer-events:none;opacity:0;background:radial-gradient(120% 80% at var(--rx,60%) 0%,rgba(225,235,255,.9),rgba(170,190,255,.35) 45%,rgba(120,140,220,0) 80%);mix-blend-mode:screen}
+.relampago.on{animation:relampago .9s linear}
+@keyframes relampago{0%{opacity:0}5%{opacity:.85}11%{opacity:.1}18%{opacity:.7}30%{opacity:.05}38%{opacity:.35}100%{opacity:0}}
+
+/* modo sonho lúcido (tecla L ou 5 toques no relógio) */
+.lucido #ceu,.lucido main,.lucido .topo{animation:lucidoCor 9s linear}
+@keyframes lucidoCor{0%{filter:none}10%{filter:hue-rotate(60deg) saturate(1.8)}50%{filter:hue-rotate(220deg) saturate(2.2) contrast(1.1)}90%{filter:hue-rotate(340deg) saturate(1.6)}100%{filter:none}}
+.iris-lucida{position:fixed;inset:-30%;z-index:87;pointer-events:none;opacity:0;mix-blend-mode:overlay;
+  background:conic-gradient(from 0deg,#ff9bd2,#9be7ff,#b9ffb0,#fff59b,#ffb38a,#d7a2ff,#ff9bd2)}
+.lucido .iris-lucida{animation:irisL 9s ease-in-out}
+@keyframes irisL{0%{opacity:0;transform:rotate(0) scale(1)}15%,85%{opacity:.55}50%{transform:rotate(180deg) scale(1.2)}100%{opacity:0;transform:rotate(360deg) scale(1)}}
+.lucido .ondula{animation:ondula 9s ease-in-out}
+@keyframes ondula{0%,100%{transform:none}25%{transform:skewY(1.2deg) scale(1.01)}50%{transform:skewY(-1.2deg)}75%{transform:skewY(.8deg) scale(.995)}}
+
+/* easter egg: o menino acorda */
+.estrela-voa{position:fixed;left:0;top:0;width:var(--t);height:var(--t);pointer-events:none;z-index:95;background:var(--cf);
+  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);filter:drop-shadow(0 0 6px var(--cf))}
+.acordou-anim{animation:acorda .9s cubic-bezier(.3,1.6,.5,1)}
+@keyframes acorda{0%{transform:none}20%{transform:translateY(-10px) rotate(-6deg) scale(1.06)}45%{transform:translateY(2px) rotate(5deg)}70%{transform:rotate(-3deg)}100%{transform:none}}
+.aviso-egg{position:fixed;left:50%;top:22%;transform:translate(-50%,0);z-index:96;pointer-events:none;font-family:var(--f-display);font-weight:900;font-style:italic;
+  font-size:clamp(32px,5vw,64px);color:#FEFAE2;text-shadow:0 4px 30px rgba(20,26,48,.6);animation:egg 2.4s ease-out forwards;white-space:nowrap}
+@keyframes egg{0%{opacity:0;transform:translate(-50%,20px) scale(.9)}15%,70%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-30px)}}
+
+footer{padding-block:60px calc(120px + env(safe-area-inset-bottom, 0px));text-align:center}
+footer .logo{width:min(300px,60vw);aspect-ratio:1209/654;margin:0 auto;color:var(--fg)}
+footer p{margin:22px 0 0;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+footer .acordou{font-family:var(--f-display);font-style:italic;font-size:26px;letter-spacing:0;text-transform:none;color:var(--fg)}
+
+/* visor */
+dialog.visor{border:0;padding:0;margin:0;width:100%;max-width:100%;height:100%;max-height:100%;background:rgba(0,0,0,.94);color:#FEFAE2;overflow:hidden}
+dialog.visor::backdrop{background:rgba(0,0,0,.6)}
+.visor-in{height:100%;display:grid;grid-template-rows:auto 1fr auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.visor-topo,.visor-pe{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-left:var(--gutter);padding-right:var(--gutter-r);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.visor-topo h3{margin:0;font-size:clamp(22px,2.8vw,34px);letter-spacing:0;text-transform:none}
+.visor button{all:unset;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(254,250,226,.5);border-radius:99px;padding:8px 14px;white-space:nowrap}
+.visor button:focus-visible{outline:2px solid #8AC4FE;outline-offset:2px}
+.trilho{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px var(--gutter-r) 20px var(--gutter);align-items:center;min-height:0;scrollbar-width:thin}
+.trilho img{height:100%;max-height:calc(100svh - 170px);width:auto;max-width:88vw;object-fit:contain;scroll-snap-align:center;flex:none}
+.visor-pe .frase{font-family:var(--f-display);font-style:italic;text-transform:none;letter-spacing:0;font-size:20px;font-weight:400;max-width:60ch}
+
+@media (max-width:900px){
+  .insone{display:none}
+  .tec-bloco,.tec-bloco.inv{grid-template-columns:1fr}
+  .tec-bloco.inv .tec-txt{order:0}
+  .tec-bloco.inv .fone{margin:0 auto}
+  .quem .grade,.acordar{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .medo-txt{font-size:27vw}
+  .perguntas summary{grid-template-columns:52px minmax(0,1fr) 24px}
+  .perguntas .r{margin-left:0}
+  .idioma .longo{display:none}
+  .visor-pe .frase{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .palpebra{display:none}
+}
+</style>
+<meta property="og:title" content="dreamz — galeria de design conceitual">
+<meta property="og:description" content="Identidade visual e social media. Toda marca começa como o sonho de alguém.">
+<link rel="icon" href="assets/marca/simbolo.png">
+</head>
+<body>
+
+
+<div class="palpebra cima" aria-hidden="true"></div>
+<div class="palpebra baixo" aria-hidden="true"></div>
+<canvas id="ceu" aria-hidden="true"></canvas>
+<div class="grao" aria-hidden="true"></div>
+
+<header class="topo">
+  <div class="esq-topo">
+    <a class="marca-mini" href="#entrada" aria-label="dreamz, voltar ao início"><span class="simbolo" aria-hidden="true"></span></a>
+    <div class="despertador" id="despertador" aria-hidden="true"><svg id="lcd" viewBox="0 0 112 40"></svg><span class="al">AL</span><span id="cena" hidden></span></div>
+  </div>
+  <div class="dir-topo"><button type="button" class="botao-som" id="botao-som" hidden><span class="barras" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <div class="idioma" role="group" aria-label="Idioma / Language">
+    <button type="button" id="lang-pt" data-set="pt" aria-pressed="true"><span class="longo">acordado · </span>PT</button>
+    <button type="button" id="lang-en" data-set="en" aria-pressed="false"><span class="longo">dreaming · </span>EN</button>
+  </div></div>
+</header>
+
+<div class="insone" id="insone" aria-hidden="true"></div>
+<div class="relampago" id="relampago" aria-hidden="true"></div>
+<div class="iris-lucida" aria-hidden="true"></div>
+<div class="sonolento" id="sonolento" aria-hidden="true"><div class="vela"></div><div class="pp cima"></div><div class="pp baixo"></div><span class="zzz"><i>z</i> <i>z</i> <i>z</i></span><span class="dica-s" id="dica-s"></span></div>
+<main>
+  <section class="faixa entrada" id="entrada" data-cena-pt="acordando no sonho" data-cena-en="waking inside the dream">
+    <div>
+      <div class="cena-logo" role="img" aria-label="Logo da dreamz: uma criança esfregando os olhos, com três estrelas no lugar deles">
+        <span class="brilho" aria-hidden="true"></span>
+        <span class="logo" aria-hidden="true"></span>
+      </div>
+      <a class="credito" href="https://instagram.com/maldonaenz" target="_blank" rel="noopener"><span lang="pt">por</span><span lang="en">by</span> @maldonaenz</a>
+      <h1><span lang="pt">Arte para quem sonha acordado.</span><span lang="en">Art for those who dream awake.</span></h1>
+      <div class="sub">Dreamz Gallery · <span lang="pt">galeria de design conceitual</span><span lang="en">conceptual design gallery</span></div>
+      <a class="dormir" href="#manifesto"><span class="estrelas-logo na-entrada" style="aspect-ratio:334/137" aria-hidden="true"><img class="est est-1" src="assets/marca/estrela-1.png" alt="" style="left:0.00%;top:43.07%;width:19.46%"><img class="est est-2" src="assets/marca/estrela-2.png" alt="" style="left:19.46%;top:0.00%;width:41.62%"><img class="est est-3" src="assets/marca/estrela-3.png" alt="" style="left:67.37%;top:16.79%;width:32.63%"></span><span lang="pt">role pra sonhar</span><span lang="en">scroll to dream</span></a>
+    </div>
+  </section>
+
+  <section class="faixa manifesto" id="manifesto" data-cena-pt="meia-noite" data-cena-en="midnight">
+    <div class="miolo">
+      <div class="rotulo">00:00 · <span lang="pt">manifesto</span><span lang="en">manifesto</span></div>
+      <div class="texto">
+        <p lang="pt">A Dreamz nasceu de uma vontade simples e urgente: transformar ideia em realidade. Esboço, rascunho, conceito, aquele pensamento que fica rodando na cabeça às 3 da manhã. Tudo isso merece sair do papel e virar algo que dá pra ver, tocar e vestir.</p>
+        <p lang="en">Dreamz was born from a simple, urgent wish: to turn ideas into reality. Sketches, drafts, concepts, that thought still spinning in your head at 3 a.m. All of it deserves to leave the paper and become something you can see, touch and wear.</p>
+        <p lang="pt">Somos uma galeria de design conceitual criada por quem vive o que prega. Cada detalhe da marca foi pensado com intenção. Nada que a Dreamz faz, posta ou coloca no mundo existe sem sentido, e é isso que nos diferencia de quem só faz bonito.</p>
+        <p lang="en">We are a conceptual design gallery made by people who live what they preach. Every detail of the brand was designed with intention. Nothing Dreamz makes, posts or puts into the world exists without meaning, and that is what sets us apart from those who only make things pretty.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa vidro-s" id="vidro" data-cena-pt="o vidro" data-cena-en="the glass">
+    <div class="miolo">
+      <div class="rotulo">00:30 · <span lang="pt">o vidro</span><span lang="en">the glass</span></div>
+      <blockquote class="frase-dreamz">Losing sleep for your Dreamz is <em>better</em> than dreaming about them.</blockquote>
+      <p class="pergunta"><span lang="pt">Você já se sentiu preso, imaginando como seria a vida se tivesse agido, falado, mudado, ido atrás do que realmente faz sentido para você? É como se existisse um vidro entre você e tudo o que queria viver.</span><span lang="en">Have you ever felt stuck, imagining what life would be like if you had acted, spoken up, changed, gone after what truly makes sense to you? It's as if there were a pane of glass between you and everything you wanted to live.</span></p>
+      <h2 class="nome-vidro"><span lang="pt">Esse vidro tem nome:</span><span lang="en">That glass has a name:</span></h2>
+      <div class="palco-medo" id="palco-medo">
+        <span class="estrelas-logo alem-medo" style="aspect-ratio:334/137" aria-hidden="true"><img class="est est-1" src="assets/marca/estrela-1.png" alt="" style="left:0.00%;top:43.07%;width:19.46%"><img class="est est-2" src="assets/marca/estrela-2.png" alt="" style="left:19.46%;top:0.00%;width:41.62%"><img class="est est-3" src="assets/marca/estrela-3.png" alt="" style="left:67.37%;top:16.79%;width:32.63%"></span>
+        <button type="button" class="medo" id="vidro-medo"><em class="medo-txt"><span lang="pt">medo.</span><span lang="en">fear.</span></em><span class="cacos" aria-hidden="true"></span></button>
+      </div>
+      <p class="dica-vidro" id="dica-vidro"><span lang="pt">toque no medo pra quebrar</span><span lang="en">tap the fear to break it</span></p>
+      <div class="depois-vidro">
+        <p lang="pt">Nós, da Dreamz, já nos sentimos exatamente assim. Em alguns momentos, ainda nos sentimos.</p>
+        <p lang="en">We at Dreamz have felt exactly like that. Sometimes, we still do.</p>
+        <p lang="pt">Foi dessa vivência que a Dreamz nasceu, e é ela que guia tudo o que fazemos: perder o sono correndo atrás do que você quer, encarando problemas e inseguranças de frente, mesmo quando não é fácil, leva a uma vida muito mais satisfatória do que olhar pra trás e perceber que deixou de fazer coisas extraordinárias só porque teve medo.</p>
+        <p lang="en">Dreamz was born from that experience, and it guides everything we do: losing sleep chasing what you want, facing problems and insecurities head-on, even when it isn't easy, leads to a far more fulfilling life than looking back and realizing you skipped extraordinary things just because you were afraid.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa tecnicas" id="tecnicas" data-cena-pt="sono leve" data-cena-en="light sleep">
+    <div class="miolo">
+      <div class="cab-t">
+        <div>
+          <div class="rotulo">01:00 · <span lang="pt">o que fazemos</span><span lang="en">what we do</span></div>
+          <h2><span lang="pt">O que a gente faz <em>enquanto você dorme.</em></span><span lang="en">What we do <em>while you sleep.</em></span></h2>
+        </div>
+      </div>
+
+      <article class="tec-bloco marca-b">
+        <div class="tec-txt">
+          <span class="tec-n">i.</span>
+          <h3><span lang="pt">Criação de <em>marca</em></span><span lang="en">Brand <em>creation</em></span></h3>
+          <p lang="pt">Antes do desenho, o porquê: posicionamento, missão, visão, valores e a história que a marca conta.</p>
+          <p lang="en">Before the drawing, the why: positioning, mission, vision, values and the story the brand tells.</p>
+          <p class="exemplo"><span lang="pt">exemplo real · a própria dreamz</span><span lang="en">real example · dreamz itself</span></p>
+        </div>
+        <a class="cartao-marca" href="#quem" aria-label="Ver a história da logo da dreamz">
+          <span class="logo" aria-hidden="true"></span>
+          <span class="cm-paleta" aria-hidden="true"><i style="background:#000"></i><i style="background:#283456"></i><i style="background:#7690D4"></i><i style="background:#8AC4FE"></i><i style="background:#FEFAE2"></i><i style="background:#704838"></i></span>
+          <span class="cm-txt"><span lang="pt">logo · paleta · história · propósito</span><span lang="en">logo · palette · story · purpose</span></span>
+        </a>
+      </article>
+
+      <article class="tec-bloco">
+        <div class="tec-txt">
+          <span class="tec-n">ii.</span>
+          <h3><span lang="pt">Identidade <em>visual</em></span><span lang="en">Visual <em>identity</em></span></h3>
+          <p lang="pt">O sonho ganha forma. Primeiro o conceito, depois cada camada da marca, até ela caber num boné.</p>
+          <p lang="en">The dream takes shape. Concept first, then every layer of the brand, until it fits on a cap.</p>
+          <ol class="passos">
+            <li>logo</li><li><span lang="pt">paleta</span><span lang="en">palette</span></li><li><span lang="pt">tipografia</span><span lang="en">typography</span></li><li><span lang="pt">elementos gráficos</span><span lang="en">graphic elements</span></li>
+          </ol>
+          <p class="exemplo"><span lang="pt">exemplo real · Bross Motors</span><span lang="en">real example · Bross Motors</span></p>
+        </div>
+        <div class="pilha" id="pilha">
+          <button type="button" class="lamina" style="--i:0" aria-label="Logo da Bross Motors"><img src="assets/tecnicas/1-logo.webp" alt="" loading="lazy"><span class="tag">01 · logo</span></button>
+          <button type="button" class="lamina" style="--i:1" aria-label="Paleta da Bross Motors"><img src="assets/tecnicas/2-paleta.webp" alt="" loading="lazy"><span class="tag"><span lang="pt">02 · paleta</span><span lang="en">02 · palette</span></span></button>
+          <button type="button" class="lamina" style="--i:2" aria-label="Tipografia da Bross Motors"><img src="assets/tecnicas/3-tipografia.webp" alt="" loading="lazy"><span class="tag"><span lang="pt">03 · tipografia</span><span lang="en">03 · type</span></span></button>
+          <button type="button" class="lamina" style="--i:3" aria-label="Aplicação da marca Bross Motors"><img src="assets/tecnicas/4-aplicacao.webp" alt="" loading="lazy"><span class="tag"><span lang="pt">04 · aplicação</span><span lang="en">04 · application</span></span></button>
+        </div>
+      </article>
+
+      <article class="tec-bloco">
+        <div class="tec-txt">
+          <span class="tec-n">iii.</span>
+          <h3><em>Sites</em></h3>
+          <p lang="pt">O lugar onde a marca mora. Sites modernos e responsivos, feitos sob medida pra cada sonho, bonitos no computador e no celular.</p>
+          <p lang="en">The place where the brand lives. Modern, responsive websites, made to measure for each dream, beautiful on desktop and on mobile.</p>
+          <ol class="passos">
+            <li><span lang="pt">design sob medida</span><span lang="en">custom design</span></li><li><span lang="pt">responsivo</span><span lang="en">responsive</span></li><li><span lang="pt">animações</span><span lang="en">animations</span></li><li><span lang="pt">pronto pra vender</span><span lang="en">ready to sell</span></li>
+          </ol>
+          <p class="exemplo"><span lang="pt">exemplo real · este site</span><span lang="en">real example · this website</span></p>
+        </div>
+        <button type="button" class="navegador" id="navegador" aria-label="Voltar ao início deste site">
+          <span class="nav-barra"><i></i><i></i><i></i><span class="nav-url">dreamz gallery · <span lang="pt">você está aqui</span><span lang="en">you are here</span></span></span>
+          <span class="nav-tela"><img src="assets/tecnicas/site-dreamz.webp" alt="" loading="lazy"></span>
+        </button>
+      </article>
+
+      <article class="posts-b">
+        <div class="tec-txt">
+          <span class="tec-n">iv.</span>
+          <h3><span lang="pt">Posts para <em>redes sociais</em></span><span lang="en">Social media <em>posts</em></span></h3>
+          <p lang="pt">Cada cliente com a sua cara. Toque nas artes pra ver maior.</p>
+          <p lang="en">Each client with its own face. Tap the art to see it bigger.</p>
+        </div>
+        <div class="clientes" id="clientes"></div>
+      </article>
+
+      <article class="tec-bloco estampas-b">
+        <div class="tec-txt">
+          <span class="tec-n">v.</span>
+          <h3><span lang="pt">Estampas e <em>roupas</em></span><span lang="en">Prints and <em>apparel</em></span></h3>
+          <p lang="pt">Camisetas, uniformes e coleções personalizadas, pra marca sair da tela e ir pra rua.</p>
+          <p lang="en">Custom t-shirts, uniforms and collections, so the brand leaves the screen and hits the street.</p>
+        </div>
+        <div class="estampas" id="estampas"><!-- ESTAMPAS: as fotos entram aqui --></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="faixa quem" id="quem" data-cena-pt="a logo" data-cena-en="the logo">
+    <div class="miolo">
+      <div class="rotulo">05:00 · <span lang="pt">a logo</span><span lang="en">the logo</span></div>
+      <h2 class="tit-logo"><span lang="pt">A logo conta <em>nossa história.</em></span><span lang="en">The logo tells <em>our story.</em></span></h2>
+      <div class="grade">
+        <span class="simbolo" role="img" aria-label="O menino da logo da Dreamz"></span>
+        <div>
+          <h3 class="sub-logo"><span lang="pt">O menino</span><span lang="en">The boy</span></h3>
+          <p lang="pt">A logo foi criada por nós, a partir de uma ilustração de O Pequeno Príncipe, totalmente adaptada e reinterpretada. O menino esfregando o olho é o próprio retrato da frase que gira em torno da Dreamz: <em>"Losing sleep for your Dreamz is better than dreaming about them."</em> Ou seja, ele representa o sono perdido de quem escolheu agir.</p>
+          <p lang="en">We created the logo from an illustration of The Little Prince, fully adapted and reinterpreted. The boy rubbing his eye is the very portrait of the sentence at the heart of Dreamz: <em>"Losing sleep for your Dreamz is better than dreaming about them."</em> In other words, he stands for the lost sleep of those who chose to act.</p>
+          <h3 class="sub-logo estrelas-t"><span lang="pt">As três estrelas</span><span lang="en">The three stars</span></h3>
+          <span class="estrelas-logo tres-est" style="aspect-ratio:334/137" aria-hidden="true"><img class="est est-1" src="assets/marca/estrela-1.png" alt="" style="left:0.00%;top:43.07%;width:19.46%"><img class="est est-2" src="assets/marca/estrela-2.png" alt="" style="left:19.46%;top:0.00%;width:41.62%"><img class="est est-3" src="assets/marca/estrela-3.png" alt="" style="left:67.37%;top:16.79%;width:32.63%"></span>
+          <p lang="pt">As três estrelas da logo carregam o lado mais espiritual da Dreamz. Elas representam corpo, mente e alma e o equilíbrio entre os três.</p>
+          <p lang="en">The three stars in the logo carry the most spiritual side of Dreamz. They stand for body, mind and soul, and the balance between the three.</p>
+          <ul class="tres">
+            <li><b><span lang="pt">Corpo</span><span lang="en">Body</span></b><span lang="pt">É o que sustenta a jornada. Sem cuidar dele, nenhuma ideia se mantém de pé por muito tempo.</span><span lang="en">It is what carries the journey. Without taking care of it, no idea stays standing for long.</span></li>
+            <li><b><span lang="pt">Mente</span><span lang="en">Mind</span></b><span lang="pt">É onde nascem as ideias, mas também onde moram as dúvidas. É nela que o medo costuma falar mais alto, e é nela que decidimos agir mesmo assim.</span><span lang="en">It is where ideas are born, but also where doubts live. It is where fear usually speaks loudest, and where we decide to act anyway.</span></li>
+            <li><b><span lang="pt">Alma</span><span lang="en">Soul</span></b><span lang="pt">É o propósito. É o que dá sentido ao que criamos e explica por que vale a pena perder o sono.</span><span lang="en">It is the purpose. It is what gives meaning to what we create and explains why losing sleep is worth it.</span></li>
+          </ul>
+          <p class="fecho-est" lang="pt">Quando os três caminham juntos, o sonho deixa de ser fuga ou obsessão e vira direção.</p>
+          <p class="fecho-est" lang="en">When the three walk together, the dream stops being an escape or an obsession and becomes a direction.</p>
+          <div class="links">
+            <a class="pilula" href="https://instagram.com/maldonaenz" target="_blank" rel="noopener"><span lang="pt">logo por</span><span lang="en">logo by</span> @maldonaenz ↗</a>
+            <a class="pilula" href="https://instagram.com/dreamzgalllery" target="_blank" rel="noopener">@dreamzgalllery ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa crenca" id="crenca" data-cena-pt="no que a gente acredita" data-cena-en="what we believe">
+    <div class="miolo">
+      <div class="rotulo">05:15 · <span lang="pt">missão, visão e valores</span><span lang="en">mission, vision and values</span></div>
+      <h2><span lang="pt">No que a gente <em>acredita.</em></span><span lang="en">What we <em>believe.</em></span></h2>
+      <div class="mv">
+        <div><span class="mv-r"><span lang="pt">missão</span><span lang="en">mission</span></span><p><span lang="pt">Transformar ideias em realidade, dando forma concreta a conceitos, esboços e pensamentos, e inspirar criativos a perder o sono pelos próprios sonhos em vez de só imaginá-los.</span><span lang="en">To turn ideas into reality, giving concrete shape to concepts, sketches and thoughts, and to inspire creatives to lose sleep over their own dreams instead of only imagining them.</span></p></div>
+        <div><span class="mv-r"><span lang="pt">visão</span><span lang="en">vision</span></span><p><span lang="pt">Ser referência em design conceitual para a nova geração de criativos: uma galeria viva, onde sonhar acordado é prática, e não discurso.</span><span lang="en">To be a reference in conceptual design for the new generation of creatives: a living gallery where dreaming awake is practice, not talk.</span></p></div>
+      </div>
+      <span class="valores-r"><span lang="pt">valores</span><span lang="en">values</span></span>
+      <ol class="valores">
+        <li><b><span lang="pt">Coragem</span><span lang="en">Courage</span></b><p><span lang="pt">Agir apesar do medo, porque o medo é o único vidro entre você e o que você quer.</span><span lang="en">Acting despite fear, because fear is the only glass between you and what you want.</span></p></li>
+        <li><b><span lang="pt">Intenção</span><span lang="en">Intention</span></b><p><span lang="pt">Nada existe sem sentido. Cada detalhe carrega significado.</span><span lang="en">Nothing exists without meaning. Every detail carries significance.</span></p></li>
+        <li><b><span lang="pt">Autenticidade</span><span lang="en">Authenticity</span></b><p><span lang="pt">Criar a partir da própria história, sem copiar fórmula.</span><span lang="en">Creating from our own story, without copying formulas.</span></p></li>
+        <li><b><span lang="pt">Ação</span><span lang="en">Action</span></b><p><span lang="pt">Ideia que fica só na cabeça é inércia. Aqui, a gente executa.</span><span lang="en">An idea that stays in your head is inertia. Here, we execute.</span></p></li>
+        <li><b><span lang="pt">Equilíbrio</span><span lang="en">Balance</span></b><p><span lang="pt">Corpo, mente e alma caminhando juntos.</span><span lang="en">Body, mind and soul walking together.</span></p></li>
+        <li><b><span lang="pt">Comunidade</span><span lang="en">Community</span></b><p><span lang="pt">Sonhar junto. Quando um realiza, impulsiona quem está ao redor.</span><span lang="en">Dreaming together. When one achieves, it lifts everyone around.</span></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="faixa insonia" id="insonia" data-cena-pt="perguntas de insônia" data-cena-en="sleepless questions">
+    <div class="miolo">
+      <div class="cab-f">
+        <div>
+          <div class="rotulo">05:30 · <span lang="pt">dúvidas</span><span lang="en">questions</span></div>
+          <h2><span lang="pt">Perguntas de <em>insônia</em></span><span lang="en">Sleepless <em>questions</em></span></h2>
+        </div>
+        <p lang="pt">As dúvidas que tiram o sono de quem está pensando em contratar.</p>
+        <p lang="en">The questions that keep people up before they hire us.</p>
+      </div>
+      <div class="perguntas">
+        <details><summary><span class="hr">05:31</span><span class="q"><span lang="pt">Quanto custa?</span><span lang="en">How much does it cost?</span></span><span class="mais" aria-hidden="true">+</span></summary>
+          <p class="r"><span lang="pt">Depende do tamanho do sonho. Cada projeto tem um orçamento sob medida: conte o seu aqui embaixo e a gente responde com valor e prazo.</span><span lang="en">It depends on the size of the dream. Every project gets a tailored quote: tell us yours below and we'll reply with price and timing.</span></p></details>
+        <details><summary><span class="hr">05:34</span><span class="q"><span lang="pt">Quanto tempo leva?</span><span lang="en">How long does it take?</span></span><span class="mais" aria-hidden="true">+</span></summary>
+          <p class="r"><span lang="pt">O prazo é combinado no orçamento, antes de começar, e muda conforme o que a marca precisa. Você sabe a data de entrega desde o primeiro dia.</span><span lang="en">Timing is agreed in the quote, before we start, and depends on what the brand needs. You know the delivery date from day one.</span></p></details>
+        <details><summary><span class="hr">05:38</span><span class="q"><span lang="pt">Preciso ter logo pra fazer social media?</span><span lang="en">Do I need a logo for social media?</span></span><span class="mais" aria-hidden="true">+</span></summary>
+          <p class="r"><span lang="pt">Não. Se a marca já tem identidade, o social segue o que existe. Se ainda não tem, dá pra começar pela identidade e emendar o social depois.</span><span lang="en">No. If the brand already has an identity, social follows it. If it doesn't, we can start with the identity and move on to social after.</span></p></details>
+        <details><summary><span class="hr">05:43</span><span class="q"><span lang="pt">Vocês atendem fora da minha cidade?</span><span lang="en">Do you work outside my city?</span></span><span class="mais" aria-hidden="true">+</span></summary>
+          <p class="r"><span lang="pt">Sim. O trabalho acontece todo online, por WhatsApp e chamada, então a distância não muda nada.</span><span lang="en">Yes. Everything happens online, over WhatsApp and calls, so distance doesn't matter.</span></p></details>
+        <details><summary><span class="hr">05:47</span><span class="q"><span lang="pt">Posso pedir ajustes?</span><span lang="en">Can I ask for changes?</span></span><span class="mais" aria-hidden="true">+</span></summary>
+          <p class="r"><span lang="pt">Pode. Ajuste faz parte do processo: a gente apresenta, você comenta e a gente refina até o sonho ficar com a sua cara.</span><span lang="en">Yes. Revisions are part of the process: we present, you comment, and we refine until the dream looks like you.</span></p></details>
+        <details><summary><span class="hr">05:52</span><span class="q"><span lang="pt">O que eu recebo no final?</span><span lang="en">What do I get at the end?</span></span><span class="mais" aria-hidden="true">+</span></summary>
+          <p class="r"><span lang="pt">Depende do sonho. Na identidade visual: logo e variações, paleta, tipografia e elementos gráficos em arquivos prontos pra usar. Nas redes sociais: as peças prontas pra publicar. No site: o site no ar. Em mídia off e estampas: os arquivos prontos pra gráfica ou produção.</span><span lang="en">It depends on the dream. Visual identity: logo and variations, palette, typography and graphic elements in ready-to-use files. Social media: pieces ready to publish. Website: the site live. Print and apparel: files ready for printing or production.</span></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa amanhecer" id="sonho" data-cena-pt="o despertador tocou" data-cena-en="the alarm went off">
+    <div class="miolo acordar">
+      <div>
+        <div class="rotulo">06:00 · <span lang="pt">orçamento</span><span lang="en">quote</span></div>
+        <h2><span lang="pt">Acordou? <em>Me conta.</em></span><span lang="en">Awake? <em>Tell me.</em></span></h2>
+        <p class="intro"><span lang="pt">Sonho que não é anotado some de manhã. Responde aqui do lado, rapidinho, e a conversa vai pronta pro nosso WhatsApp.</span><span lang="en">Dreams you don't write down are gone by morning. Answer on the side, quickly, and the chat goes straight to our WhatsApp.</span></p>
+        <div class="outros">
+          <div class="linha"><span lang="pt">prefere e-mail?</span><span lang="en">prefer email?</span> <code id="email">dre3amzgallery@gmail.com</code> <button type="button" class="copiar" id="copiar"><span lang="pt">copiar</span><span lang="en">copy</span></button></div>
+          <div class="linha"><span lang="pt">ou chame no</span><span lang="en">or DM</span> <a href="https://instagram.com/dreamzgalllery" target="_blank" rel="noopener">@dreamzgalllery ↗</a></div>
+          <div class="linha">WhatsApp: <code>+55 17 99108-9367</code></div>
+        </div>
+      </div>
+      <div class="conversa" role="region" aria-label="Conversa com a dreamz">
+        <div class="topo-c"><span class="av"><span class="simbolo"></span></span><div><b>dreamz</b><small id="status-c"><span lang="pt">online agora</span><span lang="en">online now</span></small></div><span class="hora-c">06:00</span></div>
+        <div class="msgs" id="msgs" aria-live="polite"></div>
+        <div class="resposta" id="resposta"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="faixa">
+    <span class="logo" role="img" aria-label="dreamz"></span>
+    <p class="insone-f" id="insone-f"></p>
+    <p class="acordou"><span lang="pt">Bom dia. Você acordou.</span><span lang="en">Good morning. You're awake.</span></p>
+    <p>Dreamz Gallery © 2026 · <span lang="pt">arte para quem sonha acordado</span><span lang="en">art for those who dream awake</span> · <a href="https://instagram.com/maldonaenz" target="_blank" rel="noopener">@maldonaenz</a></p>
+  </footer>
+</main>
+
+<dialog class="visor" id="visor" aria-labelledby="visor-titulo">
+  <div class="visor-in">
+    <div class="visor-topo">
+      <span id="visor-num"></span>
+      <h3 id="visor-titulo"></h3>
+      <button type="button" id="fechar"><span lang="pt">acordar ✕</span><span lang="en">wake up ✕</span></button>
+    </div>
+    <div class="trilho" id="trilho" tabindex="0" aria-label="Peças da obra"></div>
+    <div class="visor-pe">
+      <span class="frase" id="visor-frase"></span>
+      <span style="display:flex;gap:8px"><button type="button" id="ant" aria-label="Anterior">←</button><button type="button" id="prox" aria-label="Próxima">→</button></span>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* número do WhatsApp da dreamz (só dígitos, 55 + DDD + número). Vazio = abre o WhatsApp para a pessoa escolher o contato. */
+const WHATSAPP = "5517991089367";
+
+const OBRAS = [
+  {s:"bmc", t:"Bross Motors", tipo:"id", h:"02:03", pecas:20, n:8, w:1400, hgt:788,
+   pt:"Uma loja de carros que sonhava andar tão rápido quanto os carros que vende.", en:"A car dealer that dreamed of moving as fast as the cars it sells."},
+  {s:"anjos", t:"Anjos Colchões", tipo:"id", h:"02:19", pecas:18, n:5, w:880, hgt:1173,
+   pt:"Uma loja de colchões que, no fundo, vende uma boa noite de sono.", en:"A mattress shop that, deep down, sells a good night's sleep."},
+  {s:"linhas-amarelas", t:"Linhas Amarelas", tipo:"id", h:"02:41", pecas:31, n:6, w:880, hgt:1100,
+   pt:"Uma empresa de ônibus que queria ser reconhecida de longe, só pela cor.", en:"A bus company that wanted to be recognised from afar by its colour alone."},
+  {s:"caca-games", t:"Cacá Games", tipo:"id", h:"02:58", pecas:24, n:6, w:880, hgt:1100,
+   pt:"Um clube de carteado que queria a energia de uma mesa cheia, mesmo online.", en:"A card club that wanted the energy of a full table, even online."},
+  {s:"maestralle", t:"Maestralle", tipo:"social", h:"03:12", pecas:12, n:6, w:880, hgt:1100,
+   pt:"Uma marcenaria que desenha a casa a partir de quem vive nela.", en:"A joinery that designs the house around the people who live in it."},
+  {s:"dom-fernando", t:"Dom Fernando", tipo:"social", h:"03:26", pecas:21, n:6, w:880, hgt:1100,
+   pt:"Uma pizzaria que queria deixar o sábado mais gostoso.", en:"A pizzeria that wanted to make Saturdays taste better."},
+  {s:"vincitori", t:"Espaço Vincitori", tipo:"social", h:"03:37", pecas:17, n:6, w:880, hgt:1100,
+   pt:"Um salão de festas que guarda as noites mais importantes de cada um.", en:"An event hall that keeps everyone's most important nights."},
+  {s:"ccm", t:"CCM Engenharia", tipo:"social", h:"03:49", pecas:28, n:6, w:880, hgt:1100,
+   pt:"Uma engenharia elétrica que queria mostrar o que ninguém vê dentro do painel.", en:"An electrical engineering firm that wanted to show what no one sees inside the panel."},
+  {s:"aluggo", t:"Aluggo", tipo:"social", h:"04:02", pecas:16, n:5, w:880, hgt:1100,
+   pt:"Motos pra quem quer chegar antes no amanhã.", en:"Motorbikes for people who want to get to tomorrow first."},
+  {s:"boi-delivery", t:"Boi Delivery", tipo:"social", h:"04:11", pecas:6, n:4, w:880, hgt:1100,
+   pt:"Um delivery de carne com um mascote que chega antes da fome.", en:"A meat delivery with a mascot that arrives before you're hungry."},
+  {s:"spada-abdalla", t:"Spada e Abdalla", tipo:"social", h:"04:19", pecas:18, n:5, w:880, hgt:1100,
+   pt:"Uma clínica que ensina a prestar atenção nos sinais do corpo.", en:"A clinic that teaches people to pay attention to their body's signals."},
+  {s:"marchiori", t:"Marchiori", tipo:"social", h:"04:24", pecas:12, n:5, w:880, hgt:1100,
+   pt:"Um escritório que explica a lei antes que ela vire problema.", en:"A law firm that explains the law before it turns into a problem."},
+  {s:"pmx", t:"PMX Ativos Judiciais", tipo:"social", h:"04:30", pecas:17, n:5, w:880, hgt:1100,
+   pt:"Uma empresa que transforma a espera de um processo em dinheiro hoje.", en:"A company that turns waiting on a lawsuit into money today."},
+];
+const TIPO={id:{pt:"Identidade visual",en:"Visual identity"},social:{pt:"Social media",en:"Social media"}};
+const N=OBRAS.length;
+const root=document.documentElement;
+const calmo=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let lang="pt";
+try{ const l=localStorage.getItem("dreamz-lang"); if(l==="en"||l==="pt") lang=l; }catch(e){}
+root.dataset.lang=lang;
+if(!calmo){ document.body.classList.add("acordando"); setTimeout(()=>document.body.classList.remove("acordando"),7400); }
+function img(o,i){ return `assets/obras/${o.s}/${String(i).padStart(2,"0")}.webp`; }
+
+/* ---------- despertador: visor de 7 segmentos ---------- */
+const desp=document.getElementById("despertador"), lcd=document.getElementById("lcd");
+const SEG={a:"3,0 19,0 16,3 6,3",b:"19.5,0.5 22,3 21,18 18,16 19,4",c:"18,22 21,20 20,35 17.5,37.5 17,34",d:"2,38 17,38 14,35 5,35",
+  e:"0.5,35 3,34 4,22 1,20 0,35",f:"1.5,18 4.5,16 5,4 3,0.5 2,3",g:"3,19 6,17 16,17 19,19 16,21 6,21"};
+const DIG={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcfgd"};
+function digito(x,n){ return Object.keys(SEG).map(k=>`<polygon transform="translate(${x} 1) skewX(-6)" class="${DIG[n].includes(k)?"seg":"apagado"}" points="${SEG[k]}"/>`).join(""); }
+let ultimaHora="";
+function mostraHora(hh,mm){
+  const txt=hh+mm; if(txt===ultimaHora) return; ultimaHora=txt;
+  lcd.innerHTML=digito(2,+hh[0])+digito(28,+hh[1])+`<g class="seg" id="dois-pontos"><rect x="53" y="11" width="4" height="4" rx="1"/><rect x="51.5" y="25" width="4" height="4" rx="1"/></g>`+digito(62,+mm[0])+digito(88,+mm[1]);
+}
+setInterval(()=>{ const g=document.getElementById("dois-pontos"); if(g&&!calmo) g.style.opacity=g.style.opacity==="0"?"1":"0"; },600);
+
+/* ---------- técnicas ---------- */
+const pilha=document.getElementById("pilha");
+pilha.addEventListener("click",e=>{ if(!pilha.classList.contains("aberta")){ pilha.classList.add("aberta"); return; } if(e.target.closest(".lamina")) abrirObra(0); });
+pilha.addEventListener("pointerenter",()=>pilha.classList.add("aberta"));
+if("IntersectionObserver" in window){ const ip=new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)){ setTimeout(()=>pilha.classList.add("aberta"),calmo?0:500); ip.disconnect(); } },{threshold:.5}); ip.observe(pilha); } else pilha.classList.add("aberta");
+/* ---------- posts por cliente ---------- */
+const cli=document.getElementById("clientes");
+cli.innerHTML=OBRAS.map((o,k)=>o.tipo!=="social"?"":`<div class="cliente"><button type="button" class="cl-nome" data-k="${k}">${o.t}</button><div class="cl-artes">${Array.from({length:o.n},(_,i)=>`<button type="button" data-k="${k}" aria-label="${o.t}, arte ${i+1}"><img src="${img(o,i+1)}" alt="" loading="lazy"></button>`).join("")}</div></div>`).join("");
+cli.addEventListener("click",e=>{ const b=e.target.closest("button"); if(b) abrirObra(+b.dataset.k); });
+
+/* ---------- o vidro: a palavra "medo." é o vidro; tocar estilhaça ---------- */
+const medo=document.getElementById("vidro-medo"), vidroSec=document.getElementById("vidro"), palcoMedo=document.getElementById("palco-medo");
+function somVidro(){ if(!actx||actx.state!=="running") return; const t=actx.currentTime, sr=actx.sampleRate;
+  const n=actx.createBuffer(1,sr*.5,sr), d=n.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,5);
+  const src=actx.createBufferSource(); src.buffer=n; const hp=actx.createBiquadFilter(); hp.type="highpass"; hp.frequency.value=1800; const g=actx.createGain(); g.gain.value=.45; src.connect(hp).connect(g).connect(mestre); src.start(t);
+  for(let i=0;i<14;i++){ const o=actx.createOscillator(), gg=actx.createGain(), s=t+.04+Math.random()*.9; o.type="sine"; o.frequency.value=2600+Math.random()*4200;
+    gg.gain.setValueAtTime(0,s); gg.gain.linearRampToValueAtTime(.05+Math.random()*.05,s+.004); gg.gain.exponentialRampToValueAtTime(.0005,s+.08+Math.random()*.2); o.connect(gg).connect(mestre); o.start(s); o.stop(s+.35); } }
+function quebraMedo(ev){ if(medo.classList.contains("quebrado")) return;
+  const txt=medo.querySelector(".medo-txt"), cacos=medo.querySelector(".cacos"), r=medo.getBoundingClientRect(), W=r.width, H=r.height;
+  let cx=W*.45, cy=H*.55; if(ev&&ev.clientX){ cx=Math.min(W,Math.max(0,ev.clientX-r.left)); cy=Math.min(H,Math.max(0,ev.clientY-r.top)); }
+  palcoMedo.style.setProperty("--cx",(r.left-palcoMedo.getBoundingClientRect().left+cx)+"px");
+  medo.classList.add("quebrado"); vidroSec.classList.add("livre"); somVidro();
+  if(calmo) return;
+  const n=10+Math.floor(Math.random()*3), a0=Math.random()*Math.PI*2, ang=[];
+  for(let i=0;i<n;i++) ang.push(a0+i*2*Math.PI/n+(Math.random()-.5)*(Math.PI/n)*.7);
+  const base=Math.min(W,H), r1=ang.map(()=>base*(.22+Math.random()*.18)), r2=ang.map(()=>base*(.7+Math.random()*.5)), R=Math.max(W,H)*3;
+  const P=(a,d)=>`${((cx+Math.cos(a)*d)/W*100).toFixed(2)}% ${((cy+Math.sin(a)*d)/H*100).toFixed(2)}%`;
+  const pecas=[];
+  for(let i=0;i<n;i++){ const j=(i+1)%n, a1=ang[i], a2=j?ang[j]:ang[0]+Math.PI*2, m=(a1+a2)/2;
+    pecas.push({pol:[`${(cx/W*100).toFixed(2)}% ${(cy/H*100).toFixed(2)}%`,P(a1,r1[i]),P(a2,r1[j])],m,d:base*.15});
+    pecas.push({pol:[P(a1,r1[i]),P(a1,r2[i]),P(a2,r2[j]),P(a2,r1[j])],m,d:base*.5});
+    pecas.push({pol:[P(a1,r2[i]),P(a1,R),P(a2,R),P(a2,r2[j])],m,d:base*1.2}); }
+  const imp=document.createElement("span"); imp.className="impacto"; imp.style.left=cx+"px"; imp.style.top=cy+"px"; cacos.append(imp);
+  pecas.forEach(p=>{ const c=txt.cloneNode(true); c.style.clipPath=`polygon(${p.pol.join(",")})`;  cacos.append(c);
+    const k=1.5+Math.random()*2.5, sx=Math.cos(p.m)*k, sy=Math.sin(p.m)*k, vx=Math.cos(p.m)*(40+Math.random()*120)+(Math.random()-.5)*60, cai=420+Math.random()*380, rot=(Math.random()-.5)*160, atraso=420+p.d*.9+Math.random()*120;
+    c.animate([{transform:"none"},{transform:`translate(${sx}px,${sy}px)`}],{duration:90,fill:"forwards"});
+    c.animate([{transform:`translate(${sx}px,${sy}px)`,opacity:1},{transform:`translate(${sx+vx}px,${sy+cai}px) rotate(${rot}deg)`,opacity:0}],{duration:1150+Math.random()*650,delay:atraso,easing:"cubic-bezier(.5,0,.95,.6)",fill:"forwards"}); });
+  setTimeout(()=>{ cacos.innerHTML=""; },3400); }
+medo.addEventListener("click",quebraMedo);
+
+/* ---------- sites: o navegador mostra este próprio site ---------- */
+document.getElementById("navegador").addEventListener("click",()=>scrollTo({top:0,behavior:calmo?"auto":"smooth"}));
+
+/* ---------- cursor: nuvenzinha ---------- */
+if(matchMedia("(pointer:fine)").matches){
+  root.classList.add("cursor-nuvem");
+  const nuv=document.createElement("div"); nuv.className="nuvem-c"; nuv.setAttribute("aria-hidden","true"); nuv.innerHTML='<div class="corpo-n"><i></i><i></i><i></i><i></i><i></i></div>';
+  const pto=document.createElement("div"); pto.className="ponto-c"; pto.setAttribute("aria-hidden","true");
+  document.body.append(nuv,pto);
+  let mx=-100,my=-100,nx=-100,ny=-100,ativo=false,ultN=0;
+  addEventListener("pointermove",e=>{ if(e.pointerType!=="mouse") return; mx=e.clientX; my=e.clientY; if(!ativo){ nx=mx; ny=my; ativo=true; nuv.classList.add("on"); pto.classList.add("on"); }
+    nuv.classList.toggle("sobre",!!e.target.closest("a,button,summary,[role=button],[role=slider],.lamina,.rolo button,.esteira button,input,select,textarea,.cena-logo"));
+    pto.style.transform=`translate(${mx}px,${my}px)`; },{passive:true});
+  document.addEventListener("pointerleave",()=>{ ativo=false; nuv.classList.remove("on"); pto.classList.remove("on"); });
+  addEventListener("blur",()=>{ ativo=false; nuv.classList.remove("on"); pto.classList.remove("on"); });
+  addEventListener("pointerdown",e=>{ if(e.pointerType==="mouse") nuv.classList.add("aperta"); });
+  addEventListener("pointerup",()=>nuv.classList.remove("aperta"));
+  (function segueNuvem(t){ const dt=Math.min(.05,(t-ultN)/1000||0); ultN=t; const k=calmo?1:Math.min(1,dt*5);
+    nx+=(mx-nx)*k; ny+=(my-ny)*k; const bob=calmo?0:Math.sin(t/500)*2;
+    nuv.style.transform=`translate(${nx}px,${ny+bob}px)`; requestAnimationFrame(segueNuvem); })(0);
+}
+
+/* ---------- contador de sono perdido ---------- */
+const t0=Date.now(), insone=document.getElementById("insone"), insoneF=document.getElementById("insone-f");
+function contaSono(){ const s=Math.floor((Date.now()-t0)/1000), mm=String(Math.floor(s/60)).padStart(2,"0"), ss=String(s%60).padStart(2,"0");
+  const txt=lang==="pt"?`há <b>${mm}:${ss}</b> perdendo o sono com a gente`:`<b>${mm}:${ss}</b> of sleep lost with us`;
+  insone.innerHTML=txt; insoneF.innerHTML=lang==="pt"?`Você passou <b>${mm}:${ss}</b> acordado com a gente.`:`You stayed up <b>${mm}:${ss}</b> with us.`; }
+contaSono(); setInterval(contaSono,1000);
+
+/* ---------- bocejo por inatividade ---------- */
+const sonolento=document.getElementById("sonolento"); let paradoDesde=Date.now();
+function acorda(){ paradoDesde=Date.now(); if(sonolento.classList.contains("on")) sonolento.classList.remove("on"); }
+["pointermove","pointerdown","keydown","wheel","touchstart","scroll"].forEach(ev=>addEventListener(ev,acorda,{passive:true}));
+setInterval(()=>{ if(calmo||document.hidden||document.querySelector("dialog[open]")) { paradoDesde=Math.max(paradoDesde,Date.now()-15000); return; }
+  if(Date.now()-paradoDesde>20000&&!sonolento.classList.contains("on")){ document.getElementById("dica-s").textContent=lang==="pt"?"mexa pra acordar":"move to wake up"; sonolento.classList.add("on"); } },1000);
+
+/* ---------- relâmpago distante (e trovão, se o som estiver ligado) ---------- */
+const relampago=document.getElementById("relampago"); let bufTrovao=null;
+function trovao(){ if(!actx||actx.state!=="running") return; const t=actx.currentTime;
+  if(!bufTrovao){ bufTrovao=actx.createBuffer(1,actx.sampleRate*4,actx.sampleRate); const d=bufTrovao.getChannelData(0); let u=0; for(let i=0;i<d.length;i++){ u=(u+0.03*(Math.random()*2-1))/1.03; d[i]=u*4; } }
+  const src=actx.createBufferSource(); src.buffer=bufTrovao; const lp=actx.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=160; const g=actx.createGain();
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.9,t+0.25); g.gain.linearRampToValueAtTime(0.5,t+0.9); g.gain.linearRampToValueAtTime(0.75,t+1.3); g.gain.exponentialRampToValueAtTime(0.001,t+3.8);
+  src.connect(lp).connect(g).connect(mestre); src.start(t); src.stop(t+4); }
+function relampeja(){ setTimeout(relampeja,25000+Math.random()*35000);
+  if(calmo||document.hidden||P>0.66) return;
+  relampago.style.setProperty("--rx",(20+Math.random()*60)+"%"); relampago.classList.remove("on"); void relampago.offsetWidth; relampago.classList.add("on");
+  setTimeout(trovao,800+Math.random()*1700); }
+setTimeout(relampeja,18000);
+
+/* ---------- modo sonho lúcido ---------- */
+let lucidoT=0, toquesRel=[];
+function sonhoLucido(){ if(calmo) return; root.classList.remove("lucido"); void root.offsetWidth; root.classList.add("lucido"); document.querySelector("main").classList.add("ondula");
+  clearTimeout(lucidoT); lucidoT=setTimeout(()=>{ root.classList.remove("lucido"); document.querySelector("main").classList.remove("ondula"); },9200);
+  if(actx){ const t=actx.currentTime, o=actx.createOscillator(), g=actx.createGain(); o.type="sine"; o.frequency.setValueAtTime(220,t); o.frequency.exponentialRampToValueAtTime(880,t+2.5); o.frequency.exponentialRampToValueAtTime(330,t+6);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.06,t+1); g.gain.linearRampToValueAtTime(0,t+7); o.connect(g).connect(mestre); o.start(t); o.stop(t+7.2); } }
+addEventListener("keydown",e=>{ if((e.key==="l"||e.key==="L")&&!e.target.closest("input,textarea,select")&&!e.ctrlKey&&!e.metaKey&&!e.altKey) sonhoLucido(); });
+desp.addEventListener("click",()=>{ const t=performance.now(); toquesRel=toquesRel.filter(x=>t-x<1800); toquesRel.push(t); if(toquesRel.length>=5){ toquesRel=[]; sonhoLucido(); } });
+
+/* ---------- visor ---------- */
+const visor=document.getElementById("visor"), trilho=document.getElementById("trilho");
+function abrirObra(k){
+  const o=OBRAS[k];
+  document.getElementById("visor-num").textContent=`Nº ${String(k+1).padStart(2,"0")} · ${o.h}`;
+  document.getElementById("visor-titulo").textContent=o.t;
+  document.getElementById("visor-frase").innerHTML=`<span lang="pt">${o.pt}</span><span lang="en">${o.en}</span>`;
+  trilho.innerHTML=Array.from({length:o.n},(_,i)=>`<img src="${img(o,i+1)}" alt="${o.t}, peça ${i+1} de ${o.n}" loading="lazy">`).join("");
+  trilho.scrollLeft=0;
+  visor.showModal?visor.showModal():visor.setAttribute("open","");
+  document.getElementById("fechar").focus();
+}
+function fechar(){ visor.close?visor.close():visor.removeAttribute("open"); }
+document.getElementById("fechar").addEventListener("click",fechar);
+visor.addEventListener("click",e=>{ if(e.target===visor) fechar(); });
+function passo(d){ trilho.scrollBy({left:d*trilho.clientWidth*0.8,behavior:"smooth"}); }
+document.getElementById("ant").addEventListener("click",()=>passo(-1));
+document.getElementById("prox").addEventListener("click",()=>passo(1));
+visor.addEventListener("keydown",e=>{ if(e.key==="ArrowRight")passo(1); if(e.key==="ArrowLeft")passo(-1); });
+
+/* ---------- idioma ---------- */
+function aplicaLang(l,animar){
+  const go=()=>{ lang=l; root.dataset.lang=l; root.lang=l==="pt"?"pt-BR":"en";
+    document.querySelectorAll(".idioma button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.set===l));
+    document.querySelectorAll("#prazo option").forEach(o=>o.textContent=o.dataset[l]);
+    try{ localStorage.setItem("dreamz-lang",l); }catch(e){}
+    atualizaMensagem(); };
+  if(!animar||calmo){ go(); return; }
+  document.body.classList.add("trocando"); setTimeout(()=>{ go(); document.body.classList.remove("trocando"); },320);
+}
+document.querySelectorAll(".idioma button").forEach(b=>b.addEventListener("click",()=>{ if(b.dataset.set!==lang) aplicaLang(b.dataset.set,true); }));
+
+/* ---------- orçamento: conversa de bom dia ---------- */
+const FALAS={
+  oi:{pt:"bom dia ☀ acordou com uma ideia na cabeça?",en:"good morning ☀ woke up with an idea in your head?"},
+  marca:{pt:"me conta: qual é o nome da marca?",en:"tell me: what's the brand called?"},
+  nome:{pt:"lindo. e você, como se chama?",en:"love it. and what's your name?"},
+  tipo:{pt:"o que esse sonho precisa?",en:"what does this dream need?"},
+  prazo:{pt:"e pra quando?",en:"and when for?"},
+  ideia:{pt:"agora me conta o sonho em uma frase (pode ser bem solta)",en:"now tell me the dream in one sentence (rough is fine)"},
+  fim:{pt:"anotado ✍ antes que a gente esqueça, manda pro WhatsApp da dreamz:",en:"noted ✍ before we forget, send it to dreamz on WhatsApp:"},
+};
+const OPC={tipo:[["marca",{pt:"Criação de marca",en:"Brand creation"}],["id",{pt:"Identidade visual",en:"Visual identity"}],["site",{pt:"Site",en:"Website"}],["social",{pt:"Redes sociais",en:"Social media"}],["off",{pt:"Mídia off",en:"Print media"}],["estampa",{pt:"Estampas e roupas",en:"Prints & apparel"}],["outro",{pt:"Outra ideia",en:"Something else"}]],
+  prazo:[["calma",{pt:"Sem pressa",en:"No rush"}],["mes",{pt:"Este mês",en:"This month"}],["ontem",{pt:"Pra ontem",en:"Yesterday"}]]};
+const ETAPAS=["marca","nome","tipo","prazo","ideia","fim"];
+const resp={}; let hist=[], etapa=0;
+const msgs=document.getElementById("msgs"), caixaR=document.getElementById("resposta");
+const ZAP_SVG='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>';
+const esc=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function textoZap(){ const T={marca:{pt:"criação de marca",en:"brand creation"},id:{pt:"identidade visual",en:"a visual identity"},site:{pt:"um site",en:"a website"},social:{pt:"artes para redes sociais",en:"social media art"},off:{pt:"mídia off (impressos)",en:"print media"},estampa:{pt:"estampas e roupas personalizadas",en:"prints and custom apparel"},outro:{pt:"uma outra ideia",en:"something else"}};
+  const tipo=(T[resp.tipo]||T.outro)[lang], prazo=(OPC.prazo.find(o=>o[0]===resp.prazo)||OPC.prazo[0])[1][lang].toLowerCase();
+  return lang==="pt" ? `Oi, dreamz! ${resp.nome?`Meu nome é ${resp.nome}`:"Tudo bem?"}${resp.marca?`, sou da ${resp.marca}`:""}.\nPreciso de ${tipo}. Prazo: ${prazo}.`+(resp.ideia?`\nO sonho: "${resp.ideia}"`:"")+`\n\n(vim pelo site)`
+    : `Hi, dreamz! ${resp.nome?`I'm ${resp.nome}`:"Hello!"}${resp.marca?`, from ${resp.marca}`:""}.\nI need ${tipo}. Timing: ${prazo}.`+(resp.ideia?`\nThe dream: "${resp.ideia}"`:"")+`\n\n(found you through the website)`; }
+function desenhaConversa(){
+  msgs.innerHTML=hist.map(m=>{ if(m.de==="eu") return `<div class="msg eu">${esc(m.txt)}</div>`;
+    if(m.k==="fim") return `<div class="msg bot">${FALAS.fim[lang]}<a class="zap" href="https://wa.me/${WHATSAPP}?text=${encodeURIComponent(textoZap())}" target="_blank" rel="noopener">${ZAP_SVG}${lang==="pt"?"Enviar pelo WhatsApp":"Send on WhatsApp"}</a></div>`;
+    return `<div class="msg bot">${FALAS[m.k][lang]}</div>`; }).join("");
+  msgs.scrollTop=msgs.scrollHeight; desenhaResposta(); }
+function desenhaResposta(){ const k=ETAPAS[etapa];
+  if(k==="tipo"||k==="prazo"){ caixaR.innerHTML=`<div class="chips-r">${OPC[k].map(([v,t])=>`<button type="button" data-v="${v}">${t[lang]}</button>`).join("")}</div>`; return; }
+  if(k==="fim"){ caixaR.innerHTML=`<div class="chips-r"><button type="button" id="recomecar">${lang==="pt"?"↺ contar outro sonho":"↺ tell another dream"}</button></div>`; return; }
+  const ph={marca:{pt:"nome da marca",en:"brand name"},nome:{pt:"seu nome",en:"your name"},ideia:{pt:"o sonho, em uma frase",en:"the dream, in one sentence"}}[k][lang];
+  caixaR.innerHTML=`<form class="digita" id="digita"><input id="campo-c" type="text" autocomplete="off" placeholder="${ph}" aria-label="${ph}">${k==="ideia"?`<button type="button" class="pula" id="pula">${lang==="pt"?"pular":"skip"}</button>`:""}<button type="submit" aria-label="${lang==="pt"?"Enviar":"Send"}">↑</button></form>`; }
+function digitando(depois){ if(calmo){ depois(); return; } const d=document.createElement("div"); d.className="msg bot digitando"; d.innerHTML="<i></i><i></i><i></i>"; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+  document.getElementById("status-c").innerHTML=lang==="pt"?"digitando…":"typing…"; caixaR.style.visibility="hidden";
+  setTimeout(()=>{ d.remove(); document.getElementById("status-c").innerHTML=lang==="pt"?"online agora":"online now"; caixaR.style.visibility=""; depois(); },650); }
+function responde(txt,valor){ const k=ETAPAS[etapa]; if(valor!==undefined) resp[k]=valor; hist.push({de:"eu",txt}); etapa++; desenhaConversa();
+  digitando(()=>{ hist.push({de:"bot",k:ETAPAS[etapa]}); desenhaConversa(); const c=document.getElementById("campo-c"); if(c&&document.activeElement&&msgs.closest(".conversa").contains(document.activeElement)) c.focus(); }); }
+caixaR.addEventListener("submit",e=>{ e.preventDefault(); const c=document.getElementById("campo-c"), v=c.value.trim(); if(!v){ c.focus(); return; } responde(v,v); });
+caixaR.addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return;
+  if(b.id==="pula"){ responde(lang==="pt"?"(pulei)":"(skipped)",""); return; }
+  if(b.id==="recomecar"){ iniciaConversa(); return; }
+  if(b.dataset.v){ responde(b.textContent,b.dataset.v); } });
+function iniciaConversa(){ for(const k in resp) delete resp[k]; etapa=0; hist=[{de:"bot",k:"oi"},{de:"bot",k:"marca"}]; desenhaConversa(); }
+function atualizaMensagem(){ desenhaConversa(); }
+iniciaConversa();
+document.getElementById("copiar").addEventListener("click",e=>{
+  const btn=e.currentTarget, email=document.getElementById("email");
+  const ok=()=>{ btn.textContent=lang==="pt"?"copiado":"copied"; setTimeout(()=>btn.innerHTML='<span lang="pt">copiar</span><span lang="en">copy</span>',1600); };
+  try{ navigator.clipboard.writeText(email.textContent).then(ok,()=>selec(email)); }catch(err){ selec(email); }
+});
+function selec(el){ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+/* ---------- sons da madrugada (começam no primeiro toque/clique/tecla: o navegador não deixa tocar antes) ---------- */
+let actx=null, gChuva, gGrilo, gPassaro, mestre;
+function iniciaSom(){ if(actx){ if(actx.state==="suspended") actx.resume(); return; }
+  const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; actx=new AC();
+  mestre=actx.createGain(); mestre.gain.value=0; mestre.connect(actx.destination); mestre.gain.setTargetAtTime(0.5,actx.currentTime,2);
+  const buf=actx.createBuffer(1,actx.sampleRate*3,actx.sampleRate), d=buf.getChannelData(0); let ult=0;
+  for(let i=0;i<d.length;i++){ const w=Math.random()*2-1; ult=(ult+0.02*w)/1.02; d[i]=ult*3.2; }
+  const ruido=actx.createBufferSource(); ruido.buffer=buf; ruido.loop=true;
+  const pb=actx.createBiquadFilter(); pb.type="lowpass"; pb.frequency.value=1100; const pa=actx.createBiquadFilter(); pa.type="highpass"; pa.frequency.value=180;
+  gChuva=actx.createGain(); gChuva.gain.value=0.25; ruido.connect(pa).connect(pb).connect(gChuva).connect(mestre); ruido.start();
+  gGrilo=actx.createGain(); gGrilo.gain.value=0.5; gGrilo.connect(mestre);
+  gPassaro=actx.createGain(); gPassaro.gain.value=0; gPassaro.connect(mestre);
+  setInterval(()=>{ if(!actx||actx.state!=="running") return; const t=actx.currentTime;
+    if(Math.random()<0.55){ const o=actx.createOscillator(), g=actx.createGain(); o.type="sine"; o.frequency.value=4300+Math.random()*500; g.gain.value=0;
+      for(let i=0;i<3;i++){ g.gain.setValueAtTime(0,t+i*0.06); g.gain.linearRampToValueAtTime(0.05,t+i*0.06+0.012); g.gain.linearRampToValueAtTime(0,t+i*0.06+0.04); }
+      const p=actx.createStereoPanner?actx.createStereoPanner():null; if(p){ p.pan.value=Math.random()*1.6-0.8; o.connect(g).connect(p).connect(gGrilo); } else o.connect(g).connect(gGrilo);
+      o.start(t); o.stop(t+0.25); }
+    if(gPassaro.gain.value>0.02&&Math.random()<0.18){ const base=2200+Math.random()*1800, n=2+Math.floor(Math.random()*4);
+      for(let i=0;i<n;i++){ const o=actx.createOscillator(), g=actx.createGain(), s=t+i*0.13; o.type="sine";
+        o.frequency.setValueAtTime(base,s); o.frequency.exponentialRampToValueAtTime(base*1.6,s+0.05); o.frequency.exponentialRampToValueAtTime(base*1.1,s+0.1);
+        g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(0.06,s+0.015); g.gain.linearRampToValueAtTime(0,s+0.11); o.connect(g).connect(gPassaro); o.start(s); o.stop(s+0.12); } } },230);
+  ajustaSom(); }
+function ajustaSom(){ if(!actx) return; const t=actx.currentTime, p=P;
+  gChuva.gain.setTargetAtTime(0.28*(1-p*0.75),t,0.8);
+  gGrilo.gain.setTargetAtTime(p<0.72?0.55:Math.max(0,0.55*(1-(p-0.72)/0.15)),t,0.8);
+  gPassaro.gain.setTargetAtTime(Math.max(0,Math.min(1,(p-0.74)/0.18)),t,0.8); }
+/* efeitos sintéticos desligados a pedido: actx fica nulo, então chuva, grilos, vidro, trovão e plim não tocam */
+/* ---------- música de fundo: começa no primeiro toque, em loop, com botão de mudo ---------- */
+const musica=new Audio("assets/musica.mp3"); musica.loop=true; musica.volume=0; musica.preload="auto";
+const botaoSom=document.getElementById("botao-som");
+let mudo=false; try{ mudo=localStorage.getItem("dreamz-mudo")==="1"; }catch(e){}
+function fadeMusica(alvo){ const ini=musica.volume, t0=performance.now(); (function passo(t){ const k=Math.min(1,(t-t0)/1800); musica.volume=ini+(alvo-ini)*k; if(k<1) requestAnimationFrame(passo); else if(alvo===0) musica.pause(); })(t0); }
+function tocaMusica(){ if(mudo) return; musica.play().then(()=>{ fadeMusica(.45); botaoSom.hidden=false; }).catch(()=>{}); }
+function atualizaBotao(){ botaoSom.classList.toggle("mudo",mudo); botaoSom.setAttribute("aria-label",mudo?(lang==="pt"?"Ligar a música":"Turn music on"):(lang==="pt"?"Desligar a música":"Turn music off")); }
+musica.addEventListener("error",()=>{ botaoSom.hidden=true; });
+botaoSom.addEventListener("click",e=>{ e.stopPropagation(); mudo=!mudo; try{ localStorage.setItem("dreamz-mudo",mudo?"1":"0"); }catch(err){} atualizaBotao(); if(mudo) fadeMusica(0); else tocaMusica(); });
+atualizaBotao();
+const primeiro=()=>{ tocaMusica(); ["pointerdown","keydown","touchstart","scroll"].forEach(ev=>removeEventListener(ev,primeiro)); };
+["pointerdown","keydown","touchstart"].forEach(ev=>addEventListener(ev,primeiro,{passive:true}));
+document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(!musica.paused) musica.pause(); } else if(!mudo&&musica.currentTime>0) musica.play().catch(()=>{}); });
+
+/* ---------- easter egg: 3 cliques no menino e ele acorda ---------- */
+let cliquesM=[];
+function plim(){ if(!actx) return; const t=actx.currentTime; [880,1320,1760].forEach((f,i)=>{ const o=actx.createOscillator(), g=actx.createGain(); o.frequency.value=f; g.gain.setValueAtTime(0,t+i*0.09); g.gain.linearRampToValueAtTime(0.12,t+i*0.09+0.01); g.gain.exponentialRampToValueAtTime(0.001,t+i*0.09+0.6); o.connect(g).connect(mestre); o.start(t+i*0.09); o.stop(t+i*0.09+0.7); }); }
+function acordaMenino(el){ const r=el.getBoundingClientRect(), ehLogo=el.classList.contains("logo"), ox=r.left+r.width*(ehLogo?0.51:0.55), oy=r.top+r.height*(ehLogo?0.3:0.36);
+  el.classList.remove("acordou-anim"); void el.offsetWidth; el.classList.add("acordou-anim"); plim();
+  const cores=["#FEFAE2","#8AC4FE","#A6D8FF","#7690D4","#ffe9a8"];
+  for(let i=0;i<46;i++){ const st=document.createElement("span"), sz=10+Math.random()*26; st.className="estrela-voa"; st.style.setProperty("--t",sz+"px"); st.style.setProperty("--cf",cores[i%5]);
+    document.body.appendChild(st); const a=Math.random()*6.283, dist=200+Math.random()*Math.max(innerWidth,innerHeight)*0.7;
+    const an=st.animate([{transform:`translate(${ox-sz/2}px,${oy-sz/2}px) rotate(0) scale(.3)`,opacity:1},{transform:`translate(${ox-sz/2+Math.cos(a)*dist}px,${oy-sz/2+Math.sin(a)*dist}px) rotate(${Math.random()*720-360}deg) scale(1)`,opacity:0}],
+      {duration:calmo?10:1400+Math.random()*1200,easing:"cubic-bezier(.15,.8,.3,1)",fill:"forwards"}); an.onfinish=()=>st.remove(); }
+}
+document.addEventListener("click",e=>{ const el=e.target.closest(".cena-logo,.marca-mini,.quem .simbolo"); if(!el) return;
+  const alvo=el.matches(".cena-logo")?el.querySelector(".logo"):el.matches(".marca-mini")?el.querySelector(".simbolo"):el;
+  const t=performance.now(); cliquesM=cliquesM.filter(x=>t-x<1200); cliquesM.push(t);
+  if(el.matches(".marca-mini")&&cliquesM.length>1) e.preventDefault();
+  if(cliquesM.length>=3){ cliquesM=[]; acordaMenino(alvo); } });
+
+/* ---------- a noite: cor, despertador, cena ---------- */
+const CEU=[[0,[0,0,0]],[0.16,[4,7,18]],[0.4,[14,20,44]],[0.62,[30,40,74]],[0.75,[58,74,132]],[0.83,[118,144,212]],[0.9,[138,196,254]],[0.95,[214,232,246]],[1,[254,250,226]]];
+function cor(p){ for(let i=1;i<CEU.length;i++){ if(p<=CEU[i][0]){ const [a,ca]=CEU[i-1],[b,cb]=CEU[i],t=(p-a)/(b-a||1); return ca.map((v,j)=>Math.round(v+(cb[j]-v)*t)); } } return CEU[CEU.length-1][1]; }
+const lum=([r,g,b])=>(0.2126*r+0.7152*g+0.0722*b)/255;
+const cenaEl=document.getElementById("cena");
+const secoes=[...document.querySelectorAll("main section[id]")];
+let maxScroll=1, P=0;
+function medir(){ maxScroll=Math.max(1,document.documentElement.scrollHeight-innerHeight); tick(); }
+function tick(){
+  const p=Math.min(1,Math.max(0,scrollY/maxScroll)); P=p;
+  const c=cor(p), claro=lum(c)>0.5;
+  root.style.setProperty("--bg",`rgb(${c})`);
+  root.style.setProperty("--fg",claro?"#141a30":"#FEFAE2");
+  root.style.setProperty("--muted",claro?"rgba(20,26,48,.7)":"rgba(254,250,226,.64)");
+  root.style.setProperty("--line",claro?"rgba(20,26,48,.22)":"rgba(254,250,226,.18)");
+  root.style.setProperty("--accent",claro?"#704838":"#8AC4FE");
+  const min=23*60+47+p*373, m=Math.round(min)%(1440);
+  mostraHora(String(Math.floor(m/60)).padStart(2,"0"),String(m%60).padStart(2,"0"));
+  ajustaSom();
+  desp.classList.toggle("tocando",p>0.985&&!calmo);
+  let atual=secoes[0]; for(const s of secoes){ if(s.getBoundingClientRect().top<innerHeight*0.5) atual=s; }
+  if(cenaEl.dataset.id!==atual.id){ cenaEl.innerHTML=`<span lang="pt">${atual.dataset.cenaPt}</span><span lang="en">${atual.dataset.cenaEn}</span>`; cenaEl.dataset.id=atual.id; }
+}
+let pend=false;
+addEventListener("scroll",()=>{ if(!pend){ pend=true; requestAnimationFrame(()=>{ pend=false; tick(); }); } },{passive:true});
+addEventListener("resize",medir); addEventListener("load",medir);
+
+/* ---------- céu: via láctea, estrelas, lua, estrelas cadentes, cometas e nuvens ---------- */
+const cv=document.getElementById("ceu"), cx=cv.getContext("2d");
+let W=0,H=0,estrelas=[],via=null,cadentes=[],cometas=[],nuvens=[],proxCad=1500,proxCom=4000;
+function semear(){
+  const d=Math.min(2,devicePixelRatio||1); W=innerWidth; H=innerHeight; cv.width=W*d; cv.height=H*d; cx.setTransform(d,0,0,d,0,0);
+  const n=Math.round(W*H/2600);
+  estrelas=Array.from({length:n},()=>{ const z=Math.random(); return {x:Math.random()*W,y:Math.random()*H*1.5,z,r:z<.85?Math.random()*0.9+0.2:Math.random()*1.4+0.9,
+    f:Math.random()*6.28,v:0.4+Math.random()*1.8,c:Math.random()<0.6?"254,250,226":(Math.random()<0.5?"166,216,255":"200,190,255"),brilho:z>0.985}; });
+  // via láctea pré-desenhada
+  via=document.createElement("canvas"); via.width=W; via.height=H*1.5; const v=via.getContext("2d");
+  v.translate(W/2,H*0.75); v.rotate(-0.5);
+  for(let i=0;i<70;i++){ const gx=(Math.random()-.5)*W*1.8, gy=(Math.random()-.5)*H*0.22, gr=60+Math.random()*180;
+    const g=v.createRadialGradient(gx,gy,0,gx,gy,gr); const cc=Math.random()<.5?"118,144,212":"166,216,255";
+    g.addColorStop(0,`rgba(${cc},${0.05+Math.random()*0.05})`); g.addColorStop(1,`rgba(${cc},0)`); v.fillStyle=g; v.beginPath(); v.arc(gx,gy,gr,0,6.283); v.fill(); }
+  for(let i=0;i<Math.round(W*2.2);i++){ const gx=(Math.random()-.5)*W*1.8, gy=(Math.random()+Math.random()+Math.random()-1.5)*H*0.12;
+    v.fillStyle=`rgba(254,250,226,${Math.random()*0.55})`; v.fillRect(gx,gy,Math.random()<.9?0.8:1.4,Math.random()<.9?0.8:1.4); }
+  fazLua(); preparaAmanhecer();
+  nuvens=Array.from({length:7},(_,i)=>({x:Math.random()*W,y:H*(0.15+Math.random()*0.7),w:W*(0.35+Math.random()*0.4),h:60+Math.random()*90,v:6+Math.random()*12}));
+}
+function cadente(){ const dir=Math.random()<.5?1:-1; return {x:Math.random()*W,y:Math.random()*H*0.5,vx:dir*(700+Math.random()*700),vy:280+Math.random()*320,vida:0,dur:0.7+Math.random()*0.6,len:120+Math.random()*180}; }
+function cometa(){ const dir=Math.random()<.5?1:-1; return {x:dir>0?-150:W+150,y:H*(0.1+Math.random()*0.45),vx:dir*(70+Math.random()*60),vy:12+Math.random()*25,vida:0,dur:(W+300)/90,len:260+Math.random()*200}; }
+function brilho4(x,y,r,a){ cx.strokeStyle=`rgba(254,250,226,${a*0.7})`; cx.lineWidth=0.8; cx.beginPath(); cx.moveTo(x-r*4,y); cx.lineTo(x+r*4,y); cx.moveTo(x,y-r*4); cx.lineTo(x,y+r*4); cx.stroke(); }
+let luaImg=new Image(), luaR=0; luaImg.src="assets/ceu-lua.webp";
+function fazLua(){ luaR=Math.round(Math.min(W,H)*0.055+18); }
+function lua(a){ a*=Math.max(0,1-scrollY/(H*0.7)); if(a<=0||!luaImg.complete||!luaImg.naturalWidth) return;
+  const x=W*0.8, y=H*0.2-scrollY*0.05, r=luaR;
+  const h=cx.createRadialGradient(x,y,r*.9,x,y,r*6); h.addColorStop(0,`rgba(220,230,255,${0.22*a})`); h.addColorStop(.35,`rgba(200,214,255,${0.07*a})`); h.addColorStop(1,"rgba(200,214,255,0)");
+  cx.fillStyle=h; cx.beginPath(); cx.arc(x,y,r*6,0,6.283); cx.fill();
+  cx.save(); cx.globalAlpha=a; cx.shadowColor="rgba(230,238,255,.55)"; cx.shadowBlur=r*.6; cx.drawImage(luaImg,x-r,y-r,r*2,r*2); cx.restore(); }
+let passaros=[], proxPas=800;
+let mar=[], fiapos=[];
+function preparaAmanhecer(){
+  mar=[]; for(let x=-80;x<W+120;x+=34+Math.random()*30){ mar.push({x,y:H*(0.86+Math.random()*0.07),r:46+Math.random()*80,v:4+Math.random()*4}); }
+  for(let x=-60;x<W+120;x+=40+Math.random()*40){ mar.push({x,y:H*(0.94+Math.random()*0.06),r:60+Math.random()*90,v:7+Math.random()*4}); }
+  fiapos=Array.from({length:6},()=>({x:Math.random()*W,y:H*(0.1+Math.random()*0.45),w:W*(0.25+Math.random()*0.35),h:18+Math.random()*26,v:5+Math.random()*8}));
+}
+function amanhecer(d,dt){
+  const g=cx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,`rgba(146,190,240,${0.5*d})`); g.addColorStop(.45,`rgba(206,224,244,${0.55*d})`);
+  g.addColorStop(.72,`rgba(250,224,214,${0.7*d})`); g.addColorStop(.9,`rgba(255,212,178,${0.85*d})`); g.addColorStop(1,`rgba(255,226,196,${0.9*d})`);
+  cx.fillStyle=g; cx.fillRect(0,0,W,H);
+  for(const f of fiapos){ if(!calmo) f.x+=f.v*dt; if(f.x-f.w>W) f.x=-f.w;
+    cx.save(); cx.translate(f.x,f.y); cx.scale(1,f.h/f.w);
+    const c=cx.createRadialGradient(0,0,0,0,0,f.w*0.5); c.addColorStop(0,`rgba(255,246,244,${0.55*d})`); c.addColorStop(.6,`rgba(252,214,214,${0.22*d})`); c.addColorStop(1,"rgba(252,214,214,0)");
+    cx.fillStyle=c; cx.beginPath(); cx.arc(0,0,f.w*0.5,0,6.283); cx.fill(); cx.restore(); }
+  const s=Math.max(0,Math.min(1,(d-0.4)/0.55));
+  if(s>0){ const R=Math.min(W,H)*0.075+10, x=W*0.5, y=H*0.93-s*H*0.17;
+    const b=cx.createRadialGradient(x,y,0,x,y,R*10); b.addColorStop(0,`rgba(255,226,170,${0.6*s})`); b.addColorStop(.25,`rgba(255,206,160,${0.28*s})`); b.addColorStop(1,"rgba(255,206,160,0)");
+    cx.fillStyle=b; cx.fillRect(0,0,W,H);
+    cx.save(); cx.translate(x,y); cx.scale(4.5,0.5); const hz=cx.createRadialGradient(0,0,0,0,0,R*2); hz.addColorStop(0,`rgba(255,240,215,${0.5*s})`); hz.addColorStop(1,"rgba(255,240,215,0)"); cx.fillStyle=hz; cx.beginPath(); cx.arc(0,0,R*2,0,6.283); cx.fill(); cx.restore();
+    const core=cx.createRadialGradient(x,y,0,x,y,R*1.25); core.addColorStop(0,`rgba(255,255,250,${s})`); core.addColorStop(.7,`rgba(255,246,222,${s})`); core.addColorStop(.82,`rgba(255,232,190,${0.75*s})`); core.addColorStop(1,"rgba(255,226,180,0)");
+    cx.fillStyle=core; cx.beginPath(); cx.arc(x,y,R*1.25,0,6.283); cx.fill(); }
+  for(const n of mar){ if(!calmo){ n.x+=n.v*dt; if(n.x-n.r>W) n.x=-n.r; }
+    const c=cx.createRadialGradient(n.x-n.r*.15,n.y-n.r*.35,n.r*.05,n.x,n.y,n.r);
+    c.addColorStop(0,`rgba(255,252,248,${0.95*d})`); c.addColorStop(.55,`rgba(252,236,232,${0.85*d})`); c.addColorStop(.85,`rgba(240,214,214,${0.4*d})`); c.addColorStop(1,"rgba(240,214,214,0)");
+    cx.fillStyle=c; cx.beginPath(); cx.arc(n.x,n.y,n.r,0,6.283); cx.fill(); }
+  const base=cx.createLinearGradient(0,H*0.9,0,H); base.addColorStop(0,"rgba(255,248,244,0)"); base.addColorStop(1,`rgba(255,248,244,${0.9*d})`);
+  cx.fillStyle=base; cx.fillRect(0,H*0.9,W,H*0.1);
+}
+function bando(){ const dir=Math.random()<.5?1:-1, n=3+Math.floor(Math.random()*5), y0=H*(0.12+Math.random()*0.4), v=(70+Math.random()*50)*dir, sz=5+Math.random()*5;
+  return Array.from({length:n},(_,i)=>({x:(dir>0?-60:W+60)-dir*(i*28+Math.random()*20),y:y0+(i%2?1:-1)*i*9+Math.random()*8,v:v*(0.95+Math.random()*0.1),s:sz*(0.8+Math.random()*0.4),f:Math.random()*6})); }
+function passaro(b,a){ const bat=Math.sin(b.f)*0.9; cx.strokeStyle=`rgba(20,26,48,${0.75*a})`; cx.lineWidth=1.6; cx.lineCap="round";
+  cx.beginPath(); cx.moveTo(b.x-b.s,b.y-b.s*bat*0.6); cx.quadraticCurveTo(b.x-b.s*.45,b.y-b.s*(.2+bat*.5),b.x,b.y); cx.quadraticCurveTo(b.x+b.s*.45,b.y-b.s*(.2+bat*.5),b.x+b.s,b.y-b.s*bat*0.6); cx.stroke(); }
+let ultimo=0;
+function desenha(t){
+  const dt=Math.min(0.05,(t-ultimo)/1000||0); ultimo=t;
+  cx.clearRect(0,0,W,H);
+  const noite=Math.max(0,1-Math.max(0,P-0.7)/0.2), dia=Math.max(0,(P-0.78)/0.22);
+  if(noite>0){
+    cx.globalAlpha=noite*0.9; cx.drawImage(via,0,-(scrollY*0.03)%(H*0.5)); cx.globalAlpha=1;
+    for(const s of estrelas){
+      const a=(calmo?0.75:0.3+0.7*Math.abs(Math.sin(s.f+t/1000*s.v)))*noite;
+      const y=((s.y-scrollY*(0.02+s.z*0.06))%(H*1.5)+H*1.5)%(H*1.5); if(y>H) continue;
+      cx.fillStyle=`rgba(${s.c},${a})`; cx.beginPath(); cx.arc(s.x,y,s.r,0,6.283); cx.fill();
+      if(s.brilho) brilho4(s.x,y,s.r,a);
+    }
+    if(!calmo){
+      proxCad-=dt*1000; if(proxCad<=0){ cadentes.push(cadente()); proxCad=1200+Math.random()*3200; }
+      proxCom-=dt*1000; if(proxCom<=0&&cometas.length<1){ cometas.push(cometa()); proxCom=14000+Math.random()*10000; }
+    }
+    cadentes=cadentes.filter(c=>{ c.vida+=dt; c.x+=c.vx*dt; c.y+=c.vy*dt; const k=c.vida/c.dur; if(k>=1) return false;
+      const a=Math.sin(k*Math.PI)*noite, m=Math.hypot(c.vx,c.vy), tx=c.x-c.vx/m*c.len, ty=c.y-c.vy/m*c.len;
+      const g=cx.createLinearGradient(c.x,c.y,tx,ty); g.addColorStop(0,`rgba(254,250,226,${a})`); g.addColorStop(1,"rgba(166,216,255,0)");
+      cx.strokeStyle=g; cx.lineWidth=1.6; cx.beginPath(); cx.moveTo(c.x,c.y); cx.lineTo(tx,ty); cx.stroke();
+      cx.fillStyle=`rgba(255,255,255,${a})`; cx.beginPath(); cx.arc(c.x,c.y,1.6,0,6.283); cx.fill(); return true; });
+    cometas=cometas.filter(c=>{ c.vida+=dt; c.x+=c.vx*dt; c.y+=c.vy*dt; if(c.vida>c.dur+4) return false;
+      const m=Math.hypot(c.vx,c.vy), ux=-c.vx/m, uy=-c.vy/m;
+      for(let i=0;i<3;i++){ const L=c.len*(1-i*0.25), sp=(i-1)*0.08;
+        const tx=c.x+(ux-uy*sp)*L, ty=c.y+(uy+ux*sp)*L, g=cx.createLinearGradient(c.x,c.y,tx,ty);
+        g.addColorStop(0,`rgba(166,216,255,${0.55*noite})`); g.addColorStop(1,"rgba(118,144,212,0)");
+        cx.strokeStyle=g; cx.lineWidth=6-i*2; cx.lineCap="round"; cx.beginPath(); cx.moveTo(c.x,c.y); cx.lineTo(tx,ty); cx.stroke(); }
+      const h=cx.createRadialGradient(c.x,c.y,0,c.x,c.y,18); h.addColorStop(0,`rgba(255,255,255,${noite})`); h.addColorStop(.3,`rgba(166,216,255,${0.6*noite})`); h.addColorStop(1,"rgba(166,216,255,0)");
+      cx.fillStyle=h; cx.beginPath(); cx.arc(c.x,c.y,18,0,6.283); cx.fill(); return true; });
+  }
+  if(dia>0){
+    amanhecer(dia,dt);
+    if(!calmo&&dia>0.2){ proxPas-=dt*1000; if(proxPas<=0){ passaros.push(...bando()); proxPas=3500+Math.random()*4000; } }
+    passaros=passaros.filter(b=>{ if(!calmo){ b.x+=b.v*dt; b.f+=dt*9; b.y+=Math.sin(b.f*.3)*0.15; } passaro(b,Math.min(1,dia*1.4)); return b.x>-120&&b.x<W+120; });
+  }
+  requestAnimationFrame(desenha);
+}
+semear(); addEventListener("resize",semear); requestAnimationFrame(desenha);
+
+aplicaLang(lang,false); atualizaMensagem(); medir();
+</script>
+
+</body>
+</html>
