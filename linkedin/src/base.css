@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#FBFBFD;color:#1D1D1F;font-family:"Instrument Sans",sans-serif;letter-spacing:-.01em}
+.d{font-family:Syne,sans-serif;font-weight:800;letter-spacing:-.045em;line-height:.95}
+canvas.ht{position:absolute;inset:0;width:100%;height:100%}
+.mag{color:#D1007A}
+.lbl{font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6E6E73}
+.dots{display:inline-block;width:90px;height:12px;background:linear-gradient(90deg,#00ADEF,#EC008C,#FFD500);-webkit-mask:radial-gradient(circle,#000 2.6px,transparent 3px) 0 0/12px 12px}

@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><script src="ht.js"></script>
+<style>
+@page{size:1080px 1350px;margin:0}
+.pg{width:1080px;height:1350px;position:relative;overflow:hidden;page-break-after:always;padding:96px 90px}
+.top{position:absolute;left:90px;right:90px;top:56px;display:flex;justify-content:space-between;font-size:16px;font-weight:600;color:#6E6E73}
+.top b{color:#1D1D1F}
+h1.d{font-size:98px}
+h2.d{font-size:68px;margin-top:24px}
+p.lead{font-size:28px;line-height:1.38;color:#515154;margin-top:30px;max-width:860px;font-weight:500}
+p.lead b{color:#1D1D1F;font-weight:700}
+.img{border-radius:22px;box-shadow:0 30px 60px -28px rgba(0,0,0,.4);display:block}
+.row{display:flex;gap:28px;position:absolute;left:90px;right:90px}
+.row img{flex:1;min-width:0;width:100%;object-fit:cover}
+.cap{font-size:20px;color:#6E6E73;margin-top:14px;font-weight:500}
+.n{font-family:Syne;font-weight:800;letter-spacing:-.04em;font-size:96px;line-height:1}
+.fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,251,253,0) 0,rgba(251,251,253,.65) 55%,rgba(251,251,253,.96) 100%)}
+</style></head><body><div class="pg"><canvas class="ht"></canvas><div class="fade"></div><div class="top"><span><b>Antônio Meneghetti</b> · Diretor de arte</span><span>Campanhas · 1/4</span></div>
+<div style="position:absolute;left:90px;right:90px;bottom:120px"><div class="lbl">Case</div><h1 class="d" style="margin-top:22px">Campanhas<span class="mag">.</span></h1>
+<p class="lead">Olympikus + Maratona Internacional de Porto Alegre e os museus do Inter e do Grêmio, com a Prefeitura.</p><div style="margin-top:44px"><span class="dots"></span></div></div><img class="img" src="../assets/8df309b71d.webp" style="position:absolute;right:90px;top:170px;width:560px;transform:rotate(4deg)"></div><div class="pg"><div class="top"><span><b>Antônio Meneghetti</b> · Diretor de arte</span><span>Campanhas · 2/4</span></div><div class="lbl" style="margin-top:60px">Olympikus + Maratona</div><h2 class="d">Reta final<br>de inscrições<span class="mag">.</span></h2>
+<p class="lead">Peças da última chamada da Maratona Internacional de Porto Alegre, em parceria com a Olympikus: <b>urgência sem perder a marca</b>.</p>
+<img class="img" src="../assets/8df309b71d.webp" style="position:absolute;left:90px;bottom:96px;width:900px"></div><div class="pg"><div class="top"><span><b>Antônio Meneghetti</b> · Diretor de arte</span><span>Campanhas · 3/4</span></div><div class="lbl" style="margin-top:60px">Museu do Inter e Museu do Grêmio</div><h2 class="d">Dois rivais,<br>uma campanha<span class="mag">.</span></h2>
+<p class="lead">Divulgação dos museus dos dois clubes com a Prefeitura. O desafio: <b>dar a cada um a própria personalidade</b> sem quebrar a linguagem da campanha.</p>
+<img class="img" src="../assets/62eb568f37.webp" style="position:absolute;left:90px;bottom:420px;width:600px;transform:rotate(-2deg)"><img class="img" src="../assets/721e599824.webp" style="position:absolute;right:90px;bottom:96px;width:600px;transform:rotate(2deg)"></div><div class="pg"><canvas class="ht"></canvas><div class="fade"></div><div class="top"><span><b>Antônio Meneghetti</b> · Diretor de arte</span><span>Campanhas · 4/4</span></div>
+<div style="position:absolute;left:90px;right:90px;bottom:140px"><h1 class="d" style="font-size:100px">Design que<br>comunica<span class="mag">.</span></h1>
+<p class="lead">Antônio Meneghetti, designer e diretor de arte em Porto Alegre.<br><b>Portfólio completo e contato no meu perfil.</b></p></div></div><script>document.querySelectorAll('canvas.ht').forEach((c,i)=>halftone(c,(x,y,ph)=>Math.min(.8,1.05-Math.hypot((x-.85)*1.1,(y-.18)*1.1)*1.5+Math.sin(x*8+y*5+ph*6)*.1),15))</script></body></html>

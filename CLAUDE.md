@@ -306,3 +306,9 @@ Todo post tem que parecer da mesma família: se colocar lado a lado com as refer
 | `seta-direcao-certa.jpg` | Layout à esquerda, objeto 3D com luz na cor da marca, gráfico brilhando no fundo, CTA de arrastar |
 | `next-mentira.jpg` | Pessoa na frente da palavra gigante "MENTIRA.", holofote azul, metáfora visual (marionetes) |
 | `setup-aventura.jpg` | Personagem 3D hiper-detalhado, luz cinematográfica, partículas, textura no título |
+
+## LinkedIn do Antônio (dono)
+Guia e textos: doc https://claude.ai/artifact/M1H7shBMAP42DdADpCv7TG. Peças em `linkedin/`: `src/` (banner.html, foto.html, cases.py gera os PDFs,
+render.js exporta) e `out/` (banner 1584×396, foto 800×800, case-prefeitura-poa.pdf, case-plagio-zip.pdf, case-campanhas.pdf).
+Visual = o do portfólio (https://claude.ai/artifact/SzkpJxkCam8r5HVtsg2nZp): fundo #FBFBFD, meio-tom CMYK, Syne 800 (máx. ~100 px em página de 1080: é larga), Instrument Sans.
+Por enquanto **só o perfil, sem posts** (pedido do dono). dot. e Web Clinic entram como experiência em sites.
