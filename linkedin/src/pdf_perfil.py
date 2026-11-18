@@ -3,6 +3,8 @@ import base64, html, pathlib, subprocess
 E=html.escape
 SITE="https://claude.ai/artifact/SzkpJxkCam8r5HVtsg2nZp"
 RAW="https://raw.githubusercontent.com/meneghetti27/DOTAGENCIA/claude/loving-franklin-c8o6kc/linkedin/out/banner-linkedin.png"
+FOTO=RAW.replace("banner-linkedin.png","foto-perfil.jpg")
+foto=base64.b64encode(pathlib.Path("../out/foto-perfil.jpg").read_bytes()).decode()
 banner=base64.b64encode(pathlib.Path('../out/banner-linkedin.png').read_bytes()).decode()
 TIT="Diretor de arte e designer | Direção de arte da comunicação da Prefeitura de Porto Alegre | Identidade visual, campanhas e social media que vendem | Criador do @plagio.zip (+250 mil views/mês)"
 SOBRE=f"""Eu faço design que comunica: da ideia ao anúncio que vende, com a estratégia e a peça final no mesmo lugar.
@@ -38,11 +40,9 @@ EXP=[
 "Entre design, direção criativa e gestão de projetos. Conduzi projetos de grande porte do planejamento à entrega, com marcas como a RenauxView, maior empresa do setor, e liderei a equipe de design.","Direção criativa, Branding"),
 ("Social media","Modulo Marketing","Tempo integral","2023","2023","Porto Alegre, RS",
 "Criação de conteúdo e peças para redes sociais de clientes da agência.","Social media"),
-("Fundador","dot.","Autônomo","PERGUNTAR AO USUÁRIO","atual","Porto Alegre, RS",
-"Sites e landing pages de alta conversão + Google Ads para empresas que querem ser encontradas no Google. Do diagnóstico ao relatório mensal.","Web design, Google Ads"),
-("Fundador","Web Clinic","Autônomo","PERGUNTAR AO USUÁRIO","atual","Porto Alegre, RS",
+("Fundador","Web Clinic","Autônomo","2026","atual","Porto Alegre, RS",
 "Sites para médicos e clínicas, pensados para o paciente achar, confiar e agendar. Design, texto e publicação.","Web design"),
-("Fundador e diretor criativo","plagio.zip","Autônomo","PERGUNTAR AO USUÁRIO","atual","Porto Alegre, RS",
+("Fundador e diretor criativo","plagio.zip","Autônomo","2025","atual","Porto Alegre, RS",
 "Página autoral de rap, streetwear e eventos de Porto Alegre. +250 mil views por mês, reel com 671 mil views e 20,5 mil compartilhamentos. Direção de arte, roteiro, motion e IA generativa.","Direção criativa, Motion design"),
 ("Designer freelancer","Autônomo","Freelance","2017","atual","Porto Alegre, RS",
 "Identidade, social media e sites para marcas como Claire Fancin Cosméticos, Pro Mais Vans, BTE Grupo, Dreamz Gallery, Dubal Advocacia, Achiev, Vinhos Meneghetti e InSound.","Identidade visual, Social media"),
@@ -80,16 +80,20 @@ table{{border-collapse:collapse;width:100%;font-size:10pt}} td{{border:1px solid
 <li>Upload de arquivo: baixar pelo link, e quando abrir a janela de escolher arquivo, <b>pedir ao usuário</b> para selecionar.</li></ul></div>
 
 <h2>Ordem</h2><ol>
-<li>Desligar "Compartilhar alterações do perfil".</li><li>Idioma e URL personalizada.</li><li>Banner.</li><li>Apresentação (título, local, site).</li>
-<li>Sobre.</li><li>Destaque.</li><li>Experiências (9).</li><li>Formação, certificado e prêmio.</li><li>Competências.</li><li>"Aberto a" &gt; Prestar serviços.</li><li>Conferência final.</li></ol>
+<li>Desligar "Compartilhar alterações do perfil".</li><li>Idioma e URL personalizada.</li><li>Foto de perfil e banner.</li><li>Apresentação (título, local, site).</li>
+<li>Sobre.</li><li>Destaque.</li><li>Experiências (8).</li><li>Formação, certificado e prêmio.</li><li>Competências.</li><li>"Aberto a" &gt; Prestar serviços.</li><li>Conferência final.</li></ol>
 
 <h2>1. URL personalizada e idioma</h2><ul>
 <li>Em "Editar perfil público e URL", trocar a URL para <b>linkedin.com/in/antoniomeneghetti</b>. Se estiver ocupada, tentar <b>antonio-meneghetti</b>, depois <b>antoniomeneghetti-design</b>.</li>
 <li>Idioma principal do perfil: <b>Português</b>.</li></ul>
 
-<h2>2. Banner (foto de capa)</h2>
+<h2>2. Foto de perfil e banner</h2>
+<h3>Foto de perfil</h3><p>Baixar: <a href="{FOTO}">foto-perfil.jpg</a><br><span style="font-size:8.5pt;color:#6E6E73">{E(FOTO)}</span></p>
+<p>800×800. Subir e enquadrar com o rosto no centro do círculo, sem filtro. Visibilidade da foto: <b>Todos</b>.</p>
+<img src="data:image/jpeg;base64,{foto}" style="width:42%">
+<h3>Banner (foto de capa)</h3>
 <p>Baixar: <a href="{RAW}">banner-linkedin.png</a><br><span style="font-size:8.5pt;color:#6E6E73">{E(RAW)}</span></p>
-<p>Tamanho 1584×396. Subir sem cortar, sem zoom, sem filtro. A foto de perfil <b>não</b> muda (o usuário vai enviar uma nova depois).</p>
+<p>Tamanho 1584×396. Subir sem cortar, sem zoom, sem filtro.</p>
 <img src="data:image/png;base64,{banner}">
 
 <h2>3. Apresentação</h2><table>
@@ -111,10 +115,10 @@ table{{border-collapse:collapse;width:100%;font-size:10pt}} td{{border:1px solid
 {exp}
 
 <h2>7. Formação, certificado e prêmio</h2><table>
-<tr><td>Formação</td><td>Instituição: <b>PUCRS</b> (Pontifícia Universidade Católica do Rio Grande do Sul) · Diploma: Bacharelado · Área: Design de Produto · Fim: 2025 · Início: PERGUNTAR AO USUÁRIO</td></tr>
-<tr><td>Licenças e certificados</td><td>Nome: <b>Cambridge English: First (FCE)</b> · Organização: Cambridge Assessment English · Data: PERGUNTAR AO USUÁRIO</td></tr>
+<tr><td>Formação</td><td>Instituição: <b>PUCRS</b> (Pontifícia Universidade Católica do Rio Grande do Sul) · Diploma: Bacharelado · Área: Design de Produto · Início: 2021 · Fim: 2025</td></tr>
+<tr><td>Licenças e certificados</td><td>Nome: <b>Cambridge English: First (FCE)</b> · Organização: Cambridge Assessment English · Data de emissão: 2019</td></tr>
 <tr><td>Idiomas</td><td>Português: nativo ou bilíngue · Inglês: fluência profissional completa</td></tr>
-<tr><td>Prêmios e honrarias</td><td>Título: <b>Social Media Gov · Categoria Identidade</b> · Associado a: Prefeitura de Porto Alegre · Emissor: Social Media Gov · Data: PERGUNTAR AO USUÁRIO · Descrição: Prêmio nacional recebido pela comunicação visual da Prefeitura de Porto Alegre.</td></tr></table>
+<tr><td>Prêmios e honrarias</td><td>Título: <b>Social Media Gov · Categoria Identidade</b> · Associado a: Prefeitura de Porto Alegre · Emissor: Social Media Gov · Data: 2026 · Descrição: Prêmio nacional recebido pela comunicação visual da Prefeitura de Porto Alegre.</td></tr></table>
 
 <h2>8. Competências</h2><p>Adicionar estas 15 (remover sugestões automáticas que não estejam aqui só se o usuário concordar):</p>{bloco(chr(10).join(SKILLS))}
 <p>Depois, em "Principais competências" (as que aparecem no topo), escolher: <b>Direção de arte, Identidade visual, Campanhas publicitárias</b>.</p>
@@ -128,7 +132,7 @@ table{{border-collapse:collapse;width:100%;font-size:10pt}} td{{border:1px solid
 
 <h2>10. Conferência final</h2><ul>
 <li>Abrir o perfil como visitante ("Ver como") e conferir banner, título, link do portfólio, Sobre e Destaque.</li>
-<li>Mostrar ao usuário uma lista do que foi feito, do que ficou pendente (datas a perguntar, foto de perfil) e de qualquer erro.</li>
+<li>Mostrar ao usuário uma lista do que foi feito, do que ficou pendente e de qualquer erro.</li>
 <li>Lembrar o usuário de religar "Compartilhar alterações do perfil" só quando quiser começar a postar.</li></ul>
 </body></html>"""
 pathlib.Path('perfil.html').write_text(H)
