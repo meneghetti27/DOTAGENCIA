@@ -74,3 +74,6 @@ só Instagram, nunca Facebook; no fim listar tudo que ficou agendado.
   (Kling 3 Pro / Veo 3.1 / lipsync em cima do vídeo) ou deixar as falas fora de quadro (narração, reação de quem escuta).
 - Sempre pedir câmera em movimento nos planos.
 - Créditos ElevenLabs: perguntar antes e estimar (estimate_only). O dono mandou parar de gastar com esse vídeo.
+- Gato noir (estilo 9: chapado P&B + vermelho, jazz): a v2 (falas com Kling 3 Pro, celular chapado, persianas) foi aprovada ("tá bom o final").
+  A v3 com o roteiro trocado ("como assim você sabe das coisas antes de acontecer?" + gato calado + "Contratado") o dono não curtiu.
+  Lição: Kling 3 Pro sincroniza boca, mas cada geração inventa uma voz; falas do mesmo personagem precisam sair no mesmo plano.
