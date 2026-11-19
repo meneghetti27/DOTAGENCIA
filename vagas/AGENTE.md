@@ -5,9 +5,15 @@ Coleções: `vagas/<id>` (uma por vaga), `kits/<id>` (portfólio sob medida, ger
 `meta/vistos` ({ids:[…]}), `meta/radar` ({ultima, novas, boas}), `meta/perfil` ({contato}).
 
 ## Passo a passo de cada rodada
+0. **Fecha as vagas que sumiram**: `ArtifactData query vagas` com where status in ["nova","salva","fila"] → salve os ids em
+   `/tmp/abertas.json` → `python3 vagas/checar.py /tmp/abertas.json` → para cada id devolvido, `update` {status:"encerrada"}
+   (com `if_version`). Vaga com status "fila" que fechou: encerra também (o painel some com ela).
 1. `ArtifactData get meta/vistos` → salve `ids` em `/tmp/vistos.json` (lista JSON). Guarde o `version`.
-2. `python3 vagas/buscar.py /tmp/vistos.json > /tmp/novas.json` (fontes: Remotive, Remote OK, We Work Remotely, Jobicy,
-   Working Nomads, Himalayas; já tira vagas fora de design, cripto/apostas/adulto e com mais de 10 dias).
+2. `python3 vagas/buscar.py /tmp/vistos.json > /tmp/novas.json`. Fonte = páginas de vaga das empresas em `vagas/empresas.json`
+   (Greenhouse, Lever, Ashby: só lista vaga ABERTA e a candidatura é um formulário único, sem cadastro) + Himalayas só quando o
+   link cai nessas plataformas. Já tira vaga que não é de design, presencial, diretor/head/staff, cripto/apostas/adulto e
+   publicada há mais de 21 dias. **Nunca** volte a usar Jobicy, We Work Remotely, Remotive, Working Nomads, Remote OK
+   (o dono reclamou: vaga velha, link morto, cadastro e entrevista com robô).
 3. Leia `/tmp/novas.json` e escreva `/tmp/notas.json` dando nota a CADA vaga (rubrica abaixo). Texto em português, curto.
 4. `python3 vagas/montar_docs.py /tmp/novas.json /tmp/notas.json /tmp/lote` → grava `writes.json` e `ids.json`.
 5. `ArtifactData batch` com as entradas de `/tmp/lote/writes.json` (máx. 50 por chamada; são vagas novas, sem `if_version`).
@@ -30,6 +36,7 @@ aceita até relocation.
 - +3 área bate: brand/visual/gráfico, social media, motion/vídeo, web design, UX/UI, **IA generativa** (bônus +1 se a vaga fala de IA).
 - +2 nível alcançável (júnior a sênior; diretor/head/staff/principal = −2).
 - +1 contrato/freela remoto ou salário bom informado. +1 empresa interessante (marca forte, agência criativa, startup de IA).
-- `pular: true` para: não é vaga de design de verdade, golpe/suspeita, cripto/apostas/adulto, estágio só para estudante.
+- `pular: true` para: plataformas de talentos/marketplace (Lemon.io, Toptal, Turing, Braintrust, Andela, Crossover),
+  vaga que exige cadastro com senha, teste ou entrevista em vídeo com IA antes de mandar o portfólio, e não é vaga de design de verdade, golpe/suspeita, cripto/apostas/adulto, estágio só para estudante.
 - Campos: `nota`, `resumo` (o que é a vaga, 1–2 frases), `porque` (por que combina com ele), `alerta` (restrição de país,
   nível, red flag; vazio se nada), `area` (UX/UI | Brand | Motion | Vídeo | Web | IA), `aceita_brasil`.

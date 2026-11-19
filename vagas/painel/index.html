@@ -126,6 +126,25 @@ button{font:inherit;color:inherit}
 .cta{text-align:left}
 .cta h3{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.045em;margin:0;line-height:1}
 .cta p{color:#45454C;margin:12px 0 0}
+.fila{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:40;display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--bg);padding:8px 8px 8px 18px;border-radius:999px;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
+.fila b{font-family:var(--display);font-size:18px}
+.fila .apply{white-space:nowrap}
+.sel{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;cursor:pointer;font-size:13px;font-weight:700}
+.sel[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill.ok{border-color:color-mix(in srgb,var(--good) 50%,var(--line));color:var(--good)}
+.insc{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px)}
+.inscin{max-width:860px;margin:0 auto;padding-block:20px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+.inscin h2{font-family:var(--display);font-size:clamp(28px,4vw,40px);letter-spacing:-.04em;margin:6px 0 0}
+.campos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.campos label{display:grid;gap:4px;font-size:13px;font-weight:600}
+.campos .full{grid-column:1/-1}
+.campos input,.campos textarea{font:inherit;font-size:14px;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+@media (max-width:600px){.campos{grid-template-columns:minmax(0,1fr)}}
+.frow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+.frow:last-child{border-bottom:0}
+.estado{font-size:12px;font-family:var(--mono);color:var(--mut)}
+.estado.pronto{color:var(--good)}
+.pedido{white-space:pre-wrap;font-family:var(--mono);font-size:12px;max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.radar b::after{animation:none}}
@@ -135,7 +154,7 @@ button{font:inherit;color:inherit}
   <header class="top">
     <div class="brand">
       <h1>Radar de <i>Vagas</i></h1>
-      <p>Vagas gringas de design, motion, web e IA, achadas 2x por dia (8h e 17h). Toca em <b>APLICAR</b> e teu portfólio é remontado sob medida para aquela vaga.</p>
+      <p>Vagas gringas de design, motion, web e IA, achadas 2x por dia (7h40 e 16h40). Só vaga aberta, publicada há poucos dias e com formulário sem cadastro. Marca as que quer, e o Claude no Chrome se inscreve por ti com um portfólio sob medida para cada uma.</p>
     </div>
     <div class="radar" id="radar"><b></b><span>conectando…</span></div>
   </header>
@@ -146,6 +165,7 @@ button{font:inherit;color:inherit}
     <div class="tabs" role="group" aria-label="Filtrar por status" id="tabs">
       <button data-f="nova" aria-pressed="true">Novas</button>
       <button data-f="salva" aria-pressed="false">Salvas</button>
+      <button data-f="fila" aria-pressed="false">Para inscrever</button>
       <button data-f="aplicada" aria-pressed="false">Aplicadas</button>
       <button data-f="descartada" aria-pressed="false">Descartadas</button>
       <button data-f="todas" aria-pressed="false">Todas</button>
@@ -199,6 +219,41 @@ button{font:inherit;color:inherit}
     </aside>
   </div>
 </div>
+<div class="fila" id="fila" hidden><span><b id="filan">0</b> para inscrever</span><button class="apply" id="filago"><span>PREPARAR INSCRIÇÃO →</span></button></div>
+
+<div class="insc" id="insc" hidden>
+  <div class="kitbar"><button class="ghost" id="iclose">← Vagas</button><div class="t">Inscrição com o Claude no Chrome</div><span></span></div>
+  <div class="inscin">
+    <h2>3 passos e o Claude se inscreve por ti.</h2>
+    <div class="box">
+      <h4>1 · Teus dados (preenche uma vez, fica salvo)</h4>
+      <div class="campos" id="campos">
+        <label>Nome completo<input id="p_nome" autocomplete="name"></label>
+        <label>E-mail<input id="p_email" type="email" autocomplete="email"></label>
+        <label>Telefone com DDI<input id="p_tel" autocomplete="tel" placeholder="+55 51 9…"></label>
+        <label>LinkedIn<input id="p_linkedin" placeholder="linkedin.com/in/…"></label>
+        <label>Cidade e país<input id="p_cidade" placeholder="Porto Alegre, Brazil"></label>
+        <label>Pretensão salarial (USD)<input id="p_salario" placeholder="ex.: US$ 3.000/mês ou US$ 40k/ano"></label>
+        <label class="full">Visto / autorização de trabalho<input id="p_visto" placeholder="Brazilian citizen. Works as a contractor from Brazil. Would need visa sponsorship to relocate."></label>
+        <label class="full">Quando pode começar<input id="p_inicio" placeholder="2 weeks notice"></label>
+      </div>
+      <div class="btnrow"><button class="ghost" id="psalva">Salvar dados</button></div>
+    </div>
+    <div class="box">
+      <h4>2 · Os PDFs das vagas</h4>
+      <p class="small">O painel monta o kit de cada vaga (portfólio + carta) e baixa o PDF de cada uma. Deixa eles na pasta Downloads.</p>
+      <div id="ifila"></div>
+      <div class="btnrow"><button class="apply" id="iprep"><span>MONTAR KITS E BAIXAR PDFs</span></button></div>
+      <p class="small" id="iprog"></p>
+    </div>
+    <div class="box">
+      <h4>3 · Cola isso no Claude do Chrome</h4>
+      <p class="small">Abre o Claude in Chrome (ícone da extensão), cola o texto e manda. Ele abre cada formulário, preenche, anexa o PDF e envia. Se aparecer cadastro com senha, captcha ou entrevista em vídeo, ele pula aquela vaga e te avisa.</p>
+      <div class="pedido" id="ipedido">Os dados e os kits aparecem aqui quando estiverem prontos.</div>
+      <div class="btnrow"><button class="apply" id="icopy"><span>COPIAR PEDIDO</span></button><button class="ghost" id="idone">Já me inscrevi: marcar como aplicadas</button></div>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -243,12 +298,13 @@ function cls(n){return n>=8?"s8":n>=6?"s6":"s0"}
 /* ---------- lista ---------- */
 function render(){
   const q = $("#q").value.trim().toLowerCase();
-  const cont = {nova:0,salva:0,aplicada:0,descartada:0};
+  const cont = {nova:0,salva:0,fila:0,aplicada:0,descartada:0,encerrada:0};
   vagas.forEach(v => cont[v.status||"nova"] = (cont[v.status||"nova"]||0)+1);
   const boas = vagas.filter(v => (v.status||"nova")==="nova" && (v.nota||0)>=8).length;
-  $("#stats").innerHTML = [["Novas",cont.nova],["Nota 8+ esperando",boas],["Salvas",cont.salva],["Aplicadas",cont.aplicada]]
+  $("#stats").innerHTML = [["Novas",cont.nova],["Nota 8+ esperando",boas],["Para inscrever",cont.fila],["Aplicadas",cont.aplicada]]
     .map(([l,n])=>`<div class="stat"><strong>${n}</strong><span>${l}</span></div>`).join("");
-  let L = vagas.filter(v => filtro==="todas" || (v.status||"nova")===filtro);
+  let L = vagas.filter(v => filtro==="todas" ? v.status!=="encerrada" : (v.status||"nova")===filtro);
+  const nf = cont.fila; $("#fila").hidden = !nf; $("#filan").textContent = nf + (nf===1?" vaga":" vagas");
   if (q) L = L.filter(v => [v.titulo,v.empresa,v.local,v.resumo,(v.tags||[]).join(" ")].join(" ").toLowerCase().includes(q));
   L.sort($("#ord").value==="data" ? (a,b)=>String(b.data||b.criada).localeCompare(String(a.data||a.criada)) : (a,b)=>(b.nota||0)-(a.nota||0));
   if (!L.length){
@@ -267,6 +323,7 @@ function render(){
           ${v.status&&v.status!=="nova"?`<span class="pill st">${esc(v.status)}</span>`:""}
           ${v.local?`<span class="pill ${v.aceita_brasil?"br":""}">${v.aceita_brasil?"✓ aceita Brasil · ":""}${esc(v.local)}</span>`:""}
           ${v.salario?`<span class="pill money">${esc(v.salario)}</span>`:""}
+          ${v.plataforma?`<span class="pill ok">✓ sem cadastro · ${esc(v.plataforma)}</span>`:""}
           ${v.tipo?`<span class="pill">${esc(v.tipo)}</span>`:""}
           ${v.area?`<span class="pill">${esc(v.area)}</span>`:""}
           ${kits[v.id]?`<span class="pill">kit pronto</span>`:""}
@@ -275,7 +332,8 @@ function render(){
         ${v.porque?`<p class="why"><b>Por que combina:</b> ${esc(v.porque)}</p>`:""}
         ${v.alerta?`<p class="flag">⚠ ${esc(v.alerta)}</p>`:""}
         <div class="acts">
-          <button class="apply" data-a="aplicar"><span>APLICAR</span></button>
+          <button class="sel" data-a="fila" aria-pressed="${v.status==="fila"}">${v.status==="fila"?"✓ Vou me inscrever":"＋ Quero me inscrever"}</button>
+          <button class="apply" data-a="aplicar"><span>VER KIT</span></button>
           ${(v.status||"nova")!=="salva"?`<button class="ghost" data-a="salva">Salvar</button>`:""}
           ${(v.status||"nova")!=="descartada"?`<button class="ghost" data-a="descartada">Descartar</button>`:`<button class="ghost" data-a="nova">Voltar pra novas</button>`}
           <a class="lnk" href="${esc(v.url)}" target="_blank" rel="noopener">Ver vaga ↗</a>
@@ -289,11 +347,12 @@ $("#list").onclick = async e => {
   const b = e.target.closest("button[data-a]"); if(!b) return;
   const id = b.closest(".job").dataset.id, v = vagas.find(x=>x.id===id);
   if (b.dataset.a==="aplicar") return abrirKit(v);
+  if (b.dataset.a==="fila") return status(v, v.status==="fila" ? "salva" : "fila");
   await status(v, b.dataset.a);
 };
 async function status(v, s){
   if(!db){toast("Sem conexão com o banco do painel.");return}
-  try{ await db.collection("vagas").doc(v.id).update({status:s, status_em:new Date().toISOString()}); toast(s==="descartada"?"Descartada":s==="salva"?"Salva":s==="aplicada"?"Marcada como aplicada":"Voltou pra novas"); }
+  try{ await db.collection("vagas").doc(v.id).update({status:s, status_em:new Date().toISOString()}); toast({descartada:"Descartada",salva:"Salva",aplicada:"Marcada como aplicada",fila:"Na lista para inscrever",nova:"Voltou pra novas"}[s]||"Feito"); }
   catch(err){ toast(err.code==="permission_denied"?"Só o dono do painel pode mudar o status.":"Não salvou, tenta de novo."); }
 }
 
@@ -413,11 +472,16 @@ $("#kcopy").onclick = () => atual && kits[atual.id] && copiar(kits[atual.id].cov
 $("#kcopys").onclick = () => atual && kits[atual.id] && copiar(kits[atual.id].email_subject||"");
 
 $("#kpdf").onclick = async () => {
-  const sheet = $("#sheet"); if(!sheet||!atual) return;
-  const m = $("#kpdfmsg"); m.textContent = "Gerando o PDF…";
-  try{
+  if(!atual) return; const m = $("#kpdfmsg"); m.textContent = "Gerando o PDF…";
+  try{ const nome = await baixarPDF(atual); m.textContent = "PDF pronto: " + nome; }
+  catch(e){ m.textContent = e?.msg || (e?.code==="dismissed"||e?.code==="declined" ? "Download cancelado." : "Não consegui gerar o PDF. Tenta de novo."); }
+};
+function nomePDF(v){ return `Antonio-Meneghetti-Portfolio-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
+async function baixarPDF(v){
+  const sheet = $("#sheet"); if(!sheet) throw {msg:"Abre o kit primeiro."};
+  {
     const downloads = await claude.use("downloads");
-    if(!downloads){ m.textContent = "Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."; return; }
+    if(!downloads) throw {msg:"Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."};
     const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"px",format:[1080,1350],hotfixes:["px_scaling"]});
     const pages = [...sheet.querySelectorAll(".pg")]; const W = 1080;
     const old = sheet.style.width; sheet.style.width = W+"px"; meioTom($("#ht"));
@@ -434,11 +498,78 @@ $("#kpdf").onclick = async () => {
       } else { pdf.addImage(cv.toDataURL("image/jpeg",.9),"JPEG",0,y,W,h); y += h; first = false; }
     }
     sheet.style.width = old; meioTom($("#ht"));
-    const nome = `Antonio-Meneghetti-Portfolio-${(atual.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`;
+    const nome = nomePDF(v);
     await downloads.save({filename:nome, data:pdf.output("blob")});
-    m.textContent = "PDF pronto: " + nome;
-  }catch(e){ m.textContent = e?.code==="dismissed"||e?.code==="declined" ? "Download cancelado." : "Não consegui gerar o PDF. Tenta de novo."; }
+    return nome;
+  }
+}
+
+/* ---------- inscrição em lote (Claude in Chrome) ---------- */
+const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","visto","inicio"];
+function filaVagas(){ return vagas.filter(v => v.status==="fila"); }
+function lerCampos(){ CAMPOS.forEach(k => { perfilDoc[k] = $("#p_"+k).value.trim(); }); }
+function pintarFila(){
+  const F = filaVagas();
+  $("#ifila").innerHTML = F.length ? F.map(v => `<div class="frow"><div style="min-width:0"><b>${esc(v.titulo)}</b><div class="small">${esc(v.empresa)} · ${esc(v.plataforma||v.fonte||"")}</div></div><span class="estado ${kits[v.id]?"pronto":""}">${kits[v.id]?"kit pronto":"sem kit"}</span></div>`).join("") : `<p class="small">Nenhuma vaga marcada. Volta e toca em "＋ Quero me inscrever".</p>`;
+  $("#ipedido").textContent = pedido();
+}
+function pedido(){
+  const F = filaVagas(), p = perfilDoc;
+  if(!F.length) return "Marca pelo menos uma vaga.";
+  const falta = ["nome","email"].filter(k => !p[k]);
+  if(falta.length) return "Preenche e salva teus dados no passo 1 (falta: " + falta.join(", ") + ").";
+  const linhas = F.map((v,i) => { const k = kits[v.id]||{};
+    return `### Vaga ${i+1}: ${v.titulo} — ${v.empresa}
+Formulário: ${v.link_aplicar||v.url}
+Arquivo para anexar (currículo/portfólio): ${nomePDF(v)} (está na minha pasta Downloads)
+Cover letter (colar no campo de carta, se houver):
+${k.cover_letter||"(sem carta: escreve 3 frases curtas sobre por que combino, em inglês)"}
+${(k.qa||[]).length?"Respostas prontas:\n"+k.qa.map(x=>"- "+x.q+" → "+x.a).join("\n"):""}`; }).join("\n\n");
+  return `Me inscreve nestas ${F.length} vagas, uma por vez, em abas novas. Eu já revisei e aprovei todas, pode enviar.
+
+MEUS DADOS
+Nome: ${p.nome}
+E-mail: ${p.email}
+Telefone: ${p.tel||"-"}
+LinkedIn: ${p.linkedin||"-"}
+Portfólio / site: ${PORTFOLIO_URL}
+Cidade/país: ${p.cidade||"Porto Alegre, Brazil"}
+Pretensão salarial: ${p.salario||"open to discuss"}
+Visto/autorização: ${p.visto||"Brazilian citizen, works as a contractor from Brazil; would need sponsorship to relocate."}
+Início: ${p.inicio||"2 weeks"}
+Inglês: fluente (Cambridge English First)
+
+REGRAS
+- Em cada vaga: abre o link do formulário, preenche os campos com meus dados, anexa o PDF indicado no campo de currículo (Resume/CV) e, se houver campo de portfólio, usa o link do portfólio. Cola a cover letter no campo de carta.
+- Perguntas de diversidade (gênero, raça, deficiência, veterano): "Prefer not to say"/"Decline to self-identify".
+- Como soube da vaga: "Company careers page".
+- Se pedir criar conta com senha, captcha que tu não consegue, teste ou entrevista em vídeo, ou uma pergunta que meus dados não respondem: NÃO envia essa, anota o motivo e segue pra próxima.
+- Não anexar o PDF de uma vaga em outra.
+- No fim, me mostra uma lista: vaga → enviada ✓ / pulada (motivo).
+
+${linhas}`;
+}
+$("#filago").onclick = () => { CAMPOS.forEach(k => $("#p_"+k).value = perfilDoc[k]||""); pintarFila(); $("#insc").hidden=false; document.body.style.overflow="hidden"; };
+$("#iclose").onclick = () => { $("#insc").hidden=true; document.body.style.overflow=""; };
+$("#psalva").onclick = async () => { lerCampos(); if(db){ try{ await db.doc("meta/perfil").set(perfilDoc); toast("Dados salvos"); }catch(e){ toast("Não salvou, tenta de novo."); } } pintarFila(); };
+CAMPOS.forEach(k => $("#p_"+k).addEventListener("input", () => { lerCampos(); $("#ipedido").textContent = pedido(); }));
+$("#iprep").onclick = async () => {
+  const F = filaVagas(); if(!F.length) return; const pr = $("#iprog");
+  $("#insc").hidden = true;
+  try{
+    for (const [i,v] of F.entries()){
+      pr.textContent = `Vaga ${i+1} de ${F.length}: ${v.empresa}…`;
+      await abrirKit(v);                       // gera o kit se faltar e mostra a folha
+      if(!kits[v.id]) throw {msg:`Não consegui montar o kit de ${v.empresa}.`};
+      await new Promise(r => setTimeout(r, 900));
+      await baixarPDF(v);
+    }
+    pr.textContent = "Pronto: " + F.length + " PDFs baixados. Agora copia o pedido do passo 3.";
+  }catch(e){ pr.textContent = e?.msg || (e?.code ? "Download cancelado ou falhou ("+e.code+")." : "Algo falhou. Tenta de novo."); }
+  fecharKit(); $("#insc").hidden = false; document.body.style.overflow="hidden"; pintarFila();
 };
+$("#icopy").onclick = async () => { const t = pedido(); try{ await navigator.clipboard.writeText(t); toast("Pedido copiado: cola no Claude do Chrome"); }catch(e){ const r=document.createRange(); r.selectNodeContents($("#ipedido")); getSelection().removeAllRanges(); getSelection().addRange(r); toast("Selecionei o texto: copia com Ctrl/Cmd+C"); } };
+$("#idone").onclick = async () => { for (const v of filaVagas()) await status(v, "aplicada"); toast("Marcadas como aplicadas"); $("#insc").hidden=true; document.body.style.overflow=""; };
 
 /* ---------- conexão com o banco ---------- */
 render();
@@ -449,10 +580,10 @@ render();
   db.collection("vagas").orderBy("criada","desc").limit(600).onSnapshot(s => {
     clearTimeout(timer);
     vagas = s.docs.map(d => ({id:d.id, ...d.data()}));
-    render();
+    render(); if(!$("#insc").hidden) pintarFila();
   }, () => { $("#radar span").textContent = "erro ao ler as vagas, recarrega a página"; });
   db.collection("kits").onSnapshot(s => { kits = {}; s.docs.forEach(d => kits[d.id] = d.data()); render(); }, ()=>{});
   db.doc("meta/radar").onSnapshot(s => { const d = s.data()||{}; $("#radar span").textContent = d.ultima ? `última busca ${new Date(d.ultima).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})} · ${d.novas ?? 0} novas` : "radar ligado · primeira busca em breve"; }, ()=>{});
-  db.doc("meta/perfil").onSnapshot(s => { perfilDoc = s.data()||{}; }, ()=>{});
+  db.doc("meta/perfil").onSnapshot(s => { perfilDoc = s.data()||{}; if(!$("#insc").hidden) $("#ipedido").textContent = pedido(); }, ()=>{});
 })();
 </script>

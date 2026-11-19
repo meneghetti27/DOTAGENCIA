@@ -17,7 +17,7 @@ for v in novas:
     n = notas.get(v["id"])
     if not n or n.get("pular"): continue
     doc_id = re.sub(r"[^A-Za-z0-9_\-.~:@+]", "-", v["id"])[:200]
-    d = {k: v.get(k, "") for k in ("fonte", "titulo", "empresa", "url", "local", "salario", "tipo", "data", "tags")}
+    d = {k: v.get(k, "") for k in ("fonte", "plataforma", "titulo", "empresa", "url", "link_aplicar", "como_aplicar", "local", "salario", "tipo", "data")}
     d["descricao"] = (v.get("descricao") or "")[:3500]
     d.update({k: n.get(k) for k in ("nota", "resumo", "porque", "alerta", "area", "aceita_brasil")})
     d.update(status="nova", criada=agora)

@@ -9,8 +9,14 @@
 - Para mudar o perfil/projetos usados no kit: constantes `PERFIL`, `PROJETOS`, `XP` no painel. Novos projetos precisam de imagem em `img/`.
 - Preferências: qualquer área de design (brand, UX/UI, motion, web, IA), qualquer nível + freelas, sem salário mínimo, até relocation.
 
-## Pendente: botão "Enviar" (19/11/2026)
-O dono quer que o PDF seja enviado quando ele mandar enviar. Opções propostas, ainda sem resposta:
-1. Claude in Chrome no computador dele preenche o formulário da vaga (Greenhouse/Lever/Ashby…), anexa o PDF e cola a carta, mostrando tudo antes do Submit (recomendado).
-2. Gmail (conector) quando a vaga recebe por e-mail.
-3. Os dois. Nada é enviado sem confirmação dele.
+## Inscrição (decidido pelo dono em 19/11/2026)
+- Fontes trocadas: só páginas de vaga das empresas (Greenhouse/Lever/Ashby, lista em `empresas.json`), vaga aberta e recente,
+  formulário único sem cadastro. Agregadores antigos foram reprovados (vaga sumida, cadastro + entrevista com robô de IA, link quebrado).
+- Fluxo: no Radar ele marca "＋ Quero me inscrever" (status `fila`) → "PREPARAR INSCRIÇÃO" → preenche os dados uma vez
+  (`meta/perfil`) → "MONTAR KITS E BAIXAR PDFs" → "COPIAR PEDIDO" e cola no **Claude in Chrome** do computador dele,
+  que abre cada formulário, preenche, anexa o PDF da pasta Downloads, cola a carta e envia. Pula a vaga se pedir senha,
+  captcha, teste ou vídeo, e no fim lista enviadas/puladas. Depois ele marca "Já me inscrevi".
+- Claude na nuvem não cria conta no nome dele nem faz entrevista em vídeo.
+- `vagas/checar.py` encerra vagas que sumiram da página da empresa (roda em toda busca).
+- Vagas remotas abertas ao Brasil são raras nas empresas grandes (a maioria é "Remote - US"). Para ampliar, adicionar mais
+  empresas em `empresas.json` (testar o slug nas APIs com o script de teste) com foco em quem contrata LATAM/mundo.
