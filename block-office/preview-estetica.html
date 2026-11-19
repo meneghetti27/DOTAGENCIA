@@ -1,0 +1,123 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#000;overflow:hidden}
+#c{position:absolute;inset:0;width:100%;height:100%}
+.hud{position:absolute;inset:0;font-family:Archivo,sans-serif;color:#fff;pointer-events:none}
+.top{position:absolute;top:28px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:.04em}
+.logo svg{width:34px;height:34px}
+.tempo{font-family:'JetBrains Mono';font-weight:700;font-size:26px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:12px;backdrop-filter:blur(8px)}
+.lista{position:absolute;top:96px;left:24px;display:grid;gap:8px}
+.it{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 14px 7px 8px;font-size:15px;font-weight:700;backdrop-filter:blur(8px)}
+.it i{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.5);display:grid;place-items:center;font-style:normal;font-size:14px}
+.it.ok{color:#9dff6a}.it.ok i{background:#9dff6a;border-color:#9dff6a;color:#000}
+.it.louis{opacity:.55}
+.mapa{position:absolute;top:96px;right:24px;width:120px;height:160px;border-radius:14px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);overflow:hidden}
+.mapa b{position:absolute;width:8px;height:8px;border-radius:50%;background:#9dff6a;left:56px;top:110px;box-shadow:0 0 0 4px rgba(157,255,106,.25)}
+.mapa span{position:absolute;border:1px solid rgba(255,255,255,.35)}
+.joy{position:absolute;left:46px;bottom:70px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.3)}
+.joy::after{content:"";position:absolute;left:38px;top:22px;width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.acao{position:absolute;right:44px;bottom:84px;width:118px;height:118px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:900;font-size:22px;letter-spacing:.06em;box-shadow:0 0 0 6px rgba(255,255,255,.18),0 0 40px rgba(157,255,106,.7)}
+.dica{position:absolute;left:50%;bottom:250px;transform:translateX(-50%);background:rgba(0,0,0,.65);border:1px solid #9dff6a;color:#9dff6a;padding:10px 18px;border-radius:999px;font-weight:700;font-size:17px;white-space:nowrap}
+</style></head><body>
+<canvas id="c"></canvas>
+<div class="hud" id="hud" style="visibility:hidden">
+  <div class="top"><div class="logo"><svg viewBox="0 0 40 40"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17z" fill="#000" stroke="#fff" stroke-width="2.5"/><path d="M12 15h16v10H12z" fill="#fff"/></svg>BLOCK HUNT</div><div class="tempo">01:27</div></div>
+  <div class="lista">
+    <div class="it ok"><i>✓</i>Touca da Block</div>
+    <div class="it"><i>2</i>Térmica de lean</div>
+    <div class="it"><i>3</i>Baseadão</div>
+    <div class="it"><i>4</i>Disco “Leviano”</div>
+    <div class="it louis"><i>?</i>Achar o Louis</div>
+  </div>
+  <div class="mapa"><span style="left:14px;top:12px;width:90px;height:136px"></span><span style="left:14px;top:60px;width:90px;height:0"></span><b></b></div>
+  <div class="dica">✦ Tem algo brilhando perto</div>
+  <div class="joy"></div><div class="acao">PEGA</div>
+</div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+const W=innerWidth,H=innerHeight;
+const r=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});r.setSize(W,H,false);r.setPixelRatio(1);
+r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=.9;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const s=new THREE.Scene();s.background=new THREE.Color('#0b0b0d');s.fog=new THREE.Fog('#0b0b0d',14,34);
+s.environment=new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(),.04).texture;s.environmentIntensity=.25;
+const TL=new THREE.TextureLoader();
+function mat(n,rep=[1,1],o={}){const m=new THREE.MeshStandardMaterial(o);const load=(f,cs)=>{const t=TL.load(`assets/tex/${n}_${f}.jpg`);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(...rep);t.anisotropy=8;if(cs)t.colorSpace=THREE.SRGBColorSpace;return t};
+  m.map=load('diff',1);m.normalMap=load('nor');m.roughnessMap=load('rough');return m}
+const box=(w,h,d,m,x,y,z,ry=0)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.rotation.y=ry;o.castShadow=o.receiveShadow=true;s.add(o);return o};
+// sala: x -5..5, z 0..-26, altura 5
+const piso=new THREE.Mesh(new THREE.PlaneGeometry(10,30),mat('piso',[3,9],{roughness:1}));piso.rotation.x=-Math.PI/2;piso.position.z=-13;piso.receiveShadow=true;s.add(piso);
+box(.3,5.2,30,mat('tijolo',[6,2.2]),-5.15,2.6,-13);              // parede esquerda de tijolo
+box(.3,5.2,30,mat('reboco',[5,1.6],{color:'#d9d4cc'}),5.15,2.6,-13); // parede direita reboco cru
+const teto=new THREE.Mesh(new THREE.PlaneGeometry(10.6,30),new THREE.MeshStandardMaterial({color:'#e9e7e2',roughness:.9}));teto.rotation.x=Math.PI/2;teto.position.set(0,5.2,-13);s.add(teto);
+// fundo: parede amarela + escada de metal
+box(10.6,5.2,.3,new THREE.MeshStandardMaterial({color:'#e2a72c',roughness:.85}),0,2.6,-27.5);
+const ferro=new THREE.MeshStandardMaterial({color:'#1b1c1e',metalness:.85,roughness:.45});
+for(let i=0;i<12;i++)box(1.3,.06,.32,ferro,2.6,.35+i*.38,-20.5-i*.5);
+const lan=box(.06,.06,7.5,ferro,1.9,2.6,-23.2);lan.rotation.x=.65;const lan2=box(.06,.06,7.5,ferro,3.3,2.6,-23.2);lan2.rotation.x=.65;
+// luminárias de domo brancas no teto (marca da Block)
+const domoG=new THREE.LatheGeometry([[0,0],[.18,0],[.34,-.14],[.42,-.34],[.44,-.36]].map(p=>new THREE.Vector2(p[0],p[1])),32);
+const domoM=new THREE.MeshStandardMaterial({color:'#f4f4f2',roughness:.35,side:THREE.DoubleSide});
+const luzM=new THREE.MeshStandardMaterial({color:'#fff',emissive:'#fff2dc',emissiveIntensity:1.1});
+for(let gx=-3.6;gx<=3.6;gx+=1.2)for(let gz=-2;gz>=-12;gz-=1.25){const g=new THREE.Group();const d=new THREE.Mesh(domoG,domoM);d.castShadow=true;g.add(d);
+  const l=new THREE.Mesh(new THREE.CircleGeometry(.4,24),luzM);l.rotation.x=Math.PI/2;l.position.y=-.33;g.add(l);
+  const cabo=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,.25,12),ferro);cabo.position.y=.12;g.add(cabo);
+  g.position.set(gx+(Math.random()-.5)*.2,4.85-Math.random()*.25,gz+(gz%2)*.3);s.add(g);}
+const amb=new THREE.HemisphereLight('#fff6ea','#2a2622',.3);s.add(amb);
+const sol=new THREE.SpotLight('#fff1dc',45,26,.9,.6,1.6);sol.position.set(0,5,-6);sol.target.position.set(0,0,-8);sol.castShadow=true;sol.shadow.mapSize.set(2048,2048);sol.shadow.bias=-.0005;s.add(sol,sol.target);
+const sol2=new THREE.SpotLight('#fff1dc',30,20,.9,.7,1.6);sol2.position.set(0,5,-17);sol2.target.position.set(0,0,-20);s.add(sol2,sol2.target);
+// prateleira de tênis com neon azul (parede de tijolo)
+box(.25,.06,5,new THREE.MeshStandardMaterial({color:'#121315',metalness:.6,roughness:.5}),-4.85,1.45,-8);
+box(.05,1,5,new THREE.MeshStandardMaterial({color:'#15171a',metalness:.4,roughness:.6}),-4.98,1.95,-8);
+const corT=['#f2f2f2','#1a1a1a','#d8cbb4','#b4462e','#f2f2f2','#3a3f47','#e9e2d0'];
+for(let i=0;i<7;i++){const t=new THREE.Group();const sola=new THREE.Mesh(new THREE.BoxGeometry(.16,.05,.32),new THREE.MeshStandardMaterial({color:'#f5f3ee',roughness:.6}));
+  const cab=new THREE.Mesh(new THREE.BoxGeometry(.14,.11,.27),new THREE.MeshStandardMaterial({color:corT[i],roughness:.55}));cab.position.set(0,.07,.02);t.add(sola,cab);
+  t.position.set(-4.75,1.51,-6+(-i*.62));t.rotation.y=Math.PI/2+.25;t.traverse(o=>o.castShadow=true);s.add(t);}
+const neonM=new THREE.MeshStandardMaterial({color:'#1e5bff',emissive:'#2f6bff',emissiveIntensity:6});
+function neonX(z){for(const a of [.6,-.6]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.7,8),neonM);b.position.set(-4.95,1.1,z);b.rotation.x=a;s.add(b);}
+  const p=new THREE.PointLight('#2f6bff',4,3,2);p.position.set(-4.6,1.1,z);s.add(p);}
+neonX(-5.2);neonX(-10.8);
+// arara de cano curvo com camisetas (lado direito)
+const cano=new THREE.MeshStandardMaterial({color:'#3a3c3f',metalness:.9,roughness:.35});
+const arco=new THREE.Mesh(new THREE.TorusGeometry(1.25,.03,10,40,Math.PI),cano);arco.position.set(3.9,1.05,-9.5);arco.rotation.y=Math.PI/2;s.add(arco);
+box(.05,.05,2.6,cano,3.9,.05,-9.5);
+const camM=['#f4f4f2','#f4f4f2','#e8e6e1','#151515','#f4f4f2','#202020','#f4f4f2','#e8e6e1','#151515','#f4f4f2'];
+for(let i=0;i<10;i++){const c=new THREE.Mesh(new THREE.BoxGeometry(.04,.85,.62),new THREE.MeshStandardMaterial({color:camM[i],roughness:.95}));c.position.set(3.9,1.6,-8.5-i*.22);c.rotation.x=(Math.random()-.5)*.08;c.castShadow=true;s.add(c);}
+// banco de metal preto sobre blocos de madeira
+const madeira=mat('madeira',[1,1]);box(.5,.35,.5,madeira,1.9,.17,-13);box(.5,.35,.5,madeira,1.9,.17,-15.4);
+box(.7,.08,3.2,new THREE.MeshStandardMaterial({color:'#101214',metalness:.75,roughness:.4}),1.9,.4,-14.2);
+// cabine de DJ com o cubo em neon verde
+box(1.8,1.05,.8,new THREE.MeshStandardMaterial({color:'#0e0f10',roughness:.6}),-2.2,.52,-21);
+const cubo=new THREE.Group();const hx=[[0,.32],[.28,.16],[.28,-.16],[0,-.32],[-.28,-.16],[-.28,.16],[0,.32]];
+for(let i=0;i<6;i++){const a=hx[i],b=hx[i+1];const L=Math.hypot(b[0]-a[0],b[1]-a[1]);const m=new THREE.Mesh(new THREE.CylinderGeometry(.014,.014,L,8),new THREE.MeshStandardMaterial({color:'#2dffb0',emissive:'#2dffb0',emissiveIntensity:5}));
+  m.position.set((a[0]+b[0])/2,(a[1]+b[1])/2,0);m.rotation.z=Math.atan2(b[1]-a[1],b[0]-a[0])-Math.PI/2;cubo.add(m)}
+cubo.position.set(-2.2,.55,-20.58);s.add(cubo);const pl=new THREE.PointLight('#2dffb0',5,3.5,2);pl.position.set(-2.2,.6,-20.2);s.add(pl);
+for(const x of [-2.7,-1.7]){const tt=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.02,40),new THREE.MeshStandardMaterial({color:'#0a0a0a',roughness:.3}));tt.position.set(x,1.07,-21);s.add(tt);
+  box(.5,.05,.42,new THREE.MeshStandardMaterial({color:'#c9c9c4',metalness:.8,roughness:.35}),x,1.05,-21);}
+// planta, extintor e coisas de verdade (Poly Haven)
+const L=new GLTFLoader();
+const coloca=async(n,x,y,z,esc,ry=0)=>{const g=await L.loadAsync(`assets/models/${n}/${n}.gltf`);g.scene.scale.setScalar(esc);g.scene.position.set(x,y,z);g.scene.rotation.y=ry;g.scene.traverse(o=>{if(o.isMesh){o.castShadow=o.receiveShadow=true}});s.add(g.scene);return g.scene};
+await Promise.all([coloca('potted_plant_02',4.3,0,-17,1.6),coloca('korean_fire_extinguisher_01',-4.75,0,-15,1,Math.PI/2),coloca('plastic_crate_01',-3.2,0,-19.8,1.1,.3),coloca('plastic_crate_01',-3.2,.27,-19.8,1.1,-.2),coloca('metal_stool_01',.3,0,-21.5,1)]);
+// brilho do item (touca já pega; térmica brilhando na cabine)
+const term=await coloca('plastic_thermos',-1.2,1.05,-20.9,1);const glow=new THREE.PointLight('#9dff6a',2.5,1.6,2);glow.position.set(-1.2,1.3,-20.9);s.add(glow);
+const sprM=new THREE.SpriteMaterial({color:'#b6ff8a',transparent:true,opacity:.85,blending:THREE.AdditiveBlending});
+for(let i=0;i<8;i++){const sp=new THREE.Sprite(sprM);sp.scale.setScalar(.05+Math.random()*.05);sp.position.set(-1.2+(Math.random()-.5)*.4,1.15+Math.random()*.4,-20.9+(Math.random()-.5)*.3);s.add(sp)}
+// boneco com proporção realista (provisório)
+const sold=await L.loadAsync('assets/Soldier.glb');const p=sold.scene;p.scale.setScalar(1.0);
+p.position.set(-.6,0,-7.4);p.rotation.y=0.25;s.add(p);
+p.traverse(o=>{if(o.isMesh){o.castShadow=true;o.material=o.material.clone();o.material.color=new THREE.Color(o.name.includes('visor')?'#050505':'#3b3b3b')}});
+const mix=new THREE.AnimationMixer(p);mix.clipAction(sold.animations.find(a=>a.name==='Walk')).play();mix.update(.4);
+// câmera de jogo atrás do boneco
+const cam=new THREE.PerspectiveCamera(58,W/H,.1,80);cam.position.set(1.2,2.5,-3.6);cam.lookAt(-1.6,1.4,-13);
+const comp=new EffectComposer(r);comp.addPass(new RenderPass(s,cam));comp.addPass(new UnrealBloomPass(new THREE.Vector2(W,H),.45,.4,.92));comp.addPass(new OutputPass());
+setTimeout(()=>{comp.render();comp.render();document.getElementById('hud').style.visibility='visible';window.ok=1},9000);
+</script></body></html>

@@ -83,6 +83,9 @@ pílulas de vidro com os serviços, e os **posts e o site reais da dot** como pr
 Título atrás do animal: as pontas das orelhas cobrem só a base da 2ª linha (`desloc_recorte` ajusta).
 Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
 
+## Jogo Block Office (Block Hunt)
+Tudo em `block-office/COMO-FAZER.md`. 1ª versão reprovada (Louis horrível, loja genérica): refazer com Louis estilizado caprichado e fotos reais da loja.
+
 ## Projeto paralelo: @plagio.zip
 Tudo em `plagio/COMO-FAZER.md` (moldura, P&B com cor de destaque, Drive em PLAGIO POSTS / Semana N / Post NN.jpg + Post NN - legenda, upload automático via Apps Script).
 
