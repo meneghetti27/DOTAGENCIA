@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agenda VO">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/img/apple-touch-icon.png">
+<title>Área da doutora | Dra. Victoria Oss-Emer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--fundo:#000;--fundo2:#1d1512;--cartao:rgba(26,19,16,.82);--cartao2:#221915;--linha:rgba(217,188,148,.18);--linha2:rgba(217,188,148,.32);
+    --ouro:#D9BC94;--ouro2:#E8D2B0;--texto:#F3E9DC;--suave:rgba(243,233,220,.6);--fraco:rgba(243,233,220,.35);--vinho:#5A0E12;
+    --verde:#8fc27c;--vermelho:#e0705f;--serif:'Playfair Display',Georgia,serif;--script:'Pinyon Script',cursive;--sans:'Poppins',system-ui,sans-serif;color-scheme:dark}
+  *{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
+  body{font-family:var(--sans);font-weight:300;color:var(--texto);background:var(--fundo);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;
+    background-image:radial-gradient(60% 50% at 8% 10%,#2a1d17 0%,transparent 70%),radial-gradient(50% 45% at 95% 95%,#1d1512 0%,transparent 70%);background-attachment:fixed}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #tela-login,#tela-painel{position:relative;z-index:1}
+  button,input,select{font:inherit;color:inherit}
+  button{cursor:pointer}
+  a{color:var(--ouro)}
+  .wrap{width:min(980px,100% - 28px);margin-inline:auto;padding:calc(22px + env(safe-area-inset-top)) 0 calc(110px + env(safe-area-inset-bottom))}
+  .mono{font-family:var(--script);color:var(--ouro);font-size:2.4rem;line-height:1}
+  .k{font-size:.62rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ouro);font-weight:500}
+  h1{font-family:var(--serif);font-weight:400;color:var(--texto);font-size:1.6rem;line-height:1.15}
+  h1 .script{font-family:var(--script);color:var(--ouro);font-size:1.4em;font-weight:400}
+  h2{font-family:var(--serif);font-weight:400;color:var(--texto);font-size:1.3rem;margin-bottom:.3rem}
+  .sub{font-size:.85rem;color:var(--suave)}
+  .cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:22px;padding:1.4rem;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border-radius:999px;padding:.75rem 1.3rem;font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,color .2s,transform .2s}
+  .btn:active{transform:scale(.97)}
+  .btn-vinho{background:var(--ouro);color:#120c0a;border:1px solid var(--ouro)}
+  .btn-vinho:hover{background:var(--ouro2)}
+  .btn-leve{background:transparent;border:1px solid var(--linha2);color:var(--ouro)}
+  .btn-leve:hover{border-color:var(--ouro);background:rgba(217,188,148,.08)}
+  .btn-mini{padding:.45rem .85rem;font-size:.6rem;letter-spacing:.14em}
+  .campo{display:grid;gap:.35rem;margin-top:1.1rem}
+  .campo label,.rot{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--ouro)}
+  .campo input,.campo select{width:100%;padding:.75rem .2rem;border:0;border-bottom:1px solid var(--linha2);background:transparent;font-size:16px;outline:none;color:var(--texto);border-radius:0}
+  .campo select option{background:#1a1310}
+  .campo input:focus,.campo select:focus{border-bottom-color:var(--ouro)}
+  .campo input::placeholder{color:var(--fraco)}
+  .ajuda{font-size:.76rem;color:var(--suave)}
+  .erro{color:var(--vermelho);font-size:.82rem;min-height:1.2em;margin-top:.6rem}
+  :focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+
+  /* login */
+  #tela-login{min-height:100vh;display:grid;place-items:center;padding:20px}
+  #tela-login .caixa{width:min(360px,100%);text-align:center}
+  #tela-login .bem{font-family:var(--serif);font-size:2.2rem;margin-top:1.1rem;line-height:1}
+  #tela-login .volta{font-family:var(--script);color:var(--ouro);font-size:2.8rem;line-height:1}
+  #tela-login form{text-align:left;margin-top:1.6rem}
+  #tela-login .btn{width:100%;margin-top:1.6rem;background:transparent;color:var(--ouro);border:1px solid var(--ouro);padding:.95rem}
+  #tela-login .btn:hover{background:var(--ouro);color:#120c0a}
+
+  /* topo e abas */
+  .topo{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.3rem}
+  .topo .marca{display:flex;align-items:center;gap:.9rem}
+  .abas{display:flex;gap:.2rem;overflow-x:auto;margin-bottom:1.2rem;border-bottom:1px solid var(--linha);scrollbar-width:none}
+  .abas::-webkit-scrollbar{display:none}
+  .abas button{flex:0 0 auto;border:0;background:none;padding:.8rem 1rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--fraco);white-space:nowrap;position:relative}
+  .abas button[aria-selected=true]{color:var(--ouro)}
+  .abas button[aria-selected=true]::after{content:"";position:absolute;left:1rem;right:1rem;bottom:-1px;height:1px;background:var(--ouro)}
+  .abas .bolha{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:.4rem;border-radius:999px;background:var(--ouro);color:#120c0a;font-size:.6rem;letter-spacing:0}
+  .painel{display:none}
+  .painel.ativo{display:block}
+  .pilha{display:grid;gap:1rem}
+
+  /* semana */
+  .dia-semana{display:grid;grid-template-columns:110px 1fr;gap:.8rem;align-items:start;padding:1rem 0;border-top:1px solid var(--linha)}
+  .dia-semana:first-of-type{border-top:0}
+  .dia-semana b{font-family:var(--serif);font-weight:400;color:var(--texto);font-size:1.05rem;padding-top:.3rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+  .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .5rem .4rem .85rem;border-radius:999px;background:var(--cartao2);border:1px solid var(--linha2);font-weight:500;font-size:.86rem;font-variant-numeric:tabular-nums}
+  .chip button{border:0;background:rgba(217,188,148,.15);width:20px;height:20px;border-radius:50%;line-height:1;font-size:.8rem;color:var(--ouro)}
+  .chip button:hover{background:rgba(217,188,148,.35)}
+  .add{display:inline-flex;gap:.3rem}
+  .add input{width:108px;padding:.38rem .6rem;border-radius:999px;border:1px dashed var(--linha2);background:transparent;font-size:16px;color:var(--texto)}
+  .vazio{font-size:.8rem;color:var(--fraco);font-style:italic}
+
+  /* calendário */
+  .cal-topo{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+  .cal-topo b{font-family:var(--serif);font-weight:400;font-size:1.2rem;color:var(--texto)}
+  .cal-topo button{width:40px;height:40px;border-radius:50%;border:1px solid var(--linha2);background:transparent;font-size:1rem;color:var(--ouro)}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+  .cal .cab{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fraco);font-weight:500;padding-bottom:.2rem}
+  .cal button{position:relative;height:46px;border-radius:12px;border:1px solid transparent;background:var(--cartao2);font-size:.9rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--texto)}
+  .cal button.passado{background:transparent;color:rgba(243,233,220,.18);cursor:default}
+  .cal button.fechado{background:rgba(224,112,95,.1);color:var(--vermelho);text-decoration:line-through}
+  .cal button.proprio{border-color:var(--ouro)}
+  .cal button.sem{background:transparent;color:var(--fraco)}
+  .cal button .pt{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);display:flex;gap:2px}
+  .cal button .pt i{width:5px;height:5px;border-radius:50%;background:var(--verde)}
+  .cal button .pt i.o{background:var(--ouro);opacity:.45}
+  .cal button.sel{background:var(--ouro);color:#120c0a;border-color:var(--ouro)}
+  .cal button.hoje{box-shadow:0 0 0 1px var(--linha2) inset}
+  .legenda{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:.9rem;font-size:.72rem;color:var(--suave)}
+  .legenda i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.35rem;vertical-align:middle}
+  .modo-dia{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin:.9rem 0}
+  .modo-dia button{padding:.7rem .4rem;border-radius:14px;border:1px solid var(--linha2);background:transparent;font-size:.74rem;font-weight:500;color:var(--suave)}
+  .modo-dia button[aria-pressed=true]{background:var(--ouro);color:#120c0a;border-color:var(--ouro)}
+  .slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.45rem;margin-top:.6rem}
+  .slot{display:flex;justify-content:space-between;align-items:center;padding:.65rem .85rem;border-radius:14px;border:1px solid var(--linha2);background:var(--cartao2);font-weight:600;font-variant-numeric:tabular-nums;color:var(--texto)}
+  .slot small{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--verde)}
+  .slot.ocupado{background:rgba(217,188,148,.08);border-color:var(--linha);color:var(--fraco)}
+  .slot.ocupado small{color:var(--ouro)}
+  .dia-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
+
+  /* pedidos */
+  .filtros{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+  .filtros button{padding:.45rem .95rem;border-radius:999px;border:1px solid var(--linha2);background:transparent;font-size:.72rem;font-weight:500;color:var(--suave)}
+  .filtros button[aria-pressed=true]{background:var(--ouro);color:#120c0a;border-color:var(--ouro)}
+  .pedido{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem;border-radius:18px;background:var(--cartao2);border:1px solid var(--linha)}
+  .pedido + .pedido{margin-top:.6rem}
+  .pedido .data{width:64px;text-align:center;border-radius:14px;border:1px solid var(--linha2);padding:.5rem 0;font-variant-numeric:tabular-nums}
+  .pedido .data b{display:block;font-family:var(--serif);font-weight:400;font-size:1.45rem;color:var(--ouro);line-height:1}
+  .pedido .data span{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+  .pedido .quem b{font-weight:500;color:var(--texto)}
+  .pedido .quem p{font-size:.8rem;color:var(--suave)}
+  .etiqueta{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-left:.4rem;vertical-align:middle}
+  .etiqueta.novo{background:rgba(217,188,148,.18);color:var(--ouro)}
+  .etiqueta.confirmado{background:rgba(143,194,124,.15);color:var(--verde)}
+  .etiqueta.cancelado{background:rgba(224,112,95,.12);color:var(--vermelho)}
+  .acoes{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:flex-end}
+  .pedido.cancelado{opacity:.55}
+
+  /* site */
+  .duas{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .interruptor{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1rem;padding:.85rem 1rem;border-radius:14px;background:var(--cartao2);border:1px solid var(--linha)}
+  .interruptor input{appearance:none;width:46px;height:26px;border-radius:999px;background:rgba(243,233,220,.15);position:relative;cursor:pointer;transition:background .2s;flex:none}
+  .interruptor input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--texto);transition:transform .2s}
+  .interruptor input:checked{background:var(--ouro)}
+  .interruptor input:checked::after{transform:translateX(20px);background:#120c0a}
+  .previa{margin-top:1rem;padding:.9rem 1rem;border-radius:16px;border:1px dashed var(--linha2);font-size:.82rem;color:var(--suave)}
+  .previa b{color:var(--ouro);font-weight:500}
+
+  /* barra de salvar */
+  .salvar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px max(14px,env(safe-area-inset-left)) calc(14px + env(safe-area-inset-bottom));display:flex;justify-content:center;
+    transform:translateY(130%);transition:transform .35s cubic-bezier(.3,1.3,.5,1)}
+  .salvar.mostra{transform:none}
+  .salvar div{display:flex;align-items:center;gap:.8rem;padding:.6rem .6rem .6rem 1.2rem;border-radius:999px;background:#1a1310;border:1px solid var(--ouro);color:var(--texto);box-shadow:0 14px 40px rgba(0,0,0,.6);font-size:.84rem}
+  .aviso{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translate(-50%,-160%);z-index:30;padding:.7rem 1.3rem;border-radius:999px;background:var(--ouro);color:#120c0a;font-size:.84rem;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .35s,visibility .35s;visibility:hidden}
+  .aviso.mostra{transform:translate(-50%,0);visibility:visible}
+  .aviso.ruim{background:var(--vermelho);color:#fff}
+
+  @media (max-width:700px){
+    .dia-semana{grid-template-columns:1fr;gap:.4rem}
+    .dia-grid,.duas{grid-template-columns:1fr}
+    .pedido{grid-template-columns:auto 1fr}
+    .acoes{grid-column:1/-1;justify-content:flex-start}
+    h1{font-size:1.3rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="tela-login" hidden>
+  <div class="caixa">
+    <span class="k">Área da doutora</span>
+    <div class="bem">Bem-vinda</div>
+    <div class="volta">de volta</div>
+    <form id="form-login">
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="btn" type="submit">Entrar</button>
+      <p class="erro" id="erro-login" role="alert"></p>
+    </form>
+    <p class="ajuda" style="margin-top:.4rem"><a href="/">← Voltar ao site</a></p>
+  </div>
+</div>
+
+<div id="tela-painel" hidden>
+  <div class="wrap">
+    <header class="topo">
+      <div class="marca"><span class="mono">VO</span><div><span class="k">Área da doutora</span><h1>Olá, <span class="script">Victoria</span></h1></div></div>
+      <button class="btn btn-leve btn-mini" id="sair" type="button">Sair</button>
+    </header>
+
+    <nav class="abas" role="tablist">
+      <button role="tab" aria-selected="true" data-aba="pedidos">Pedidos<span class="bolha" id="n-novos" hidden></span></button>
+      <button role="tab" aria-selected="false" data-aba="dias">Calendário</button>
+      <button role="tab" aria-selected="false" data-aba="semana">Horários da semana</button>
+      <button role="tab" aria-selected="false" data-aba="site">Avisos do site</button>
+      <button role="tab" aria-selected="false" data-aba="conta">Senha</button>
+    </nav>
+
+    <!-- PEDIDOS -->
+    <section class="painel ativo" id="aba-pedidos">
+      <div class="cartao">
+        <h2>Pedidos de consulta</h2>
+        <p class="sub" style="margin-bottom:1rem">O que você mudar aqui aparece no site para todo mundo. Quem reservou pelo site. O horário já fica ocupado; se cancelar, ele volta a ficar livre.</p>
+        <div class="filtros" id="filtros">
+          <button aria-pressed="true" data-f="ativos">Próximos</button>
+          <button aria-pressed="false" data-f="novo">Novos</button>
+          <button aria-pressed="false" data-f="confirmado">Confirmados</button>
+          <button aria-pressed="false" data-f="cancelado">Cancelados</button>
+          <button aria-pressed="false" data-f="todos">Todos</button>
+        </div>
+        <div id="lista-pedidos"></div>
+      </div>
+    </section>
+
+    <!-- CALENDÁRIO -->
+    <section class="painel" id="aba-dias">
+      <div class="dia-grid">
+        <div class="cartao">
+          <div class="cal-topo"><button type="button" id="mes-ant" aria-label="Mês anterior">‹</button><b id="mes-nome"></b><button type="button" id="mes-prox" aria-label="Próximo mês">›</button></div>
+          <div class="cal" id="cal"></div>
+          <div class="legenda">
+            <span><i style="background:var(--verde)"></i>Horário livre</span>
+            <span><i style="background:var(--ouro);opacity:.45"></i>Ocupado</span>
+            <span><i style="background:var(--vermelho)"></i>Dia fechado</span>
+            <span><i style="background:transparent;border:1px solid var(--ouro)"></i>Horários só desse dia</span>
+          </div>
+        </div>
+        <div class="cartao" id="detalhe-dia">
+          <h2 id="dia-titulo">Escolha um dia</h2>
+          <p class="sub" id="dia-sub">Toque num dia do calendário para fechar, abrir horários extras ou marcar um horário como ocupado.</p>
+          <div id="dia-conteudo" hidden>
+            <div class="modo-dia" role="group" aria-label="Como fica esse dia">
+              <button type="button" data-modo="semana" aria-pressed="true">Normal</button>
+              <button type="button" data-modo="proprio" aria-pressed="false">Outros horários</button>
+              <button type="button" data-modo="fechado" aria-pressed="false">Fechado</button>
+            </div>
+            <p class="ajuda" id="modo-ajuda"></p>
+            <div id="editor-proprio" hidden style="margin-top:.7rem"><span class="rot">Horários desse dia</span><div class="chips" id="chips-proprio" style="margin-top:.4rem"></div></div>
+            <div id="area-slots" style="margin-top:1rem"><span class="rot">Toque para marcar livre ou ocupado</span><div class="slots" id="slots-dia"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEMANA -->
+    <section class="painel" id="aba-semana">
+      <div class="cartao">
+        <h2>Horários de cada dia da semana</h2>
+        <p class="sub">É o padrão que se repete toda semana. Para mudar só um dia (feriado, congresso), use o Calendário.</p>
+        <div id="lista-semana" style="margin-top:.6rem"></div>
+      </div>
+    </section>
+
+    <!-- SITE -->
+    <section class="painel" id="aba-site">
+      <div class="pilha">
+        <div class="cartao">
+          <h2>Contato e agenda</h2>
+          <div class="duas">
+            <div class="campo"><label for="s-whats">WhatsApp (com DDD)</label><input id="s-whats" inputmode="tel" placeholder="(51) 99189-0776"><span class="ajuda">Recebe as mensagens de agendamento.</span></div>
+            <div class="campo"><label for="s-meses">Agenda aberta para</label><select id="s-meses"><option value="1">1 mês à frente</option><option value="2">2 meses à frente</option><option value="3">3 meses à frente</option><option value="4">4 meses à frente</option><option value="6">6 meses à frente</option></select></div>
+          </div>
+        </div>
+        <div class="cartao">
+          <h2>Aviso do topo do site</h2>
+          <p class="sub">Aparece embaixo dos botões, no começo da página.</p>
+          <div class="campo"><label for="s-at">Frase em destaque</label><input id="s-at" maxlength="120"></div>
+          <div class="campo"><label for="s-ax">Complemento</label><input id="s-ax" maxlength="200"></div>
+          <div class="previa" id="previa-aviso"></div>
+        </div>
+        <div class="cartao">
+          <h2>Notificação que aparece no canto</h2>
+          <label class="interruptor" for="s-notif"><span>Mostrar a notificação</span><input type="checkbox" id="s-notif"></label>
+          <div class="campo"><label for="s-nt">Título</label><input id="s-nt" maxlength="80"></div>
+          <div class="campo"><label for="s-nx">Texto</label><input id="s-nx" maxlength="200"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTA -->
+    <section class="painel" id="aba-conta">
+      <div class="cartao" style="max-width:460px">
+        <h2>Trocar a senha</h2>
+        <form id="form-senha">
+          <div class="campo"><label for="c-atual">Senha atual</label><input id="c-atual" type="password" autocomplete="current-password" required></div>
+          <div class="campo"><label for="c-nova">Nova senha</label><input id="c-nova" type="password" autocomplete="new-password" minlength="8" required><span class="ajuda">Pelo menos 8 caracteres.</span></div>
+          <div class="campo"><label for="c-conf">Repita a nova senha</label><input id="c-conf" type="password" autocomplete="new-password" required></div>
+          <button class="btn btn-vinho" type="submit" style="margin-top:1rem">Salvar nova senha</button>
+          <p class="erro" id="erro-senha" role="alert"></p>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div class="salvar" id="barra-salvar"><div><span>Você tem mudanças não salvas</span><button class="btn btn-leve btn-mini" id="desfazer" type="button">Desfazer</button><button class="btn btn-vinho btn-mini" id="salvar" type="button">Salvar</button></div></div>
+</div>
+
+<div class="aviso" id="aviso" role="status"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const DIAS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+const fmtMes = new Intl.DateTimeFormat('pt-BR', {month: 'long', year: 'numeric'});
+const fmtDia = new Intl.DateTimeFormat('pt-BR', {weekday: 'long', day: 'numeric', month: 'long'});
+const chaveData = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const deChave = k => { const [a, m, d] = k.split('-').map(Number); return new Date(a, m - 1, d); };
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+
+let agenda = null, salvo = null, pedidos = [], filtro = 'ativos', mesVisto = null, diaSel = null;
+
+function aviso(txt, ruim) {
+  const a = $('aviso'); a.textContent = txt; a.classList.toggle('ruim', !!ruim); a.classList.add('mostra');
+  clearTimeout(aviso.t); aviso.t = setTimeout(() => a.classList.remove('mostra'), 2600);
+}
+async function api(url, opts = {}) {
+  const r = await fetch(url, {credentials: 'same-origin', headers: {'Content-Type': 'application/json'}, ...opts});
+  const d = await r.json().catch(() => ({}));
+  if (r.status === 401 && url !== '/api/login') { mostraLogin(); throw new Error(d.erro || 'Faça login de novo.'); }
+  if (!r.ok) throw new Error(d.erro || 'Algo deu errado.');
+  return d;
+}
+
+/* ---------- login ---------- */
+function mostraLogin() { $('tela-painel').hidden = true; $('tela-login').hidden = false; setTimeout(() => $('senha').focus(), 50); }
+$('form-login').addEventListener('submit', async e => {
+  e.preventDefault(); $('erro-login').textContent = '';
+  try { await api('/api/login', {method: 'POST', body: JSON.stringify({senha: $('senha').value})}); $('senha').value = ''; await abrePainel(); }
+  catch (err) { $('erro-login').textContent = err.message; }
+});
+$('sair').addEventListener('click', async () => { await fetch('/api/login', {method: 'DELETE'}); location.reload(); });
+
+async function abrePainel() {
+  const d = await api('/api/admin');
+  agenda = d.agenda; pedidos = d.pedidos || []; salvo = JSON.stringify(agenda);
+  $('tela-login').hidden = true; $('tela-painel').hidden = false;
+  const hoje = new Date(); mesVisto = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+  desenhaTudo();
+}
+(async () => {
+  try { const s = await api('/api/login'); s.logada ? await abrePainel() : mostraLogin(); }
+  catch (e) { mostraLogin(); }
+})();
+
+/* ---------- abas ---------- */
+document.querySelectorAll('.abas button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.abas button').forEach(x => x.setAttribute('aria-selected', x === b));
+  document.querySelectorAll('.painel').forEach(p => p.classList.toggle('ativo', p.id === 'aba-' + b.dataset.aba));
+}));
+
+/* ---------- mudanças e salvar ---------- */
+function mudou() { $('barra-salvar').classList.toggle('mostra', JSON.stringify(agenda) !== salvo); }
+$('desfazer').addEventListener('click', () => { agenda = JSON.parse(salvo); desenhaTudo(); mudou(); });
+$('salvar').addEventListener('click', async () => {
+  try {
+    const d = await api('/api/admin', {method: 'POST', body: JSON.stringify({acao: 'agenda', agenda})});
+    agenda = d.agenda; salvo = JSON.stringify(agenda); desenhaTudo(); mudou(); aviso('Salvo! Já está no site.');
+  } catch (e) { aviso(e.message, true); }
+});
+addEventListener('beforeunload', e => { if (agenda && JSON.stringify(agenda) !== salvo) { e.preventDefault(); e.returnValue = ''; } });
+
+function desenhaTudo() { desenhaPedidos(); desenhaCal(); desenhaDia(); desenhaSemana(); preencheSite(); }
+
+/* ---------- horários: chips com adicionar ---------- */
+function editorHoras(alvo, lista, aoMudar) {
+  alvo.innerHTML = '';
+  lista.slice().sort().forEach(h => {
+    const c = document.createElement('span'); c.className = 'chip';
+    c.innerHTML = `${h}<button type="button" aria-label="Tirar ${h}">×</button>`;
+    c.querySelector('button').onclick = () => aoMudar(lista.filter(x => x !== h));
+    alvo.appendChild(c);
+  });
+  if (!lista.length) { const v = document.createElement('span'); v.className = 'vazio'; v.textContent = 'Sem atendimento'; alvo.appendChild(v); }
+  const add = document.createElement('span'); add.className = 'add';
+  add.innerHTML = '<input type="time" step="900" aria-label="Novo horário"><button type="button" class="btn btn-leve btn-mini">+ Horário</button>';
+  const inp = add.querySelector('input');
+  const junta = () => { if (inp.value && !lista.includes(inp.value)) aoMudar([...lista, inp.value].sort()); };
+  add.querySelector('button').onclick = junta;
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); junta(); } });
+  alvo.appendChild(add);
+}
+
+/* ---------- semana ---------- */
+function desenhaSemana() {
+  const box = $('lista-semana'); box.innerHTML = '';
+  [1, 2, 3, 4, 5, 6, 0].forEach(d => {
+    const linha = document.createElement('div'); linha.className = 'dia-semana';
+    linha.innerHTML = `<b>${DIAS[d]}</b><div class="chips"></div>`;
+    editorHoras(linha.querySelector('.chips'), agenda.semana[d] || [], nova => {
+      if (nova.length) agenda.semana[d] = nova; else delete agenda.semana[d];
+      desenhaSemana(); desenhaCal(); desenhaDia(); mudou();
+    });
+    box.appendChild(linha);
+  });
+}
+
+/* ---------- calendário ---------- */
+function horariosDo(k) {
+  const conf = agenda.dias[k];
+  if (conf && conf.fechado) return [];
+  if (conf && conf.horarios) return conf.horarios;
+  return agenda.semana[deChave(k).getDay()] || [];
+}
+function desenhaCal() {
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+  const nome = fmtMes.format(mesVisto).replace(' de ', ' ');
+  $('mes-nome').textContent = nome[0].toUpperCase() + nome.slice(1);
+  const cal = $('cal'); cal.innerHTML = '';
+  ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].forEach(l => { const s = document.createElement('span'); s.className = 'cab'; s.textContent = l; cal.appendChild(s); });
+  for (let i = 0; i < mesVisto.getDay(); i++) cal.appendChild(document.createElement('span'));
+  const total = new Date(mesVisto.getFullYear(), mesVisto.getMonth() + 1, 0).getDate();
+  for (let n = 1; n <= total; n++) {
+    const d = new Date(mesVisto.getFullYear(), mesVisto.getMonth(), n), k = chaveData(d), b = document.createElement('button');
+    b.type = 'button'; b.textContent = n;
+    const conf = agenda.dias[k], hs = horariosDo(k), oc = agenda.ocupados[k] || [];
+    if (d < hoje) { b.className = 'passado'; b.disabled = true; }
+    else if (conf && conf.fechado) b.className = 'fechado';
+    else if (!hs.length) b.className = 'sem';
+    if (conf && conf.horarios) b.classList.add('proprio');
+    if (+d === +hoje) b.classList.add('hoje');
+    if (diaSel === k) b.classList.add('sel');
+    if (d >= hoje && hs.length) {
+      const pt = document.createElement('span'); pt.className = 'pt';
+      hs.slice(0, 6).forEach(h => { const i = document.createElement('i'); if (oc.includes(h)) i.className = 'o'; pt.appendChild(i); });
+      b.appendChild(pt);
+    }
+    b.setAttribute('aria-label', fmtDia.format(d));
+    if (d >= hoje) b.onclick = () => { diaSel = k; desenhaCal(); desenhaDia(); if (innerWidth < 700) $('detalhe-dia').scrollIntoView({behavior: 'smooth'}); };
+    cal.appendChild(b);
+  }
+}
+$('mes-ant').onclick = () => { mesVisto.setMonth(mesVisto.getMonth() - 1); desenhaCal(); };
+$('mes-prox').onclick = () => { mesVisto.setMonth(mesVisto.getMonth() + 1); desenhaCal(); };
+
+function desenhaDia() {
+  if (!diaSel) { $('dia-conteudo').hidden = true; return; }
+  const d = deChave(diaSel), conf = agenda.dias[diaSel];
+  const modo = conf && conf.fechado ? 'fechado' : conf && conf.horarios ? 'proprio' : 'semana';
+  const t = fmtDia.format(d); $('dia-titulo').textContent = t[0].toUpperCase() + t.slice(1);
+  $('dia-sub').textContent = ''; $('dia-conteudo').hidden = false;
+  document.querySelectorAll('.modo-dia button').forEach(b => b.setAttribute('aria-pressed', b.dataset.modo === modo));
+  $('modo-ajuda').textContent = modo === 'fechado' ? 'Ninguém consegue marcar nesse dia.' :
+    modo === 'proprio' ? 'Esse dia usa horários diferentes da semana.' : `Usa os horários de ${DIAS[d.getDay()].toLowerCase()} (aba Horários da semana).`;
+  $('editor-proprio').hidden = modo !== 'proprio';
+  if (modo === 'proprio') editorHoras($('chips-proprio'), conf.horarios, nova => { agenda.dias[diaSel] = {horarios: nova}; desenhaDia(); desenhaCal(); mudou(); });
+  const hs = horariosDo(diaSel), oc = agenda.ocupados[diaSel] || [], box = $('slots-dia');
+  $('area-slots').hidden = !hs.length; box.innerHTML = '';
+  hs.forEach(h => {
+    const ocupado = oc.includes(h), b = document.createElement('button');
+    b.type = 'button'; b.className = 'slot' + (ocupado ? ' ocupado' : '');
+    b.innerHTML = `${h}<small>${ocupado ? 'Ocupado' : 'Livre'}</small>`;
+    b.onclick = () => {
+      const l = new Set(agenda.ocupados[diaSel] || []); ocupado ? l.delete(h) : l.add(h);
+      if (l.size) agenda.ocupados[diaSel] = [...l].sort(); else delete agenda.ocupados[diaSel];
+      desenhaDia(); desenhaCal(); mudou();
+    };
+    box.appendChild(b);
+  });
+}
+document.querySelectorAll('.modo-dia button').forEach(b => b.onclick = () => {
+  const m = b.dataset.modo;
+  if (m === 'semana') delete agenda.dias[diaSel];
+  else if (m === 'fechado') agenda.dias[diaSel] = {fechado: true};
+  else agenda.dias[diaSel] = {horarios: (agenda.dias[diaSel] && agenda.dias[diaSel].horarios) || [...(agenda.semana[deChave(diaSel).getDay()] || [])]};
+  desenhaDia(); desenhaCal(); mudou();
+});
+
+/* ---------- pedidos ---------- */
+function desenhaPedidos() {
+  const hoje = chaveData(new Date());
+  const novos = pedidos.filter(p => p.status === 'novo' && p.data >= hoje).length;
+  $('n-novos').hidden = !novos; $('n-novos').textContent = novos;
+  let lista = pedidos.slice();
+  if (filtro === 'ativos') lista = lista.filter(p => p.status !== 'cancelado' && p.data >= hoje);
+  else if (filtro !== 'todos') lista = lista.filter(p => p.status === filtro);
+  lista.sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));
+  if (filtro === 'todos' || filtro === 'cancelado') lista.reverse();
+  const box = $('lista-pedidos');
+  if (!lista.length) { box.innerHTML = '<p class="vazio" style="padding:1rem 0">Nenhum pedido aqui ainda. Quando alguém reservar pelo site, aparece nesta lista.</p>'; return; }
+  box.innerHTML = '';
+  lista.forEach(p => {
+    const d = deChave(p.data), el = document.createElement('div'); el.className = 'pedido ' + p.status;
+    const fone = p.tel.replace(/\D/g, ''), wa = 'https://wa.me/' + (fone.length <= 11 ? '55' + fone : fone) +
+      '?text=' + encodeURIComponent(`Oi, ${p.nome.split(' ')[0]}! Aqui é a Dra. Victoria. Sua consulta está confirmada para ${fmtDia.format(d)} às ${p.hora}. 🤍`);
+    el.innerHTML = `<div class="data"><b>${d.getDate()}</b><span>${d.toLocaleDateString('pt-BR', {month: 'short'}).replace('.', '')} · ${p.hora}</span></div>
+      <div class="quem"><b>${esc(p.nome)}</b><span class="etiqueta ${p.status}">${p.status}</span>
+        <p>${esc(p.tipo)} · ${esc(p.modo)}<br>${esc(p.tel)} · pedido em ${new Date(p.criado).toLocaleDateString('pt-BR')}</p></div>
+      <div class="acoes">
+        <a class="btn btn-leve btn-mini" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>
+        ${p.status !== 'confirmado' ? '<button class="btn btn-vinho btn-mini" data-s="confirmado" type="button">Confirmar</button>' : ''}
+        ${p.status !== 'cancelado' ? '<button class="btn btn-leve btn-mini" data-s="cancelado" type="button">Cancelar</button>' : '<button class="btn btn-leve btn-mini" data-apagar type="button">Apagar</button>'}
+      </div>`;
+    el.querySelectorAll('[data-s]').forEach(b => b.onclick = async () => {
+      if (b.dataset.s === 'cancelado' && JSON.stringify(agenda) !== salvo) return aviso('Salve as outras mudanças antes.', true);
+      try {
+        const r = await api('/api/admin', {method: 'POST', body: JSON.stringify({acao: 'pedido', id: p.id, status: b.dataset.s})});
+        pedidos = r.pedidos; agenda = r.agenda; salvo = JSON.stringify(agenda); desenhaTudo();
+        aviso(b.dataset.s === 'cancelado' ? 'Cancelado. O horário voltou a ficar livre.' : 'Consulta confirmada.');
+      } catch (e) { aviso(e.message, true); }
+    });
+    const ap = el.querySelector('[data-apagar]');
+    if (ap) ap.onclick = async () => {
+      try { const r = await api('/api/admin', {method: 'POST', body: JSON.stringify({acao: 'apagar-pedido', id: p.id})}); pedidos = r.pedidos; desenhaPedidos(); aviso('Pedido apagado.'); }
+      catch (e) { aviso(e.message, true); }
+    };
+    box.appendChild(el);
+  });
+}
+document.querySelectorAll('#filtros button').forEach(b => b.onclick = () => {
+  filtro = b.dataset.f; document.querySelectorAll('#filtros button').forEach(x => x.setAttribute('aria-pressed', x === b)); desenhaPedidos();
+});
+
+/* ---------- avisos do site ---------- */
+const mascaraFone = n => { n = String(n || '').replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, ''); return n.length === 11 ? `(${n.slice(0, 2)}) ${n.slice(2, 7)}-${n.slice(7)}` : n; };
+function preencheSite() {
+  const s = agenda.site;
+  $('s-whats').value = mascaraFone(s.whatsapp); $('s-meses').value = String(s.meses);
+  if (!$('s-meses').value) { const o = new Option(s.meses + ' meses à frente', s.meses); $('s-meses').add(o); $('s-meses').value = String(s.meses); }
+  $('s-at').value = s.avisoTitulo; $('s-ax').value = s.avisoTexto;
+  $('s-notif').checked = !!s.notificacao; $('s-nt').value = s.notifTitulo; $('s-nx').value = s.notifTexto;
+  previa();
+}
+function previa() { $('previa-aviso').innerHTML = `<b>${esc($('s-at').value)}</b> ${esc($('s-ax').value)}`; }
+[['s-at', 'avisoTitulo'], ['s-ax', 'avisoTexto'], ['s-nt', 'notifTitulo'], ['s-nx', 'notifTexto']].forEach(([id, k]) =>
+  $(id).addEventListener('input', () => { agenda.site[k] = $(id).value; previa(); mudou(); }));
+$('s-whats').addEventListener('input', () => {
+  const n = $('s-whats').value.replace(/\D/g, ''); agenda.site.whatsapp = n.length <= 11 ? '55' + n : n; mudou();
+});
+$('s-meses').addEventListener('change', () => { agenda.site.meses = +$('s-meses').value; mudou(); });
+$('s-notif').addEventListener('change', () => { agenda.site.notificacao = $('s-notif').checked; mudou(); });
+
+/* ---------- senha ---------- */
+$('form-senha').addEventListener('submit', async e => {
+  e.preventDefault(); $('erro-senha').textContent = '';
+  if ($('c-nova').value !== $('c-conf').value) return $('erro-senha').textContent = 'As duas senhas novas não são iguais.';
+  try {
+    await api('/api/admin', {method: 'POST', body: JSON.stringify({acao: 'senha', atual: $('c-atual').value, nova: $('c-nova').value})});
+    e.target.reset(); aviso('Senha trocada.');
+  } catch (err) { $('erro-senha').textContent = err.message; }
+});
+</script>
+</body>
+</html>

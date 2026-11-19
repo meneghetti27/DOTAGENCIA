@@ -413,6 +413,7 @@
   .salvar{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-top:.9rem}
   .salvar a{padding:.6rem 1rem;border-radius:999px;font-size:.8rem;font-weight:500;color:var(--marrom);background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);transition:background .2s}
   .salvar a:hover{background:#fff}
+  .ag-erro{margin-top:.6rem;font-size:.8rem;color:#C0392B;text-align:center}
   .sucesso .voltar{display:block;margin:1rem auto 0;background:none;border:0;font:inherit;font-size:.8rem;color:var(--marrom-suave);text-decoration:underline;cursor:pointer}
 
   /* ===== RODAPÉ ===== */
@@ -421,6 +422,7 @@
   .rodape nav{display:flex;gap:1.5rem;flex-wrap:wrap}
   .rodape nav a{color:var(--marrom-suave)}
   .rodape nav a:hover{color:var(--vinho)}
+  .rodape nav a.area-doutora{color:var(--caramelo);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
   .legal{border-top:1px solid var(--bege);margin-top:2.2rem;padding-top:1.6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:var(--marrom-suave)}
 
   /* WhatsApp flutuante */
@@ -765,7 +767,7 @@
         <a href="#agendar" class="btn btn-vinho">Agendar consulta</a>
         <a href="#historia" class="btn btn-vidro vidro">Conhecer minha história</a>
       </div>
-      <a href="#agendar" class="aviso-poa vidro"><i class="bolinha"></i><span><b>Porto Alegre a partir de maio de 2027.</b> A agenda para consulta online já está aberta!</span></a>
+      <a href="#agendar" class="aviso-poa vidro"><i class="bolinha"></i><span><b id="aviso-titulo">Porto Alegre a partir de maio de 2027.</b> <span id="aviso-texto">A agenda para consulta online já está aberta!</span></span></a>
       <p class="assinatura registro">CRM-DF 35711 · RQE 26344</p>
     </div>
     <div class="arco-foto surge">
@@ -1144,6 +1146,7 @@
               </div>
               <label class="aceite"><input type="checkbox" id="ag-aceite" required><span>Autorizo o contato pelo WhatsApp e o uso dos meus dados apenas para o agendamento, conforme a LGPD.</span></label>
               <button class="btn btn-vinho" type="submit">Confirmar agendamento</button>
+              <p class="ag-erro" id="ag-erro" role="alert" hidden></p>
             </form>
               </div>
             </div>
@@ -1218,6 +1221,7 @@
         <a href="#agendar">Agendar</a>
         <a href="https://instagram.com/dra.victoriaossemer" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.threads.net/@dra.victoriaossemer" target="_blank" rel="noopener">Threads</a>
+        <a href="/admin" class="area-doutora">Área da doutora →</a>
       </nav>
     </div>
     <div class="legal">
@@ -1232,14 +1236,14 @@
     <span class="pop-poa-ic" aria-hidden="true">VO</span>
     <span class="pop-poa-t">
       <span class="pop-poa-h"><span>Dra. Victoria</span><span>agora</span></span>
-      <b>Em breve em Porto Alegre ✨</b>
-      <span class="pop-poa-m">Atendimento a partir de maio de 2027. A agenda online já está aberta.</span>
+      <b id="notif-titulo">Em breve em Porto Alegre ✨</b>
+      <span class="pop-poa-m" id="notif-texto">Atendimento a partir de maio de 2027. A agenda online já está aberta.</span>
     </span>
   </a>
   <button type="button" class="pop-poa-x" aria-label="Fechar aviso">×</button>
 </div>
 
-<a class="wa-flutua vidro" href="https://wa.me/5551991890776" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+<a class="wa-flutua vidro" id="wa-flutua" href="https://wa.me/5551991890776" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
 </a>
 
@@ -1311,7 +1315,7 @@
     const pop = document.getElementById('pop-poa'); if (!pop) return;
     let fechado = false; try { fechado = sessionStorage.getItem('pop-poa') === '1'; } catch (e) {}
     if (fechado) return;
-    setTimeout(() => { pop.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => pop.classList.add('mostra'))); }, 2500);
+    setTimeout(() => { if (pop.dataset.desligado) return; pop.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => pop.classList.add('mostra'))); }, 2500);
     const some = () => { pop.classList.remove('mostra'); setTimeout(() => pop.hidden = true, 600); try { sessionStorage.setItem('pop-poa', '1'); } catch (e) {} };
     pop.querySelector('.pop-poa-x').addEventListener('click', some);
     // no celular ela cobre o título: some sozinha depois de alguns segundos, como notificação de verdade
@@ -1320,7 +1324,7 @@
   })();
 
   // WhatsApp Business da Dra. Victoria
-  const WHATSAPP = '5551991890776';
+  let WHATSAPP = '5551991890776';
 
   // cursor: só o contorno, um fio bordô em círculo, segue o mouse com leveza e "bate" ao clicar
   if (matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
@@ -1394,18 +1398,17 @@
     document.querySelectorAll('.aba').forEach((a, j) => a.classList.toggle('ativa', i === j));
   }));
 
-  // ===== AGENDA (EXEMPLO) =====
-  // Horários por dia da semana (1 = segunda ... 5 = sexta). Os marcados com * aparecem como ocupados.
-  // Trocar por integração real (Google Agenda, Doctoralia etc.) quando definir o sistema.
-  const AGENDA = {
-    1: ['15:00', '*16:30', '19:00'],
-    2: ['08:00', '09:30', '*11:00', '14:00'],
-    3: ['*14:00', '15:30', '17:00'],
-    4: ['*09:00', '10:30', '16:00', '18:30'],
-    5: ['08:30', '10:00', '*11:30']
+  // ===== AGENDA =====
+  // Os horários vêm do painel da Dra. Victoria (/admin), salvos no servidor (/api/agenda).
+  // Estes valores só valem se o servidor não responder.
+  let DADOS = {
+    semana: {1: ['15:00', '16:30', '19:00'], 2: ['08:00', '09:30', '11:00', '14:00'], 3: ['14:00', '15:30', '17:00'], 4: ['09:00', '10:30', '16:00', '18:30'], 5: ['08:30', '10:00', '11:30']},
+    dias: {}, ocupados: {}
   };
-  const lotado = d => (d.getDate() * 7 + d.getMonth() * 3) % 6 === 0;  // alguns dias sem vaga, só de exemplo
-  const MESES_A_FRENTE = 2;
+  let MESES_A_FRENTE = 2, AGENDA_ONLINE = false;
+  const chaveDia = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const horariosDo = d => { const c = DADOS.dias[chaveDia(d)]; return c && c.fechado ? [] : c && c.horarios ? c.horarios : (DADOS.semana[d.getDay()] || []); };
+  const ocupadosDo = d => DADOS.ocupados[chaveDia(d)] || [];
 
   const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
   let mesVisto = new Date(hoje.getFullYear(), hoje.getMonth(), 1), diaSel = null, horaSel = null;
@@ -1415,9 +1418,10 @@
   const fmtCurto = new Intl.DateTimeFormat('pt-BR', {weekday: 'long', day: '2-digit', month: '2-digit'});
 
   function estado(d) {
-    const sem = d.getDay();
-    if (d <= hoje || sem === 0 || sem === 6) return 'fechado';
-    return lotado(d) ? 'lotado' : 'livre';
+    const hs = horariosDo(d);
+    if (d <= hoje || !hs.length) return 'fechado';
+    const oc = ocupadosDo(d);
+    return hs.every(h => oc.includes(h)) ? 'lotado' : 'livre';
   }
 
   function desenhaMes() {
@@ -1450,8 +1454,9 @@
     $('dia-escolhido').textContent = fmtDia.format(d);
     const slots = $('slots'); slots.innerHTML = '';
     if (window.innerWidth < 960) setTimeout(() => $('horarios').scrollIntoView({behavior: 'smooth', block: 'center'}), 50);
-    AGENDA[d.getDay()].forEach(h => {
-      const ocupado = h.startsWith('*'), hora = h.replace('*', '');
+    const oc = ocupadosDo(d);
+    horariosDo(d).forEach(hora => {
+      const ocupado = oc.includes(hora);
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'slot'; b.disabled = ocupado;
       b.innerHTML = `${hora}<small>${ocupado ? 'Ocupado' : 'Livre'}</small>`;
@@ -1471,7 +1476,7 @@
   $('mes-ant').addEventListener('click', () => { mesVisto.setMonth(mesVisto.getMonth() - 1); desenhaMes(); });
   $('mes-prox').addEventListener('click', () => { mesVisto.setMonth(mesVisto.getMonth() + 1); desenhaMes(); });
 
-  $('confirmar').addEventListener('submit', e => {
+  $('confirmar').addEventListener('submit', async e => {
     e.preventDefault();
     const nome = $('ag-nome').value.trim(), tel = $('ag-tel').value.trim();
     if (!nome) return $('ag-nome').focus();
@@ -1479,6 +1484,25 @@
     if (!$('ag-aceite').checked) return $('ag-aceite').focus();
     const tipo = document.querySelector('[name=ag-tipo]:checked').value;
     const modo = document.querySelector('[name=ag-modo]:checked').value;
+    // reserva o horário no servidor, para ninguém mais pegar o mesmo
+    const botao = $('confirmar').querySelector('button[type=submit]'), erro = $('ag-erro');
+    erro.hidden = true;
+    if (AGENDA_ONLINE) {
+      botao.disabled = true; botao.textContent = 'Reservando…';
+      try {
+        const r = await fetch('/api/pedido', {method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({nome, tel, tipo, modo, data: chaveDia(diaSel), hora: horaSel})});
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) {
+          erro.textContent = d.erro || 'Não foi possível reservar agora. Tente pelo WhatsApp.'; erro.hidden = false;
+          if (r.status === 409) carregaAgenda().then(() => escolheDia(diaSel));
+          return;
+        }
+        DADOS.ocupados[chaveDia(diaSel)] = [...ocupadosDo(diaSel), horaSel];
+      } catch (err) {
+        erro.textContent = 'Sem conexão. Tente de novo ou chame no WhatsApp.'; erro.hidden = false; return;
+      } finally { botao.disabled = false; botao.textContent = 'Confirmar agendamento'; }
+    }
     const quando = `${fmtCurto.format(diaSel)} às ${horaSel}`;
     const msg = `Oi, Dra. Victoria! Sou ${nome} e fiz o pré-agendamento pelo site.\n` +
       `• ${tipo} (${modo})\n• ${quando}\n• WhatsApp: ${tel}`;
@@ -1505,11 +1529,36 @@
   });
 
   // se o mês atual já está no fim, abre direto no próximo
-  const fim = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
-  let livresNoMes = 0;
-  for (let d = new Date(hoje); d <= fim; d.setDate(d.getDate() + 1)) if (estado(d) === 'livre') livresNoMes++;
-  if (livresNoMes < 4) mesVisto.setMonth(mesVisto.getMonth() + 1);
-  desenhaMes();
+  function mesInicial() {
+    mesVisto = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    const fim = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+    let livresNoMes = 0;
+    for (let d = new Date(hoje); d <= fim; d.setDate(d.getDate() + 1)) if (estado(d) === 'livre') livresNoMes++;
+    if (livresNoMes < 4 && MESES_A_FRENTE > 0) mesVisto.setMonth(mesVisto.getMonth() + 1);
+    desenhaMes();
+  }
+  mesInicial();
+
+  // busca a agenda e os textos que a Dra. Victoria salvou no painel
+  async function carregaAgenda() {
+    const r = await fetch('/api/agenda', {cache: 'no-store'});
+    if (!r.ok) throw new Error('agenda');
+    const a = await r.json();
+    DADOS = {semana: a.semana || {}, dias: a.dias || {}, ocupados: a.ocupados || {}};
+    AGENDA_ONLINE = true;
+    const s = a.site || {};
+    MESES_A_FRENTE = s.meses || 2;
+    if (s.whatsapp) {
+      WHATSAPP = s.whatsapp;
+      const wa = $('wa-flutua'); if (wa) wa.href = 'https://wa.me/' + WHATSAPP;
+    }
+    const txt = (id, v) => { const el = $(id); if (el && v != null && v !== '') el.textContent = v; };
+    txt('aviso-titulo', s.avisoTitulo); txt('aviso-texto', s.avisoTexto);
+    txt('notif-titulo', s.notifTitulo); txt('notif-texto', s.notifTexto);
+    const pop = $('pop-poa');
+    if (pop && s.notificacao === false) { pop.dataset.desligado = '1'; pop.classList.remove('mostra'); pop.hidden = true; }
+  }
+  carregaAgenda().then(() => { if (!diaSel) mesInicial(); else desenhaMes(); }).catch(() => {});
 
   document.getElementById('form-agendar').addEventListener('submit', e => {
     e.preventDefault();
