@@ -1,0 +1,458 @@
+<title>Radar de Vagas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: radar de vagas à esquerda (lista que se lê de relance), kit de candidatura abre por cima em tela cheia com a identidade meio-tom CMYK do portfólio */
+:root{
+  --bg:#F6F6F9;--card:#FFFFFF;--ink:#16161B;--mut:#6B6B78;--line:#E2E2EA;
+  --mag:#D1007A;--cyan:#0098D6;--yel:#F2C200;--good:#0A8A47;--warn:#B76E00;--bad:#C4314B;
+  --sheet:#FBFBFD;--sheet-ink:#1D1D1F;
+  --display:"Syne","Instrument Sans",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D0D11;--card:#17171D;--ink:#F2F2F6;--mut:#9C9CAB;--line:#2A2A33;--mag:#FF4FAE;--cyan:#33B8F0;--yel:#FFD84D;--good:#36C97A;--warn:#F0A63A;--bad:#FF6B82;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D0D11;--card:#17171D;--ink:#F2F2F6;--mut:#9C9CAB;--line:#2A2A33;--mag:#FF4FAE;--cyan:#33B8F0;--yel:#FFD84D;--good:#36C97A;--warn:#F0A63A;--bad:#FF6B82;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mag);outline-offset:2px;border-radius:6px}
+
+/* topo */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.brand h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,56px);letter-spacing:-.045em;line-height:.95;margin:0;text-wrap:balance}
+.brand h1 i{font-style:normal;background:radial-gradient(circle,var(--mag) 2.2px,transparent 2.6px) 0 0/9px 9px,radial-gradient(circle,var(--cyan) 2.2px,transparent 2.6px) 4.5px 4.5px/9px 9px;-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand p{margin:8px 0 0;color:var(--mut);max-width:52ch}
+.radar{font-family:var(--mono);font-size:12px;color:var(--mut);display:flex;align-items:center;gap:8px}
+.radar b{width:9px;height:9px;border-radius:50%;background:var(--good);position:relative}
+.radar b::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--good);animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{to{transform:scale(2.8);opacity:0}}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.stat strong{display:block;font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--mut)}
+@media (max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;color:var(--mut)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.bar input,.bar select{font:inherit;font-size:14px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
+.bar input{flex:1;min-width:160px}
+.ghost{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;cursor:pointer;font-size:13px;font-weight:600}
+
+/* cartões de vaga */
+.list{display:grid;gap:10px}
+.job{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px}
+.job.top8{border-color:color-mix(in srgb,var(--mag) 45%,var(--line))}
+.score{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.04em;color:#fff;background:var(--mut)}
+.score.s8{background:linear-gradient(135deg,var(--mag),#8E2CC9)}
+.score.s6{background:var(--cyan)}
+.score.s0{background:color-mix(in srgb,var(--mut) 70%,var(--bg))}
+.job h3{margin:0;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.02em;line-height:1.2}
+.co{color:var(--mut);font-size:14px;margin-top:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pill.money{border-color:color-mix(in srgb,var(--good) 50%,var(--line));color:var(--good);font-weight:600}
+.pill.br{border-color:color-mix(in srgb,var(--good) 50%,var(--line))}
+.pill.st{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
+.resumo{margin:0;max-width:75ch}
+.why{margin:6px 0 0;color:var(--mut);font-size:14px;max-width:75ch}
+.flag{margin:6px 0 0;color:var(--warn);font-size:13px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.apply{border:0;cursor:pointer;background:var(--mag);color:#fff;font-weight:700;letter-spacing:.06em;font-size:13px;padding:9px 18px;border-radius:999px;position:relative;overflow:hidden}
+.apply::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(255,255,255,.35) 1.2px,transparent 1.6px) 0 0/6px 6px;opacity:.6}
+.apply span{position:relative}
+.apply:hover{filter:brightness(1.08)}
+.lnk{color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--line)}
+.small{font-size:12px;color:var(--mut)}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:32px;text-align:center;color:var(--mut)}
+.empty h3{color:var(--ink);font-family:var(--display);margin:0 0 6px}
+
+/* kit de candidatura */
+.kit{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px)}
+.kitbar{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kitbar .t{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.kitgrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;max-width:1280px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:980px){.kitgrid{grid-template-columns:minmax(0,1fr)}}
+.side{display:grid;gap:12px;align-content:start}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.box h4{margin:0 0 8px;font-family:var(--display);font-size:16px;letter-spacing:-.01em}
+.steps{margin:0;padding-left:20px;display:grid;gap:8px}
+.letter{white-space:pre-wrap;font-size:14px;line-height:1.55;max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.prog{font-family:var(--mono);font-size:13px;color:var(--mut);white-space:pre-wrap;max-height:220px;overflow:auto}
+.contact{width:100%;font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+
+/* a folha do portfólio sob medida: sempre clara, igual ao portfólio */
+.sheet{background:var(--sheet);color:var(--sheet-ink);border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
+.pg{padding:clamp(24px,5vw,56px);position:relative}
+.pg+.pg{border-top:1px solid #E6E6EC}
+.hero{min-height:420px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,251,253,.96) 0%,rgba(251,251,253,.75) 45%,rgba(251,251,253,.1) 75%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#C8007A;margin:0 0 14px}
+.hero h2{font-family:var(--display);font-weight:800;font-size:clamp(36px,5.6vw,72px);letter-spacing:-.05em;line-height:.95;margin:0;max-width:13ch;text-wrap:balance}
+.hero .lead{font-size:clamp(17px,1.8vw,20px);color:#45454C;max-width:44ch;margin:18px 0 0;font-weight:500}
+.who{display:flex;gap:10px;align-items:center;margin-top:22px;font-weight:600}
+.who svg{width:44px;height:28px}
+.secth{font-family:var(--display);font-weight:700;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;margin:0 0 18px}
+.secth::after{content:"";display:block;width:70px;height:9px;margin-top:10px;background:linear-gradient(90deg,#00ADEF,#EC008C,#FFD500);-webkit-mask:radial-gradient(circle,#000 2px,transparent 2.4px) 0 0/9px 9px;mask:radial-gradient(circle,#000 2px,transparent 2.4px) 0 0/9px 9px}
+.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.fitc{background:#fff;border:1px solid #E6E6EC;border-radius:16px;padding:16px}
+.fitc small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#C8007A;margin-bottom:6px}
+.fitc p{margin:0;font-size:15px;color:#2B2B31}
+.proj{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:22px;align-items:center}
+.proj+.proj{margin-top:34px}
+.proj:nth-child(even) .pimgs{order:2}
+@media (max-width:760px){.proj{grid-template-columns:minmax(0,1fr)}.proj:nth-child(even) .pimgs{order:0}}
+.pimgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pimgs img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;background:#eee}
+.pimgs img:only-child{grid-column:1/-1;aspect-ratio:4/3}
+.proj h3{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.03em;margin:0;line-height:1.1}
+.proj .role{color:#6E6E73;font-size:14px;margin:4px 0 12px}
+.proj p{margin:0;color:#2B2B31}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{font-size:12px;padding:4px 10px;border-radius:999px;background:#EFEFF4}
+.xp{display:grid;gap:10px}
+.xp div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;border-bottom:1px solid #E6E6EC;padding-bottom:10px}
+.xp b{font-weight:600}
+.xp span{color:#6E6E73;font-size:14px;font-variant-numeric:tabular-nums}
+.cta{text-align:left}
+.cta h3{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.045em;margin:0;line-height:1}
+.cta p{color:#45454C;margin:12px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.radar b::after{animation:none}}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Radar de <i>Vagas</i></h1>
+      <p>Vagas gringas de design, motion, web e IA, achadas 2x por dia (8h e 17h). Toca em <b>APLICAR</b> e teu portfólio é remontado sob medida para aquela vaga.</p>
+    </div>
+    <div class="radar" id="radar"><b></b><span>conectando…</span></div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <div class="tabs" role="group" aria-label="Filtrar por status" id="tabs">
+      <button data-f="nova" aria-pressed="true">Novas</button>
+      <button data-f="salva" aria-pressed="false">Salvas</button>
+      <button data-f="aplicada" aria-pressed="false">Aplicadas</button>
+      <button data-f="descartada" aria-pressed="false">Descartadas</button>
+      <button data-f="todas" aria-pressed="false">Todas</button>
+    </div>
+    <input id="q" type="search" placeholder="Buscar cargo, empresa, país…" aria-label="Buscar">
+    <select id="ord" aria-label="Ordenar">
+      <option value="nota">Melhor nota</option>
+      <option value="data">Mais recentes</option>
+    </select>
+  </div>
+
+  <div class="list" id="list"></div>
+</div>
+
+<div class="kit" id="kit" hidden>
+  <div class="kitbar">
+    <button class="ghost" id="kclose">← Vagas</button>
+    <div class="t" id="ktitle"></div>
+    <a class="lnk" id="kjob" href="#" target="_blank" rel="noopener">Abrir vaga ↗</a>
+  </div>
+  <div class="kitgrid">
+    <div id="sheetwrap"></div>
+    <aside class="side">
+      <div class="box">
+        <h4>Como aplicar</h4>
+        <ol class="steps">
+          <li>Confere o portfólio ao lado (é esse que vai no PDF).</li>
+          <li><b>Baixar PDF</b> e anexa na candidatura.</li>
+          <li><b>Copiar carta</b> e cola no campo de cover letter.</li>
+          <li>Abre a vaga, aplica e marca aqui como aplicada.</li>
+        </ol>
+        <div class="btnrow">
+          <button class="apply" id="kpdf"><span>BAIXAR PDF</span></button>
+          <button class="ghost" id="kdone">Marquei: apliquei ✓</button>
+          <button class="ghost" id="kregen">Refazer kit</button>
+        </div>
+        <p class="small" id="kpdfmsg"></p>
+      </div>
+      <div class="box">
+        <h4>Cover letter</h4>
+        <div class="letter" id="kletter"></div>
+        <div class="btnrow"><button class="ghost" id="kcopy">Copiar carta</button><button class="ghost" id="kcopys">Copiar assunto</button></div>
+      </div>
+      <div class="box" id="kqa"></div>
+      <div class="box" id="ktips"></div>
+      <div class="box">
+        <h4>Contato no PDF</h4>
+        <p class="small">E-mail, WhatsApp ou LinkedIn que aparecem no fim do portfólio. Fica salvo.</p>
+        <input class="contact" id="kcontact" placeholder="seu@email.com · linkedin.com/in/…">
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const PORTFOLIO_URL = "https://claude.ai/artifact/SzkpJxkCam8r5HVtsg2nZp";
+
+/* Quem é o Antônio: base factual para o Claude remontar o portfólio. Não inventar além disso. */
+const PERFIL = `Antônio Meneghetti — designer and art director based in Porto Alegre, Brazil (UTC-3). Freelancing since 2017.
+- Native-level English (Cambridge English First certificate). Portuguese native.
+- BA in Product Design, PUCRS (2021–2025).
+- 2026: Art director and designer at the City of Porto Alegre Social Communication Office — leads the city's visual communication; the work won a national award (Social Media Gov award, Identity category). Audience: 1M+ citizens.
+- 2026: Political communication advisor at Porto Alegre City Council — content, crisis management, design, video capture and editing, a full campaign.
+- 2026: Web Clinic — websites for clinics and doctors.
+- 2025–2026: All Education — sole designer: strategy and execution of visual communication, launch narratives and hooks for live events, ads, VSL editing, communication automation.
+- 2023–2025: Head designer at Schaeffer Digital — between design, creative direction and project management; led large projects end to end (incl. RenauxView, the largest company in its sector); team leadership.
+- 2023: Social media at Modulo Marketing. 2022–2023: Graphic designer at Nave Comunica. 2017–2023: Freelance designer at 2700 studios (graphic design, packaging, social media).
+- Very specialized in AI systems for design: builds AI-powered creative production pipelines (generative image prompting and compositing, automated carousel/post generators, data-driven templates), kinetic typography and collage reels in code (Remotion), interactive websites built with AI coding agents, and AI-assisted 3D/web experiences.
+- Tools: Adobe Illustrator, Photoshop, After Effects, Premiere, Figma, social media design, web design, UX/UI, HTML/CSS, AI image/video generators, Claude and other LLMs.
+- Portfolio: ${PORTFOLIO_URL}`;
+
+const PROJETOS = [
+  {id:"pmpa",nome:"City of Porto Alegre",papel:"Art direction & public campaigns · 2026",txt:"Art direction for the official communication of a city of 1.3M people: public services, education, waste, parks, transparency and civic dates, in one consistent visual language. National award, Identity category.",tags:["Art direction","Campaigns","Social media","Gov comms"],img:["img/7bffa1c7c1.webp","img/b02e403ec6.webp","img/390ed1c383.webp","img/94c81e28c2.webp"]},
+  {id:"ai",nome:"AI creative production systems",papel:"R&D for dot. agency · 2026",txt:"Pipelines that turn a brief into finished, on-brand pieces: AI-generated cinematic scenes composited with code, automatic carousel generators with layout rules, color grading and cut-outs, and kinetic reels rendered from code.",tags:["Generative AI","Automation","Art direction","Code"],img:["img/ai-1.webp","img/ai-2.webp","img/ai-3.webp","img/ai-4.webp"]},
+  {id:"plagio",nome:"plagio.zip",papel:"Self-initiated media brand · 2025–2026",txt:"An authorial culture and meme brand: concept, visual system, reels and posts. Over 250K monthly views.",tags:["Concept","Social media","Reels","Brand system"],img:["img/350ec8da26.webp","img/b7cd8db5b2.webp","img/0538c84000.webp","img/0cb0007df9.webp"]},
+  {id:"dreamz",nome:"Dreamz Gallery website",papel:"Interactive web design & build · 2026",txt:"A website that plays out as one sleepless night: the clock runs from 23:47 to 06:00 as you scroll, the sky turns to dawn, glass shatters on touch, and the brief arrives as a chat.",tags:["Web design","Interaction","UX/UI","Motion"],img:["img/dreamz-1.webp","img/dreamz-2.webp"]},
+  {id:"museus",nome:"Inter & Grêmio Museums",papel:"Campaign with the City · 2026",txt:"Campaign for the museums of the city's two rival football clubs: each one with its own personality inside a single campaign language.",tags:["Campaign","Art direction"],img:["img/62eb568f37.webp","img/721e599824.webp"]},
+  {id:"maratona",nome:"Olympikus × Porto Alegre Marathon",papel:"Event campaign · 2026",txt:"Final-call registration pieces for the Porto Alegre International Marathon, with Olympikus.",tags:["Sports","Campaign","Ads"],img:["img/8df309b71d.webp"]},
+  {id:"claire",nome:"Claire Fancin Cosmetics",papel:"Packaging & creative · 2021",txt:"Identity applications for a cosmetics line, from packaging to promotional pieces.",tags:["Packaging","Branding","Beauty"],img:["img/360e709719.webp","img/c5b46c9f8b.webp"]},
+  {id:"promais",nome:"Pro Mais Vans",papel:"Social media & ads · 2022",txt:"Content and performance ads for a van and utility vehicle specialist, built around trust and conversion.",tags:["Performance ads","Social media"],img:["img/ed0a77adcd.webp","img/f3770e6c6f.webp"]},
+  {id:"bte",nome:"BTE Grupo",papel:"Social media & copy · 2022",txt:"Business and marketing carousels with strong hooks that stop the scroll.",tags:["Carousels","Copywriting"],img:["img/95a58a45d5.webp","img/7b419cae91.webp"]}
+];
+const XP = [["2026","Art director & designer — City of Porto Alegre"],["2026","Communication advisor — Porto Alegre City Council"],["2026","Web designer — Web Clinic"],["2025–26","Sole designer — All Education"],["2023–25","Head designer — Schaeffer Digital"],["2022–23","Graphic designer — Nave Comunica"],["2017–23","Freelance designer — 2700 studios"],["2021–25","BA Product Design — PUCRS"]];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let db = null, vagas = [], filtro = "nova", kits = {}, atual = null, perfilDoc = {};
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2200)}
+function quando(iso){if(!iso)return"";const d=(Date.now()-new Date(iso))/864e5;if(d<1)return"hoje";if(d<2)return"ontem";return Math.floor(d)+" dias"}
+function cls(n){return n>=8?"s8":n>=6?"s6":"s0"}
+
+/* ---------- lista ---------- */
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const cont = {nova:0,salva:0,aplicada:0,descartada:0};
+  vagas.forEach(v => cont[v.status||"nova"] = (cont[v.status||"nova"]||0)+1);
+  const boas = vagas.filter(v => (v.status||"nova")==="nova" && (v.nota||0)>=8).length;
+  $("#stats").innerHTML = [["Novas",cont.nova],["Nota 8+ esperando",boas],["Salvas",cont.salva],["Aplicadas",cont.aplicada]]
+    .map(([l,n])=>`<div class="stat"><strong>${n}</strong><span>${l}</span></div>`).join("");
+  let L = vagas.filter(v => filtro==="todas" || (v.status||"nova")===filtro);
+  if (q) L = L.filter(v => [v.titulo,v.empresa,v.local,v.resumo,(v.tags||[]).join(" ")].join(" ").toLowerCase().includes(q));
+  L.sort($("#ord").value==="data" ? (a,b)=>String(b.data||b.criada).localeCompare(String(a.data||a.criada)) : (a,b)=>(b.nota||0)-(a.nota||0));
+  if (!L.length){
+    $("#list").innerHTML = vagas.length
+      ? `<div class="empty"><h3>Nada aqui.</h3>Troca o filtro ou a busca.</div>`
+      : `<div class="empty"><h3>O radar ainda está vazio.</h3>A primeira leva de vagas chega na próxima busca automática (8h ou 17h). Cada vaga vem com nota de 0 a 10 e resumo em português.</div>`;
+    return;
+  }
+  $("#list").innerHTML = L.map(v => `
+    <article class="job ${(v.nota||0)>=8?"top8":""}" data-id="${esc(v.id)}">
+      <div class="score ${cls(v.nota||0)}" title="Nota de encaixe">${v.nota ?? "–"}</div>
+      <div style="min-width:0">
+        <h3>${esc(v.titulo)}</h3>
+        <div class="co">${esc(v.empresa)} · ${esc(v.fonte)}${v.data?" · "+quando(v.data):""}</div>
+        <div class="meta">
+          ${v.status&&v.status!=="nova"?`<span class="pill st">${esc(v.status)}</span>`:""}
+          ${v.local?`<span class="pill ${v.aceita_brasil?"br":""}">${v.aceita_brasil?"✓ aceita Brasil · ":""}${esc(v.local)}</span>`:""}
+          ${v.salario?`<span class="pill money">${esc(v.salario)}</span>`:""}
+          ${v.tipo?`<span class="pill">${esc(v.tipo)}</span>`:""}
+          ${v.area?`<span class="pill">${esc(v.area)}</span>`:""}
+          ${kits[v.id]?`<span class="pill">kit pronto</span>`:""}
+        </div>
+        ${v.resumo?`<p class="resumo">${esc(v.resumo)}</p>`:""}
+        ${v.porque?`<p class="why"><b>Por que combina:</b> ${esc(v.porque)}</p>`:""}
+        ${v.alerta?`<p class="flag">⚠ ${esc(v.alerta)}</p>`:""}
+        <div class="acts">
+          <button class="apply" data-a="aplicar"><span>APLICAR</span></button>
+          ${(v.status||"nova")!=="salva"?`<button class="ghost" data-a="salva">Salvar</button>`:""}
+          ${(v.status||"nova")!=="descartada"?`<button class="ghost" data-a="descartada">Descartar</button>`:`<button class="ghost" data-a="nova">Voltar pra novas</button>`}
+          <a class="lnk" href="${esc(v.url)}" target="_blank" rel="noopener">Ver vaga ↗</a>
+        </div>
+      </div>
+    </article>`).join("");
+}
+$("#tabs").onclick = e => { const b=e.target.closest("button"); if(!b)return; filtro=b.dataset.f; [...$("#tabs").children].forEach(x=>x.setAttribute("aria-pressed",x===b)); render(); };
+$("#q").oninput = render; $("#ord").onchange = render;
+$("#list").onclick = async e => {
+  const b = e.target.closest("button[data-a]"); if(!b) return;
+  const id = b.closest(".job").dataset.id, v = vagas.find(x=>x.id===id);
+  if (b.dataset.a==="aplicar") return abrirKit(v);
+  await status(v, b.dataset.a);
+};
+async function status(v, s){
+  if(!db){toast("Sem conexão com o banco do painel.");return}
+  try{ await db.collection("vagas").doc(v.id).update({status:s, status_em:new Date().toISOString()}); toast(s==="descartada"?"Descartada":s==="salva"?"Salva":s==="aplicada"?"Marcada como aplicada":"Voltou pra novas"); }
+  catch(err){ toast(err.code==="permission_denied"?"Só o dono do painel pode mudar o status.":"Não salvou, tenta de novo."); }
+}
+
+/* ---------- kit / portfólio sob medida ---------- */
+function prompt(v){
+  return `You are a senior creative recruiter and portfolio strategist. Tailor Antônio's portfolio and application for ONE specific job.
+Rules: use ONLY facts from the profile and project list. Never invent clients, numbers, years or tools. Write in confident, warm, specific English (no clichés like "passionate", "I am writing to express"). Mirror the job's own vocabulary where true.
+
+PROFILE:
+${PERFIL}
+
+PROJECTS (id — name — role — description — tags):
+${PROJETOS.map(p=>`${p.id} — ${p.nome} — ${p.papel} — ${p.txt} — ${p.tags.join(", ")}`).join("\n")}
+
+JOB:
+Title: ${v.titulo}
+Company: ${v.empresa}
+Location: ${v.local||"n/a"} · Type: ${v.tipo||"n/a"} · Salary: ${v.salario||"n/a"}
+Description: ${(v.descricao||"").slice(0,3500)}
+
+Return ONLY JSON with this shape:
+{
+ "eyebrow": "short label like 'Portfolio for <Company> · <Role>' (max 60 chars)",
+ "headline": "punchy 3-7 word headline that positions Antônio for THIS role",
+ "lead": "2 sentences: who he is through the lens of this job",
+ "fit": [{"need":"a real requirement from the job (short)","proof":"1-2 sentences of concrete evidence from his profile"}] (exactly 3),
+ "projects": [{"id":"project id","angle":"2 sentences reframing this project for this job"}] (3 to 5, best first; always include 'ai' if the job touches AI, automation, video or volume production),
+ "skills": ["6-10 skills from his profile that match the job"],
+ "closing": "one-line closing headline for the last page (max 8 words)",
+ "cover_letter": "120-180 words, first person, addressed to the ${v.empresa} team, specific to the role, ends with a call to a short call; sign as Antônio Meneghetti",
+ "email_subject": "subject line for an application email",
+ "qa": [{"q":"a likely application question for this job","a":"60-90 word answer"}] (2 items),
+ "dicas_pt": ["3 short tips IN BRAZILIAN PORTUGUESE on how to stand out for this job (what to emphasize, what to prepare, any red flag)"]
+}`;
+}
+async function abrirKit(v){
+  atual = v;
+  $("#ktitle").textContent = `${v.titulo} · ${v.empresa}`;
+  $("#kjob").href = v.url;
+  $("#kit").hidden = false; document.body.style.overflow="hidden"; $("#kit").scrollTop = 0;
+  try{ location.hash = "kit"; }catch(e){}
+  if (kits[v.id]) return mostrarKit(v, kits[v.id]);
+  await gerarKit(v);
+}
+function fecharKit(){ $("#kit").hidden = true; document.body.style.overflow=""; atual=null; try{ if(location.hash==="#kit") history.replaceState(null,"",location.pathname+location.search) }catch(e){} }
+$("#kclose").onclick = fecharKit;
+addEventListener("keydown", e => { if(e.key==="Escape" && !$("#kit").hidden) fecharKit(); });
+
+async function gerarKit(v){
+  $("#sheetwrap").innerHTML = `<div class="box"><h4>Montando teu portfólio para ${esc(v.empresa)}…</h4><p class="small">Lendo a vaga, escolhendo os projetos certos e escrevendo a carta. Leva uns 30 a 60 segundos.</p><div class="prog" id="prog">Pensando…</div></div>`;
+  ["#kletter","#kqa","#ktips"].forEach(s=>$(s).innerHTML="");
+  const sample = await claude.use("sample");
+  if (!sample){ $("#sheetwrap").innerHTML = `<div class="box"><h4>Não deu pra chamar o Claude aqui.</h4><p class="small">Abre o painel pelo claude.ai (logado) para gerar o kit.</p></div>`; return; }
+  try{
+    const r = await sample(prompt(v), { modelTier:"complex", cache:false, onText:({text}) => { const p=$("#prog"); if(p) p.textContent = "Escrevendo… " + text.length + " caracteres"; } });
+    const kit = JSON.parse(r.text.slice(r.text.indexOf("{"), r.text.lastIndexOf("}")+1));
+    kit.feito = new Date().toISOString();
+    kits[v.id] = kit;
+    if (db) db.collection("kits").doc(v.id).set(kit).catch(()=>{});
+    if (db && (v.status||"nova")==="nova") db.collection("vagas").doc(v.id).update({status:"salva"}).catch(()=>{});
+    if (atual && atual.id===v.id) mostrarKit(v, kit);
+  }catch(e){
+    const msg = {not_granted:"Tu não liberou o Claude neste painel. Recarrega e aceita o pedido para gerar.",rate_limited:"Muitas gerações seguidas. Espera um minuto e toca em Refazer kit."}[e.code] || "A geração falhou. Toca em Refazer kit.";
+    $("#sheetwrap").innerHTML = `<div class="box"><h4>Não saiu dessa vez.</h4><p class="small">${esc(msg)}</p></div>`;
+  }
+}
+$("#kregen").onclick = () => atual && gerarKit(atual);
+$("#kdone").onclick = async () => { if(atual){ await status(atual,"aplicada"); } };
+
+const EYES = `<svg viewBox="0 0 46 28" aria-hidden="true"><circle cx="13" cy="13" r="13.1" fill="#111"/><circle cx="13" cy="13" r="10.5" fill="#fff"/><circle cx="13" cy="13" r="6.6" fill="#F7709A"/><circle cx="13" cy="13" r="5" fill="#111"/><circle cx="15.1" cy="10.75" r="1.5" fill="#fff"/><circle cx="33.5" cy="16.5" r="10.4" fill="#111"/><circle cx="33.5" cy="16.5" r="7.8" fill="#fff"/><circle cx="33.5" cy="16.5" r="4.9" fill="#F7709A"/><circle cx="33.5" cy="16.5" r="3.7" fill="#111"/><circle cx="35.05" cy="14.8" r="1.1" fill="#fff"/></svg>`;
+function mostrarKit(v, k){
+  const proj = (k.projects||[]).map(p => ({...PROJETOS.find(x=>x.id===p.id), angle:p.angle})).filter(p=>p.id);
+  const contato = perfilDoc.contato || "";
+  $("#sheetwrap").innerHTML = `<div class="sheet" id="sheet">
+    <section class="pg hero"><canvas id="ht"></canvas>
+      <p class="eyebrow">${esc(k.eyebrow||("Portfolio for "+v.empresa))}</p>
+      <h2>${esc(k.headline)}</h2>
+      <p class="lead">${esc(k.lead)}</p>
+      <div class="who">${EYES}<span>Antônio Meneghetti · Designer & Art Director · Porto Alegre, Brazil</span></div>
+    </section>
+    <section class="pg"><h3 class="secth">Why I fit ${esc(v.empresa)}.</h3>
+      <div class="fit">${(k.fit||[]).map(f=>`<div class="fitc"><small>${esc(f.need)}</small><p>${esc(f.proof)}</p></div>`).join("")}</div>
+      ${k.skills?.length?`<div class="chips" style="margin-top:18px">${k.skills.map(s=>`<span>${esc(s)}</span>`).join("")}</div>`:""}
+    </section>
+    <section class="pg"><h3 class="secth">Selected work for this role.</h3>
+      ${proj.map(p=>`<div class="proj"><div class="pimgs">${p.img.slice(0,p.img.length>=4?4:2).map(s=>`<img src="${s}" alt="${esc(p.nome)}" crossorigin="anonymous">`).join("")}</div>
+        <div><h3>${esc(p.nome)}</h3><p class="role">${esc(p.papel)}</p><p>${esc(p.angle||p.txt)}</p><div class="chips">${p.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div></div></div>`).join("")}
+    </section>
+    <section class="pg"><h3 class="secth">Experience.</h3>
+      <div class="xp">${XP.map(([a,b])=>`<div><span>${a}</span><b>${esc(b)}</b></div>`).join("")}</div>
+      <p style="margin:16px 0 0;color:#45454C">Native-level English (Cambridge English First) · Remote-ready, UTC-3.</p>
+    </section>
+    <section class="pg cta"><h3>${esc(k.closing||"Let's make it together.")}</h3>
+      <p>Full portfolio: ${esc(PORTFOLIO_URL)}${contato?`<br>${esc(contato)}`:""}</p>
+    </section>
+  </div>`;
+  meioTom($("#ht"));
+  $("#kletter").textContent = k.cover_letter||"";
+  $("#kqa").innerHTML = `<h4>Respostas prontas</h4>` + (k.qa||[]).map(x=>`<p style="margin:0 0 4px"><b>${esc(x.q)}</b></p><p class="small" style="margin:0 0 12px;color:var(--ink)">${esc(x.a)}</p>`).join("");
+  $("#ktips").innerHTML = `<h4>Dicas pra essa vaga</h4><ul class="steps">${(k.dicas_pt||[]).map(d=>`<li>${esc(d)}</li>`).join("")}</ul>`;
+  $("#kcontact").value = contato;
+}
+function meioTom(c){
+  if(!c) return; const r=c.getBoundingClientRect(), dpr=Math.min(2,devicePixelRatio||1);
+  c.width=r.width*dpr; c.height=r.height*dpr; const x=c.getContext("2d"); x.scale(dpr,dpr);
+  const cols=[["#00ADEF",0],["#EC008C",2.1],["#FFD500",4.2]], S=12;
+  x.globalCompositeOperation="multiply";
+  cols.forEach(([cor,f],i)=>{ x.fillStyle=cor; for(let yy=0;yy<r.height+S;yy+=S) for(let xx=0;xx<r.width+S;xx+=S){
+    const cx=xx+(i*4)%S, cy=yy+(i*6)%S, d=Math.hypot(cx-r.width*.82,cy-r.height*.42)/(r.width*.55);
+    const w=.5+.5*Math.sin(cx*.012+f)*Math.cos(cy*.015-f*.7); const rad=Math.max(0,(1-d)*w*S*.55);
+    if(rad>.3){x.beginPath();x.arc(cx,cy,rad,0,7);x.fill()} } });
+}
+$("#kcontact").onchange = async e => { perfilDoc.contato = e.target.value.trim(); if(db) await db.doc("meta/perfil").set(perfilDoc).catch(()=>{}); if(atual&&kits[atual.id]) mostrarKit(atual,kits[atual.id]); toast("Contato salvo"); };
+
+async function copiar(t){ try{ await navigator.clipboard.writeText(t); toast("Copiado"); }catch(e){ const r=document.createRange(); r.selectNodeContents($("#kletter")); getSelection().removeAllRanges(); getSelection().addRange(r); toast("Selecionei o texto: copia com Ctrl/Cmd+C"); } }
+$("#kcopy").onclick = () => atual && kits[atual.id] && copiar(kits[atual.id].cover_letter||"");
+$("#kcopys").onclick = () => atual && kits[atual.id] && copiar(kits[atual.id].email_subject||"");
+
+$("#kpdf").onclick = async () => {
+  const sheet = $("#sheet"); if(!sheet||!atual) return;
+  const m = $("#kpdfmsg"); m.textContent = "Gerando o PDF…";
+  try{
+    const downloads = await claude.use("downloads");
+    if(!downloads){ m.textContent = "Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."; return; }
+    const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"px",format:[1080,1350],hotfixes:["px_scaling"]});
+    const pages = [...sheet.querySelectorAll(".pg")]; const W = 1080;
+    const old = sheet.style.width; sheet.style.width = W+"px"; meioTom($("#ht"));
+    let first = true, y = 0, H = 1350;
+    for (const pg of pages){
+      const cv = await html2canvas(pg, {scale:1.5, backgroundColor:"#FBFBFD", useCORS:true, windowWidth:W});
+      const h = cv.height * (W/cv.width);
+      if (!first && y + h > H){ pdf.addPage([W,H]); y = 0; }
+      if (h > H){ // seção maior que a página: fatia
+        let off = 0; while(off < h){ if(!first||off>0){ if(y>0||off>0){pdf.addPage([W,H]); y=0;} }
+          const sh = Math.min(H, h-off), c2 = document.createElement("canvas"); c2.width=cv.width; c2.height=Math.round(sh*cv.width/W);
+          c2.getContext("2d").drawImage(cv,0,Math.round(off*cv.width/W),cv.width,c2.height,0,0,cv.width,c2.height);
+          pdf.addImage(c2.toDataURL("image/jpeg",.9),"JPEG",0,0,W,sh); off += sh; first=false; y = sh; }
+      } else { pdf.addImage(cv.toDataURL("image/jpeg",.9),"JPEG",0,y,W,h); y += h; first = false; }
+    }
+    sheet.style.width = old; meioTom($("#ht"));
+    const nome = `Antonio-Meneghetti-Portfolio-${(atual.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`;
+    await downloads.save({filename:nome, data:pdf.output("blob")});
+    m.textContent = "PDF pronto: " + nome;
+  }catch(e){ m.textContent = e?.code==="dismissed"||e?.code==="declined" ? "Download cancelado." : "Não consegui gerar o PDF. Tenta de novo."; }
+};
+
+/* ---------- conexão com o banco ---------- */
+render();
+(async () => {
+  const timer = setTimeout(()=>{ $("#radar span").textContent = "sem conexão com o banco (abre pelo claude.ai logado)"; }, 10000);
+  db = await claude.use("db");
+  if(!db){ clearTimeout(timer); $("#radar span").textContent = "abre pelo claude.ai logado para ver as vagas"; return; }
+  db.collection("vagas").orderBy("criada","desc").limit(600).onSnapshot(s => {
+    clearTimeout(timer);
+    vagas = s.docs.map(d => ({id:d.id, ...d.data()}));
+    render();
+  }, () => { $("#radar span").textContent = "erro ao ler as vagas, recarrega a página"; });
+  db.collection("kits").onSnapshot(s => { kits = {}; s.docs.forEach(d => kits[d.id] = d.data()); render(); }, ()=>{});
+  db.doc("meta/radar").onSnapshot(s => { const d = s.data()||{}; $("#radar span").textContent = d.ultima ? `última busca ${new Date(d.ultima).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})} · ${d.novas ?? 0} novas` : "radar ligado · primeira busca em breve"; }, ()=>{});
+  db.doc("meta/perfil").onSnapshot(s => { perfilDoc = s.data()||{}; }, ()=>{});
+})();
+</script>

@@ -86,6 +86,9 @@ Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
 ## Jogo Block Office (Block Hunt)
 Tudo em `block-office/COMO-FAZER.md`. 1ª versão reprovada (Louis horrível, loja genérica): refazer com Louis estilizado caprichado e fotos reais da loja.
 
+## Radar de vagas gringas (para o Antônio)
+Tudo em `vagas/COMO-FAZER.md`: painel https://claude.ai/artifact/A7oWm5gPpGMQZcaEEU8Sjq, agente 2x/dia (`vagas/AGENTE.md`), botão APLICAR monta portfólio sob medida.
+
 ## Projeto paralelo: @plagio.zip
 Tudo em `plagio/COMO-FAZER.md` (moldura, P&B com cor de destaque, Drive em PLAGIO POSTS / Semana N / Post NN.jpg + Post NN - legenda, upload automático via Apps Script).
 
