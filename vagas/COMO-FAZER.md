@@ -8,3 +8,9 @@
   O envio da candidatura é feito pelo dono no site da vaga (o painel não aplica sozinho).
 - Para mudar o perfil/projetos usados no kit: constantes `PERFIL`, `PROJETOS`, `XP` no painel. Novos projetos precisam de imagem em `img/`.
 - Preferências: qualquer área de design (brand, UX/UI, motion, web, IA), qualquer nível + freelas, sem salário mínimo, até relocation.
+
+## Pendente: botão "Enviar" (19/11/2026)
+O dono quer que o PDF seja enviado quando ele mandar enviar. Opções propostas, ainda sem resposta:
+1. Claude in Chrome no computador dele preenche o formulário da vaga (Greenhouse/Lever/Ashby…), anexa o PDF e cola a carta, mostrando tudo antes do Submit (recomendado).
+2. Gmail (conector) quando a vaga recebe por e-mail.
+3. Os dois. Nada é enviado sem confirmação dele.
