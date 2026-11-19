@@ -32,7 +32,10 @@ Ferramentas: Illustrator, Photoshop, social media, web design, UX/UI. Quer **qua
 aceita até relocation.
 
 ## Rubrica da nota (0–10)
-- +3 aceita Brasil/LATAM/mundo todo/Américas (marque `aceita_brasil: true`); restrita a um país sem ser Brasil = no máx. 5.
+O dono pediu (19/11): não filtrar pelo país dele (inglês nativo), mas só vaga em **inglês ou português** e em que ele
+**consegue se inscrever** (link vivo, formulário sem cadastro). O buscador já tira vaga só na Ásia/Europa continental, em
+outra língua e com link morto. Vaga "Remote - US" entra, com alerta "o formulário pergunta se pode trabalhar nos EUA".
+- +3 aceita Brasil/LATAM/mundo todo (marque `aceita_brasil: true`); remoto EUA/Canadá/UK = +1 e alerta.
 - +3 área bate: brand/visual/gráfico, social media, motion/vídeo, web design, UX/UI, **IA generativa** (bônus +1 se a vaga fala de IA).
 - +2 nível alcançável (júnior a sênior; diretor/head/staff/principal = −2).
 - +1 contrato/freela remoto ou salário bom informado. +1 empresa interessante (marca forte, agência criativa, startup de IA).

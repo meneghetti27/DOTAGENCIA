@@ -7,7 +7,7 @@ e entrevista com robô. As APIs públicas dessas plataformas só listam vaga abe
 
 Uso: python3 vagas/buscar.py [vistos.json] > novas.json
 """
-import json, os, re, sys, html, time, urllib.request, concurrent.futures as cf
+import json, os, re, sys, html, time, urllib.request, urllib.parse, concurrent.futures as cf
 from datetime import datetime, timezone, timedelta
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -23,6 +23,38 @@ FORA = re.compile(r"engineer|developer|devops|sales|account exec|recruit|account
                   r"level design|game design|operations|resource manager|marketing manager|intern\b", re.I)
 SENIOR_DEMAIS = re.compile(r"\b(vp|vice president|head of|director|principal|staff)\b", re.I)
 RUIM = re.compile(r"crypto|casino|gambl|betting|\bbet\b|adult|onlyfans|nsfw|web3|blockchain", re.I)
+# países onde a vaga não serve pra ele (idioma/local): se a vaga é SÓ nesses lugares, sai
+LONGE = re.compile(r"india|bangalore|bengaluru|hyderabad|pune|chennai|mumbai|delhi|noida|gurgaon|philippines|manila|pakistan|"
+                   r"indonesia|jakarta|vietnam|china|beijing|shanghai|japan|tokyo|korea|seoul|taiwan|thailand|bangkok|malaysia|"
+                   r"kuala|singapore|bangladesh|sri lanka|nepal|egypt|cairo|nigeria|lagos|kenya|nairobi|turkey|türkiye|istanbul|"
+                   r"israel|tel aviv|saudi|dubai|uae|qatar|russia|ukraine|poland|romania|bulgaria|serbia|hungary|czech|"
+                   r"germany|berlin|munich|france|paris|spain|madrid|barcelona|italy|milan|netherlands|amsterdam|sweden|denmark|"
+                   r"norway|finland|austria|switzerland|zurich|belgium|greece|croatia", re.I)
+PERTO = re.compile(r"anywhere|worldwide|global|latam|latin america|americas|brazil|brasil|south america|"
+                   r"united states|\bus\b|usa|canada|united kingdom|\buk\b|ireland|portugal|lisbon|australia|new zealand|"
+                   r"remote$|^remote", re.I)
+def lingua_ok(txt):
+    """Vaga escrita em inglês ou português."""
+    w = re.findall(r"[a-zà-ú]+", (txt or "").lower()[:2500])
+    if len(w) < 30: return True
+    en = sum(x in {"the","and","you","with","our","will","for","your","are","to","of","we"} for x in w)
+    pt = sum(x in {"de","para","você","com","nossa","uma","que","os","as","não","em","do","da"} for x in w)
+    outras = sum(x in {"und","der","die","wir","sie","mit","nous","vous","avec","les","des","una","para","con","los","las","del","que"} for x in w)
+    return (en + pt) > outras * 0.8
+
+def lugar_ok(local):
+    if not local or PERTO.search(local): return True
+    return not LONGE.search(local)
+
+def link_vivo(url):
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            corpo = r.read(200000).decode("utf-8", "replace").lower()
+            return r.status == 200 and not re.search(r"no longer (accepting|available)|job (is )?closed|position has been filled|page not found|404", corpo[:20000])
+    except Exception:
+        return False
+
 SIMPLES = {"boards.greenhouse.io": "Greenhouse", "job-boards.greenhouse.io": "Greenhouse", "jobs.lever.co": "Lever",
            "jobs.ashbyhq.com": "Ashby"}
 
@@ -106,8 +138,9 @@ def main():
         if v["id"] in vistos or v["id"] in ids: continue
         t = v["titulo"] or ""
         if not DESIGN.search(t) or FORA.search(t) or SENIOR_DEMAIS.search(t): continue
-        if not v.get("remoto"): continue
+        if not v.get("remoto") or not lugar_ok(v.get("local", "")): continue
         desc = limpa(v.get("descricao"))
+        if not lingua_ok(desc): continue
         if RUIM.search(t + " " + v["empresa"] + " " + desc[:800]): continue
         d = data(v.get("data"))
         lim = MAX_DIAS_AGREG if v.get("agregador") else MAX_DIAS
@@ -117,6 +150,23 @@ def main():
                  como_aplicar=f"Formulário único no {v['plataforma']}, sem cadastro (nome, e-mail, PDF, carta)")
         v.pop("agregador", None)
         out.append(v)
+    # último filtro: o formulário abre de verdade agora
+    with cf.ThreadPoolExecutor(12) as ex:
+        vivos = list(ex.map(lambda v: link_vivo(v["link_aplicar"]) or link_vivo(v["url"]), out))
+    mortas = [v["id"] for v, ok in zip(out, vivos) if not ok]
+    out = [v for v, ok in zip(out, vivos) if ok]
+    if mortas: print(f"{len(mortas)} com link que não abriu (fora)", file=sys.stderr)
+    # mesma vaga postada em várias cidades vira uma só
+    uniq = {}
+    for v in out:
+        k = (re.sub(r"\s*[-–(\[].*$", "", v["titulo"]).lower().strip(), v["empresa"].lower())
+        if k in uniq:
+            if v["local"] and v["local"] not in uniq[k]["local"]: uniq[k]["local"] = (uniq[k]["local"] + " · " + v["local"])[:200]
+            uniq[k].setdefault("ids_extras", []).append(v["id"])
+        else: uniq[k] = v
+    out = list(uniq.values())
+    for v in out:   # link pra achar recrutador no LinkedIn (só busca, ele abre)
+        v["recrutador"] = "https://www.linkedin.com/search/results/people/?keywords=" + urllib.parse.quote(v["empresa"] + " recruiter design")
     out.sort(key=lambda v: v["data"], reverse=True)
     json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
     for e in erros[:20]: print("AVISO", e, file=sys.stderr)

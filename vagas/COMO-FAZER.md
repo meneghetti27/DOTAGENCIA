@@ -20,3 +20,13 @@
 - `vagas/checar.py` encerra vagas que sumiram da página da empresa (roda em toda busca).
 - Vagas remotas abertas ao Brasil são raras nas empresas grandes (a maioria é "Remote - US"). Para ampliar, adicionar mais
   empresas em `empresas.json` (testar o slug nas APIs com o script de teste) com foco em quem contrata LATAM/mundo.
+
+## Ajustes de 19/11 (2ª rodada)
+- `empresas.json` com 322 empresas (descobertas testando nomes de empresas de agregadores nas APIs Greenhouse/Lever/Ashby).
+- Filtros: idioma inglês/português, fora vaga só em Ásia/Oriente Médio/Europa continental, link do formulário testado, vagas
+  repetidas em várias cidades viram uma, link "Achar recrutador" (busca de pessoas no LinkedIn).
+- LinkedIn bloqueia busca vinda da nuvem (429). Por isso o painel tem "＋ Adicionar vagas do LinkedIn": copia um pedido para o
+  Claude no Chrome buscar (Remoto, últimas 24 h, Candidatura simplificada, Brasil/LATAM/Worldwide), cola a lista de volta e
+  o painel dá nota (capacidade `sample`) e grava como `manual-<id>`. Inscrição no LinkedIn = Candidatura simplificada.
+- Ideias tiradas de github.com/ai-job-search-dev/ai-job-search (skill job-scraper): janela curta de data, porta de idioma,
+  detectar vaga fechada, juntar vaga repetida, link de recrutador.

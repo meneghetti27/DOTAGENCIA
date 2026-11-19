@@ -177,6 +177,15 @@ button{font:inherit;color:inherit}
     </select>
   </div>
 
+  <details class="box" id="addbox" style="margin-bottom:14px">
+    <summary style="cursor:pointer;font-weight:700">＋ Adicionar vagas do LinkedIn (ou de qualquer site)</summary>
+    <p class="small">O LinkedIn bloqueia busca automática, então ela é feita pelo Claude no teu Chrome, logado na tua conta. Copia o pedido abaixo e cola no Claude do Chrome. Ele te devolve uma lista; cola a lista aqui e o painel dá nota e coloca no radar.</p>
+    <div class="btnrow"><button class="ghost" id="licopy">Copiar pedido de busca no LinkedIn</button></div>
+    <textarea id="addtxt" class="contact" rows="6" style="margin-top:10px" placeholder="Cola aqui: uma vaga por bloco, com link, cargo, empresa, local e o texto da vaga."></textarea>
+    <div class="btnrow"><button class="apply" id="addgo"><span>DAR NOTA E ADICIONAR</span></button></div>
+    <p class="small" id="addmsg"></p>
+  </details>
+
   <div class="list" id="list"></div>
 </div>
 
@@ -337,6 +346,7 @@ function render(){
           ${(v.status||"nova")!=="salva"?`<button class="ghost" data-a="salva">Salvar</button>`:""}
           ${(v.status||"nova")!=="descartada"?`<button class="ghost" data-a="descartada">Descartar</button>`:`<button class="ghost" data-a="nova">Voltar pra novas</button>`}
           <a class="lnk" href="${esc(v.url)}" target="_blank" rel="noopener">Ver vaga ↗</a>
+          ${v.recrutador?`<a class="lnk" href="${esc(v.recrutador)}" target="_blank" rel="noopener">Achar recrutador ↗</a>`:""}
         </div>
       </div>
     </article>`).join("");
@@ -504,6 +514,48 @@ async function baixarPDF(v){
   }
 }
 
+/* ---------- adicionar vagas coladas (LinkedIn etc.) ---------- */
+const PEDIDO_LI = `Abre o LinkedIn Vagas (já estou logado) e procura vagas para mim. Faz várias buscas, uma por termo:
+"brand designer", "graphic designer", "visual designer", "motion designer", "product designer", "UI UX designer", "web designer", "AI designer", "creative designer", "designer gráfico", "social media designer".
+Filtros em cada busca: Remoto · Data do anúncio: últimas 24 horas (se vier pouco, última semana) · Candidatura simplificada (Easy Apply) ligada · Localização: primeiro "Brazil", depois "Latin America" e depois "Worldwide".
+Só serve vaga em inglês ou português, 100% remota, aberta a quem mora no Brasil ou no mundo todo, que ainda aceita candidaturas e que se aplica pela Candidatura simplificada, sem cadastro em outro site e sem teste ou entrevista em vídeo antes.
+Ignora: vagas de engenharia/vendas, estágio, cripto/apostas, agências de recrutamento sem nome do cliente, vaga repetida.
+Escolhe as 15 que mais combinam com um designer e diretor de arte sênior (identidade visual, social media, campanhas, motion, sites, UX/UI e sistemas de IA para design).
+Me devolve em texto puro, uma vaga por bloco, neste formato:
+LINK: <link da vaga>
+CARGO: <cargo>
+EMPRESA: <empresa>
+LOCAL: <local / remoto>
+PUBLICADA: <quando>
+TEXTO: <descrição da vaga resumida em até 1200 caracteres, no idioma original>
+---`;
+$("#licopy").onclick = async () => { try{ await navigator.clipboard.writeText(PEDIDO_LI); toast("Pedido copiado: cola no Claude do Chrome"); }catch(e){ $("#addtxt").value = PEDIDO_LI; $("#addtxt").select(); toast("Coloquei o pedido na caixa: copia com Ctrl/Cmd+C"); } };
+$("#addgo").onclick = async () => {
+  const txt = $("#addtxt").value.trim(), m = $("#addmsg"); if(!txt) return;
+  const sample = await claude.use("sample"); if(!sample||!db){ m.textContent = "Abre o painel pelo claude.ai logado."; return; }
+  m.textContent = "Lendo as vagas e dando nota… (até 1 minuto)";
+  const prompt = `You are screening job posts for Antônio, a Brazilian senior designer & art director (fluent/native English) who lives in Brazil and can only work REMOTELY.
+Profile: ${PERFIL}
+Posts (pasted, may be messy):
+"""${txt.slice(0,30000)}"""
+For each distinct job return an object. Score 0-10 for fit + applicability: +3 remote and open to Brazil/LATAM/worldwide, +3 design area match (brand, social, motion, web, UX/UI, generative AI), +2 reachable level, +1 easy apply / no signup, +1 strong company. Skip (omit) jobs that are not design, not in English/Portuguese, onsite, internships, crypto/gambling/adult, or that require signup/tests/video interview before applying.
+Return ONLY a JSON array: [{"url":"","titulo":"","empresa":"","local":"","data":"YYYY-MM-DD or empty","nota":0,"resumo":"PT-BR, 1-2 sentences","porque":"PT-BR","alerta":"PT-BR or empty","area":"UX/UI|Brand|Motion|Vídeo|Web|IA","aceita_brasil":true,"descricao":"the job text as pasted, max 3000 chars"}]`;
+  try{
+    const r = await sample(prompt, {modelTier:"default", cache:false});
+    const arr = JSON.parse(r.text.slice(r.text.indexOf("["), r.text.lastIndexOf("]")+1));
+    let n = 0;
+    for (const v of arr){
+      if(!v.url) continue;
+      const id = "manual-" + (v.url.match(/(\d{6,})/)?.[1] || btoa(unescape(encodeURIComponent(v.url))).replace(/[^A-Za-z0-9]/g,"").slice(-24));
+      if (vagas.some(x => x.id===id)) continue;
+      await db.collection("vagas").doc(id).set({...v, fonte: (v.empresa||"") + " · colada", plataforma: /linkedin/.test(v.url) ? "LinkedIn (Candidatura simplificada)" : "", link_aplicar: v.url, status:"nova", criada:new Date().toISOString(), recrutador:"https://www.linkedin.com/search/results/people/?keywords="+encodeURIComponent((v.empresa||"")+" recruiter design")});
+      n++;
+    }
+    m.textContent = n ? `${n} vagas adicionadas. Estão na aba Novas.` : "Nenhuma vaga nova que sirva (todas puladas ou repetidas).";
+    if(n) $("#addtxt").value = "";
+  }catch(e){ m.textContent = e?.code==="not_granted" ? "Libera o Claude no painel quando ele pedir." : "Não consegui ler as vagas. Tenta colar de novo."; }
+};
+
 /* ---------- inscrição em lote (Claude in Chrome) ---------- */
 const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","visto","inicio"];
 function filaVagas(){ return vagas.filter(v => v.status==="fila"); }
@@ -540,6 +592,7 @@ Início: ${p.inicio||"2 weeks"}
 Inglês: fluente (Cambridge English First)
 
 REGRAS
+- Se o link for do LinkedIn: usa a Candidatura simplificada (Easy Apply) e envia o PDF indicado como currículo.
 - Em cada vaga: abre o link do formulário, preenche os campos com meus dados, anexa o PDF indicado no campo de currículo (Resume/CV) e, se houver campo de portfólio, usa o link do portfólio. Cola a cover letter no campo de carta.
 - Perguntas de diversidade (gênero, raça, deficiência, veterano): "Prefer not to say"/"Decline to self-identify".
 - Como soube da vaga: "Company careers page".
