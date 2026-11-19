@@ -184,28 +184,24 @@
   <div class="wrap">
     <header class="topo">
       <div class="marca"><span class="mono">VO</span><div><span class="k">Área da doutora</span><h1>Olá, <span class="script">Victoria</span></h1></div></div>
-      <button class="btn btn-leve btn-mini" id="sair" type="button">Sair</button>
+      <div style="display:flex;gap:.4rem"><button class="btn btn-leve btn-mini" id="abre-senha" type="button">Senha</button><button class="btn btn-leve btn-mini" id="sair" type="button">Sair</button></div>
     </header>
 
     <nav class="abas" role="tablist">
       <button role="tab" aria-selected="true" data-aba="pedidos">Pedidos<span class="bolha" id="n-novos" hidden></span></button>
       <button role="tab" aria-selected="false" data-aba="dias">Calendário</button>
-      <button role="tab" aria-selected="false" data-aba="semana">Horários da semana</button>
-      <button role="tab" aria-selected="false" data-aba="site">Avisos do site</button>
-      <button role="tab" aria-selected="false" data-aba="conta">Senha</button>
+      <button role="tab" aria-selected="false" data-aba="semana">Horários fixos</button>
     </nav>
 
     <!-- PEDIDOS -->
     <section class="painel ativo" id="aba-pedidos">
       <div class="cartao">
-        <h2>Pedidos de consulta</h2>
-        <p class="sub" style="margin-bottom:1rem">O que você mudar aqui aparece no site para todo mundo. Quem reservou pelo site. O horário já fica ocupado; se cancelar, ele volta a ficar livre.</p>
+        <h2>Quem marcou consulta</h2>
+        <p class="sub" style="margin-bottom:1rem">Toque em <b style="color:var(--ouro);font-weight:500">Confirmar</b> depois de falar com a paciente. Se cancelar, o horário fica livre de novo.</p>
         <div class="filtros" id="filtros">
-          <button aria-pressed="true" data-f="ativos">Próximos</button>
-          <button aria-pressed="false" data-f="novo">Novos</button>
-          <button aria-pressed="false" data-f="confirmado">Confirmados</button>
-          <button aria-pressed="false" data-f="cancelado">Cancelados</button>
-          <button aria-pressed="false" data-f="todos">Todos</button>
+          <button aria-pressed="true" data-f="ativos">Próximas</button>
+          <button aria-pressed="false" data-f="cancelado">Canceladas</button>
+          <button aria-pressed="false" data-f="todos">Todas</button>
         </div>
         <div id="lista-pedidos"></div>
       </div>
@@ -218,24 +214,23 @@
           <div class="cal-topo"><button type="button" id="mes-ant" aria-label="Mês anterior">‹</button><b id="mes-nome"></b><button type="button" id="mes-prox" aria-label="Próximo mês">›</button></div>
           <div class="cal" id="cal"></div>
           <div class="legenda">
-            <span><i style="background:var(--verde)"></i>Horário livre</span>
+            <span><i style="background:var(--verde)"></i>Livre</span>
             <span><i style="background:var(--ouro);opacity:.45"></i>Ocupado</span>
-            <span><i style="background:var(--vermelho)"></i>Dia fechado</span>
-            <span><i style="background:transparent;border:1px solid var(--ouro)"></i>Horários só desse dia</span>
+            <span><i style="background:var(--vermelho)"></i>Fechado</span>
           </div>
         </div>
         <div class="cartao" id="detalhe-dia">
-          <h2 id="dia-titulo">Escolha um dia</h2>
-          <p class="sub" id="dia-sub">Toque num dia do calendário para fechar, abrir horários extras ou marcar um horário como ocupado.</p>
+          <h2 id="dia-titulo">Toque num dia</h2>
+          <p class="sub" id="dia-sub">Para fechar o dia, mudar os horários ou bloquear um horário.</p>
           <div id="dia-conteudo" hidden>
             <div class="modo-dia" role="group" aria-label="Como fica esse dia">
               <button type="button" data-modo="semana" aria-pressed="true">Normal</button>
-              <button type="button" data-modo="proprio" aria-pressed="false">Outros horários</button>
-              <button type="button" data-modo="fechado" aria-pressed="false">Fechado</button>
+              <button type="button" data-modo="proprio" aria-pressed="false">Mudar horários</button>
+              <button type="button" data-modo="fechado" aria-pressed="false">Fechar o dia</button>
             </div>
             <p class="ajuda" id="modo-ajuda"></p>
             <div id="editor-proprio" hidden style="margin-top:.7rem"><span class="rot">Horários desse dia</span><div class="chips" id="chips-proprio" style="margin-top:.4rem"></div></div>
-            <div id="area-slots" style="margin-top:1rem"><span class="rot">Toque para marcar livre ou ocupado</span><div class="slots" id="slots-dia"></div></div>
+            <div id="area-slots" style="margin-top:1rem"><span class="rot">Toque no horário para bloquear ou liberar</span><div class="slots" id="slots-dia"></div></div>
           </div>
         </div>
       </div>
@@ -244,42 +239,16 @@
     <!-- SEMANA -->
     <section class="painel" id="aba-semana">
       <div class="cartao">
-        <h2>Horários de cada dia da semana</h2>
-        <p class="sub">É o padrão que se repete toda semana. Para mudar só um dia (feriado, congresso), use o Calendário.</p>
+        <h2>Horários fixos</h2>
+        <p class="sub">Os horários que se repetem toda semana. Para mudar só um dia, use o Calendário.</p>
         <div id="lista-semana" style="margin-top:.6rem"></div>
-      </div>
-    </section>
-
-    <!-- SITE -->
-    <section class="painel" id="aba-site">
-      <div class="pilha">
-        <div class="cartao">
-          <h2>Contato e agenda</h2>
-          <div class="duas">
-            <div class="campo"><label for="s-whats">WhatsApp (com DDD)</label><input id="s-whats" inputmode="tel" placeholder="(51) 99189-0776"><span class="ajuda">Recebe as mensagens de agendamento.</span></div>
-            <div class="campo"><label for="s-meses">Agenda aberta para</label><select id="s-meses"><option value="1">1 mês à frente</option><option value="2">2 meses à frente</option><option value="3">3 meses à frente</option><option value="4">4 meses à frente</option><option value="6">6 meses à frente</option></select></div>
-          </div>
-        </div>
-        <div class="cartao">
-          <h2>Aviso do topo do site</h2>
-          <p class="sub">Aparece embaixo dos botões, no começo da página.</p>
-          <div class="campo"><label for="s-at">Frase em destaque</label><input id="s-at" maxlength="120"></div>
-          <div class="campo"><label for="s-ax">Complemento</label><input id="s-ax" maxlength="200"></div>
-          <div class="previa" id="previa-aviso"></div>
-        </div>
-        <div class="cartao">
-          <h2>Notificação que aparece no canto</h2>
-          <label class="interruptor" for="s-notif"><span>Mostrar a notificação</span><input type="checkbox" id="s-notif"></label>
-          <div class="campo"><label for="s-nt">Título</label><input id="s-nt" maxlength="80"></div>
-          <div class="campo"><label for="s-nx">Texto</label><input id="s-nx" maxlength="200"></div>
-        </div>
       </div>
     </section>
 
     <!-- CONTA -->
     <section class="painel" id="aba-conta">
       <div class="cartao" style="max-width:460px">
-        <h2>Trocar a senha</h2>
+        <h2>Trocar a senha</h2><p class="sub">Escolha uma senha só sua.</p>
         <form id="form-senha">
           <div class="campo"><label for="c-atual">Senha atual</label><input id="c-atual" type="password" autocomplete="current-password" required></div>
           <div class="campo"><label for="c-nova">Nova senha</label><input id="c-nova" type="password" autocomplete="new-password" minlength="8" required><span class="ajuda">Pelo menos 8 caracteres.</span></div>
@@ -291,7 +260,7 @@
     </section>
   </div>
 
-  <div class="salvar" id="barra-salvar"><div><span>Você tem mudanças não salvas</span><button class="btn btn-leve btn-mini" id="desfazer" type="button">Desfazer</button><button class="btn btn-vinho btn-mini" id="salvar" type="button">Salvar</button></div></div>
+  <div class="salvar" id="barra-salvar"><div><span>Toque em Salvar para valer no site</span><button class="btn btn-leve btn-mini" id="desfazer" type="button">Desfazer</button><button class="btn btn-vinho btn-mini" id="salvar" type="button">Salvar</button></div></div>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -341,6 +310,7 @@ async function abrePainel() {
 })();
 
 /* ---------- abas ---------- */
+$('abre-senha').addEventListener('click', () => { document.querySelectorAll('.abas button').forEach(x => x.setAttribute('aria-selected', false)); document.querySelectorAll('.painel').forEach(p => p.classList.toggle('ativo', p.id === 'aba-conta')); });
 document.querySelectorAll('.abas button').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('.abas button').forEach(x => x.setAttribute('aria-selected', x === b));
   document.querySelectorAll('.painel').forEach(p => p.classList.toggle('ativo', p.id === 'aba-' + b.dataset.aba));
@@ -357,7 +327,7 @@ $('salvar').addEventListener('click', async () => {
 });
 addEventListener('beforeunload', e => { if (agenda && JSON.stringify(agenda) !== salvo) { e.preventDefault(); e.returnValue = ''; } });
 
-function desenhaTudo() { desenhaPedidos(); desenhaCal(); desenhaDia(); desenhaSemana(); preencheSite(); }
+function desenhaTudo() { desenhaPedidos(); desenhaCal(); desenhaDia(); desenhaSemana(); }
 
 /* ---------- horários: chips com adicionar ---------- */
 function editorHoras(alvo, lista, aoMudar) {
@@ -438,7 +408,7 @@ function desenhaDia() {
   $('dia-sub').textContent = ''; $('dia-conteudo').hidden = false;
   document.querySelectorAll('.modo-dia button').forEach(b => b.setAttribute('aria-pressed', b.dataset.modo === modo));
   $('modo-ajuda').textContent = modo === 'fechado' ? 'Ninguém consegue marcar nesse dia.' :
-    modo === 'proprio' ? 'Esse dia usa horários diferentes da semana.' : `Usa os horários de ${DIAS[d.getDay()].toLowerCase()} (aba Horários da semana).`;
+    modo === 'proprio' ? 'Só esse dia fica com os horários abaixo.' : 'Usa os horários fixos.';
   $('editor-proprio').hidden = modo !== 'proprio';
   if (modo === 'proprio') editorHoras($('chips-proprio'), conf.horarios, nova => { agenda.dias[diaSel] = {horarios: nova}; desenhaDia(); desenhaCal(); mudou(); });
   const hs = horariosDo(diaSel), oc = agenda.ocupados[diaSel] || [], box = $('slots-dia');
@@ -474,15 +444,15 @@ function desenhaPedidos() {
   lista.sort((a, b) => (a.data + a.hora).localeCompare(b.data + b.hora));
   if (filtro === 'todos' || filtro === 'cancelado') lista.reverse();
   const box = $('lista-pedidos');
-  if (!lista.length) { box.innerHTML = '<p class="vazio" style="padding:1rem 0">Nenhum pedido aqui ainda. Quando alguém reservar pelo site, aparece nesta lista.</p>'; return; }
+  if (!lista.length) { box.innerHTML = '<p class="vazio" style="padding:1rem 0">Nenhuma consulta aqui ainda. Quando alguém marcar pelo site, aparece nesta lista.</p>'; return; }
   box.innerHTML = '';
   lista.forEach(p => {
     const d = deChave(p.data), el = document.createElement('div'); el.className = 'pedido ' + p.status;
     const fone = p.tel.replace(/\D/g, ''), wa = 'https://wa.me/' + (fone.length <= 11 ? '55' + fone : fone) +
       '?text=' + encodeURIComponent(`Oi, ${p.nome.split(' ')[0]}! Aqui é a Dra. Victoria. Sua consulta está confirmada para ${fmtDia.format(d)} às ${p.hora}. 🤍`);
     el.innerHTML = `<div class="data"><b>${d.getDate()}</b><span>${d.toLocaleDateString('pt-BR', {month: 'short'}).replace('.', '')} · ${p.hora}</span></div>
-      <div class="quem"><b>${esc(p.nome)}</b><span class="etiqueta ${p.status}">${p.status}</span>
-        <p>${esc(p.tipo)} · ${esc(p.modo)}<br>${esc(p.tel)} · pedido em ${new Date(p.criado).toLocaleDateString('pt-BR')}</p></div>
+      <div class="quem"><b>${esc(p.nome)}</b><span class="etiqueta ${p.status}">${({novo: 'nova', confirmado: 'confirmada', cancelado: 'cancelada'})[p.status]}</span>
+        <p>${esc(p.tipo)} · ${esc(p.modo)}<br>${esc(p.tel)}</p></div>
       <div class="acoes">
         <a class="btn btn-leve btn-mini" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>
         ${p.status !== 'confirmado' ? '<button class="btn btn-vinho btn-mini" data-s="confirmado" type="button">Confirmar</button>' : ''}
@@ -507,25 +477,6 @@ function desenhaPedidos() {
 document.querySelectorAll('#filtros button').forEach(b => b.onclick = () => {
   filtro = b.dataset.f; document.querySelectorAll('#filtros button').forEach(x => x.setAttribute('aria-pressed', x === b)); desenhaPedidos();
 });
-
-/* ---------- avisos do site ---------- */
-const mascaraFone = n => { n = String(n || '').replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, ''); return n.length === 11 ? `(${n.slice(0, 2)}) ${n.slice(2, 7)}-${n.slice(7)}` : n; };
-function preencheSite() {
-  const s = agenda.site;
-  $('s-whats').value = mascaraFone(s.whatsapp); $('s-meses').value = String(s.meses);
-  if (!$('s-meses').value) { const o = new Option(s.meses + ' meses à frente', s.meses); $('s-meses').add(o); $('s-meses').value = String(s.meses); }
-  $('s-at').value = s.avisoTitulo; $('s-ax').value = s.avisoTexto;
-  $('s-notif').checked = !!s.notificacao; $('s-nt').value = s.notifTitulo; $('s-nx').value = s.notifTexto;
-  previa();
-}
-function previa() { $('previa-aviso').innerHTML = `<b>${esc($('s-at').value)}</b> ${esc($('s-ax').value)}`; }
-[['s-at', 'avisoTitulo'], ['s-ax', 'avisoTexto'], ['s-nt', 'notifTitulo'], ['s-nx', 'notifTexto']].forEach(([id, k]) =>
-  $(id).addEventListener('input', () => { agenda.site[k] = $(id).value; previa(); mudou(); }));
-$('s-whats').addEventListener('input', () => {
-  const n = $('s-whats').value.replace(/\D/g, ''); agenda.site.whatsapp = n.length <= 11 ? '55' + n : n; mudou();
-});
-$('s-meses').addEventListener('change', () => { agenda.site.meses = +$('s-meses').value; mudou(); });
-$('s-notif').addEventListener('change', () => { agenda.site.notificacao = $('s-notif').checked; mudou(); });
 
 /* ---------- senha ---------- */
 $('form-senha').addEventListener('submit', async e => {
