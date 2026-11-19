@@ -1,0 +1,1817 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-title" content="Dra. Victoria">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="img/apple-touch-icon.png">
+<title>Dra. Victoria Oss-Emer | Rinoplastia em Brasília</title>
+<meta name="description" content="Dra. Victoria Oss-Emer, otorrinolaringologista em Brasília. Rinoplastia natural: estética + respiração. Fellow em Rinoplastia e Cirurgia da Face. CRM-DF 35711 · RQE 26344.">
+<meta property="og:title" content="Dra. Victoria Oss-Emer | Rinoplastia natural em Brasília">
+<meta property="og:description" content="Rinoplastia natural: estética + respiração. Agende sua consulta.">
+<meta property="og:image" content="img/victoria-jardim.jpg">
+<meta name="theme-color" content="#F7F1E8">
+<script>
+  // liga as animações (GSAP) antes da primeira pintura; quem pede menos movimento fica com o site parado
+  (function () {
+    var h = document.documentElement;
+    if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    h.classList.add('motion', 'motion-pre');
+    setTimeout(function () { h.classList.remove('motion-pre'); }, 3500);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#F7F1E8;
+    --creme-claro:#FBF8F3;
+    --bege:#EDE3D5;
+    --bege-2:#E3D5C2;
+    --nude:#D2B79C;
+    --caramelo:#A97C55;
+    --marrom:#4A3226;
+    --marrom-suave:#6E5546;
+    --vinho:#5A0E12;
+    --vinho-2:#741A1F;
+    --serif:'Playfair Display', Georgia, serif;
+    --script:'Pinyon Script', cursive;
+    --sans:'Poppins', system-ui, sans-serif;
+    --raio:28px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);font-weight:300;color:var(--marrom);background:var(--creme);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block;height:auto}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+  section{position:relative}
+  .assinatura{font-size:.64rem;letter-spacing:.5em;text-transform:uppercase;font-weight:500;color:var(--marrom-suave)}
+  .script{font-family:var(--script);font-weight:400;line-height:1;letter-spacing:0}
+  .kicker{display:inline-flex;align-items:center;gap:.8rem;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--caramelo);font-weight:500;margin-bottom:1.1rem}
+  .kicker::before{content:"";width:28px;height:1px;background:currentColor}
+  .titulo{font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,4.6vw,3.5rem);line-height:1.08;color:var(--vinho);letter-spacing:-.01em}
+  .titulo .script{font-size:1.2em;font-weight:400;color:var(--caramelo);padding-right:.05em}
+
+  /* ===== vidro (liquid glass) ===== */
+  .vidro{
+    position:relative;
+    backdrop-filter:blur(22px) saturate(170%);
+    -webkit-backdrop-filter:blur(22px) saturate(170%);
+    border:1px solid rgba(255,255,255,.7);
+    box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 -1px 0 rgba(169,124,85,.12) inset, 0 20px 50px rgba(74,50,38,.12);
+  }
+  .vidro::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:radial-gradient(120% 60% at 10% 0%,rgba(255,255,255,.55),transparent 55%);
+    mix-blend-mode:soft-light;
+  }
+
+  /* ===== botões ===== */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:1.05em 1.9em;border-radius:999px;font-family:var(--sans);font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;transition:transform .25s, box-shadow .25s, background .25s;border:0;cursor:pointer}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-vinho{color:var(--creme-claro);box-shadow:0 12px 26px rgba(90,14,18,.22)}
+  .btn-vinho:hover{background:var(--vinho-2);box-shadow:0 16px 32px rgba(90,14,18,.28)}
+  .btn-vidro{color:var(--marrom)}
+  .btn svg{width:18px;height:18px}
+
+  /* ===== fundo: arcos + manchas suaves ===== */
+  /* fundo único da página: tons que respiram devagar e traços curvos que descem sem cortar entre as seções */
+  body{background:var(--creme)}
+  body::before{content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;
+    background:radial-gradient(60% 45% at 12% 18%, rgba(237,227,213,.9), transparent 70%),
+      radial-gradient(55% 40% at 88% 62%, rgba(227,213,194,.75), transparent 70%),
+      radial-gradient(45% 35% at 30% 95%, rgba(210,183,156,.35), transparent 70%)}
+  main{position:relative;isolation:isolate;overflow-x:clip}
+  main::before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;opacity:.75;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1600' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23E9DDCC' stroke-width='40' stroke-linecap='round'%3E%3Cpath d='M600 0 C 820 260, 180 420, 160 800 S 600 1340, 600 1600'/%3E%3Cpath d='M-40 260 C 220 420, 520 360, 840 560'/%3E%3Cpath d='M-40 1180 C 260 1020, 560 1120, 840 1000'/%3E%3C/g%3E%3C/svg%3E") top center/100% 1600px repeat-y}
+  .arcos{position:relative}
+  .mancha{position:absolute;border-radius:50%;filter:blur(70px);z-index:-1;pointer-events:none}
+
+  /* ===== cursor: contorno do auscultador (só mouse) ===== */
+  .cursor-on, .cursor-on *{cursor:none!important}
+  .cursor-on input, .cursor-on textarea{cursor:text!important}
+  .cursor-vo{--cor:#5A0E12;position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0;transition:opacity .3s}
+  .cursor-vo.visivel{opacity:1}
+  .cursor-vo.escuro{--cor:#D9BC94}
+  .cv-peca{position:absolute;left:-22px;top:-22px;width:44px;height:44px;will-change:transform}
+  .cv-peca svg{display:block;overflow:visible}
+  .cv-peca circle,.cv-peca path{fill:none;stroke:var(--cor);stroke-width:1.2;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .3s,fill .3s,opacity .3s}
+  .cursor-vo.clique .cv-peca svg{animation:cv-aperta .45s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes cv-aperta{0%{transform:scale(1)}30%{transform:scale(.72)}100%{transform:scale(1)}}
+  .cv-onda{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:1px solid var(--cor);animation:cv-onda .75s cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes cv-onda{from{transform:scale(.6);opacity:.8}to{transform:scale(3.4);opacity:0}}
+  @keyframes batimento{0%{scale:.6;opacity:.8}14%{scale:1}28%{scale:.8}42%{scale:1.15;opacity:.55}100%{scale:1.6;opacity:0}}
+
+  /* ===== molduras ===== */
+  .arco-foto{position:relative;isolation:isolate}
+  .arco-foto img{width:100%;border-radius:999px 999px var(--raio) var(--raio);box-shadow:0 30px 60px rgba(74,50,38,.18)}
+  .arco-foto::before{content:"";position:absolute;inset:-14px;border:1px solid var(--nude);border-radius:999px 999px 36px 36px;z-index:-1}
+  .moldura{position:relative;padding:12px;background:var(--creme-claro);border-radius:calc(var(--raio) + 8px);box-shadow:0 24px 50px rgba(74,50,38,.12)}
+  .moldura img{width:100%;border-radius:var(--raio)}
+  .moldura.inclina{transform:rotate(-2deg)}
+  .moldura.inclina-dir{transform:rotate(2deg)}
+
+  /* ===== NAV glass ===== */
+  header{position:fixed;top:14px;left:0;right:0;z-index:50;pointer-events:none}
+  .nav{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 10px 0 24px;border-radius:999px;width:min(1160px,100% - 24px);margin-inline:auto}
+  .logo{display:flex;align-items:center;gap:.7rem;color:var(--vinho)}
+  .logo .mono{font-family:var(--script);font-size:2.2rem;line-height:1;padding-top:.3rem}
+  .logo .assinatura{font-size:.58rem;letter-spacing:.38em;line-height:1.5;color:var(--marrom)}
+  .menu{display:flex;gap:1.7rem;align-items:center;list-style:none}
+  .menu a{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--marrom);opacity:.85;transition:opacity .2s}
+  .menu a:hover{opacity:1}
+  .menu .btn{padding:.95em 1.5em;opacity:1;color:var(--creme-claro)}
+  .burger{display:none;background:none;border:0;color:var(--marrom);cursor:pointer;width:44px;height:44px}
+  .burger span{display:block;width:22px;height:1.5px;background:currentColor;margin:5px auto;transition:.3s}
+
+  /* ===== HERO ===== */
+  .hero{min-height:100svh;display:flex;align-items:center;padding:130px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:4.5rem;align-items:center}
+  .hero .eyebrow{font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--caramelo);font-weight:500;margin-bottom:1.6rem}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.8rem,6vw,4.6rem);line-height:1;color:var(--vinho)}
+  .hero h1 .script{display:block;font-size:clamp(4.8rem,11vw,8rem);color:var(--caramelo);margin:.02em 0 0 -.02em}
+  .hero h1 small{display:block;font-size:.46em;font-style:italic;font-weight:400;color:var(--marrom);margin-top:.1rem}
+  .hero p.lead{max-width:30rem;margin:1.8rem 0 2.3rem;font-size:1.03rem;color:var(--marrom-suave)}
+  .hero .ctas{display:flex;flex-wrap:wrap;gap:.9rem}
+  .hero .registro{margin-top:2.6rem}
+  .hero .arco-foto{justify-self:center;width:min(400px,100%)}
+  .selo{position:absolute;left:-40px;bottom:46px;padding:1rem 1.3rem;border-radius:20px;max-width:230px;color:var(--vinho)}
+  .selo b{font-family:var(--serif);font-size:1.12rem;font-weight:700;display:block;line-height:1.2}
+  .selo span{font-size:.76rem;color:var(--marrom)}
+  .selo-2{left:auto;right:-30px;bottom:auto;top:60px;display:flex;align-items:center;gap:.7rem;max-width:none}
+  .selo-2 .bolinha{width:10px;height:10px;border-radius:50%;background:#6b9a5b;box-shadow:0 0 0 4px rgba(107,154,91,.18)}
+  .selo-2 span{font-size:.8rem;font-weight:500}
+  .aviso-poa{display:flex;align-items:center;gap:.8rem;margin-top:1.6rem;padding:.8rem 1.2rem;border-radius:20px;max-width:30rem;font-size:.86rem;line-height:1.45;color:var(--marrom)}
+  .aviso-poa b{font-weight:600;color:var(--vinho)}
+  .aviso-poa .bolinha{flex:none;width:10px;height:10px;border-radius:50%;background:var(--caramelo);box-shadow:0 0 0 4px rgba(169,124,85,.2)}
+  @media (max-width:480px){.aviso-poa{margin-top:1rem;padding:.55rem .7rem;gap:.5rem;font-size:.66rem;border-radius:14px}.aviso-poa .bolinha{width:7px;height:7px;box-shadow:0 0 0 3px rgba(169,124,85,.2)}}
+
+  /* ===== SOBRE ===== */
+  .sobre{padding:130px 0}
+  .sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .sobre p{margin-top:1.1rem;max-width:34rem;color:var(--marrom-suave)}
+  .sobre .fala{margin-top:2rem;padding:1.6rem 1.8rem;border-radius:22px;background:var(--bege);font-family:var(--serif);font-style:italic;font-size:1.18rem;line-height:1.5;max-width:32rem;color:var(--vinho)}
+  .sobre .assinatura{margin-top:1.6rem;display:block}
+
+  .sobre .sobre-foto{width:min(600px,100%);justify-self:center}
+
+  /* ===== VÍDEO ===== */
+  .apresenta{padding:20px 0 130px}
+  .apresenta-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:5rem;align-items:center}
+  .apresenta p{margin-top:1.2rem;max-width:30rem;color:var(--marrom-suave)}
+  .celular{position:relative;width:min(340px,100%);justify-self:center;padding:10px;border-radius:46px}
+  .celular video{position:relative;z-index:1;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:36px;display:block;background:var(--marrom)}
+  .play-grande{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:50%;display:grid;place-items:center;color:var(--vinho);cursor:pointer;transition:transform .3s, opacity .3s}
+  .play-grande:hover{transform:translate(-50%,-50%) scale(1.08)}
+  .play-grande svg{width:32px;height:32px;margin-left:4px}
+  .celular.tocando .play-grande{opacity:0;pointer-events:none}
+  .selos-video{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.8rem 0 2rem}
+  .selos-video span{padding:.55rem 1rem;border-radius:999px;font-size:.8rem;font-weight:500;color:var(--marrom)}
+
+  /* ===== HISTÓRIA ===== */
+  .historia-abre{padding:120px 0 100px;text-align:center}
+  .historia-abre .antes{font-size:clamp(1rem,2.2vw,1.2rem);color:var(--marrom-suave)}
+  .historia-abre .essa{font-family:var(--serif);font-size:clamp(1.7rem,3.8vw,2.6rem);margin-top:1.2rem;display:block;text-align:right;width:min(540px,100%);margin-inline:auto;color:var(--marrom)}
+  .historia-abre .grande{font-size:clamp(5.5rem,16vw,11rem);color:var(--vinho);margin:-.1em 0 0;display:block}
+  .historia-abre .depois{font-family:var(--serif);font-size:clamp(1.7rem,3.8vw,2.6rem);color:var(--marrom)}
+  .historia-abre .seta{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;margin:1.8rem auto 1rem;font-size:1.2rem;color:var(--vinho)}
+
+  .linha-tempo{padding:110px 0 70px}
+  .escolheu{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;padding:3rem;border-radius:36px;background:var(--creme-claro);box-shadow:0 30px 60px rgba(74,50,38,.08)}
+  .escolheu p{color:var(--marrom-suave)}
+  .escolheu strong{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4vw,3rem);line-height:1.08;margin:.7rem 0 1.2rem;display:block;color:var(--vinho)}
+  .escolheu img{width:100%;border-radius:24px}
+
+  .marco{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;padding:70px 0}
+  .marco:nth-child(even) .marco-foto{order:2}
+  .marco .ano{font-family:var(--serif);color:var(--caramelo);font-size:clamp(1.6rem,3vw,2.2rem)}
+  .marco h3{font-family:var(--serif);font-weight:700;font-size:clamp(2.8rem,6.5vw,4.8rem);line-height:.98;letter-spacing:-.02em;margin:.05em 0 .2em;color:var(--vinho)}
+  .marco .onde{font-weight:500}
+  .marco p{margin-top:1.2rem;max-width:30rem;color:var(--marrom-suave)}
+  .marco .divisor{height:1px;background:var(--nude);margin:1.4rem 0;max-width:30rem}
+  .marco .caixa{background:var(--bege);border-radius:18px;padding:1.1rem 1.4rem;font-style:italic;max-width:30rem;margin-top:1.4rem;color:var(--vinho)}
+  .marco-foto{justify-self:center;width:min(460px,100%)}
+  .sem-foto{display:grid;place-items:center;aspect-ratio:1;border-radius:999px 999px 36px 36px;background:linear-gradient(160deg,var(--bege),var(--bege-2));width:min(400px,100%);justify-self:center}
+  .sem-foto .script{font-size:clamp(4.5rem,9vw,6.5rem);color:var(--vinho)}
+
+  /* ===== TÉCNICA ===== */
+  .tecnica{padding:120px 0}
+  .tecnica-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:5rem;align-items:center}
+  .tecnica .minha{font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.7rem);margin-left:3.4rem;color:var(--marrom)}
+  .tecnica .grande{font-size:clamp(5.2rem,11vw,8.4rem);color:var(--vinho);display:block;margin:-.15em 0 .1em}
+  .tecnica p.frase-t{font-size:clamp(1.12rem,2vw,1.35rem);max-width:28rem;line-height:1.55;color:var(--marrom)}
+  .tecnica p.frase-t b{font-weight:600;color:var(--vinho)}
+  .tecnica .assinatura{margin-top:1.6rem;display:block}
+  .pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:2.6rem;max-width:34rem}
+  .pilares div{padding:1.1rem 1.1rem;border-radius:20px}
+  .pilares b{font-family:var(--serif);font-weight:500;font-size:1.12rem;display:block;color:var(--vinho)}
+  .pilares span{font-size:.8rem;color:var(--marrom-suave);line-height:1.4;display:block;margin-top:.2rem}
+  .tecnica .tecnica-foto{width:min(420px,100%);justify-self:center}
+  .moldura img{display:block}
+
+  /* ===== PROCEDIMENTOS ===== */
+  .procedimentos{padding:130px 0}
+  .cabeca{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:3.5rem}
+  .cabeca p{max-width:26rem;color:var(--marrom-suave)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+  .card{padding:2.1rem 1.9rem;border-radius:26px;transition:transform .35s, box-shadow .35s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 30px 60px rgba(74,50,38,.16)}
+  .card .icone{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--bege);color:var(--vinho);font-family:var(--serif);font-size:.95rem}
+  .card h3{font-family:var(--serif);font-weight:700;font-size:1.42rem;line-height:1.2;margin:1.1rem 0 .6rem;color:var(--vinho)}
+  .card p{font-size:.93rem;color:var(--marrom-suave)}
+
+  /* ===== FRASE ===== */
+  .frase{padding:110px 0;text-align:center}
+  .frase blockquote{font-family:var(--serif);font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1.35;color:var(--marrom)}
+  .frase blockquote em{font-family:var(--script);font-style:normal;font-size:1.6em;line-height:.6;color:var(--vinho)}
+  .frase .assinatura{margin-top:1.6rem;display:block}
+
+  /* ===== RESULTADOS ===== */
+  .resultados{padding:120px 0}
+  .galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+  .marco-foto.dupla{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:start}
+  .marco-foto.dupla figure{margin:0}
+  .marco-foto.dupla figure:last-child{margin-top:3rem}
+  .marco-foto.dupla figcaption{font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--marrom-suave);text-align:center;padding:.6rem .2rem .1rem}
+  .foto-caso{border-radius:20px;overflow:hidden;background:#000;aspect-ratio:1}
+  .foto-caso img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+  .caso:hover .foto-caso img{transform:scale(1.04)}
+  @media (max-width:600px){
+    .galeria{gap:.5rem}
+    .galeria .caso{padding:5px;border-radius:16px}
+    .galeria .comparar{border-radius:12px}
+    .galeria .comparar .tag{top:5px;padding:.15rem .35rem;font-size:.42rem;letter-spacing:.08em}
+    .galeria .comparar .tag.a{left:5px}.galeria .comparar .tag.d{right:5px}
+    .galeria .comparar .puxador{width:24px;height:24px;margin:-12px 0 0 -12px;font-size:.6rem}
+    .galeria .caso figcaption{padding:.5rem .15rem .1rem;font-size:.72rem;line-height:1.25}
+    .galeria .caso figcaption small{display:none}
+  }
+  .caso{border-radius:28px;padding:10px;margin:0}
+  .comparar{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;background:#1b1715;touch-action:pan-y;user-select:none;cursor:ew-resize}
+  .comparar .lado{position:absolute;inset:0;display:grid;place-items:center;background-size:cover;background-position:center}
+  .comparar .lado span{position:absolute;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-style:italic;font-size:.95rem;color:rgba(247,241,232,.5);white-space:nowrap}
+  .comparar .antes span{left:25%}
+  .comparar .depois span{left:75%}
+  .comparar .antes{background-color:#2a2320}
+  .comparar .depois{background-color:#3a2f29;clip-path:inset(0 0 0 var(--corte,50%))}
+  .comparar .tag{position:absolute;top:12px;z-index:2;padding:.3rem .7rem;border-radius:999px;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--creme-claro);background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .comparar .tag.a{left:12px}.comparar .tag.d{right:12px}
+  .comparar .linha{position:absolute;top:0;bottom:0;left:var(--corte,50%);width:2px;margin-left:-1px;background:var(--creme-claro);z-index:2;pointer-events:none}
+  .comparar .puxador{position:absolute;top:50%;left:var(--corte,50%);width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;z-index:3;pointer-events:none;
+    background:var(--creme-claro);box-shadow:0 8px 20px rgba(0,0,0,.35);display:grid;place-items:center;color:var(--vinho);font-family:var(--sans);font-weight:600;font-size:1rem}
+  .caso figcaption{padding:.9rem .6rem .3rem;font-family:var(--serif);font-size:1.05rem;color:var(--vinho)}
+  .caso figcaption small{display:block;font-family:var(--sans);font-size:.78rem;color:var(--marrom-suave)}
+  .aviso{margin-top:1.8rem;font-size:.82rem;font-style:italic;color:var(--marrom-suave);text-align:center}
+
+  /* ===== DEPOIMENTOS ===== */
+  .depoimentos{padding:120px 0}
+  .videos{display:grid;grid-template-columns:repeat(2,minmax(0,300px));justify-content:center;gap:3rem;margin:3rem auto 0}
+  .video-card{margin:0;text-align:center}
+  .video-card .celular{width:100%}
+  .video-card figcaption{margin-top:1.1rem;font-family:var(--serif);font-size:1.1rem;color:var(--vinho);line-height:1.3}
+  .video-card figcaption small{display:block;margin-top:.3rem;font-family:var(--sans);font-size:.8rem;color:var(--marrom-suave)}
+  .video{aspect-ratio:9/14;border-radius:28px;display:grid;place-items:center;text-align:center;padding:1.2rem;color:var(--marrom)}
+  .video .play{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin:0 auto 1rem;background:var(--vinho);color:var(--creme);font-size:.9rem;padding-left:3px}
+  .video small{display:block;color:var(--marrom-suave);font-size:.78rem}
+
+  /* ===== FAQ ===== */
+  .faq{padding:130px 0}
+  .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem}
+  .faq-grid .titulo + p{margin-top:1.2rem;max-width:22rem;color:var(--marrom-suave)}
+  .perguntas{display:grid;gap:.7rem}
+  details{border-radius:20px;background:var(--creme-claro);border:1px solid var(--bege);transition:background .3s}
+  details[open]{background:#fff}
+  summary{list-style:none;cursor:pointer;padding:1.25rem 3.4rem 1.25rem 1.5rem;font-family:var(--serif);font-size:1.13rem;font-weight:500;position:relative;color:var(--vinho)}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";position:absolute;right:1rem;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:var(--bege);display:grid;place-items:center;font-family:var(--sans);font-weight:300;font-size:1.2rem;line-height:1;transition:transform .3s}
+  details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+  details p{padding:0 1.5rem 1.4rem;font-size:.96rem;color:var(--marrom-suave)}
+
+  /* ===== AGENDAMENTO (liquid glass) ===== */
+  .agendar{padding:90px 0;overflow-x:clip;isolation:isolate}
+  .agendar .mancha.m1{width:520px;height:520px;background:#D9B48F;top:-80px;left:-120px;opacity:.75;animation:deriva 16s ease-in-out infinite}
+  .agendar .mancha.m2{width:460px;height:460px;background:#B9826A;bottom:-120px;right:-60px;opacity:.55;animation:deriva 19s ease-in-out infinite reverse}
+  .agendar .mancha.m3{width:300px;height:300px;background:#8E3B3A;top:15%;left:62%;opacity:.3;animation:deriva 22s ease-in-out infinite}
+  @keyframes deriva{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.12)}}
+  .agendar-grid{display:grid;grid-template-columns:.62fr 1.38fr;gap:3rem;align-items:center}
+  .agendar h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;color:var(--vinho);margin:.4rem 0 1.2rem}
+  .agendar h2 .script{display:block;font-size:1.45em;line-height:.8;color:var(--caramelo);margin-top:.15em}
+  .agendar h2 .script .tinta{line-height:.8}
+  .agendar .intro p{color:var(--marrom-suave);max-width:26rem}
+  .agendar .mini{display:flex;align-items:center;gap:1rem;margin-top:2rem;padding:.7rem 1.2rem .7rem .7rem;border-radius:999px;width:fit-content}
+  .agendar .mini img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:50% 20%}
+  .agendar .mini b{font-family:var(--serif);font-weight:500;display:block;color:var(--vinho);line-height:1.2}
+  .agendar .mini span{font-size:.78rem;color:var(--marrom-suave)}
+
+  .form{border-radius:36px;padding:2.4rem}
+  .form h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;color:var(--vinho)}
+  .form .sub{font-size:.88rem;color:var(--marrom-suave);margin-top:.2rem}
+  .campo{margin-top:1.4rem}
+  .campo > label,.campo > .rotulo{display:block;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--marrom);margin-bottom:.6rem}
+  .campo input{width:100%;font:inherit;font-size:.98rem;color:var(--marrom);padding:1rem 1.2rem;border-radius:16px;border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.45);box-shadow:0 1px 2px rgba(74,50,38,.06) inset;outline:none;transition:background .25s, border-color .25s, box-shadow .25s}
+  .campo input::placeholder{color:#9c8676}
+  .campo input:focus{background:rgba(255,255,255,.75);border-color:var(--nude);box-shadow:0 0 0 4px rgba(210,183,156,.35)}
+  .duas{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem}
+  .chips input{position:absolute;opacity:0;pointer-events:none}
+  .chips label{cursor:pointer;padding:.62rem 1.05rem;border-radius:999px;font-size:.84rem;color:var(--marrom);background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.75);transition:all .25s;user-select:none}
+  .chips label:hover{background:rgba(255,255,255,.7)}
+  .chips input:checked + label{background:var(--vinho);color:var(--creme-claro);border-color:var(--vinho);box-shadow:0 8px 18px rgba(90,14,18,.22)}
+  .chips input:focus-visible + label{outline:2px solid var(--vinho);outline-offset:2px}
+  .form .btn{width:100%;margin-top:1.8rem;padding:1.2em}
+  .form .nota{font-size:.75rem;color:var(--marrom-suave);text-align:center;margin-top:.9rem}
+
+  /* abas */
+  .painel{border-radius:36px;padding:1.4rem}
+  .abas{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:5px;border-radius:999px;background:rgba(74,50,38,.07);margin-bottom:1rem;position:relative}
+  .abas button{position:relative;z-index:1;border:0;background:none;font:inherit;font-size:.8rem;font-weight:500;letter-spacing:.06em;color:var(--marrom-suave);padding:.8rem .6rem;border-radius:999px;cursor:pointer;transition:color .3s}
+  .abas button[aria-selected="true"]{color:var(--vinho)}
+  .abas .pilula{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 7px);border-radius:999px;background:rgba(255,255,255,.85);box-shadow:0 6px 16px rgba(74,50,38,.12),0 1px 0 #fff inset;transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+  .abas[data-ativa="1"] .pilula{transform:translateX(calc(100% + 4px))}
+  .aba{display:none}
+  .aba.ativa{display:block;animation:entra .45s ease}
+  @keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .painel .form{padding:1rem;border-radius:0;background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .painel .form::before{display:none}
+
+  /* agenda online */
+  .agenda{padding:.6rem}
+  .agenda h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;color:var(--vinho)}
+  .agenda .sub{font-size:.86rem;color:var(--marrom-suave)}
+  .mes{display:flex;align-items:center;justify-content:space-between;margin:1.3rem 0 .8rem}
+  .mes b{font-family:var(--serif);font-weight:500;font-size:1.15rem;color:var(--marrom)}
+  .mes button{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.5);color:var(--vinho);cursor:pointer;font-size:1rem;transition:background .2s,opacity .2s}
+  .mes button:hover{background:#fff}
+  .mes button:disabled{opacity:.3;cursor:default}
+  .semana,.dias{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+  .semana span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marrom-suave);font-weight:500;padding-bottom:.3rem}
+  .dia{position:relative;height:42px;border-radius:12px;border:1px solid transparent;background:none;font:inherit;font-size:.92rem;color:var(--marrom);display:grid;place-items:center;cursor:default}
+  .dia.livre{cursor:pointer;background:rgba(255,255,255,.55);border-color:rgba(255,255,255,.85);font-weight:500;transition:transform .2s, background .2s, box-shadow .2s}
+  .dia.livre::after{content:"";position:absolute;bottom:4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#5f9a4c;box-shadow:0 0 0 2px rgba(95,154,76,.18)}
+  .dia{line-height:1;padding-bottom:6px}
+  .dia.livre:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 18px rgba(74,50,38,.12)}
+  .dia.lotado{color:#C0392B;background:rgba(192,57,43,.07);border-color:rgba(192,57,43,.2);text-decoration:line-through;text-decoration-color:rgba(192,57,43,.6)}
+  .dia.fechado{color:#cdbfb3}
+  .dia.hoje{box-shadow:0 0 0 1px var(--nude) inset}
+  .dia.sel{background:var(--vinho)!important;color:var(--creme-claro);border-color:var(--vinho);box-shadow:0 10px 22px rgba(90,14,18,.28)}
+  .dia.sel::after{background:var(--creme-claro)}
+  .legenda{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.9rem;font-size:.74rem;color:var(--marrom-suave)}
+  .legenda i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
+  .cal-area{display:contents}
+  .ag-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:1.4rem;align-items:start;margin-top:.9rem}
+  .ag-col{min-width:0}
+  .ag-opcoes{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  .ag-opcoes .campo{margin-top:0}
+  .ag-opcoes .chips label{padding:.45rem .8rem;font-size:.76rem}
+  .ag-opcoes .rotulo{margin-bottom:.4rem!important}
+  .agenda .confirmar .campo{margin-top:.7rem}
+  .agenda .confirmar .campo input{padding:.75rem 1rem}
+  .agenda .confirmar .duas{grid-template-columns:1fr 1fr;gap:.6rem}
+  .agenda .confirmar .campo > label{margin-bottom:.35rem}
+  .agenda .confirmar .campo input{padding:.65rem .8rem;font-size:.88rem;border-radius:12px}
+  .agenda .confirmar .btn{margin-top:.8rem;padding:1em}
+  .agenda .aceite{margin-top:.6rem;font-size:.7rem;line-height:1.4}
+  .agenda .resumo{padding:.55rem .8rem;font-size:.8rem}
+  .ag-grid .dia{height:36px}
+  .ag-grid .legenda{gap:.7rem;font-size:.7rem;margin-top:.6rem}
+  .ag-grid .mes{margin:.2rem 0 .5rem}
+  .ag-grid .horarios{padding:.8rem}
+  .ag-grid .slot{padding:.5rem .8rem}
+  .ag-grid .slots{gap:.35rem}
+  .horarios{padding:1rem;border-radius:20px;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.7);min-height:100%}
+  .horarios .dica{font-size:.82rem;color:var(--marrom-suave);line-height:1.5;text-align:center;padding:2.2rem .3rem}
+  .horarios .qual{display:block;font-family:var(--serif);font-size:1rem;line-height:1.3;color:var(--vinho);text-transform:none}
+  .horarios .qual::first-letter{text-transform:uppercase}
+  .slots{display:grid;gap:.45rem;margin-top:.8rem}
+  .slot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;font:inherit;font-size:.92rem;font-weight:600;padding:.6rem .9rem;border-radius:14px;cursor:pointer;color:var(--marrom);background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);transition:all .2s}
+  .slot:hover{background:#fff}
+  .slot small{display:inline-block;font-size:.66rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#5f9a4c}
+  .slot:disabled{cursor:default;color:#C0392B;background:rgba(192,57,43,.08);border-color:rgba(192,57,43,.35);text-decoration:line-through;text-decoration-color:rgba(192,57,43,.5)}
+  .slot:disabled small{color:#fff;background:#C0392B;padding:.2rem .5rem;border-radius:999px;text-decoration:none}
+  .slot.sel small{color:var(--creme-claro)}
+  .slot.sel{background:var(--vinho);color:var(--creme-claro);border-color:var(--vinho);box-shadow:0 8px 18px rgba(90,14,18,.22)}
+  .vazio{font-size:.86rem;color:var(--marrom-suave);margin-top:.6rem}
+  .confirmar{margin-top:1.3rem}
+  .confirmar .btn{width:100%;margin-top:1.1rem;padding:1.15em}
+  .resumo{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-radius:16px;background:rgba(255,255,255,.5);font-size:.86rem;color:var(--marrom)}
+  .resumo b{color:var(--vinho);font-weight:600}
+  .sucesso{text-align:center;padding:2.2rem 1rem 1.4rem}
+  .sucesso .check{width:74px;height:74px;border-radius:50%;margin:0 auto 1.2rem;display:grid;place-items:center;background:var(--vinho);color:var(--creme-claro);font-size:1.8rem;box-shadow:0 14px 30px rgba(90,14,18,.28);animation:pula .6s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes pula{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+  .sucesso h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;color:var(--vinho)}
+  .sucesso p{color:var(--marrom-suave);margin:.6rem auto 0;max-width:22rem;font-size:.92rem}
+  .sucesso .btn{margin-top:1.6rem}
+  .agenda .campo:first-of-type{margin-top:1.1rem}
+  .agenda .campo{margin-top:1rem}
+  .agenda .chips label{padding:.55rem .95rem;font-size:.8rem}
+  .aceite{display:flex;gap:.7rem;align-items:flex-start;margin-top:1rem;font-size:.76rem;line-height:1.5;color:var(--marrom-suave);cursor:pointer}
+  .aceite input{margin-top:.2rem;accent-color:var(--vinho);width:16px;height:16px;flex:none}
+  .salvar{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-top:.9rem}
+  .salvar a{padding:.6rem 1rem;border-radius:999px;font-size:.8rem;font-weight:500;color:var(--marrom);background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);transition:background .2s}
+  .salvar a:hover{background:#fff}
+  .sucesso .voltar{display:block;margin:1rem auto 0;background:none;border:0;font:inherit;font-size:.8rem;color:var(--marrom-suave);text-decoration:underline;cursor:pointer}
+
+  /* ===== RODAPÉ ===== */
+  footer{padding:60px 0 34px;font-size:.86rem;border-top:1px solid rgba(169,124,85,.18)}
+  .rodape{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:center}
+  .rodape nav{display:flex;gap:1.5rem;flex-wrap:wrap}
+  .rodape nav a{color:var(--marrom-suave)}
+  .rodape nav a:hover{color:var(--vinho)}
+  .legal{border-top:1px solid var(--bege);margin-top:2.2rem;padding-top:1.6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:var(--marrom-suave)}
+
+  /* WhatsApp flutuante */
+  .wa-flutua{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:var(--vinho);transition:transform .25s}
+  .wa-flutua:hover{transform:scale(1.07)}
+  .wa-flutua svg{width:26px;height:26px}
+
+  /* pop: notificação "em breve em Porto Alegre", desce do topo como no celular */
+  .pop-poa{position:fixed;top:calc(92px + env(safe-area-inset-top));right:calc(18px + env(safe-area-inset-right));z-index:60;width:340px;max-width:calc(100% - 24px);
+    padding:12px 14px;border-radius:20px;opacity:0;transform:translate3d(0,-30px,0);transition:opacity .4s ease,transform .6s cubic-bezier(.2,.9,.3,1);
+    /* fundo sólido, sem desfoque de vidro: desfoque em elemento fixo deixa a rolagem pesada */
+    background:rgba(251,248,243,.97);border:1px solid rgba(169,124,85,.18);box-shadow:0 16px 36px rgba(74,50,38,.16);will-change:transform,opacity;contain:layout paint}
+  .pop-poa.mostra{opacity:1;transform:translate3d(0,0,0)}
+  .pop-poa-link{display:flex;gap:12px;align-items:flex-start;padding-right:18px}
+  .pop-poa-ic{flex:none;width:42px;height:42px;border-radius:11px;background:var(--vinho);color:var(--creme-claro);font-family:var(--script);font-size:1.5rem;line-height:1;display:grid;place-items:center;padding-top:.2rem}
+  .pop-poa-t{flex:1;min-width:0}
+  .pop-poa-h{display:flex;justify-content:space-between;font-size:.66rem;color:var(--marrom-suave);font-weight:500}
+  .pop-poa-t b{display:block;font-weight:600;font-size:.86rem;color:#1b1210;line-height:1.35}
+  .pop-poa-m{display:block;font-size:.78rem;color:var(--marrom);line-height:1.4}
+  .pop-poa-x{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;border:0;background:rgba(74,50,38,.09);color:var(--marrom);font-size:.9rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+  .pop-poa-x:hover{background:rgba(74,50,38,.18)}
+  @media (max-width:600px){.pop-poa{top:calc(86px + env(safe-area-inset-top));right:12px;left:12px;width:auto;max-width:none;padding:10px 12px;border-radius:18px}
+    .pop-poa-ic{width:36px;height:36px;font-size:1.25rem;border-radius:9px}.pop-poa-t b{font-size:.78rem}.pop-poa-m{font-size:.7rem}}
+  @media (prefers-reduced-motion:reduce){.pop-poa{transition:none}}
+
+  /* animação de entrada */
+  .surge{opacity:0;transform:translateY(28px);transition:opacity .9s ease, transform .9s ease}
+  .surge.visivel{opacity:1;transform:none}
+  .moldura.inclina.surge.visivel{transform:rotate(-2deg)}
+  .moldura.inclina-dir.surge.visivel{transform:rotate(2deg)}
+  @media (prefers-reduced-motion:reduce){.surge{opacity:1;transform:none;transition:none}.mancha{animation:none!important}html{scroll-behavior:auto}}
+
+  /* ===== RESPONSIVO ===== */
+  @media (max-width:960px){
+    .menu{position:fixed;inset:-14px 0 0;height:100svh;background:rgba(247,241,232,.97);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);flex-direction:column;justify-content:center;gap:1.6rem;opacity:0;pointer-events:none;transition:opacity .35s}
+    .menu.aberto{opacity:1;pointer-events:auto}
+    .menu a{font-size:.95rem}
+    .burger{display:block;position:relative;z-index:2}
+    .burger.aberto span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .burger.aberto span:nth-child(2){opacity:0}
+    .burger.aberto span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .logo{position:relative;z-index:2}
+    .hero-grid,.sobre-grid,.marco,.tecnica-grid,.faq-grid,.agendar-grid,.escolheu{grid-template-columns:1fr}
+    .hero{padding-top:120px}
+    .hero-grid{gap:4rem}
+    .hero .arco-foto{width:min(330px,82%)}
+    .selo{left:-24px;bottom:28px}
+    .selo-2{left:auto;bottom:auto;right:-18px;top:30px}
+    .sobre-grid{gap:3.5rem}
+    .sobre .sobre-foto{width:min(340px,84%)}
+    .apresenta-grid{grid-template-columns:1fr;gap:3rem}
+    .celular{width:min(300px,84%)}
+    .escolheu{padding:2rem;gap:2rem}
+    .marco{gap:2.5rem;padding:45px 0}
+    .marco:nth-child(even) .marco-foto{order:0}
+    .tecnica .tecnica-foto{order:-1;width:min(330px,82%)}
+    .tecnica-grid{gap:4rem}
+    .cards{grid-template-columns:1fr 1fr}
+    .faq-grid,.agendar-grid{gap:2.5rem}
+  }
+  @media (max-width:600px){
+    .logo .assinatura{font-size:.5rem;letter-spacing:.3em}
+    .nav{padding-left:18px}
+    .cards{grid-template-columns:1fr}
+    .videos{grid-template-columns:minmax(0,260px);gap:2.5rem}
+    .hero .ctas .btn{width:100%}
+    .escolheu{padding:1.4rem;border-radius:28px}
+    .tecnica .minha{margin-left:2rem}
+    .pilares{grid-template-columns:1fr}
+    .historia-abre .essa{text-align:center}
+    .form{padding:1.6rem 1.3rem;border-radius:30px}
+    .duas{grid-template-columns:1fr}
+    .painel{padding:.9rem;border-radius:30px}
+    .painel .form{padding:.6rem}
+    .agenda{padding:.3rem}
+    .semana,.dias{gap:4px}
+    .dia{border-radius:10px;font-size:.85rem;height:40px}
+    .ag-grid,.ag-opcoes{grid-template-columns:1fr}
+    .horarios .dica{padding:.8rem}
+    .agendar .mancha.m1{width:340px;height:340px}
+    .agendar .mancha.m2{width:300px;height:300px}
+  }
+
+  /* ===== BRILHO REFLEXIVO: uma faixa de luz que atravessa vidro, botões e a foto do topo ===== */
+  .vidro,.btn-vinho{background-image:linear-gradient(105deg,transparent 36%,rgba(255,255,255,.35) 44%,rgba(255,255,255,1) 49%,rgba(255,255,255,.35) 54%,transparent 62%),var(--fundo-vidro,none);
+    background-size:260% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0,0 0}
+  .vidro{--fundo-vidro:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.22))}
+  .btn-vinho{background-color:var(--vinho);background-image:linear-gradient(105deg,transparent 38%,rgba(255,230,215,.7) 48%,rgba(255,230,215,.15) 53%,transparent 62%)}
+  .brilha,.vidro:hover,.btn-vinho:hover{animation:plim 1.1s cubic-bezier(.4,0,.2,1)}
+  @keyframes plim{from{background-position:160% 0,0 0}to{background-position:-60% 0,0 0}}
+  .hero .arco-foto::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:999px 999px var(--raio) var(--raio);
+    background:linear-gradient(105deg,transparent 34%,rgba(255,255,255,.25) 42%,rgba(255,255,255,.85) 48%,rgba(255,255,255,.3) 54%,transparent 62%) no-repeat;mix-blend-mode:soft-light;
+    background-size:260% 100%;background-position:160% 0}
+  .hero .arco-foto.brilha::after{animation:plim-foto 1.6s cubic-bezier(.4,0,.2,1)}
+  .hero .arco-foto.brilha img{animation:acende 1.6s ease}
+  @keyframes acende{45%{filter:brightness(1.12) saturate(1.08)}}
+  @keyframes plim-foto{from{background-position:160% 0}to{background-position:-60% 0}}
+  @media (prefers-reduced-motion:reduce){.brilha,.vidro:hover,.btn-vinho:hover,.hero .arco-foto.brilha::after{animation:none}}
+
+  /* ===== MOTION (GSAP + ScrollTrigger + Lenis) ===== */
+  .motion-pre .surge,.motion-pre .faixa-marquee{visibility:hidden}
+  .motion .surge{opacity:1;transform:none;transition:none}
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  .lenis.lenis-stopped{overflow:hidden}
+  /* caixa folgada em volta da cursiva: a revelação não corta as voltas da letra */
+  .tinta{display:inline-block;padding:.3em .4em .45em .2em;margin:-.3em -.4em -.45em -.2em}
+  .m{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .03em .16em;margin:-.16em -.03em -.16em}
+  .mi{display:inline-block}
+
+  /* abertura */
+
+  /* barra de progresso */
+  .progresso{display:none}
+  .motion .progresso{display:block;position:fixed;left:0;top:0;right:0;height:3px;z-index:70;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--nude),var(--caramelo),var(--vinho))}
+
+  /* faixa infinita */
+  .marquee-sec{overflow:hidden;padding:34px 0;margin-top:-34px;position:relative;z-index:2}
+  .faixa-marquee{background:var(--bege);transform:rotate(-1.6deg);margin:0 -3%;padding:1.15rem 0;box-shadow:0 18px 40px rgba(74,50,38,.08);border-block:1px solid rgba(169,124,85,.18)}
+  .marquee-trilho{display:flex;width:max-content;white-space:nowrap;will-change:transform}
+  .marquee-trilho span{font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,3.4vw,2.5rem);color:var(--marrom);padding-right:.6em;line-height:1.3}
+  .marquee-trilho em{font-family:var(--script);font-style:normal;color:var(--vinho);font-size:1.35em}
+  .marquee-trilho b{color:var(--caramelo);font-weight:400;font-style:normal;font-size:.6em;margin:0 .7em;vertical-align:middle}
+
+  /* linha do tempo */
+  .linha-tempo .wrap{position:relative}
+  .trilho{display:none}
+  @media (min-width:1260px){
+    .motion .trilho{display:block;position:absolute;left:-46px;top:0;bottom:0;width:1px;background:rgba(169,124,85,.25)}
+    .motion .trilho i{position:absolute;inset:0;background:var(--vinho);transform-origin:50% 0;transform:scaleY(0)}
+    .motion .marco{position:relative}
+    .motion .marco::before{content:"";position:absolute;left:-52px;top:50%;width:13px;height:13px;margin-top:-6.5px;border-radius:50%;background:var(--creme);border:1px solid var(--nude);transition:background .5s,border-color .5s,box-shadow .5s,transform .5s}
+    .motion .marco.aceso::before{background:var(--vinho);border-color:var(--vinho);transform:scale(1.25);box-shadow:0 0 0 6px rgba(90,14,18,.1)}
+  }
+
+  /* seções que travam na tela */
+  @media (min-width:961px){
+    .motion .historia-abre,.motion .frase{min-height:100svh;display:flex;align-items:center}
+    .motion .historia-abre > .wrap,.motion .frase > .wrap{width:min(1160px,100% - 32px)}
+  }
+  .frase .pf{display:inline-block}
+
+  /* cards com reflexo seguindo o mouse */
+  .motion .card{transition:box-shadow .35s}
+  .motion .card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.6),transparent 55%)}
+  .motion .card:hover::after{opacity:1}
+  .motion .selo-2 .bolinha{animation:ping 2.2s ease-out infinite}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(107,154,91,.45)}70%,100%{box-shadow:0 0 0 9px rgba(107,154,91,0)}}
+  details p{overflow:hidden}
+
+  /* ===== CASO EM DESTAQUE (estúdio escuro) ===== */
+  .estudio-sec{--ouro:#D9BC94;position:relative;isolation:isolate;overflow:hidden;color:#F3E9DC;padding:130px 0 110px;
+    background:radial-gradient(55% 80% at 8% 42%,#1d1512 0%,#000 48%)}
+  .estudio-sec::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;z-index:2;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .estudio-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:3rem;align-items:center}
+  .estudio-txt .k{font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ouro);font-weight:500}
+  .estudio-txt h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,5vw,4.2rem);line-height:1;margin:1.2rem 0 1.4rem;color:#F3E9DC}
+  .estudio-txt h2 .script{display:block;font-size:1.45em;color:var(--ouro);line-height:.9;margin-top:.05em}
+  .estudio-txt p{color:rgba(243,233,220,.62);max-width:22rem;line-height:1.75}
+  .estudio-txt .num{display:flex;gap:2.4rem;margin-top:2.6rem}
+  .estudio-txt .num div{border-top:1px solid rgba(217,188,148,.3);padding-top:.8rem;min-width:7rem}
+  .estudio-txt .num b{font-family:var(--serif);font-weight:400;font-size:1.6rem;color:#F3E9DC;display:block}
+  .estudio-txt .num span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,233,220,.5)}
+  .estudio-wrap{justify-self:end;width:100%;max-width:640px}
+  .estudio{position:relative;aspect-ratio:1;width:100%;user-select:none;touch-action:pan-y;cursor:ew-resize;
+    -webkit-mask-image:radial-gradient(farthest-side at 58% 42%,#000 72%,transparent 100%);mask-image:radial-gradient(farthest-side at 58% 42%,#000 72%,transparent 100%)}
+  .estudio img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .estudio .dep{clip-path:inset(0 0 0 var(--c,50%))}
+  .estudio .fio{position:absolute;top:8%;bottom:8%;left:var(--c,50%);width:1px;background:linear-gradient(transparent,var(--ouro) 20%,var(--ouro) 80%,transparent);pointer-events:none}
+  .estudio .pino{position:absolute;top:50%;left:var(--c,50%);width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;border:1px solid var(--ouro);
+    background:rgba(10,7,6,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:grid;place-items:center;color:var(--ouro);font-family:var(--serif);font-size:1rem;pointer-events:none}
+  .estudio-leg{display:flex;justify-content:space-between;margin-top:.4rem;padding:0 8%;font-family:var(--script);font-size:2.4rem;color:var(--ouro);line-height:1}
+  .estudio-leg span:first-child{opacity:.55}
+  .estudio-dica{display:none;text-align:center;font-size:.72rem;letter-spacing:.12em;color:rgba(243,233,220,.45);margin-top:.6rem}
+  @media (hover:none){.estudio-dica{display:block}}
+  .estudio-sec .aviso{color:rgba(243,233,220,.45);margin-top:3rem}
+  @media (max-width:1100px){.estudio-grid{grid-template-columns:.85fr 1.15fr;gap:1.6rem}
+    .estudio-txt h2{font-size:clamp(2rem,4.6vw,3.2rem)}.estudio-txt .num{gap:1.2rem}.estudio-txt .num div{min-width:5.5rem}
+    .estudio-txt .num b{font-size:1.25rem}.estudio-leg{font-size:1.8rem}}
+  @media (max-width:560px){.estudio-grid{grid-template-columns:1fr}.estudio-wrap{justify-self:center}}
+
+  /* telas menores: menos espaço vazio entre as seções */
+  @media (max-width:960px){
+    .sobre,.apresenta,.linha-tempo,.tecnica,.procedimentos,.resultados,.depoimentos,.faq,.agendar,.historia-abre,.frase,.estudio-sec{padding-top:48px!important;padding-bottom:48px!important}
+    .apresenta{padding-top:0!important}
+    .resultados .aviso,.estudio-sec .aviso{margin-top:1.4rem}
+    .cabeca{margin-bottom:2rem}
+  }
+
+  /* técnica em telas menores: foto à esquerda e texto à direita, juntos */
+  @media (max-width:960px){
+    .tecnica-grid{grid-template-columns:.85fr 1.15fr!important;gap:1.2rem!important;align-items:center}
+    .tecnica .tecnica-foto{order:-1;width:100%!important;transform:rotate(-1.5deg);align-self:stretch;display:flex}
+    .tecnica .tecnica-foto img{height:100%;object-fit:cover;object-position:40% 40%}
+    .tecnica .minha{margin-left:1.2rem!important;font-size:clamp(1.2rem,4.5vw,2rem)}
+    .tecnica .grande{font-size:clamp(3rem,12vw,5.5rem)!important}
+    .tecnica p.frase-t{font-size:clamp(.82rem,3.4vw,1.1rem)!important;line-height:1.45}
+    .tecnica .assinatura{margin-top:.8rem!important;font-size:.5rem}
+    .tecnica .pilares{grid-template-columns:1fr!important;gap:.4rem!important;margin-top:1rem!important}
+    .tecnica .pilares div{padding:.55rem .7rem!important}
+    .tecnica .pilares b{font-size:.9rem}.tecnica .pilares span{font-size:.68rem}
+  }
+
+  /* linha do tempo em telas menores: foto à esquerda e texto ao lado (Medicina, Residência, Fellowship) */
+  @media (max-width:960px){
+    .marco{grid-template-columns:.8fr 1.2fr!important;gap:1.1rem!important;align-items:center;padding:28px 0!important}
+    .marco .marco-foto{order:-1!important;width:100%!important;align-self:stretch;display:flex}
+    .marco .marco-foto img{height:100%;object-fit:cover;object-position:50% 30%}
+    .marco .marco-foto:has(img[src*="residencia"]){align-self:center;display:block}
+    .marco .marco-foto img[src*="residencia"]{height:auto;aspect-ratio:4/5;object-position:30% 45%}
+    .marco .marco-foto img[src*="joana"]{object-position:28% 72%}
+    .marco .ano{font-size:clamp(1rem,4vw,1.5rem)}
+    .marco h3{font-size:clamp(1.6rem,7vw,3rem)!important}
+    .marco .onde{font-size:.78rem}
+    .marco p{font-size:clamp(.78rem,3.3vw,1rem);margin-top:.6rem!important;line-height:1.45}
+    .marco .divisor{margin:.7rem 0}
+    .marco .caixa{padding:.6rem .8rem;font-size:.78rem}
+  }
+
+  /* barra do topo no celular: nome ao lado do monograma e botão de agendar à mão */
+  .agendar-mini{display:none}
+  @media (max-width:960px){
+    .nav{gap:.6rem}
+    .logo{margin-right:auto}
+    .agendar-mini{display:inline-flex;padding:.7em 1.1em;font-size:.62rem;letter-spacing:.14em;position:relative;z-index:2}
+  }
+  @media (max-width:360px){.logo .assinatura{display:none}}
+
+  /* ===== iPhone ===== */
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  a,button,summary,label,.dia,.slot,.comparar,.estudio{-webkit-tap-highlight-color:transparent}
+  header{top:calc(14px + env(safe-area-inset-top))}
+  .nav{width:min(1160px,100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right))}
+  .wa-flutua{right:calc(18px + env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom))}
+  footer{padding-bottom:calc(34px + env(safe-area-inset-bottom))}
+  .wrap{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  .hero{min-height:100vh;min-height:100svh}
+  @media (max-width:960px){
+    /* o iPhone dá zoom em campos com letra menor que 16px */
+    input,select,textarea,.agenda .confirmar .campo input{font-size:16px!important}
+    /* vidro mais leve no celular: menos desfoque = rolagem mais fluida */
+    .vidro{-webkit-backdrop-filter:blur(12px) saturate(150%);backdrop-filter:blur(12px) saturate(150%)}
+    .mancha{filter:blur(48px)}
+    .menu{inset:0!important;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+    .btn,.slot,.dia.livre,.chips label,summary,.burger{touch-action:manipulation}
+  }
+  @media (max-width:600px){
+    .hero{padding-top:calc(104px + env(safe-area-inset-top));min-height:auto}
+    .hero .eyebrow{margin-bottom:1rem;font-size:.62rem}
+    .hero p.lead{margin:1.1rem 0 1.4rem;font-size:.95rem;line-height:1.6}
+    .hero .registro{margin-top:1.4rem}
+  }
+
+  /* topo em telas médias: texto à esquerda e foto à direita */
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1.1fr .9fr!important;gap:1.6rem!important;align-items:center}
+    .hero .arco-foto{width:100%!important}
+    .hero h1{font-size:clamp(2.2rem,5.6vw,3.4rem)}
+    .hero h1 .script{font-size:clamp(3.6rem,10vw,6rem)}
+    .hero p.lead{font-size:.95rem}
+    .hero .ctas{flex-direction:column;align-items:stretch}
+    .selo:not(.selo-2){left:-14px!important;bottom:18px!important;padding:.7rem .9rem;max-width:170px}
+    .selo-2{left:auto!important;bottom:auto!important;padding:.55rem .8rem}
+    .selo b{font-size:.92rem}
+    .selo-2{right:-10px!important;top:18px!important}
+    .selo-2 span{font-size:.7rem}
+  }
+
+  @media (min-width:481px) and (max-width:600px){
+    .hero{padding-top:110px}
+    .hero h1{font-size:2rem}
+    .hero h1 .script{font-size:3.4rem}
+    .hero h1 small{font-size:.5em}
+    .hero p.lead{font-size:.85rem;margin:.9rem 0 1.1rem}
+    .hero .ctas .btn{padding:.9em 1em;font-size:.66rem}
+    .hero .eyebrow{font-size:.55rem;letter-spacing:.2em}
+    .selo-2 span{font-size:.6rem}
+    .selo:not(.selo-2){padding:.45rem .6rem!important;max-width:120px!important;bottom:10px!important}
+    .selo:not(.selo-2) b{font-size:.72rem}.selo:not(.selo-2) span{display:none}
+  }
+
+  /* topo no celular: texto à esquerda e foto à direita, lado a lado */
+  @media (max-width:480px){
+    .hero{padding-top:calc(96px + env(safe-area-inset-top));min-height:auto;padding-bottom:40px}
+    .hero-grid{grid-template-columns:1.25fr .75fr!important;gap:.8rem!important;align-items:center}
+    .hero .eyebrow{font-size:.5rem;letter-spacing:.16em;margin-bottom:.6rem}
+    .hero h1{font-size:1.75rem}
+    .hero h1 .script{font-size:3rem}
+    .hero h1 small{font-size:.55em}
+    .hero p.lead{font-size:.8rem;line-height:1.5;margin:.8rem 0 1rem}
+    .hero .ctas{flex-direction:column;align-items:stretch;gap:.5rem}
+    .hero .ctas .btn{padding:.85em .6em;font-size:.6rem;letter-spacing:.1em}
+    .hero .registro{margin-top:1.3rem!important;font-size:.46rem;letter-spacing:.25em}
+    .hero .ctas .btn{width:100%}
+    .hero .arco-foto{align-self:start;margin-top:1.4rem}
+    .hero .arco-foto::before{inset:-7px}
+    .selo-2{right:auto!important;left:50%!important;top:auto!important;bottom:-12px!important;translate:-50% 0;padding:.35rem .6rem!important;gap:.4rem!important;white-space:nowrap;border-radius:999px}
+    .selo-2 span{font-size:.56rem!important}
+    .selo-2 .bolinha{width:6px;height:6px;box-shadow:0 0 0 3px rgba(107,154,91,.18)}
+  }
+</style>
+</head>
+<body>
+
+<div class="progresso" aria-hidden="true"></div>
+
+<header>
+  <div class="nav vidro">
+    <a href="#inicio" class="logo" aria-label="Início">
+      <span class="mono">VO</span>
+      <span class="assinatura">Dra. Victoria<br>Oss-Emer</span>
+    </a>
+    <a href="#agendar" class="btn btn-vinho agendar-mini">Agendar</a>
+    <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="menu">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#historia">História</a></li>
+      <li><a href="#tecnica">Técnica</a></li>
+      <li><a href="#procedimentos">Procedimentos</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+      <li><a href="#agendar" class="btn btn-vinho">Agendar consulta</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero arcos" id="inicio">
+  <div class="mancha" style="width:480px;height:480px;background:#E6CDB2;top:-120px;right:-80px;opacity:.6"></div>
+  <div class="wrap hero-grid">
+    <div class="surge">
+      <p class="eyebrow">Otorrinolaringologista · Brasília</p>
+      <h1>
+        Rinoplastia
+        <span class="script">natural</span>
+        <small>estética + respiração</small>
+      </h1>
+      <p class="lead">Fellow em Rinoplastia e Cirurgia da Face. Um nariz bonito, que respira bem e que continua sendo seu. Sem “cara de operado”.</p>
+      <div class="ctas">
+        <a href="#agendar" class="btn btn-vinho">Agendar consulta</a>
+        <a href="#historia" class="btn btn-vidro vidro">Conhecer minha história</a>
+      </div>
+      <a href="#agendar" class="aviso-poa vidro"><i class="bolinha"></i><span><b>Porto Alegre a partir de maio de 2027.</b> A agenda para consulta online já está aberta!</span></a>
+      <p class="assinatura registro">CRM-DF 35711 · RQE 26344</p>
+    </div>
+    <div class="arco-foto surge">
+      <img src="img/victoria-jardim.jpg" alt="Dra. Victoria Oss-Emer sorrindo, de vestido branco, em um jardim" width="1080" height="1440">
+      <div class="selo selo-2 vidro"><i class="bolinha"></i><span>Agenda aberta em Brasília</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAIXA -->
+<div class="marquee-sec" aria-hidden="true">
+  <div class="faixa-marquee"><div class="marquee-skew"><div class="marquee-trilho"><span>Rinoplastia <em>natural</em> <b>✦</b> estética + respiração <b>✦</b> Brasília · DF <b>✦</b> Porto Alegre em maio de 2027 <b>✦</b> Fellow em Rinoplastia e Cirurgia da Face <b>✦</b></span><span>Rinoplastia <em>natural</em> <b>✦</b> estética + respiração <b>✦</b> Brasília · DF <b>✦</b> Porto Alegre em maio de 2027 <b>✦</b> Fellow em Rinoplastia e Cirurgia da Face <b>✦</b></span></div></div></div>
+</div>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="wrap sobre-grid">
+    <div class="moldura inclina sobre-foto surge"><img src="img/foto-sobre.jpg" alt="Dra. Victoria Oss-Emer sorrindo, de blazer branco, no consultório"></div>
+    <div class="surge">
+      <span class="kicker">Prazer,</span>
+      <h2 class="titulo">eu sou a Dra. Victoria <span class="script">Oss-Emer</span></h2>
+      <p>Médica formada pela UFRGS e otorrinolaringologista pelo Hospital de Clínicas de Porto Alegre (HCPA).</p>
+      <p>Atualmente moro em Brasília e sigo me aprofundando em rinoplastia e cirurgia plástica da face, unindo técnica operatória, estética e função do nariz.</p>
+      <p>Por aqui, compartilho minha rotina, conhecimento e meu olhar sobre a rinoplastia, assunto que tanto amo! Seja bem-vindo(a) 🤍</p>
+      <p class="fala">“Todo mundo espera que uma cirurgiã queira que seu trabalho apareça. Eu prefiro o contrário: que apareça você. Mais confiante, respirando melhor, feliz com o próprio rosto.”</p>
+      <span class="assinatura">Dra. Victoria Oss-Emer</span>
+    </div>
+  </div>
+</section>
+
+<!-- VÍDEO DE APRESENTAÇÃO -->
+<section class="apresenta arcos">
+  <div class="wrap apresenta-grid">
+    <div class="celular vidro surge">
+      <video id="video-apresenta" src="video/apresentacao.mp4" poster="video/capa.jpg" preload="metadata" playsinline webkit-playsinline></video>
+      <button class="play-grande vidro" type="button" aria-label="Assistir vídeo de apresentação">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+      </button>
+    </div>
+    <div class="surge">
+      <span class="kicker">Me conhece</span>
+      <h2 class="titulo">Minha trajetória em <span class="script">um minuto</span></h2>
+      <p>Prefere me ouvir? Dá o play e conhece um pouco de onde eu vim, como a rinoplastia entrou na minha vida e a forma como eu enxergo cada paciente que chega até mim.</p>
+      <div class="selos-video">
+        <span class="vidro">UFRGS</span>
+        <span class="vidro">Otorrino · HCPA</span>
+        <span class="vidro">Fellow em Rinoplastia</span>
+      </div>
+      <a href="#agendar" class="btn btn-vinho">Agendar consulta</a>
+    </div>
+  </div>
+</section>
+
+<!-- HISTÓRIA: abertura -->
+<section class="historia-abre arcos" id="historia">
+  <div class="wrap surge">
+    <p class="antes">Hoje passo meus dias<br>dentro do centro cirúrgico,<br>estudando e operando.</p>
+    <span class="essa">Essa é a</span>
+    <span class="script grande">História</span>
+    <span class="depois">de como cheguei aqui</span>
+    <span class="seta vidro" aria-hidden="true">↓</span>
+    <span class="assinatura">Dra. Victoria Oss-Emer</span>
+  </div>
+</section>
+
+<!-- HISTÓRIA: linha do tempo -->
+<section class="linha-tempo arcos">
+  <div class="wrap">
+    <div class="trilho" aria-hidden="true"><i></i></div>
+    <div class="escolheu surge">
+      <div>
+        <p>Muita gente escolhe uma especialidade por acaso, por influência, por mercado…</p>
+        <strong>Comigo foi diferente: o nariz me escolheu cedo.</strong>
+        <span class="assinatura">Dra. Victoria Oss-Emer</span>
+      </div>
+      <img src="img/foto-cirurgica.jpg" alt="Dra. Victoria no centro cirúrgico, de touca com o nome bordado e lupa cirúrgica">
+    </div>
+
+    <article class="marco surge">
+      <div class="marco-foto moldura inclina-dir"><img src="img/foto-medicina.jpg" alt="Dra. Victoria sorrindo, de blazer branco"></div>
+      <div>
+        <span class="ano">2016–2021:</span>
+        <h3>Medicina</h3>
+        <span class="onde">na UFRGS.</span>
+        <p>Desde que eu nasci, eu só sabia de uma coisa: queria ser Médica. Foi ainda na graduação que o estudo do nariz me fascinou.</p>
+        <div class="divisor"></div>
+        <p style="margin-top:0">Dali em diante, mesmo flertando com outras áreas, minha formação seguiu essa direção.</p>
+      </div>
+    </article>
+
+    <article class="marco surge">
+      <div class="marco-foto moldura inclina-dir"><img src="img/foto-residencia.jpg" alt="Dra. Victoria sorrindo"></div>
+      <div>
+        <span class="ano">2023–2026:</span>
+        <h3>Residência em Otorrino</h3>
+        <span class="onde">no Hospital de Clínicas de Porto Alegre.</span>
+        <p>Três anos construindo o alicerce que considero inegociável: <b style="font-weight:600;color:var(--vinho)">entender profundamente a função nasal.</b></p>
+        <div class="divisor"></div>
+        <p style="margin-top:0">Porque de nada adianta ter um nariz bonito se ele não cumpre a função, né?</p>
+      </div>
+    </article>
+
+    <article class="marco surge">
+      <div class="marco-foto moldura inclina"><img src="img/foto-joana.jpg" alt="Dra. Victoria com a Dra. Joana Tavares na clínica Joana Tavares Rinoplastia"></div>
+      <div>
+        <span class="ano">2026:</span>
+        <h3>Fellowship</h3>
+        <span class="onde">em Rinoplastia e Cirurgia Plástica da Face.</span>
+        <p>Me mudei para Brasília para estudar com dois cirurgiões que são referência na área, a Dra. Joana Tavares e o Dr. Eduardo Rodrigues.</p>
+        <p>Isso significa centro cirúrgico quase em tempo integral, entre rinoplastias e outras cirurgias da face.</p>
+        <p class="caixa">(Me apaixonei ainda mais pela complexidade da área e pela satisfação nos olhos dos meus pacientes)</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- TÉCNICA -->
+<section class="tecnica arcos" id="tecnica">
+  <div class="wrap tecnica-grid">
+    <div class="surge">
+      <span class="minha">Minha</span>
+      <span class="script grande">técnica</span>
+      <p class="frase-t">é guiada pela convicção de que o melhor resultado é aquele que une <b>naturalidade, segurança</b> e, acima de tudo, <b>faz o meu paciente feliz.</b></p>
+      <span class="assinatura">Dra. Victoria Oss-Emer</span>
+      <div class="pilares">
+        <div class="vidro"><b>Estética</b><span>harmonia com o seu rosto</span></div>
+        <div class="vidro"><b>Função</b><span>respirar bem é inegociável</span></div>
+        <div class="vidro"><b>Identidade</b><span>continuar sendo você</span></div>
+      </div>
+    </div>
+    <div class="moldura inclina-dir tecnica-foto surge"><img src="img/foto-tecnica.jpg" alt="Dra. Victoria operando, com lupa cirúrgica e máscara"></div>
+  </div>
+</section>
+
+<!-- PROCEDIMENTOS -->
+<section class="procedimentos arcos" id="procedimentos">
+  <div class="wrap">
+    <div class="cabeca surge">
+      <div>
+        <span class="kicker">O que eu faço</span>
+        <h2 class="titulo">Rinoplastia, do <span class="script">detalhe</span> à função</h2>
+      </div>
+      <p>Cada nariz conta uma história. O plano cirúrgico nasce de uma avaliação cuidadosa da sua anatomia, das suas queixas e do que você deseja.</p>
+    </div>
+    <div class="cards">
+      <div class="card vidro surge"><span class="icone">01</span><h3>Rinoplastia estética e funcional</h3><p>Forma e respiração tratadas juntas, na mesma cirurgia, quando indicado.</p></div>
+      <div class="card vidro surge"><span class="icone">02</span><h3>Refinamento da ponta</h3><p>Uma ponta mais delicada e definida, sem perder as características do seu rosto.</p></div>
+      <div class="card vidro surge"><span class="icone">03</span><h3>Preservação de dorso</h3><p>Técnica que remodela o dorso preservando estruturas naturais, para casos bem indicados.</p></div>
+      <div class="card vidro surge"><span class="icone">04</span><h3>Giba, ponta caída e nariz torto</h3><p>Correção das queixas mais comuns, com resultado equilibrado e natural.</p></div>
+      <div class="card vidro surge"><span class="icone">05</span><h3>Respiração e função nasal</h3><p>Avaliação otorrinolaringológica completa: septo, válvula nasal e cornetos.</p></div>
+      <div class="card vidro surge"><span class="icone">06</span><h3>Cirurgia plástica da face</h3><p>Outros procedimentos da face, sempre com o mesmo olhar de sutileza.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FRASE -->
+<section class="frase">
+  <div class="wrap surge">
+    <blockquote>A <em>elegância</em> mora na sutileza.</blockquote>
+    <span class="assinatura">Dra. Victoria Oss-Emer</span>
+  </div>
+</section>
+
+<!-- CASO EM DESTAQUE: perfil, estúdio escuro -->
+<section class="estudio-sec" id="destaque">
+  <div class="wrap estudio-grid">
+    <div class="estudio-txt surge">
+      <span class="k">Caso em destaque</span>
+      <h2>Perfil <span class="script">harmônico</span></h2>
+      <p>Arraste a linha dourada. A foto se funde ao fundo, como num ensaio de estúdio, e só o nariz muda.</p>
+      <div class="num">
+        <div><b>Dorso</b><span>mais suave</span></div>
+        <div><b>Ponta</b><span>mais delicada</span></div>
+      </div>
+    </div>
+    <div class="estudio-wrap surge">
+      <div class="estudio" id="estudio">
+        <img src="img/perfil-antes.jpg" alt="Perfil da paciente antes da rinoplastia">
+        <img class="dep" src="img/perfil-depois.jpg" alt="Perfil da paciente depois da rinoplastia">
+        <span class="fio"></span><span class="pino">‹ ›</span>
+      </div>
+      <div class="estudio-leg"><span>antes</span><span>depois</span></div>
+      <p class="estudio-dica">No celular, toque e arraste para controlar.</p>
+    </div>
+  </div>
+  <p class="aviso">Cada paciente é único, e os resultados podem variar. Fotos publicadas com autorização da paciente.</p>
+</section>
+
+<!-- RESULTADOS -->
+<section class="resultados" id="resultados">
+  <div class="wrap">
+    <div class="cabeca surge">
+      <div>
+        <span class="kicker">Resultados</span>
+        <h2 class="titulo">Natural é quando <span class="script">ninguém</span> percebe</h2>
+      </div>
+      <p>Mudanças que respeitam o rosto. Arraste a linha para ver o antes e o depois na mesma posição. Fotos publicadas com autorização dos pacientes.</p>
+    </div>
+    <div class="galeria">
+      <figure class="caso vidro surge">
+        <div class="comparar" data-antes="img/ad-1-antes.jpg" data-depois="img/ad-1-depois.jpg">
+          <div class="lado antes"><span></span></div>
+          <div class="lado depois"><span></span></div>
+          <span class="tag a">Antes</span><span class="tag d">Depois</span>
+          <span class="linha"></span><span class="puxador">‹ ›</span>
+        </div>
+        <figcaption>Refinamento de ponta<small>Vista frontal · arraste para comparar</small></figcaption>
+      </figure>
+      <figure class="caso vidro surge">
+        <div class="comparar" data-antes="img/ad-2-antes.jpg" data-depois="img/ad-2-depois.jpg">
+          <div class="lado antes"><span></span></div>
+          <div class="lado depois"><span></span></div>
+          <span class="tag a">Antes</span><span class="tag d">Depois</span>
+          <span class="linha"></span><span class="puxador">‹ ›</span>
+        </div>
+        <figcaption>Ponta mais delicada<small>Vista frontal · arraste para comparar</small></figcaption>
+      </figure>
+      <figure class="caso vidro surge">
+        <div class="comparar" data-antes="img/ad-3-antes.jpg" data-depois="img/ad-3-depois.jpg">
+          <div class="lado antes"><span></span></div>
+          <div class="lado depois"><span></span></div>
+          <span class="tag a">Antes</span><span class="tag d">Depois</span>
+          <span class="linha"></span><span class="puxador">‹ ›</span>
+        </div>
+        <figcaption>Dorso mais alinhado<small>Vista de baixo · arraste para comparar</small></figcaption>
+      </figure>
+    </div>
+    <p class="aviso">Cada paciente é único, e os resultados podem variar. Conteúdo educativo e informativo.</p>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos arcos">
+  <div class="wrap">
+    <div class="surge" style="text-align:center">
+      <span class="kicker">Depoimentos</span>
+      <h2 class="titulo">Como eu amo ouvir <span class="script">isso</span></h2>
+    </div>
+    <div class="videos">
+      <figure class="video-card surge">
+        <div class="celular vidro">
+          <video src="video/depoimento.mp4" poster="video/capa-depoimento.jpg" preload="none" playsinline webkit-playsinline></video>
+          <button class="play-grande vidro" type="button" aria-label="Assistir: “30 dias de pós e uma autoestima renovada”"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
+        </div>
+        <figcaption>“30 dias de pós e uma autoestima renovada”<small>Depoimento de paciente</small></figcaption>
+      </figure>
+      <figure class="video-card surge">
+        <div class="celular vidro">
+          <video src="video/resultado.mp4" poster="video/capa-resultado.jpg" preload="none" playsinline webkit-playsinline></video>
+          <button class="play-grande vidro" type="button" aria-label="Assistir: Do planejamento ao resultado"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
+        </div>
+        <figcaption>Do planejamento ao resultado<small>Um caso de refinamento de ponta</small></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="duvidas">
+  <div class="wrap faq-grid">
+    <div class="surge">
+      <span class="kicker">Dúvidas frequentes</span>
+      <h2 class="titulo">Me <span class="script">conta</span> a sua dúvida</h2>
+      <p>As perguntas que mais recebo por aqui. Ficou alguma? É só me chamar.</p>
+    </div>
+    <div class="perguntas surge">
+      <details>
+        <summary>Em quanto tempo vejo o resultado final?</summary>
+        <p>O resultado da rinoplastia não aparece em 30 dias. O inchaço diminui bastante nas primeiras semanas, mas o nariz continua se acomodando por meses, principalmente a ponta. O resultado final se revela aos poucos, com paciência.</p>
+      </details>
+      <details>
+        <summary>O pós-operatório dói?</summary>
+        <p>A expectativa costuma ser bem pior que a realidade. A maioria dos pacientes relata mais incômodo (nariz entupido, inchaço) do que dor, e tudo é acompanhado de perto com orientações e medicação adequadas.</p>
+      </details>
+      <details>
+        <summary>Como organizar minha agenda antes de marcar a cirurgia?</summary>
+        <p>Vale reservar alguns dias de repouso, evitar eventos importantes e fotos nas primeiras semanas e lembrar que atividade física volta de forma gradual. Na consulta, a gente monta esse planejamento junto.</p>
+      </details>
+      <details>
+        <summary>Vou ficar com “cara de operada”?</summary>
+        <p>A proposta é justamente o contrário: um nariz harmônico com o seu rosto, que respeita os seus traços. A elegância mora na sutileza.</p>
+      </details>
+      <details>
+        <summary>O que faz uma ponta nasal ser bonita?</summary>
+        <p>Não é só afinar ou arrebitar. É equilíbrio, naturalidade e respeito às proporções do rosto de cada pessoa.</p>
+      </details>
+      <details>
+        <summary>A rinoplastia também melhora a respiração?</summary>
+        <p>Quando existe uma alteração funcional, como desvio de septo ou problemas na válvula nasal, ela pode ser corrigida na mesma cirurgia. Por isso a avaliação da função nasal faz parte de todo planejamento.</p>
+      </details>
+      <details>
+        <summary>Por que a maquiagem muda a percepção do nariz?</summary>
+        <p>Luz e sombra mudam a forma como enxergamos volumes. Contorno e iluminação podem disfarçar ou destacar detalhes, e é por isso que a avaliação é feita com o rosto ao natural.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDAMENTO -->
+<section class="agendar" id="agendar">
+  <div class="mancha m1"></div><div class="mancha m2"></div><div class="mancha m3"></div>
+  <div class="wrap agendar-grid">
+    <div class="intro surge">
+      <span class="kicker">Agendamento</span>
+      <h2>Estou atendendo em Brasília <span class="script">vamos conversar?</span></h2>
+      <p>Escolha o dia e o horário que ficam melhor pra você e garanta sua consulta online, em poucos cliques. Se preferir, me manda uma mensagem pelo WhatsApp. 🤍</p>
+      <p style="margin-top:1rem"><b style="font-weight:600;color:var(--vinho)">Novidade: a partir de maio de 2027 começo a atender também em Porto Alegre.</b> Já estou abrindo agenda para consulta online, então dá pra começar o acompanhamento desde já.</p>
+      <div class="mini vidro">
+        <img src="img/victoria-jardim.jpg" alt="" style="object-position:62% 18%">
+        <div><b>Dra. Victoria Oss-Emer</b><span>Otorrinolaringologista · CRM-DF 35711</span></div>
+      </div>
+    </div>
+
+    <div class="painel vidro surge">
+      <div class="abas" role="tablist" data-ativa="0">
+        <span class="pilula" aria-hidden="true"></span>
+        <button type="button" role="tab" aria-selected="true" aria-controls="aba-agenda" id="tab-agenda">Agendar online</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="aba-whats" id="tab-whats">Pelo WhatsApp</button>
+      </div>
+
+      <!-- AGENDA ONLINE (exemplo: horários definidos em AGENDA no script) -->
+      <div class="aba ativa" id="aba-agenda" role="tabpanel" aria-labelledby="tab-agenda">
+        <div class="agenda" id="agenda">
+          <div id="passo-agenda">
+            <div class="ag-opcoes">
+            <div class="campo">
+              <span class="rotulo">Tipo de consulta</span>
+              <div class="chips">
+                <input type="radio" name="ag-tipo" id="t1" value="Primeira consulta" checked><label for="t1">Primeira consulta</label>
+                <input type="radio" name="ag-tipo" id="t2" value="Retorno"><label for="t2">Retorno</label>
+                <input type="radio" name="ag-tipo" id="t3" value="Pós-operatório"><label for="t3">Pós-operatório</label>
+              </div>
+            </div>
+            <div class="campo">
+              <span class="rotulo">Como prefere?</span>
+              <div class="chips">
+                <input type="radio" name="ag-modo" id="o1" value="Presencial em Brasília" checked><label for="o1">Presencial · Brasília</label>
+                <input type="radio" name="ag-modo" id="o2" value="Teleconsulta"><label for="o2">Teleconsulta</label>
+              </div>
+            </div>
+            </div>
+            <div class="ag-grid">
+              <div class="ag-col">
+            <div class="cal">
+            <div class="mes">
+              <button type="button" id="mes-ant" aria-label="Mês anterior">‹</button>
+              <b id="mes-nome"></b>
+              <button type="button" id="mes-prox" aria-label="Próximo mês">›</button>
+            </div>
+            <div class="semana"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+            <div class="dias" id="dias"></div>
+            <div class="legenda">
+              <span><i style="background:#5f9a4c"></i>Disponível</span>
+              <span><i style="background:#C0392B"></i>Agenda lotada</span>
+              <span><i style="background:#e6dbd0"></i>Sem atendimento</span>
+            </div>
+            </div>
+              </div>
+              <div class="ag-col">
+            <div class="horarios" id="horarios">
+              <p class="dica" id="dica">Toque em um dia com <b style="color:#5f9a4c">●</b> para ver os horários</p>
+              <span class="qual" id="dia-escolhido"></span>
+              <div class="slots" id="slots"></div>
+            </div>
+            <form class="confirmar" id="confirmar" hidden novalidate>
+              <div class="resumo"><span>🗓️</span><span id="resumo"></span></div>
+              <div class="duas">
+                <div class="campo">
+                  <label for="ag-nome">Seu nome</label>
+                  <input id="ag-nome" type="text" placeholder="Nome completo" autocomplete="name" required>
+                </div>
+                <div class="campo">
+                  <label for="ag-tel">WhatsApp</label>
+                  <input id="ag-tel" type="tel" placeholder="(61) 90000-0000" autocomplete="tel" inputmode="tel" required>
+                </div>
+              </div>
+              <label class="aceite"><input type="checkbox" id="ag-aceite" required><span>Autorizo o contato pelo WhatsApp e o uso dos meus dados apenas para o agendamento, conforme a LGPD.</span></label>
+              <button class="btn btn-vinho" type="submit">Confirmar agendamento</button>
+            </form>
+              </div>
+            </div>
+          </div>
+          <div class="sucesso" id="sucesso" hidden>
+            <div class="check">✓</div>
+            <h3>Consulta pré-agendada!</h3>
+            <p id="sucesso-txt"></p>
+            <a class="btn btn-vinho" id="sucesso-wa" href="#" target="_blank" rel="noopener">Confirmar no WhatsApp</a>
+            <div class="salvar">
+              <a id="add-google" href="#" target="_blank" rel="noopener">+ Google Agenda</a>
+            </div>
+            <button type="button" class="voltar" id="voltar">Escolher outro horário</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="aba" id="aba-whats" role="tabpanel" aria-labelledby="tab-whats">
+    <form class="form" id="form-agendar" novalidate>
+      <h3>Me manda uma mensagem</h3>
+      <p class="sub">Leva menos de um minuto.</p>
+
+      <div class="duas">
+        <div class="campo">
+          <label for="nome">Seu nome</label>
+          <input id="nome" name="nome" type="text" placeholder="Como posso te chamar?" autocomplete="name" required>
+        </div>
+        <div class="campo">
+          <label for="cidade">Cidade</label>
+          <input id="cidade" name="cidade" type="text" placeholder="Brasília, DF" autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="campo">
+        <span class="rotulo">O que você busca?</span>
+        <div class="chips">
+          <input type="radio" name="motivo" id="m1" value="Rinoplastia estética" checked><label for="m1">Estética</label>
+          <input type="radio" name="motivo" id="m2" value="Melhorar a respiração"><label for="m2">Respiração</label>
+          <input type="radio" name="motivo" id="m3" value="Estética e respiração"><label for="m3">As duas coisas</label>
+          <input type="radio" name="motivo" id="m4" value="Refinamento de ponta"><label for="m4">Ponta do nariz</label>
+          <input type="radio" name="motivo" id="m5" value="Tirar dúvidas"><label for="m5">Só tirar dúvidas</label>
+        </div>
+      </div>
+
+      <div class="campo">
+        <span class="rotulo">Melhor período</span>
+        <div class="chips">
+          <input type="radio" name="periodo" id="p1" value="manhã" checked><label for="p1">Manhã</label>
+          <input type="radio" name="periodo" id="p2" value="tarde"><label for="p2">Tarde</label>
+          <input type="radio" name="periodo" id="p3" value="qualquer horário"><label for="p3">Tanto faz</label>
+        </div>
+      </div>
+
+      <button class="btn btn-vinho" type="submit">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+      <p class="nota">Você será direcionado(a) ao WhatsApp com a mensagem pronta.</p>
+    </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="rodape">
+      <a href="#inicio" class="logo"><span class="mono">VO</span><span class="assinatura">Dra. Victoria<br>Oss-Emer</span></a>
+      <nav>
+        <a href="#agendar">Agendar</a>
+        <a href="https://instagram.com/dra.victoriaossemer" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.threads.net/@dra.victoriaossemer" target="_blank" rel="noopener">Threads</a>
+      </nav>
+    </div>
+    <div class="legal">
+      <span>Dra. Victoria Oss-Emer · Otorrinolaringologista · CRM-DF 35711 · RQE 26344</span>
+      <span>Brasília · DF · Porto Alegre · RS a partir de maio de 2027</span>
+    </div>
+  </div>
+</footer>
+
+<div class="pop-poa" id="pop-poa" role="status" hidden>
+  <a href="#agendar" class="pop-poa-link">
+    <span class="pop-poa-ic" aria-hidden="true">VO</span>
+    <span class="pop-poa-t">
+      <span class="pop-poa-h"><span>Dra. Victoria</span><span>agora</span></span>
+      <b>Em breve em Porto Alegre ✨</b>
+      <span class="pop-poa-m">Atendimento a partir de maio de 2027. A agenda online já está aberta.</span>
+    </span>
+  </a>
+  <button type="button" class="pop-poa-x" aria-label="Fechar aviso">×</button>
+</div>
+
+<a class="wa-flutua vidro" href="https://wa.me/5551991890776" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+</a>
+
+<script>
+  // caso em destaque: arrastar a linha dourada
+  (() => {
+    const est = document.getElementById('estudio'); if (!est) return;
+    const corte = e => { const r = est.getBoundingClientRect();
+      est.style.setProperty('--c', Math.min(96, Math.max(4, (e.clientX - r.left) / r.width * 100)) + '%'); };
+    est.addEventListener('pointerdown', e => { corte(e); est.setPointerCapture(e.pointerId); });
+    est.addEventListener('pointermove', e => { if (e.buttons || e.pointerType === 'mouse') corte(e); });
+
+    // no celular (sem mouse) o resultado se transforma sozinho: a linha vai e volta devagar, pausa onde a pessoa tocar
+    if (matchMedia('(hover:none)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+      est.classList.add('auto');
+      let tocando = false, pausaAte = 0, visivel = false;
+      new IntersectionObserver(es => es.forEach(x => visivel = x.isIntersecting)).observe(est);
+      est.addEventListener('pointerdown', () => { tocando = true; });
+      addEventListener('pointerup', () => { if (tocando) { tocando = false; pausaAte = performance.now() + 2500; } });
+      const CICLO = 5200, inicio = performance.now();
+      (function passo(t) {
+        if (visivel && !tocando && t > pausaAte) {
+          // 0 → segura no antes → passa pro depois → segura → volta
+          const f = ((t - inicio) % CICLO) / CICLO;
+          const k = f < .15 ? 0 : f < .45 ? (f - .15) / .3 : f < .65 ? 1 : f < .95 ? 1 - (f - .65) / .3 : 0;
+          const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+          est.style.setProperty('--c', (96 - e * 92) + '%');
+        }
+        requestAnimationFrame(passo);
+      })(inicio);
+    }
+  })();
+
+  // antes e depois: arrastar (ou passar o mouse) move o corte entre as duas fotos
+  document.querySelectorAll('.comparar').forEach(c => {
+    const [antes, depois] = c.querySelectorAll('.lado');
+    if (c.dataset.antes) { antes.style.backgroundImage = `url(${c.dataset.antes})`; antes.firstElementChild.remove(); }
+    if (c.dataset.depois) { depois.style.backgroundImage = `url(${c.dataset.depois})`; depois.firstElementChild.remove(); }
+    const move = e => { const r = c.getBoundingClientRect();
+      c.style.setProperty('--corte', Math.min(96, Math.max(4, (e.clientX - r.left) / r.width * 100)) + '%'); };
+    c.addEventListener('pointerdown', e => { move(e); c.setPointerCapture(e.pointerId); });
+    c.addEventListener('pointermove', e => { if (e.buttons || e.pointerType === 'mouse') move(e); });
+  });
+
+  // no celular (sem mouse) cada resultado vai mudando sozinho, um pouco depois do outro; parar ao tocar
+  if (matchMedia('(hover:none)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+    const comps = [...document.querySelectorAll('.comparar')].map((c, i) => ({c, i, visivel: false, tocando: false, pausaAte: 0}));
+    const io = new IntersectionObserver(es => es.forEach(x => { const o = comps.find(o => o.c === x.target); if (o) o.visivel = x.isIntersecting; }));
+    comps.forEach(o => {
+      io.observe(o.c);
+      o.c.addEventListener('pointerdown', () => { o.tocando = true; });
+      addEventListener('pointerup', () => { if (o.tocando) { o.tocando = false; o.pausaAte = performance.now() + 2500; } });
+    });
+    const CICLO = 4800, inicio = performance.now();
+    (function passo(t) {
+      comps.forEach(o => {
+        if (!o.visivel || o.tocando || t < o.pausaAte) return;
+        const f = (((t - inicio) / CICLO) - o.i * .18 + 10) % 1;
+        const k = f < .15 ? 0 : f < .45 ? (f - .15) / .3 : f < .65 ? 1 : f < .95 ? 1 - (f - .65) / .3 : 0;
+        const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        o.c.style.setProperty('--corte', (96 - e * 92) + '%');
+      });
+      requestAnimationFrame(passo);
+    })(inicio);
+  }
+
+  // pop do lado: aparece depois de alguns segundos; fechado, não volta nesta visita
+  (() => {
+    const pop = document.getElementById('pop-poa'); if (!pop) return;
+    let fechado = false; try { fechado = sessionStorage.getItem('pop-poa') === '1'; } catch (e) {}
+    if (fechado) return;
+    setTimeout(() => { pop.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => pop.classList.add('mostra'))); }, 2500);
+    const some = () => { pop.classList.remove('mostra'); setTimeout(() => pop.hidden = true, 600); try { sessionStorage.setItem('pop-poa', '1'); } catch (e) {} };
+    pop.querySelector('.pop-poa-x').addEventListener('click', some);
+    // no celular ela cobre o título: some sozinha depois de alguns segundos, como notificação de verdade
+    if (matchMedia('(max-width:600px)').matches) setTimeout(() => { if (!pop.hidden) { pop.classList.remove('mostra'); setTimeout(() => pop.hidden = true, 600); } }, 10500);
+    pop.querySelector('.pop-poa-link').addEventListener('click', some);
+  })();
+
+  // WhatsApp Business da Dra. Victoria
+  const WHATSAPP = '5551991890776';
+
+  // cursor: só o contorno, um fio bordô em círculo, segue o mouse com leveza e "bate" ao clicar
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+    document.documentElement.classList.add('cursor-on');
+    const cur = document.createElement('div');
+    cur.className = 'cursor-vo'; cur.setAttribute('aria-hidden', 'true');
+    cur.innerHTML = '<span class="cv-peca"><svg viewBox="-22 -22 44 44" width="44" height="44">' +
+      '<circle class="cv-aro" r="10.5"/></svg></span>';
+    document.body.appendChild(cur);
+    const peca = cur.querySelector('.cv-peca');
+    const alvo = 'a, button:not(:disabled), summary, label[for], [role=tab], .dia.livre, .slot:not(:disabled), .comparar, .estudio';
+    const mouse = {x: -100, y: -100}, pos = {x: -100, y: -100};
+    let escala = 1, alvoEscala = 1;
+    addEventListener('pointermove', e => {
+      if (pos.x < -50) { pos.x = e.clientX; pos.y = e.clientY; }
+      mouse.x = e.clientX; mouse.y = e.clientY;
+      cur.classList.add('visivel');
+      const sobre = !!e.target.closest(alvo);
+      cur.classList.toggle('sobre', sobre); alvoEscala = sobre ? 1.35 : 1;
+      cur.classList.toggle('escuro', !!e.target.closest('.estudio-sec, .btn-vinho, .chips input:checked + label, .slot.sel, .dia.sel'));
+    }, {passive: true});
+    document.addEventListener('pointerleave', () => cur.classList.remove('visivel'));
+    // clique: a peça aperta e duas ondas saem, como um batimento
+    addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      cur.classList.remove('clique'); void cur.offsetWidth; cur.classList.add('clique');
+      [0, 170].forEach(d => setTimeout(() => {
+        const o = document.createElement('span'); o.className = 'cv-onda';
+        o.style.left = e.clientX + 'px'; o.style.top = e.clientY + 'px';
+        cur.appendChild(o); o.addEventListener('animationend', () => o.remove());
+      }, d));
+    });
+    (function quadro() {
+      pos.x += (mouse.x - pos.x) * .22; pos.y += (mouse.y - pos.y) * .22;
+      escala += (alvoEscala - escala) * .18;
+      peca.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${escala})`;
+      requestAnimationFrame(quadro);
+    })();
+  }
+
+  const burger = document.querySelector('.burger'), menu = document.querySelector('.menu');
+  const toggle = (abrir) => {
+    menu.classList.toggle('aberto', abrir); burger.classList.toggle('aberto', abrir);
+    burger.setAttribute('aria-expanded', abrir); document.body.style.overflow = abrir ? 'hidden' : '';
+  };
+  burger.addEventListener('click', () => toggle(!menu.classList.contains('aberto')));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visivel'); io.unobserve(e.target); }
+  }), {threshold:.12});
+  document.querySelectorAll('.surge').forEach(el => io.observe(el));
+
+  // vídeos em moldura de celular: o play toca com som e só um vídeo toca por vez
+  const celulares = [...document.querySelectorAll('.celular')];
+  celulares.forEach(cel => {
+    const v = cel.querySelector('video');
+    cel.querySelector('.play-grande').addEventListener('click', () => {
+      celulares.forEach(o => { const ov = o.querySelector('video'); if (ov !== v && !ov.paused) ov.pause(); });
+      v.controls = true; v.play();
+    });
+    v.addEventListener('play', () => cel.classList.add('tocando'));
+    v.addEventListener('ended', () => { cel.classList.remove('tocando'); v.controls = false; v.load(); });
+  });
+
+  // abas
+  const abas = document.querySelector('.abas');
+  abas.querySelectorAll('[role=tab]').forEach((tab, i) => tab.addEventListener('click', () => {
+    abas.dataset.ativa = i;
+    abas.querySelectorAll('[role=tab]').forEach((t, j) => t.setAttribute('aria-selected', i === j));
+    document.querySelectorAll('.aba').forEach((a, j) => a.classList.toggle('ativa', i === j));
+  }));
+
+  // ===== AGENDA (EXEMPLO) =====
+  // Horários por dia da semana (1 = segunda ... 5 = sexta). Os marcados com * aparecem como ocupados.
+  // Trocar por integração real (Google Agenda, Doctoralia etc.) quando definir o sistema.
+  const AGENDA = {
+    1: ['15:00', '*16:30', '19:00'],
+    2: ['08:00', '09:30', '*11:00', '14:00'],
+    3: ['*14:00', '15:30', '17:00'],
+    4: ['*09:00', '10:30', '16:00', '18:30'],
+    5: ['08:30', '10:00', '*11:30']
+  };
+  const lotado = d => (d.getDate() * 7 + d.getMonth() * 3) % 6 === 0;  // alguns dias sem vaga, só de exemplo
+  const MESES_A_FRENTE = 2;
+
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+  let mesVisto = new Date(hoje.getFullYear(), hoje.getMonth(), 1), diaSel = null, horaSel = null;
+  const $ = id => document.getElementById(id);
+  const fmtMes = new Intl.DateTimeFormat('pt-BR', {month: 'long', year: 'numeric'});
+  const fmtDia = new Intl.DateTimeFormat('pt-BR', {weekday: 'long', day: 'numeric', month: 'long'});
+  const fmtCurto = new Intl.DateTimeFormat('pt-BR', {weekday: 'long', day: '2-digit', month: '2-digit'});
+
+  function estado(d) {
+    const sem = d.getDay();
+    if (d <= hoje || sem === 0 || sem === 6) return 'fechado';
+    return lotado(d) ? 'lotado' : 'livre';
+  }
+
+  function desenhaMes() {
+    const nomeMes = fmtMes.format(mesVisto).replace(' de ', ' ');
+    $('mes-nome').textContent = nomeMes[0].toUpperCase() + nomeMes.slice(1);
+    const inicio = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    const meses = (mesVisto.getFullYear() - inicio.getFullYear()) * 12 + mesVisto.getMonth() - inicio.getMonth();
+    $('mes-ant').disabled = meses <= 0;
+    $('mes-prox').disabled = meses >= MESES_A_FRENTE;
+    const dias = $('dias'); dias.innerHTML = '';
+    for (let i = 0; i < mesVisto.getDay(); i++) dias.appendChild(document.createElement('span'));
+    const total = new Date(mesVisto.getFullYear(), mesVisto.getMonth() + 1, 0).getDate();
+    for (let n = 1; n <= total; n++) {
+      const d = new Date(mesVisto.getFullYear(), mesVisto.getMonth(), n), est = estado(d);
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = n; b.className = 'dia ' + est;
+      if (+d === +hoje) b.classList.add('hoje');
+      if (diaSel && +d === +diaSel) b.classList.add('sel');
+      b.disabled = est !== 'livre';
+      b.setAttribute('aria-label', fmtDia.format(d) + (est === 'livre' ? ', disponível' : est === 'lotado' ? ', agenda lotada' : ', sem atendimento'));
+      if (est === 'livre') b.addEventListener('click', () => escolheDia(d));
+      dias.appendChild(b);
+    }
+  }
+
+  function escolheDia(d) {
+    diaSel = d; horaSel = null;
+    desenhaMes();
+    $('dica').hidden = true; $('confirmar').hidden = true;
+    $('dia-escolhido').textContent = fmtDia.format(d);
+    const slots = $('slots'); slots.innerHTML = '';
+    if (window.innerWidth < 960) setTimeout(() => $('horarios').scrollIntoView({behavior: 'smooth', block: 'center'}), 50);
+    AGENDA[d.getDay()].forEach(h => {
+      const ocupado = h.startsWith('*'), hora = h.replace('*', '');
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot'; b.disabled = ocupado;
+      b.innerHTML = `${hora}<small>${ocupado ? 'Ocupado' : 'Livre'}</small>`;
+      if (ocupado) b.setAttribute('aria-label', hora + ', ocupado');
+      b.addEventListener('click', () => {
+        horaSel = hora;
+        slots.querySelectorAll('.slot').forEach(s => s.classList.toggle('sel', s === b));
+        $('resumo').innerHTML = `<b>${fmtCurto.format(d)}</b>&nbsp;às&nbsp;<b>${hora}</b>`;
+        $('confirmar').hidden = false;
+        $('ag-nome').focus({preventScroll: true});
+        $('confirmar').scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      });
+      slots.appendChild(b);
+    });
+  }
+
+  $('mes-ant').addEventListener('click', () => { mesVisto.setMonth(mesVisto.getMonth() - 1); desenhaMes(); });
+  $('mes-prox').addEventListener('click', () => { mesVisto.setMonth(mesVisto.getMonth() + 1); desenhaMes(); });
+
+  $('confirmar').addEventListener('submit', e => {
+    e.preventDefault();
+    const nome = $('ag-nome').value.trim(), tel = $('ag-tel').value.trim();
+    if (!nome) return $('ag-nome').focus();
+    if (tel.replace(/\D/g, '').length < 10) return $('ag-tel').focus();
+    if (!$('ag-aceite').checked) return $('ag-aceite').focus();
+    const tipo = document.querySelector('[name=ag-tipo]:checked').value;
+    const modo = document.querySelector('[name=ag-modo]:checked').value;
+    const quando = `${fmtCurto.format(diaSel)} às ${horaSel}`;
+    const msg = `Oi, Dra. Victoria! Sou ${nome} e fiz o pré-agendamento pelo site.\n` +
+      `• ${tipo} (${modo})\n• ${quando}\n• WhatsApp: ${tel}`;
+    $('sucesso-txt').textContent = `${nome.split(' ')[0]}, sua ${tipo.toLowerCase()} (${modo[0].toLowerCase() + modo.slice(1)}) ficou reservada para ${quando}. Toque abaixo para confirmar pelo WhatsApp.`;
+    $('sucesso-wa').href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+
+    // salvar na agenda do paciente (consulta de 1h, horário de Brasília)
+    const [hh, mm] = horaSel.split(':').map(Number);
+    const ini = new Date(diaSel); ini.setHours(hh, mm);
+    const fim = new Date(ini.getTime() + 60 * 60 * 1000);
+    const pad = n => String(n).padStart(2, '0');
+    const local = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+    const titulo = `${tipo} · Dra. Victoria Oss-Emer`;
+    const detalhes = `${modo}. Dúvidas ou reagendamento: https://wa.me/${WHATSAPP}`;
+    $('add-google').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      `&text=${encodeURIComponent(titulo)}&dates=${local(ini)}/${local(fim)}&ctz=America/Sao_Paulo` +
+      `&details=${encodeURIComponent(detalhes)}&location=${encodeURIComponent(modo === 'Teleconsulta' ? 'Online' : 'Brasília, DF')}`;
+    $('passo-agenda').hidden = true; $('sucesso').hidden = false;
+  });
+  $('voltar').addEventListener('click', () => {
+    $('sucesso').hidden = true; $('passo-agenda').hidden = false;
+    $('confirmar').hidden = true; horaSel = null;
+    if (diaSel) escolheDia(diaSel);
+  });
+
+  // se o mês atual já está no fim, abre direto no próximo
+  const fim = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+  let livresNoMes = 0;
+  for (let d = new Date(hoje); d <= fim; d.setDate(d.getDate() + 1)) if (estado(d) === 'livre') livresNoMes++;
+  if (livresNoMes < 4) mesVisto.setMonth(mesVisto.getMonth() + 1);
+  desenhaMes();
+
+  document.getElementById('form-agendar').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, nome = f.nome.value.trim();
+    if (!nome) { f.nome.focus(); return; }
+    const cidade = f.cidade.value.trim();
+    const msg = `Oi, Dra. Victoria! Me chamo ${nome}${cidade ? ` (${cidade})` : ''}. ` +
+      `Gostaria de agendar uma consulta. Busco: ${f.motivo.value}. Melhor período: ${f.periodo.value}.`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+  // ===== MOTION: abertura, rolagem suave e animações de rolagem =====
+  (() => {
+    const html = document.documentElement;
+    const libera = () => html.classList.remove('motion-pre');
+    if (!html.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
+      html.classList.remove('motion'); libera(); return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    const $ = (sel, el = document) => el.querySelector(sel);
+    const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+    const fino = matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const mm = gsap.matchMedia();
+
+    // rolagem suave
+    let lenis = null;
+    if (window.Lenis) {
+      lenis = new Lenis({duration: 1.15, smoothWheel: true});
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+      $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+        const id = a.getAttribute('href'), alvo = id.length > 1 && $(id);
+        if (!alvo) return;
+        e.preventDefault();
+        lenis.scrollTo(alvo, {offset: -90, duration: 1.6});
+      }));
+    }
+
+    // cursiva: envolve o conteúdo numa caixa folgada para revelar como pincelada
+    const tinta = el => {
+      if (el.firstElementChild && el.firstElementChild.classList.contains('tinta')) return el.firstElementChild;
+      const t = document.createElement('span'); t.className = 'tinta';
+      while (el.firstChild) t.appendChild(el.firstChild);
+      el.appendChild(t); return t;
+    };
+    const escreve = (t, vars = {}) => gsap.fromTo(t, {clipPath: 'inset(0% 100% 0% 0%)'},
+      {clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'power3.inOut', ...vars});
+    const mascara = no => {
+      const m = document.createElement('span'), i = document.createElement('span');
+      m.className = 'm'; i.className = 'mi'; i.append(no); m.append(i); return m;
+    };
+    // separa um título em palavras mascaradas (a parte cursiva vira pincelada)
+    const quebra = el => {
+      const nos = [...el.childNodes], frag = document.createDocumentFragment();
+      nos.forEach(n => {
+        if (n.nodeType === 3) {
+          n.textContent.split(/(\s+)/).forEach(p => {
+            if (!p) return;
+            frag.append(/^\s+$/.test(p) ? document.createTextNode(' ') : mascara(document.createTextNode(p)));
+          });
+        } else if (n.nodeType === 1 && (n.classList.contains('script') || n.tagName === 'EM')) { tinta(n); frag.append(n); }
+        else if (n.nodeType === 1 && n.tagName === 'BR') frag.append(n);
+        else if (n.nodeType === 1) frag.append(mascara(n));
+      });
+      el.textContent = ''; el.append(frag);
+      return {palavras: $$('.mi', el), tintas: $$('.tinta', el)};
+    };
+
+    // ---------- abertura + topo ----------
+    // reinicia a animação de brilho num elemento
+    const plim = el => { if (!el) return; el.classList.remove('brilha'); void el.offsetWidth; el.classList.add('brilha'); };
+    document.addEventListener('animationend', e => e.target.classList && e.target.classList.remove('brilha'));
+    // sem abertura: o topo começa a aparecer assim que a página carrega
+    const tl = gsap.timeline({defaults: {ease: 'expo.out'}});
+    tl.addLabel('topo', .05);
+
+    const h1 = $('.hero h1'), palavraH1 = [...h1.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+    const letras = palavraH1.textContent.trim().split('').map(c => mascara(document.createTextNode(c)));
+    const caixaH1 = document.createElement('span'); caixaH1.style.whiteSpace = 'nowrap'; caixaH1.append(...letras);
+    h1.replaceChild(caixaH1, palavraH1);
+    const natural = tinta($('.hero h1 .script'));
+    const fotoTopo = $('.hero .arco-foto img');
+    gsap.set('.hero .surge', {autoAlpha: 1});
+
+    tl.from('header .nav', {y: -90, autoAlpha: 0, duration: 1.2, clearProps: 'transform,opacity,visibility'}, 'topo')
+      .from('.hero .eyebrow', {autoAlpha: 0, y: 16, duration: .9}, 'topo+=.1')
+      .from($$('.mi', caixaH1), {yPercent: 115, duration: 1.2, stagger: .035}, 'topo+=.15')
+      .add(escreve(natural, {duration: 1.6}), 'topo+=.55')
+      .from('.hero h1 small', {autoAlpha: 0, y: 20, duration: 1}, 'topo+=.9')
+      .from('.hero .lead, .hero .ctas, .hero .aviso-poa, .hero .registro', {autoAlpha: 0, y: 26, stagger: .08, duration: 1, clearProps: 'transform'}, 'topo+=1')
+      .from(fotoTopo, {clipPath: 'inset(100% 0% 0% 0%)', scale: 1.25, duration: 1.8, ease: 'expo.inOut'}, 'topo')
+      .fromTo('.hero .arco-foto', {autoAlpha: 0}, {autoAlpha: 1, duration: 1.2}, 'topo+=.3')
+      .from('.faixa-marquee', {xPercent: 12, autoAlpha: 0, duration: 1.4}, 'topo+=1.1')
+      .from('.hero .selo', {autoAlpha: 0, y: 30, scale: .85, filter: 'blur(10px)', duration: 1.1, ease: 'back.out(1.6)', clearProps: 'filter'}, 'topo+=1.2')
+      // brilho reflexivo passando pela foto, selos, botões e menu quando o topo termina de aparecer
+      .call(() => plim($('.hero .arco-foto')), null, 'topo+=1.5')
+      .call(() => $$('.hero .selo, .hero .ctas .btn, header .nav').forEach((el, i) => setTimeout(() => plim(el), i * 140)), null, 'topo+=2');
+
+    // foto e selos acompanham o mouse
+    if (fino) {
+      const alvoMov = [[fotoTopo, 14], ...$$('.hero .selo').map(el => [el, 28]), [$('.hero .mancha'), 50]];
+      const mov = alvoMov.map(([el, f]) => [gsap.quickTo(el, 'x', {duration: .9, ease: 'power3'}), gsap.quickTo(el, 'y', {duration: .9, ease: 'power3'}), f]);
+      $('.hero').addEventListener('pointermove', e => {
+        const px = e.clientX / innerWidth - .5, py = e.clientY / innerHeight - .5;
+        mov.forEach(([x, y, f]) => { x(px * f); y(py * f); });
+      });
+    }
+    // topo sai devagar ao rolar
+    gsap.to('.hero .arco-foto', {yPercent: -10, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
+    gsap.fromTo('.hero-grid > div:first-child', {y: 0, opacity: 1}, {y: -70, opacity: .2, ease: 'none', immediateRender: false,
+      scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
+
+    // ---------- faixa infinita: velocidade e direção seguem a rolagem ----------
+    const trilhoM = $('.marquee-trilho'), skew = $('.marquee-skew');
+    const loop = gsap.to(trilhoM, {xPercent: -50, ease: 'none', duration: 30, repeat: -1});
+    const skewTo = gsap.quickTo(skew, 'skewX', {duration: .5, ease: 'power3'});
+    let dirAtual = 1;
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: self => {
+        const v = self.getVelocity();
+        dirAtual = self.direction;
+        gsap.to(loop, {timeScale: dirAtual * Math.min(5, 1 + Math.abs(v) / 450), duration: .25, overwrite: true,
+          onComplete: () => gsap.to(loop, {timeScale: dirAtual, duration: 1.4})});
+        skewTo(gsap.utils.clamp(-10, 10, -v / 280));
+      }
+    });
+    ScrollTrigger.addEventListener('scrollEnd', () => skewTo(0));
+
+    // ---------- barra de progresso e menu que some ----------
+    gsap.to('.progresso', {scaleX: 1, ease: 'none', scrollTrigger: {start: 0, end: 'max', scrub: .3}});
+    mm.add('(min-width: 961px)', () => {
+      const nav = $('header .nav');
+      ScrollTrigger.create({start: 'top -160', end: 'max', onUpdate: self =>
+        gsap.to(nav, {yPercent: self.direction === 1 ? -170 : 0, duration: .5, ease: 'power3.out', overwrite: 'auto'})});
+      return () => gsap.set(nav, {clearProps: 'transform'});
+    });
+
+    // ---------- títulos: palavras sobem, cursiva se escreve ----------
+    $$('.titulo, .agendar h2, .marco h3, .escolheu strong').forEach(t => {
+      const {palavras, tintas} = quebra(t);
+      const tt = gsap.timeline({scrollTrigger: {trigger: t, start: 'top 86%', once: true}});
+      tt.from(palavras, {yPercent: 115, duration: 1.15, ease: 'expo.out', stagger: .06});
+      tintas.forEach(x => tt.add(escreve(x, {duration: 1.3}), .3));
+    });
+
+    // ---------- revelação geral ----------
+    const especiais = '.hero, .historia-abre, .tecnica, .frase, .cards, .apresenta .celular, .painel';
+    $$('.surge').filter(el => !el.closest(especiais) && !el.matches(especiais)).forEach(el => {
+      const temVidro = el.matches('.vidro') || el.querySelector('.vidro');
+      gsap.fromTo(el, {autoAlpha: 0, y: 60, filter: temVidro ? 'none' : 'blur(10px)'},
+        {autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'expo.out', clearProps: 'filter',
+          scrollTrigger: {trigger: el, start: 'top 86%', once: true}});
+    });
+
+    // vídeo: celular gira em 3D ao entrar
+    gsap.fromTo('.apresenta .celular', {autoAlpha: 0, y: 90, rotationY: -28, rotationX: 10, transformPerspective: 1100},
+      {autoAlpha: 1, y: 0, rotationY: 0, rotationX: 0, duration: 1.6, ease: 'expo.out', scrollTrigger: {trigger: '.apresenta', start: 'top 75%', once: true}});
+    gsap.from('.selos-video span', {autoAlpha: 0, y: 20, scale: .9, stagger: .1, duration: .9, ease: 'back.out(1.8)',
+      scrollTrigger: {trigger: '.selos-video', start: 'top 90%', once: true}});
+
+    // ---------- "Essa é a História": trava a tela e escreve com a rolagem ----------
+    const tHist = tinta($('.historia-abre .grande'));
+    // a frase de cima entra antes de travar; a palavra "História" se escreve junto com a rolagem
+    gsap.timeline({defaults: {ease: 'expo.out'}, scrollTrigger: {trigger: '.historia-abre', start: 'top 75%', once: true}})
+      .from('.historia-abre .antes', {autoAlpha: 0, y: 40, duration: 1.2})
+      .from('.historia-abre .essa', {xPercent: 30, autoAlpha: 0, duration: 1.2}, '<.2');
+    const montaHistoria = tlH => tlH
+      .add(escreve(tHist, {duration: 1.6, ease: 'none'}))
+      .from('.historia-abre .depois', {xPercent: -25, autoAlpha: 0, duration: .7}, '-=.6')
+      .from('.historia-abre .seta, .historia-abre .assinatura', {autoAlpha: 0, y: 20, stagger: .1, duration: .5})
+      .to({}, {duration: .4});
+    mm.add('(min-width: 961px)', () => {
+      montaHistoria(gsap.timeline({scrollTrigger: {trigger: '.historia-abre', start: 'top top', end: '+=110%', scrub: 1, pin: true}}));
+    });
+    mm.add('(max-width: 960px)', () => {
+      montaHistoria(gsap.timeline({defaults: {ease: 'expo.out'}, scrollTrigger: {trigger: '.historia-abre', start: 'top 60%', once: true}}));
+    });
+    gsap.to('.historia-abre .seta', {y: 8, repeat: -1, yoyo: true, duration: 1.1, ease: 'sine.inOut'});
+
+    // ---------- linha do tempo ----------
+    gsap.to('.trilho i', {scaleY: 1, ease: 'none', scrollTrigger: {trigger: '.linha-tempo .wrap', start: 'top 55%', end: 'bottom 55%', scrub: true}});
+    $$('.marco').forEach(m => ScrollTrigger.create({trigger: m, start: 'top 55%',
+      onEnter: () => m.classList.add('aceso'), onLeaveBack: () => m.classList.remove('aceso')}));
+    $$('.marco-foto, .sem-foto, .escolheu img').forEach(f => gsap.fromTo(f, {y: 50}, {y: -50, ease: 'none',
+      scrollTrigger: {trigger: f, start: 'top bottom', end: 'bottom top', scrub: true}}));
+    $$('.marco .ano').forEach(a => gsap.from(a, {x: -50, autoAlpha: 0, duration: 1.1, ease: 'expo.out',
+      scrollTrigger: {trigger: a, start: 'top 88%', once: true}}));
+    $$('.sem-foto .script').forEach(sc => escreve(tinta(sc), {duration: 1.6,
+      scrollTrigger: {trigger: sc, start: 'top 80%', once: true}}));
+    $$('.marco .divisor').forEach(d => gsap.from(d, {scaleX: 0, transformOrigin: '0 50%', duration: 1.2, ease: 'expo.inOut',
+      scrollTrigger: {trigger: d, start: 'top 90%', once: true}}));
+
+    // ---------- técnica ----------
+    const tTec = tinta($('.tecnica .grande'));
+    gsap.timeline({defaults: {ease: 'expo.out'}, scrollTrigger: {trigger: '.tecnica', start: 'top 65%', once: true}})
+      .from('.tecnica .minha', {x: -40, autoAlpha: 0, duration: 1})
+      .add(escreve(tTec, {duration: 1.6}), '<.15')
+      .from('.tecnica .frase-t, .tecnica .assinatura', {y: 30, autoAlpha: 0, stagger: .1, duration: 1.1}, '<.5')
+      .from('.pilares > div', {y: 40, rotationX: -70, autoAlpha: 0, transformPerspective: 700, transformOrigin: '50% 100%',
+        stagger: .12, duration: 1.2}, '<.25')
+      .from('.tecnica .tecnica-foto', {autoAlpha: 0, y: 80, duration: 1.5}, 0);
+    gsap.fromTo('.tecnica .tecnica-foto img', {y: 30}, {y: -30, ease: 'none', scrollTrigger: {trigger: '.tecnica', start: 'top bottom', end: 'bottom top', scrub: true}});
+
+    // ---------- cards: entram em 3D e inclinam com o mouse ----------
+    gsap.set('.cards .card', {autoAlpha: 0});
+    ScrollTrigger.batch('.cards .card', {start: 'top 90%', once: true, onEnter: lote =>
+      gsap.fromTo(lote, {autoAlpha: 0, y: 90, rotationX: -40, transformPerspective: 1000, transformOrigin: '50% 100%'},
+        {autoAlpha: 1, y: 0, rotationX: 0, duration: 1.3, ease: 'expo.out', stagger: .1})});
+    if (fino) $$('.cards .card').forEach(c => {
+      const rx = gsap.quickTo(c, 'rotationX', {duration: .6, ease: 'power3'}), ry = gsap.quickTo(c, 'rotationY', {duration: .6, ease: 'power3'});
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        gsap.set(c, {transformPerspective: 900});
+        ry((px - .5) * 16); rx(-(py - .5) * 16);
+        c.style.setProperty('--gx', px * 100 + '%'); c.style.setProperty('--gy', py * 100 + '%');
+      });
+      c.addEventListener('pointerleave', () => { rx(0); ry(0); });
+    });
+
+    // ---------- "A elegância mora na sutileza": palavras acendem com a rolagem ----------
+    const bq = $('.frase blockquote');
+    [...bq.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(p => {
+          if (!p) return;
+          if (/^\s+$/.test(p)) { frag.append(' '); return; }
+          const w = document.createElement('span'); w.className = 'pf'; w.textContent = p; frag.append(w);
+        });
+        bq.replaceChild(frag, n);
+      } else if (n.tagName === 'EM') { n.classList.add('pf'); tinta(n); }
+    });
+    const montaFrase = tlF => tlF
+      .fromTo('.frase .pf', {opacity: .12, y: 14}, {opacity: 1, y: 0, stagger: .35, duration: 1, ease: 'none'})
+      .add(escreve($('.frase em .tinta'), {duration: 1.2, ease: 'none'}), .3)
+      .from('.frase .assinatura', {autoAlpha: 0, y: 16, duration: .6});
+    mm.add('(min-width: 961px)', () => {
+      montaFrase(gsap.timeline({scrollTrigger: {trigger: '.frase', start: 'top top', end: '+=110%', scrub: 1, pin: true}}));
+    });
+    mm.add('(max-width: 960px)', () => {
+      montaFrase(gsap.timeline({scrollTrigger: {trigger: '.frase', start: 'top 80%', end: 'bottom 45%', scrub: 1}}));
+    });
+
+    // ---------- agendamento ----------
+    gsap.fromTo('.painel', {autoAlpha: 0, y: 70, scale: .94}, {autoAlpha: 1, y: 0, scale: 1, duration: 1.5, ease: 'expo.out',
+      clearProps: 'transform', scrollTrigger: {trigger: '.agendar', start: 'top 70%', once: true}});
+    gsap.from('.agendar .mini', {autoAlpha: 0, x: -40, duration: 1.2, ease: 'expo.out', scrollTrigger: {trigger: '.agendar .mini', start: 'top 92%', once: true}});
+
+    // ---------- botões magnéticos ----------
+    if (fino) $$('.btn, .wa-flutua').forEach(b => {
+      const x = gsap.quickTo(b, 'x', {duration: .5, ease: 'power3'}), y = gsap.quickTo(b, 'y', {duration: .5, ease: 'power3'});
+      b.addEventListener('pointermove', e => {
+        const r = b.getBoundingClientRect();
+        x((e.clientX - r.left - r.width / 2) * .28); y((e.clientY - r.top - r.height / 2) * .38);
+      });
+      b.addEventListener('pointerleave', () => { x(0); y(0); });
+    });
+
+    // ---------- dúvidas abrem e fecham suave ----------
+    $$('.perguntas details').forEach(d => {
+      const resp = $('p', d);
+      $('summary', d).addEventListener('click', e => {
+        e.preventDefault();
+        if (!d.open) {
+          d.open = true;
+          gsap.from(resp, {height: 0, paddingBottom: 0, opacity: 0, duration: .55, ease: 'power3.out', clearProps: 'height,paddingBottom,opacity',
+            onComplete: () => ScrollTrigger.refresh()});
+        } else {
+          gsap.to(resp, {height: 0, paddingBottom: 0, opacity: 0, duration: .4, ease: 'power3.in', onComplete: () => {
+            d.open = false; gsap.set(resp, {clearProps: 'height,paddingBottom,opacity'}); ScrollTrigger.refresh();
+          }});
+        }
+      });
+    });
+
+    // manchas do topo flutuando
+    gsap.to('.hero .mancha', {scale: 1.15, xPercent: -8, duration: 7, yoyo: true, repeat: -1, ease: 'sine.inOut'});
+
+    // caixas de vidro brilham quando entram na tela
+    ScrollTrigger.batch('.vidro:not(.hero .vidro):not(header .vidro)', {start: 'top 85%', once: true,
+      onEnter: lote => lote.forEach((el, i) => setTimeout(() => plim(el), 350 + i * 120))});
+
+    // caso em destaque: ao entrar na tela, a linha passeia uma vez mostrando o antes e volta ao meio
+    const est = $('#estudio');
+    if (est && !matchMedia('(hover:none)').matches) {
+      const c = {v: 50};
+      ScrollTrigger.create({trigger: est, start: 'top 70%', once: true, onEnter: () =>
+        gsap.timeline().to(c, {v: 88, duration: 1.1, ease: 'power2.inOut', onUpdate: () => est.style.setProperty('--c', c.v + '%')})
+          .to(c, {v: 12, duration: 1.4, ease: 'power2.inOut', onUpdate: () => est.style.setProperty('--c', c.v + '%')})
+          .to(c, {v: 50, duration: 1, ease: 'power2.inOut', onUpdate: () => est.style.setProperty('--c', c.v + '%')})});
+    }
+
+    libera();
+    if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+    addEventListener('load', () => ScrollTrigger.refresh());
+  })();
+</script>
+</body>
+</html>
