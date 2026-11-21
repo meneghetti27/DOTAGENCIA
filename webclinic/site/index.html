@@ -231,6 +231,17 @@ footer .gig{font-weight:700;letter-spacing:-.07em;font-size:clamp(90px,23vw,330p
 footer .gig span{color:var(--azul)}
 .zap{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:55;width:62px;height:62px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.4)}
 @media (prefers-reduced-motion:reduce){.faixa .trilho{animation:none}}
+/* ajustes do celular (21/11) */
+@media (max-width:860px){
+  .zap{display:none}
+  #ligacao .persp,#site .persp{--w:min(50vw,calc((100svh - 420px) / 2.15));bottom:max(3svh,14px)}
+  #site .persp{--w:min(44vw,calc((100svh - 480px) / 2.15))}
+  #case .palco{padding-top:92px}
+  .note{top:clamp(290px,38svh,360px);bottom:auto;width:92vw;left:4vw}
+  #case .cel{--w:29vw;top:calc(clamp(290px,38svh,360px) + 40vw);bottom:auto;right:5vw}
+  footer .gig{font-size:19.5vw}
+}
+
 </style>
 </head>
 <body>
