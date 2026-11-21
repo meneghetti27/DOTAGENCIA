@@ -64,7 +64,12 @@ no celular · variar formato entre posts vizinhos · conferir folha de contato d
   e depois `python3 perfil.py && node shotp.js && node pdf.js "$PWD/perfil.html" "$PWD/../perfil/webclinic-configurar-perfil.pdf"`
 - Dados confirmados (13/11/2026): Instagram **@webclinicbrasil** (é o @ do cabeçalho de todas as artes, em `posts3.py`) e WhatsApp **(51) 98906-1441** (link da bio `https://wa.me/5551989061441` e botão de contato).
 
-## Site (webclinic/site) — v6 (atual, APROVADO em 13/11/2026)
+## Site NO AR (21/11/2026): https://webclinic-seven.vercel.app
+- Vercel: projeto **webclinic** (conta Meneghetti), repositório DOTAGENCIA, Root Directory `webclinic/site`. Todo push na main atualiza o site sozinho.
+- A versão no ar é a da prévia (artifact 8yekiA2taaFWgaia9PVbRo), feita depois da v6 em outra conversa: hero com celular 3D, cena "a ligação em espera" (4min37s, caiu), "no site ele marca em 8 s", cards, case Victoria, reels (aguarde, Cláudia, apresentação), como funciona, dúvidas. Essa página é escrita direto em `site/index.html` (não sai do gerador). A v6 do gerador está em `historico/site-v6/`.
+- Regra: antes de publicar, conferir se a prévia e `site/` são a mesma versão.
+
+## Site — v6 (aprovada em 13/11/2026, hoje no histórico)
 - v6 ("sobe mais um nível"): o problema virou cena presa no scroll: três sites empilhados, o 1º fica carregando (cronômetro até 3,8 s) e leva carimbo "Fechou", o 2º (site antigo do Dr. Marcos Lima, fictício) leva "Fechou", o 3º é o da Victoria e chega "Nova consulta marcada". O topo encolhe num cartão ao rolar e as seções escuras entram como folhas arredondadas. Fonte: `gerador/site-v6-modelo.html` + `gerador/site6.py`.
 
 ### v5
