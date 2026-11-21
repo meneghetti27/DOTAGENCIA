@@ -18,7 +18,7 @@
 @font-face{font-family:Poppins;font-weight:600;font-display:swap;src:url(fonts/poppins-600.woff2) format('woff2')}
 @font-face{font-family:Poppins;font-weight:700;font-display:swap;src:url(fonts/poppins-700.woff2) format('woff2')}
 @font-face{font-family:Serif;font-style:italic;font-display:swap;src:url(fonts/instrument-serif-italic.woff2) format('woff2')}
-:root{--bg:#050B18;--gelo:#081428;--ink:#FFFFFF;--navy:#0B1F3A;--azul:#2D7FF0;--claro:#5AA2FF;--masc:#CFE6F7;--cinza:#9DAAC0;--linha:rgba(255,255,255,.1);--verm:#FA5F6D;
+:root{--vh0:100svh;--bg:#050B18;--gelo:#081428;--ink:#FFFFFF;--navy:#0B1F3A;--azul:#2D7FF0;--claro:#5AA2FF;--masc:#CFE6F7;--cinza:#9DAAC0;--linha:rgba(255,255,255,.1);--verm:#FA5F6D;
   --sombra:0 40px 80px -30px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.07) inset,0 20px 50px -24px rgba(45,127,240,.35)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -64,6 +64,12 @@ header .btn{padding:10px 10px 10px 20px;font-size:15px}header .btn i{width:34px;
   box-shadow:0 0 0 1.5px rgba(255,255,255,.1) inset,0 70px 100px -40px rgba(11,31,58,.55),0 30px 60px -30px rgba(45,127,240,.45);transform-style:preserve-3d;will-change:transform;position:relative}
 .cel .tela{position:absolute;inset:calc(var(--w,320px)*.03);border-radius:calc(var(--w,320px)*.13);overflow:hidden;background:#fff}
 .cel .tela:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.14),rgba(255,255,255,0) 35%);pointer-events:none}
+.cel .tela,.cel .ilha{-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.cel .costas{position:absolute;inset:0;border-radius:inherit;transform:rotateY(180deg) translateZ(1px);-webkit-backface-visibility:hidden;backface-visibility:hidden;background:linear-gradient(150deg,#22324F,#0B1426 50%,#1A2846);box-shadow:0 0 0 1.5px rgba(255,255,255,.12) inset;display:grid;place-items:center}
+.cel .costas .cam{position:absolute;left:8%;top:5%;width:38%;aspect-ratio:1;border-radius:24%;background:linear-gradient(145deg,#2A3B5C,#111C33);box-shadow:0 0 0 1px rgba(255,255,255,.14) inset,0 6px 14px -6px rgba(0,0,0,.6)}
+.cel .costas .cam i{position:absolute;width:38%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3E6FB8,#050B18 55%);box-shadow:0 0 0 2px #1B2741,0 0 0 3px rgba(255,255,255,.1)}
+.cel .costas .cam i:nth-child(1){left:8%;top:8%}.cel .costas .cam i:nth-child(2){left:8%;bottom:8%}.cel .costas .cam i:nth-child(3){right:8%;top:31%}
+.cel .costas .lg{font-weight:700;font-size:calc(var(--w)*.11);letter-spacing:-.05em;color:#fff;opacity:.92}.cel .costas .lg span{color:var(--claro)}
 .cel .ilha{position:absolute;top:calc(var(--w,320px)*.035);left:50%;width:28%;height:calc(var(--w,320px)*.075);margin-left:-14%;border-radius:99px;background:#000;z-index:5}
 
 /* ---------- 1. HERO ---------- */
@@ -237,12 +243,13 @@ footer .gig span{color:var(--azul)}
 /* ajustes do celular (21/11) */
 @media (max-width:860px){
   .zap{display:none}
-  #ligacao .persp,#site .persp{--w:min(50vw,calc((100svh - 440px) / 2.15));bottom:calc(100lvh - 100svh + max(5svh,40px))}
+  #ligacao .persp{--w:min(52vw,calc((var(--vh0) - 400px) / 2.15));bottom:calc(100lvh - 100svh + max(5svh,40px))}
   .cel{box-shadow:0 0 0 1.5px rgba(255,255,255,.1) inset,0 18px 36px -18px rgba(45,127,240,.5)}
-  #site .persp{--w:min(44vw,calc((100svh - 500px) / 2.15))}
+  #site .persp{--w:max(150px,min(56vw,calc((var(--vh0) - 300px) / 2.11)));bottom:calc(100lvh - 100svh + 18px)}
+  #site .leg{height:auto!important;min-height:0} #site .leg h2{font-size:32px} #site .leg p{display:none} #site .cronos{font-size:58px;margin-top:6px}
   #case .palco{padding-top:92px}
-  .note{top:clamp(290px,38svh,360px);bottom:auto;width:92vw;left:4vw}
-  #case .cel{--w:29vw;top:calc(clamp(290px,38svh,360px) + 40vw);bottom:auto;right:5vw}
+  .note{top:clamp(290px,calc(var(--vh0) * .38),360px);bottom:auto;width:92vw;left:4vw}
+  #case .cel{--w:29vw;top:calc(clamp(290px,calc(var(--vh0) * .38),360px) + 40vw);bottom:auto;right:5vw}
   footer .gig{font-size:19.5vw}
   #hero .persp{bottom:calc(100lvh - 100svh + 140px - var(--w) * 2.11)}
   #hero .persp{z-index:1} #hero .palco:after{z-index:2;height:20%}
@@ -310,7 +317,7 @@ footer .gig span{color:var(--azul)}
       <div class="q" data-de="0" data-ate=".3"><span class="kick">A virada</span><h2 style="margin-top:16px">Seu paciente não tem <b>4 minutos.</b></h2></div>
       <div class="q" data-de=".3" data-ate="1.01"><h2>No site da Web Clinic, <b class="az">ele marca em</b></h2><div class="cronos"><span class="odo" id="siteOdo"></span></div><p>Escolhe o horário, confirma e pronto. Às 22h de domingo, inclusive.</p></div>
     </div>
-    <div class="persp"><div class="cel" id="siteCel"><span class="ilha"></span>
+    <div class="persp"><div class="cel" id="siteCel"><span class="ilha"></span><div class="costas"><div class="cam"><i></i><i></i><i></i></div><div class="lg">web<span>clinic</span></div></div>
       <div class="tela"><div class="agenda">
         <div class="lg">web<span>clinic</span></div>
         <h4><b>Agende</b><br>sua consulta</h4>
@@ -465,7 +472,7 @@ const cenas={
     const ag=document.getElementById('agBtn');ag.classList.toggle('conf',p>.66);ag.textContent=p>.66?'Confirmando…':'Agendar';
     document.getElementById('okTela').classList.toggle('on',p>.8);
     const c=document.getElementById('siteCel');
-    c.style.transform=`translateY(${map(p,0,.3,140,0,eo)}px) rotateY(${map(p,0,.4,-26,-4,eio)}deg) rotateX(${map(p,0,.4,12,2,eio)}deg) scale(${map(p,.8,1,1,1.05,eio)})`;
+    c.style.transform=`translateY(${map(p,0,.3,140,0,eo)}px) rotateY(${map(p,0,.3,-180,-4,eio)-map(p,.88,1,0,176,eio)}deg) rotateX(${map(p,0,.4,12,2,eio)}deg) scale(${map(p,.8,1,1,1.05,eio)})`;
   },
   case(p){
     const n=document.getElementById('caseNote'),c=document.getElementById('caseCel');
@@ -480,6 +487,7 @@ if(!reduz){
   const lenis=new Lenis({lerp:.09,smoothWheel:true});
   lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
   gsap.registerPlugin(ScrollTrigger);
+  (function(){const d=document.documentElement;let lw=innerWidth;const f=()=>d.style.setProperty('--vh0',innerHeight+'px');f();addEventListener('resize',()=>{if(innerWidth!==lw){lw=innerWidth;f()}})})();
   document.querySelectorAll('.cena').forEach(sec=>{
     const fn=cenas[sec.id];const dur=+sec.dataset.pin||2;
     ScrollTrigger.create({trigger:sec,start:'top top',end:()=>'+='+innerHeight*dur,pin:sec.querySelector('.palco'),scrub:true,
