@@ -55,6 +55,8 @@ header .btn{padding:10px 10px 10px 20px;font-size:15px}header .btn i{width:34px;
 /* cena pinada: palco ocupa a tela */
 .cena{position:relative}
 .palco{height:100vh;height:100lvh;position:relative;overflow:hidden;display:flex;align-items:center}
+.palco:after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(rgba(5,11,24,0),var(--bg));pointer-events:none;z-index:1}
+.persp,.note,#case .cel{z-index:2}
 .luz{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
 /* celular 3D */
 .persp{perspective:2200px}
@@ -94,9 +96,9 @@ header .btn{padding:10px 10px 10px 20px;font-size:15px}header .btn i{width:34px;
 @keyframes corre{to{transform:translateX(-50%)}}
 
 /* ---------- 2. A LIGAÇÃO ---------- */
-#ligacao,#ligacao .palco{background:var(--gelo);transition:background .6s}
-#ligacao.caiu{background:#1A0711}
-#ligacao.caiu .palco{background:#1A0711}
+#ligacao .palco{background:var(--gelo)}
+#ligacao .palco:before{content:"";position:absolute;inset:0;background:#1A0711;opacity:0;transition:opacity .6s;pointer-events:none}
+#ligacao.caiu .palco:before{opacity:1}
 .leg{position:relative;z-index:3;width:min(560px,100%)}
 .leg .q{position:absolute;inset:0;opacity:0;transform:translateY(30px);transition:opacity .5s,transform .7s cubic-bezier(.16,1,.3,1)}
 .leg .q.on{opacity:1;transform:none}
@@ -131,7 +133,7 @@ header .btn{padding:10px 10px 10px 20px;font-size:15px}header .btn i{width:34px;
 }
 
 /* ---------- 3. O SITE EM 8 SEGUNDOS ---------- */
-#site .palco{background:radial-gradient(900px 700px at 70% 55%,#0F2D5C,var(--bg) 70%)}
+#site .palco{background:linear-gradient(var(--bg),rgba(5,11,24,0) 32%),radial-gradient(900px 700px at 70% 55%,#0F2D5C,var(--bg) 70%)}
 #site .bola{position:absolute;right:max(5vw,calc(50vw - 540px));top:50%;width:700px;height:700px;margin:-350px -190px 0 0;border-radius:50%;background:radial-gradient(circle,rgba(45,127,240,.28),rgba(45,127,240,0) 65%);transform:scale(.3)}
 .cronos{font-size:clamp(70px,9vw,128px);font-weight:700;color:var(--claro);text-shadow:0 0 50px rgba(45,127,240,.6);letter-spacing:-.05em;margin-top:10px}
 .agenda{position:absolute;inset:0;padding:28% 9% 0;color:#0B1F3A}
@@ -171,7 +173,7 @@ header .btn{padding:10px 10px 10px 20px;font-size:15px}header .btn i{width:34px;
 @media (max-width:860px){.cards{grid-template-columns:1fr}.card{min-height:0}}
 
 /* ---------- 5. CASE ---------- */
-#case .palco{background:radial-gradient(1000px 700px at 70% 50%,#0D2550,var(--bg) 70%)}
+#case .palco{background:linear-gradient(var(--bg),rgba(5,11,24,0) 32%),radial-gradient(1000px 700px at 70% 50%,#0D2550,var(--bg) 70%)}
 #case .info{position:relative;z-index:3;max-width:430px}
 #case h2{font-size:clamp(40px,4.6vw,64px)}
 #case ul{list-style:none;margin:22px 0 26px;display:grid;gap:10px}
@@ -220,7 +222,7 @@ header .btn{padding:10px 10px 10px 20px;font-size:15px}header .btn i{width:34px;
 .faq details p{color:var(--cinza);padding:0 0 26px;max-width:700px}
 
 /* ---------- 9. CTA ---------- */
-#contato{padding:clamp(110px,14vw,180px) 0 60px;text-align:center;background:radial-gradient(900px 600px at 50% 30%,#0F2D5C,var(--bg) 75%)}
+#contato{padding:clamp(110px,14vw,180px) 0 60px;text-align:center;background:linear-gradient(var(--bg),rgba(5,11,24,0) 32%),radial-gradient(900px 600px at 50% 30%,#0F2D5C,var(--bg) 75%)}
 #contato h2{font-size:clamp(52px,8vw,118px);margin:0 auto;max-width:980px}
 #contato .ser{color:var(--claro)}
 #contato .sub{margin:24px auto 36px}
@@ -235,13 +237,15 @@ footer .gig span{color:var(--azul)}
 /* ajustes do celular (21/11) */
 @media (max-width:860px){
   .zap{display:none}
-  #ligacao .persp,#site .persp{--w:min(50vw,calc((100svh - 420px) / 2.15));bottom:calc(100lvh - 100svh + max(3svh,14px))}
-  #site .persp{--w:min(44vw,calc((100svh - 480px) / 2.15))}
+  #ligacao .persp,#site .persp{--w:min(50vw,calc((100svh - 440px) / 2.15));bottom:calc(100lvh - 100svh + max(5svh,40px))}
+  .cel{box-shadow:0 0 0 1.5px rgba(255,255,255,.1) inset,0 18px 36px -18px rgba(45,127,240,.5)}
+  #site .persp{--w:min(44vw,calc((100svh - 500px) / 2.15))}
   #case .palco{padding-top:92px}
   .note{top:clamp(290px,38svh,360px);bottom:auto;width:92vw;left:4vw}
   #case .cel{--w:29vw;top:calc(clamp(290px,38svh,360px) + 40vw);bottom:auto;right:5vw}
   footer .gig{font-size:19.5vw}
   #hero .persp{bottom:calc(100lvh - 100svh + 140px - var(--w) * 2.11)}
+  #hero .persp{z-index:1} #hero .palco:after{z-index:2;height:20%}
 }
 
 </style>
@@ -451,7 +455,7 @@ const cenas={
     sec.classList.toggle('caiu',p>=.72);
     const c=document.getElementById('ligCel');
     const cai=map(p,.72,1,0,1,t=>t*t);
-    c.style.transform=`translateY(${cai*120}px) rotateY(${map(p,0,.3,-18,4,eio)+map(p,.3,.7,0,-10,eio)}deg) rotateX(${map(p,0,.3,8,2,eio)+cai*14}deg) rotateZ(${cai*-9}deg) scale(${map(p,.2,.44,1,1.06,eio)-map(p,.44,.7,0,.04,eio)})`;
+    c.style.transform=`translateY(${cai*(innerWidth<860?14:120)}px) rotateY(${map(p,0,.3,-18,4,eio)+map(p,.3,.7,0,-10,eio)}deg) rotateX(${map(p,0,.3,8,2,eio)+cai*14}deg) rotateZ(${cai*-9}deg) scale(${map(p,.2,.44,1,1.06,eio)-map(p,.44,.7,0,.04,eio)})`;
   },
   site(p,sec){
     legendas(sec,p);
