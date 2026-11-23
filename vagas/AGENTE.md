@@ -43,3 +43,9 @@ outra língua e com link morto. Vaga "Remote - US" entra, com alerta "o formulá
   vaga que exige cadastro com senha, teste ou entrevista em vídeo com IA antes de mandar o portfólio, e não é vaga de design de verdade, golpe/suspeita, cripto/apostas/adulto, estágio só para estudante.
 - Campos: `nota`, `resumo` (o que é a vaga, 1–2 frases), `porque` (por que combina com ele), `alerta` (restrição de país,
   nível, red flag; vazio se nada), `area` (UX/UI | Brand | Motion | Vídeo | Web | IA), `aceita_brasil`.
+
+## Dados do Antônio que mudam a nota (23/11/2026)
+- Cidadão **brasileiro, italiano e português** (UE): vaga remota na Europa/UE conta como "aceita" (+3).
+- EUA/Canadá: só visto de estudante, **não** autorizado a trabalhar sem patrocínio → nota máx. 4, alerta "precisa de patrocínio".
+- Idiomas: português nativo, inglês fluente, **espanhol avançado** (vaga em espanhol vale).
+- Banco de respostas e regras do formulário ficam em `meta/perfil` (o painel usa no pedido do Chrome).

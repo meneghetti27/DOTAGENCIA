@@ -27,9 +27,7 @@ RUIM = re.compile(r"crypto|casino|gambl|betting|\bbet\b|adult|onlyfans|nsfw|web3
 LONGE = re.compile(r"india|bangalore|bengaluru|hyderabad|pune|chennai|mumbai|delhi|noida|gurgaon|philippines|manila|pakistan|"
                    r"indonesia|jakarta|vietnam|china|beijing|shanghai|japan|tokyo|korea|seoul|taiwan|thailand|bangkok|malaysia|"
                    r"kuala|singapore|bangladesh|sri lanka|nepal|egypt|cairo|nigeria|lagos|kenya|nairobi|turkey|türkiye|istanbul|"
-                   r"israel|tel aviv|saudi|dubai|uae|qatar|russia|ukraine|poland|romania|bulgaria|serbia|hungary|czech|"
-                   r"germany|berlin|munich|france|paris|spain|madrid|barcelona|italy|milan|netherlands|amsterdam|sweden|denmark|"
-                   r"norway|finland|austria|switzerland|zurich|belgium|greece|croatia", re.I)
+                   r"israel|tel aviv|saudi|dubai|uae|qatar|russia|ukraine|serbia", re.I)   # Europa/UE liberada: ele é cidadão italiano e português
 PERTO = re.compile(r"anywhere|worldwide|global|latam|latin america|americas|brazil|brasil|south america|"
                    r"united states|\bus\b|usa|canada|united kingdom|\buk\b|ireland|portugal|lisbon|australia|new zealand|"
                    r"remote$|^remote", re.I)
@@ -39,7 +37,7 @@ def lingua_ok(txt):
     if len(w) < 30: return True
     en = sum(x in {"the","and","you","with","our","will","for","your","are","to","of","we"} for x in w)
     pt = sum(x in {"de","para","você","com","nossa","uma","que","os","as","não","em","do","da"} for x in w)
-    outras = sum(x in {"und","der","die","wir","sie","mit","nous","vous","avec","les","des","una","para","con","los","las","del","que"} for x in w)
+    outras = sum(x in {"und","der","die","wir","sie","mit","nous","vous","avec","les","des"} for x in w)   # espanhol liberado (avançado)
     return (en + pt) > outras * 0.8
 
 def lugar_ok(local):

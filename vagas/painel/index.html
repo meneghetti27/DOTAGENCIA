@@ -245,12 +245,28 @@ button{font:inherit;color:inherit}
         <label>Pretensão salarial (USD)<input id="p_salario" placeholder="ex.: US$ 3.000/mês ou US$ 40k/ano"></label>
         <label class="full">Visto / autorização de trabalho<input id="p_visto" placeholder="Brazilian citizen. Works as a contractor from Brazil. Would need visa sponsorship to relocate."></label>
         <label class="full">Quando pode começar<input id="p_inicio" placeholder="2 weeks notice"></label>
+        <label>Empresa atual<input id="p_empresa"></label>
+        <label>Cargo atual<input id="p_cargo"></label>
+        <label>Pretensão em R$ (CLT)<input id="p_salario_brl"></label>
+        <label>Pretensão em € (Europa)<input id="p_salario_eur"></label>
+        <label>Anos de experiência total<input id="p_anos"></label>
+        <label>Anos em UX / produto digital<input id="p_anos_ux"></label>
+        <label>Idiomas<input id="p_idiomas"></label>
+        <label>Pronomes (opcional)<input id="p_pronomes"></label>
+        <label class="full">Autorização de trabalho (regra pronta)<textarea id="p_autorizacao" rows="4"></textarea></label>
+        <label class="full">Respostas padrão (parente na empresa, acessibilidade, termos, mudança…)<textarea id="p_padroes" rows="4"></textarea></label>
+        <label class="full">Projeto de crescimento/conversão com número (o que queria mover, o que mudou, resultado)<textarea id="p_r_growth" rows="3"></textarea></label>
+        <label class="full">Um experimento que não deu certo e o que aprendeu<textarea id="p_r_falha" rows="3"></textarea></label>
+        <label class="full">Experiência com produto digital / SaaS<textarea id="p_r_saas" rows="3"></textarea></label>
+        <label class="full">Design system / linguagem visual<textarea id="p_r_sistema" rows="3"></textarea></label>
+        <label class="full">Como usa IA no design (1–2 exemplos)<textarea id="p_r_ia" rows="3"></textarea></label>
+        <label class="full">Liderança de projeto ponta a ponta / trabalho com engenharia<textarea id="p_r_lideranca" rows="3"></textarea></label>
       </div>
       <div class="btnrow"><button class="ghost" id="psalva">Salvar dados</button></div>
     </div>
     <div class="box">
       <h4>2 · Os PDFs das vagas</h4>
-      <p class="small">O painel monta o kit de cada vaga (portfólio + carta) e baixa o PDF de cada uma. Deixa eles na pasta Downloads.</p>
+      <p class="small">O painel monta o kit de cada vaga e baixa 2 PDFs por vaga (portfólio e cover letter). Deixa eles na pasta Downloads.</p>
       <div id="ifila"></div>
       <div class="btnrow"><button class="apply" id="iprep"><span>MONTAR KITS E BAIXAR PDFs</span></button></div>
       <p class="small" id="iprog"></p>
@@ -486,6 +502,19 @@ $("#kpdf").onclick = async () => {
   try{ const nome = await baixarPDF(atual); m.textContent = "PDF pronto: " + nome; }
   catch(e){ m.textContent = e?.msg || (e?.code==="dismissed"||e?.code==="declined" ? "Download cancelado." : "Não consegui gerar o PDF. Tenta de novo."); }
 };
+function nomeCarta(v){ return `Antonio-Meneghetti-Cover-Letter-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
+async function baixarCarta(v){
+  const k = kits[v.id]; if(!k?.cover_letter) return;
+  const downloads = await claude.use("downloads"); if(!downloads) return;
+  const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"pt",format:"a4"});
+  const p = perfilDoc;
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(18); pdf.text(p.nome||"Antônio Meneghetti", 56, 72);
+  pdf.setFont("helvetica","normal"); pdf.setFontSize(10); pdf.setTextColor(110);
+  pdf.text([p.email, p.tel, p.linkedin, PORTFOLIO_URL].filter(Boolean).join("  ·  "), 56, 90, {maxWidth:480});
+  pdf.setTextColor(20); pdf.setFontSize(11.5);
+  pdf.text(pdf.splitTextToSize(k.cover_letter, 480), 56, 130, {lineHeightFactor:1.5});
+  await downloads.save({filename:nomeCarta(v), data:pdf.output("blob")});
+}
 function nomePDF(v){ return `Antonio-Meneghetti-Portfolio-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
 async function baixarPDF(v){
   const sheet = $("#sheet"); if(!sheet) throw {msg:"Abre o kit primeiro."};
@@ -557,7 +586,7 @@ Return ONLY a JSON array: [{"url":"","titulo":"","empresa":"","local":"","data":
 };
 
 /* ---------- inscrição em lote (Claude in Chrome) ---------- */
-const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","visto","inicio"];
+const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","visto","inicio","empresa","cargo","salario_brl","salario_eur","anos","anos_ux","idiomas","pronomes","autorizacao","padroes","r_growth","r_falha","r_saas","r_sistema","r_ia","r_lideranca"];
 function filaVagas(){ return vagas.filter(v => v.status==="fila"); }
 function lerCampos(){ CAMPOS.forEach(k => { perfilDoc[k] = $("#p_"+k).value.trim(); }); }
 function pintarFila(){
@@ -574,6 +603,7 @@ function pedido(){
     return `### Vaga ${i+1}: ${v.titulo} — ${v.empresa}
 Formulário: ${v.link_aplicar||v.url}
 Arquivo para anexar (currículo/portfólio): ${nomePDF(v)} (está na minha pasta Downloads)
+Carta em PDF (se o campo de carta for upload): ${nomeCarta(v)}
 Cover letter (colar no campo de carta, se houver):
 ${k.cover_letter||"(sem carta: escreve 3 frases curtas sobre por que combino, em inglês)"}
 ${(k.qa||[]).length?"Respostas prontas:\n"+k.qa.map(x=>"- "+x.q+" → "+x.a).join("\n"):""}`; }).join("\n\n");
@@ -586,17 +616,38 @@ Telefone: ${p.tel||"-"}
 LinkedIn: ${p.linkedin||"-"}
 Portfólio / site: ${PORTFOLIO_URL}
 Cidade/país: ${p.cidade||"Porto Alegre, Brazil"}
-Pretensão salarial: ${p.salario||"open to discuss"}
-Visto/autorização: ${p.visto||"Brazilian citizen, works as a contractor from Brazil; would need sponsorship to relocate."}
+Empresa atual: ${p.empresa||"-"} · Cargo atual: ${p.cargo||"-"}
+Pretensão: em dólar ${p.salario||"open"} por mês (contractor) · em reais ${p.salario_brl||"-"} por mês (CLT) · em euro ${p.salario_eur||"-"}. Campo só número: usa só o número na moeda da vaga.
+Experiência: ${p.anos||"-"} anos no total · ${p.anos_ux||"-"} anos em UX/produto digital
+Idiomas: ${p.idiomas||"Português nativo, inglês fluente"}
+Pronomes: ${p.pronomes||"deixar em branco se opcional"}
 Início: ${p.inicio||"2 weeks"}
-Inglês: fluente (Cambridge English First)
+
+AUTORIZAÇÃO DE TRABALHO (usar exatamente esta regra)
+${p.autorizacao||p.visto||""}
+
+RESPOSTAS PADRÃO
+${p.padroes||""}
+
+BANCO DE RESPOSTAS ABERTAS (adaptar à pergunta real, sem inventar números ou empresas)
+- Crescimento/conversão com métrica: ${p.r_growth||"-"}
+- Experimento que não deu certo: ${p.r_falha||"-"}
+- Produto digital / SaaS: ${p.r_saas||"-"}
+- Design system / linguagem visual: ${p.r_sistema||"-"}
+- IA no design: ${p.r_ia||"-"}
+- Liderança / engenharia: ${p.r_lideranca||"-"}
 
 REGRAS
 - Se o link for do LinkedIn: usa a Candidatura simplificada (Easy Apply) e envia o PDF indicado como currículo.
 - Em cada vaga: abre o link do formulário, preenche os campos com meus dados, anexa o PDF indicado no campo de currículo (Resume/CV) e, se houver campo de portfólio, usa o link do portfólio. Cola a cover letter no campo de carta.
 - Perguntas de diversidade (gênero, raça, deficiência, veterano): "Prefer not to say"/"Decline to self-identify".
 - Como soube da vaga: "Company careers page".
-- Se pedir criar conta com senha, captcha que tu não consegue, teste ou entrevista em vídeo, ou uma pergunta que meus dados não respondem: NÃO envia essa, anota o motivo e segue pra próxima.
+- Antes de responder, lê TODAS as perguntas reais do formulário. Pergunta aberta: escreve a resposta em inglês (ou na língua do formulário) usando o banco de respostas e a cover letter, 60–120 palavras, sem inventar números, empresas ou ferramentas. Não pula vaga por pergunta aberta.
+- Pergunta de sim/não com padrão definido acima: usa o padrão. Termos de consentimento de dados (LGPD/GDPR): aceita.
+- Campo de cover letter que pede ARQUIVO: anexa o PDF da carta indicado na vaga.
+- Lista de países sem o meu: escolhe "Location not listed"/"Other" e escreve "Porto Alegre, Brazil (remote)".
+- No fim de cada vaga, tenta clicar em Enviar. Se o navegador bloquear o clique, deixa a aba aberta e preenchida e me avisa pra eu clicar.
+- Só pula a vaga se pedir criar conta com senha, captcha que tu não consegue resolver, teste prático ou entrevista em vídeo antes do envio. Anota o motivo e segue.
 - Não anexar o PDF de uma vaga em outra.
 - No fim, me mostra uma lista: vaga → enviada ✓ / pulada (motivo).
 
@@ -616,6 +667,7 @@ $("#iprep").onclick = async () => {
       if(!kits[v.id]) throw {msg:`Não consegui montar o kit de ${v.empresa}.`};
       await new Promise(r => setTimeout(r, 900));
       await baixarPDF(v);
+      await baixarCarta(v);
     }
     pr.textContent = "Pronto: " + F.length + " PDFs baixados. Agora copia o pedido do passo 3.";
   }catch(e){ pr.textContent = e?.msg || (e?.code ? "Download cancelado ou falhou ("+e.code+")." : "Algo falhou. Tenta de novo."); }
