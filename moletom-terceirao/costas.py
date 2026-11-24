@@ -14,6 +14,10 @@ FD = (AQUI / "fontes/dafont").resolve().as_uri()
 ROXO, CLARO, ESCURO, UVA = "#996BB3", "#E4CFF7", "#7A4C99", "#3E2353"
 
 ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
+    (1, "beat_mark.ttf", "Bloco clássico", True),
+    (2, "urban_blocker.ttf", "Bolha", True),
+    (4, "graffiti_youth.otf", "Bloco gordo", True),
+    (9, "grime_slime.ttf", "Old school", False),
     (12, "break_rebel.ttf", "Wild leve", True),   # True = til desenhado à mão (o da fonte vira bolha)
     (26, "street_shade.ttf", "Bloco inclinado", False),
     (29, "thomas_2.otf", "Bloco pesado", False),
@@ -63,6 +67,9 @@ document.fonts.ready.then(()=>{{
     FA:m.fontBoundingBoxAscent,FD:m.fontBoundingBoxDescent}};}};
   const LARG=860, SOBRE=0.06;   // largura do desenho de cada linha e quanto uma linha encosta na outra
   let info=ls.map(l=>{{const t=l.dataset.t;let m=med(t,400);const fs=400*LARG/(m.L+m.R);return {{l,t,fs,m:med(t,fs)}};}});
+  let alt0=info.map(o=>o.m.A+o.m.D).reduce((a,b)=>a+b,0)*(1-SOBRE);
+  const k=Math.min(1,1180/alt0);   // se ficar alto demais, encolhe tudo junto
+  info=info.map(o=>{{const fs=o.fs*k;return {{...o,fs,m:med(o.t,fs)}};}});
   const alturas=info.map(o=>o.m.A+o.m.D);
   const total=alturas.reduce((a,b)=>a+b,0)*(1-SOBRE)+alturas[2]*SOBRE;
   let y=(1420-total)/2+40;  // bloco centrado entre 150 e ~1420
@@ -112,7 +119,9 @@ if __name__ == "__main__":
             png = OUT / f"{base}{suf}.png"
             render(h, png); h.unlink()
         pngs.append(OUT / f"{base}.png"); print("ok", base)
-    c = Image.new("RGB", (1500 * len(pngs) // 2, 900), "#0A0A0C")
+    col = 4
+    lin = (len(pngs) + col - 1) // col
+    c = Image.new("RGB", (750 * col, 900 * lin), "#0A0A0C")
     for k, p in enumerate(pngs):
-        c.paste(Image.open(p).convert("RGB").resize((750, 900)), (k * 750, 0))
+        c.paste(Image.open(p).convert("RGB").resize((750, 900)), ((k % col) * 750, (k // col) * 900))
     c.save(OUT / "comparar.jpg", quality=88)

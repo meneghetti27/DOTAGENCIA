@@ -37,6 +37,7 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
 - Fonte .otf/.ttf: conferir a extensão real em `fontes/dafont/` (fonte que não carrega vira serifada no PNG).
 
 ## Rodada 4 — escolhidas 12, 26, 29 → arte das costas
+- Escolhidas: favoritos 01, 02, 04, 09 (rodada 1) **e** 12, 26, 29 (rodada 2) — NÃO descartar os anteriores quando ele escolher novos.
 - Dono escolheu **12 Wild leve (break_rebel)**, **26 Bloco inclinado (street_shade)**, **29 Bloco pesado (thomas_2)** (também em `favoritos/`).
 - `python3 costas.py` → `costas/<n>-<fonte>.png` (1500×1800 no preto) + `-transparente.png` + `comparar.jpg`.
   Cada linha (TER/CEI/RÃO) é medida pelo desenho real da letra (canvas measureText) e tem ~860 px; 2027 e MÃE DE DEUS centralizados embaixo.
