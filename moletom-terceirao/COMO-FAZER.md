@@ -21,3 +21,11 @@ python3 painel.py                                                   # painel da 
 ```
 Nomes do forro: lista `NOMES_EXEMPLO` em `gerar.py`. Ano: "2027" em `versao_bolha` e `versao_manga`.
 Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha`.
+
+## Rodada 2 (dono: "muito feio extremamente") → 10 modelos de escrita
+- A identidade com Bagel Fat One (fonte do Google) foi **reprovada**. Usar fontes de grafite de verdade (dafont, categoria graffiti).
+- Escola: **Mãe de Deus**. Ano: **2027** (confirmado).
+- `python3 modelos.py` → `modelos-escrita/01..10-*.png` + `todos.jpg`. Fontes em `fontes/dafont/`.
+  Mesmo acabamento em todos (degradê roxo, contorno preto, linha branca, 3D uva) pra comparar só a letra.
+- Fontes demo (decipher, spoken, dunker, splatink, polemic, urban_hustle) trocam números por marca d'água: não usar.
+- Licença: a maioria das fontes do dafont é grátis só pra uso pessoal; moletom vendido pede licença comercial do autor.
