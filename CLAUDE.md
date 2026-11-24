@@ -93,7 +93,7 @@ Fundo **claro** (branco/gelo), azul `#2D7FF0` + navy, Poppins, vetores 2D própr
 As regras de fundo escuro / League Gothic / Anton deste arquivo valem **só para a dot**.
 
 ## MOLETOM TERCEIRÃO (cliente do dono, NÃO segue as cores da dot)
-Tudo em **`moletom-terceirao/`**, receita em `moletom-terceirao/COMO-FAZER.md`. Cor do moletom lilás `#996BB3` (fixa).
+Tudo em **`moletom-terceirao/`**, receita em `moletom-terceirao/COMO-FAZER.md`. **Moletom preto**; roxo `#996BB3` = cor das artes. Fazer **identidade visual (gráficos)**, sem mockup no moletom.
 Turma quer **grafite (não pixação)**, referências só de letra, **sem animal**. Artes geradas em vetor por `gerar.py`.
 
 ## A agência

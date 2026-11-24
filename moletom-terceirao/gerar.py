@@ -17,7 +17,8 @@ SAIDA = AQUI / "artes"
 SAIDA.mkdir(exist_ok=True)
 
 # ---------- paleta (3 cores de serigrafia + cor do moletom) ----------
-ROXO = "#996BB3"      # cor do moletom (amostra da cor enviada)
+ROXO = "#996BB3"      # cor principal das artes (amostra enviada)
+FUNDO = "#0A0A0C"     # moletom preto
 BRANCO = "#FFFFFF"
 PRETO = "#140B1C"     # preto levemente roxo
 ACENTO = "#C8FF3D"    # verde-limão (contraste máximo com o lilás)
@@ -234,23 +235,31 @@ def texto_tag(txt, x, y, alt, cor, giro=0, fonte_="sedgwick-ave-display"):
     return g + "</g>"
 
 
-def versao_bolha(acento=ACENTO, extr="#4A2D61", nome="costas-A-bolha"):
+def versao_bolha(acento=ACENTO, extr="#4A2D61", halo=None, recheio=BRANCO, ano="2027", linhas=None, brilho=BRANCO):
     F = "bagel-fat-one"
     # (dx, dy, dalt, giro) por letra: T E R / C E I / R A O
     jit = [(10, 40, 0.00, -10), (-10, -30, 0.08, 4), (60, 10, 0.02, 11),
            (-40, 10, 0.04, 7), (-20, 40, 0.00, -6), (40, -40, 0.06, 9),
            (-20, 150, 0.02, -8), (0, 170, 0.07, 3), (10, 180, 0.04, -9)]
-    L = montar_linhas(F, [("TER", 1.0), ("CEI", 0.96), ("RAO", 1.04)], topo=330, alt=780, gap=-50,
-                      sobrep=0.06, jitter=jit)
+    if linhas == "horizontal":
+        jit = [(0, 30, 0.00, -8), (0, -20, 0.06, 4), (0, 20, 0.02, 9), (0, -10, 0.04, -5), (0, 30, 0.0, 6),
+               (0, -20, 0.05, -7), (0, 20, 0.02, 5), (0, -10, 0.07, -4), (0, 25, 0.04, 8)]
+        L = montar_linhas(F, [("TERCEIRAO", 1.0)], cx=3300, topo=330, alt=760, gap=0, sobrep=0.02, jitter=jit)
+    else:
+        L = montar_linhas(F, [("TER", 1.0), ("CEI", 0.96), ("RAO", 1.04)], topo=330, alt=780, gap=-50,
+                          sobrep=0.06, jitter=jit)
     enfeites = []
-    for (x, y, r, c) in [(330, 470, 120, BRANCO), (2700, 330, 85, acento), (2800, 1380, 130, BRANCO),
-                         (230, 1650, 80, acento), (2700, 2780, 95, acento), (380, 2950, 110, BRANCO),
-                         (2880, 950, 55, BRANCO), (170, 1100, 50, BRANCO), (2500, 3080, 45, BRANCO)]:
+    pos = [(330, 470, 120, brilho), (2700, 330, 85, acento), (2800, 1380, 130, brilho),
+           (230, 1650, 80, acento), (2700, 2780, 95, acento), (380, 2950, 110, brilho),
+           (2880, 950, 55, brilho), (170, 1100, 50, brilho), (2500, 3080, 45, brilho)]
+    if linhas == "horizontal":
+        pos = [(200, 300, 110, brilho), (6400, 260, 90, acento), (6450, 1100, 70, brilho), (150, 1150, 60, acento), (900, 1550, 80, brilho)]
+    for (x, y, r, c) in pos:
         enfeites.append(estrela(x + 10, y + 14, r, PRETO))
         enfeites.append(estrela(x, y, r * 0.92, c))
     # til em cima do A (entre as linhas)
     A = L[7]
-    enfeites.insert(0, til(A[1] - 10, A[2] - A[3] * 0.56, 500, BRANCO, giro=-8))
+    enfeites.insert(0, til(A[1] - 10, A[2] - A[3] * (0.56 if linhas != "horizontal" else 0.62), 500, brilho, giro=-8))
     pingos = {}
     def add(i, dx, fy, comp, larg):
         l = L[i]
@@ -260,10 +269,15 @@ def versao_bolha(acento=ACENTO, extr="#4A2D61", nome="costas-A-bolha"):
     add(8, -120, 0.42, 110, 52)
     add(2, 60, 0.40, 90, 50)
     # ano em letra de spray embaixo
-    enfeites.append(texto_tag("2027", 1500, 3200, 190, BRANCO, giro=-4, fonte_="bagel-fat-one"))
-    return dict(fonte=F, letras=L, recheio=BRANCO, extrusao_cor=extr, halo_cor=acento,
-                contorno=24, halo=70, extrusao=(30, 44), faixa=recheio_grafite(acento),
-                enfeites=enfeites, pingos=pingos)
+    if ano:
+        if linhas == "horizontal":
+            enfeites.append(texto_tag(ano, 5600, 1500, 240, brilho, giro=-4, fonte_="bagel-fat-one"))
+        else:
+            enfeites.append(texto_tag(ano, 1500, 3200, 190, brilho, giro=-4, fonte_="bagel-fat-one"))
+    return dict(fonte=F, letras=L, recheio=recheio, extrusao_cor=extr, halo_cor=halo or acento,
+                contorno=24, halo=70, extrusao=(30, 44), faixa=recheio_grafite(acento, brilho),
+                enfeites=enfeites, pingos=pingos,
+                tamanho=(6600, 1720) if linhas == "horizontal" else (3000, 3300))
 
 
 def recheio_listras(acento):
@@ -302,7 +316,7 @@ def versao_bloco(acento=ACENTO, extr=PRETO):
                 enfeites=enfeites, join="miter", skew=-6)
 
 
-def capelo(cx, cy, larg, cor, giro=-12):
+def capelo(cx, cy, larg, cor, giro=-12, topo_cor=BRANCO):
     """chapéu de formatura simples (vetor) com contorno preto"""
     w = larg
     topo = f"M{-w/2} 0 L0 {-w*0.26} L{w/2} 0 L0 {w*0.26}Z"
@@ -312,34 +326,34 @@ def capelo(cx, cy, larg, cor, giro=-12):
     for dx, c, sw in [(16, PRETO, 40), (0, PRETO, 40)]:
         g += f'<g transform="translate({dx} {dx*1.3})" fill="{c}" stroke="{c}" stroke-width="{sw}"><path d="{base}"/><path d="{topo}"/></g>'
     g += f'<path d="{base}" fill="{PRETO}"/><path d="{base}" fill="{cor}" transform="scale(0.86) translate(0 4)"/>'
-    g += f'<path d="{topo}" fill="{BRANCO}"/>'
+    g += f'<path d="{topo}" fill="{topo_cor}"/>'
     g += f'<path d="{borla}" fill="none" stroke="{PRETO}" stroke-width="34"/><path d="{borla}" fill="none" stroke="{cor}" stroke-width="14"/>'
     g += f'<circle cx="{w*0.4}" cy="{w*0.42}" r="{w*0.06}" fill="{cor}" stroke="{PRETO}" stroke-width="14"/>'
     g += f'<circle r="{w*0.04}" fill="{PRETO}"/>'
     return g + "</g>"
 
 
-def versao_peito(acento=ACENTO, extr="#4A2D61"):
+def versao_peito(acento=ACENTO, extr="#4A2D61", halo=None, recheio=BRANCO, brilho=BRANCO):
     """frente (peito esquerdo): 3 grafitado com capelo"""
     F = "bagel-fat-one"
     L = [("3", 590, 650, 760, -6)]
-    enf = [capelo(800, 300, 380, acento, giro=14)]
-    for (x, y, r, c) in [(200, 330, 80, BRANCO), (1030, 900, 60, acento), (170, 1050, 45, BRANCO)]:
+    enf = [capelo(800, 300, 380, acento, giro=14, topo_cor=brilho)]
+    for (x, y, r, c) in [(200, 330, 80, brilho), (1030, 900, 60, acento), (170, 1050, 45, brilho)]:
         enf.append(estrela(x + 8, y + 10, r, PRETO)); enf.append(estrela(x, y, r * 0.92, c))
-    return dict(fonte=F, letras=L, recheio=BRANCO, extrusao_cor=extr, halo_cor=acento, tamanho=(1200, 1250),
-                contorno=24, halo=70, extrusao=(30, 44), faixa=recheio_grafite(acento), enfeites=enf)
+    return dict(fonte=F, letras=L, recheio=recheio, extrusao_cor=extr, halo_cor=halo or acento, tamanho=(1200, 1250),
+                contorno=24, halo=70, extrusao=(30, 44), faixa=recheio_grafite(acento, brilho), enfeites=enf)
 
 
-def versao_manga(acento=ACENTO, extr="#4A2D61", ano="2027"):
+def versao_manga(acento=ACENTO, extr="#4A2D61", halo=None, recheio=BRANCO, brilho=BRANCO, ano="2027"):
     """manga: ano empilhado na vertical + brilhos"""
     F = "bagel-fat-one"
     jit = [(-20, 0, 0, -8), (25, 0, 0, 6), (-20, 0, 0, -6), (20, 0, 0, 8)]
     L = montar_linhas(F, [(c, 1.0) for c in ano], cx=400, topo=260, alt=480, gap=40, sobrep=0, jitter=jit)
     enf = []
-    for (x, y, r, c) in [(130, 120, 70, BRANCO), (680, 2450, 80, acento), (110, 2600, 50, BRANCO), (700, 140, 40, acento)]:
+    for (x, y, r, c) in [(130, 120, 70, brilho), (680, 2450, 80, acento), (110, 2600, 50, brilho), (700, 140, 40, acento)]:
         enf.append(estrela(x + 8, y + 10, r, PRETO)); enf.append(estrela(x, y, r * 0.92, c))
-    return dict(fonte=F, letras=L, recheio=BRANCO, extrusao_cor=extr, halo_cor=acento, tamanho=(800, 2750),
-                contorno=22, halo=60, extrusao=(24, 36), faixa=recheio_grafite(acento), enfeites=enf)
+    return dict(fonte=F, letras=L, recheio=recheio, extrusao_cor=extr, halo_cor=halo or acento, tamanho=(800, 2750),
+                contorno=22, halo=60, extrusao=(24, 36), faixa=recheio_grafite(acento, brilho), enfeites=enf)
 
 
 NOMES_EXEMPLO = ["Ana", "Lucas", "Bia", "Pedro", "Júlia", "Gabi", "Rafa", "Duda", "Theo", "Lari",
@@ -375,13 +389,26 @@ def texto_tag_simples(txt, x, y, alt, cor, giro, fonte_="sedgwick-ave-display"):
     return g + "</g>"
 
 
-CORES = {"lima": "#C8FF3D", "rosa": "#FF4FB0", "branco": "#FFFFFF"}
+# paletas para moletom PRETO (roxo = cor principal da turma)
+LILAS = "#D7BFEA"     # lilás claro (luz)
+UVA = "#4B2C63"       # roxo escuro (3D)
+PALETAS = {
+    # principal: recheio branco, metade de baixo roxa, 3D uva, linha externa roxa
+    "principal": dict(acento=ROXO, extr=UVA, halo=ROXO, recheio=BRANCO, brilho=BRANCO),
+    # contorno branco por fora (mais destaque no preto)
+    "contorno-branco": dict(acento=ROXO, extr=UVA, halo=BRANCO, recheio=BRANCO, brilho=BRANCO),
+    # 1 cor: tudo roxo (o preto é o próprio moletom) — serigrafia/bordado barato
+    "1cor-roxo": dict(acento=ROXO, extr=PRETO, halo=ROXO, recheio=ROXO, brilho=ROXO),
+    # 1 cor branca
+    "1cor-branco": dict(acento=BRANCO, extr=PRETO, halo=BRANCO, recheio=BRANCO, brilho=BRANCO),
+}
 
 if __name__ == "__main__":
-    alvo = sys.argv[1:] or list(CORES)
+    alvo = sys.argv[1:] or list(PALETAS)
     for nome in alvo:
-        ac = CORES[nome]
-        salvar(f"{nome}/costas", *arte_costas(versao_bolha(ac)))
-        salvar(f"{nome}/peito", *arte_costas(versao_peito(ac)))
-        salvar(f"{nome}/manga", *arte_costas(versao_manga(ac)))
-        salvar(f"{nome}/forro-capuz", *forro_capuz(NOMES_EXEMPLO, ac if nome != "branco" else BRANCO))
+        pal = PALETAS[nome]
+        salvar(f"{nome}/logo-principal", *arte_costas(versao_bolha(**pal)))
+        salvar(f"{nome}/logo-horizontal", *arte_costas(versao_bolha(**pal, linhas="horizontal")))
+        salvar(f"{nome}/simbolo-3", *arte_costas(versao_peito(**pal)))
+        salvar(f"{nome}/ano-vertical", *arte_costas(versao_manga(**pal)))
+        salvar(f"{nome}/estampa-nomes", *forro_capuz(NOMES_EXEMPLO, pal["acento"]))
