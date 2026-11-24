@@ -29,3 +29,9 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
   Mesmo acabamento em todos (degradê roxo, contorno preto, linha branca, 3D uva) pra comparar só a letra.
 - Fontes demo (decipher, spoken, dunker, splatink, polemic, urban_hustle) trocam números por marca d'água: não usar.
 - Licença: a maioria das fontes do dafont é grátis só pra uso pessoal; moletom vendido pede licença comercial do autor.
+
+## Rodada 3 — favoritos + 20 novos
+- **Favoritos do dono (salvos em `modelos-escrita/favoritos/`)**: 01 Bloco clássico (beat_mark), 02 Bolha (urban_blocker),
+  04 Bloco gordo (graffiti_youth), 09 Old school (grime_slime). Gosto: letra **gorda, legível, bloco/bolha**.
+- `python3 modelos.py 2` → 20 novos modelos numerados 11–30 em `modelos-escrita/rodada2/` (+ `todos.jpg`).
+- Fonte .otf/.ttf: conferir a extensão real em `fontes/dafont/` (fonte que não carrega vira serifada no PNG).

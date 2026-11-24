@@ -12,6 +12,15 @@ AQUI = Path(__file__).parent
 OUT = AQUI / "modelos-escrita"
 OUT.mkdir(exist_ok=True)
 
+RODADA2 = [(f"{n}.{e}", est, None) for n, e, est in [
+    ("bostero", "ttf", "Bloco condensado"), ("break_rebel", "ttf", "Wild leve"), ("bubble_street", "ttf", "Bolha cheia"),
+    ("death_stars", "ttf", "Bloco aberto"), ("derans_vandals", "ttf", "Bloco torto"), ("funky_star", "ttf", "Bloco funk"),
+    ("gress_down", "otf", "Bloco afiado"), ("hard_zone", "ttf", "Bolha quadrada"), ("high_damage", "otf", "Bolha larga"),
+    ("hosters", "otf", "Escorrido leve"), ("urban_vibes", "ttf", "Bloco pingado"), ("metro_marks", "ttf", "Bloco metrô"),
+    ("rousael", "ttf", "Bolha mole"), ("seven_venom", "otf", "Wild pesado"), ("smoke_in_the_city", "ttf", "Bloco gordinho"),
+    ("street_shade", "ttf", "Bloco inclinado"), ("stretzo", "otf", "Bolha reta"), ("super_fortune", "ttf", "Bolha redonda"),
+    ("thomas_2", "otf", "Bloco pesado"), ("weird_3", "otf", "Bloco esticado")]]
+
 MODELOS = [  # (arquivo, nome do estilo, fonte do ano se a da letra não tiver números bons)
     ("beat_mark.ttf", "Bloco clássico", None),
     ("urban_blocker.ttf", "Bolha", None),
@@ -25,12 +34,13 @@ MODELOS = [  # (arquivo, nome do estilo, fonte do ano se a da letra não tiver n
     ("urban_gear.ttf", "Bloco reto", None),
 ]
 
+FD = (AQUI / "fontes/dafont").resolve().as_uri()
 ROXO, CLARO, ESCURO, UVA = "#996BB3", "#E4CFF7", "#7A4C99", "#3E2353"
 
 def html(fonte, estilo, n, fano=None):
     return f"""<!doctype html><html><head><meta charset=utf-8><style>
-@font-face{{font-family:G;src:url('../fontes/dafont/{fonte}')}}
-@font-face{{font-family:A;src:url('../fontes/dafont/{fano or fonte}')}}
+@font-face{{font-family:G;src:url('{FD}/{fonte}')}}
+@font-face{{font-family:A;src:url('{FD}/{fano or fonte}')}}
 @font-face{{font-family:Inter;src:local('Inter'),local('Arial')}}
 html,body{{margin:0;width:1600px;height:1000px;background:#0A0A0C;overflow:hidden}}
 body{{background:radial-gradient(ellipse 60% 50% at 50% 48%,#1E1229 0%,#0A0A0C 70%)}}
@@ -52,7 +62,7 @@ body{{background:radial-gradient(ellipse 60% 50% at 50% 48%,#1E1229 0%,#0A0A0C 7
 .st{{position:absolute;width:var(--s);height:var(--s);background:var(--c);
      clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%)}}
 </style></head><body><div class=palco>
-<div class=rot><b>{n:02d}</b>{estilo.upper()}</div>
+<div class=rot><b>{n:02d}</b>{estilo.upper()} · <span style="color:#5d5266">{fonte.split('.')[0].replace('_',' ').upper()}</span></div>
 <div class=t id=t><span class="fantasma">TERCEIRÃO</span>
 <span class=l1>TERCEIRÃO</span><span class=l2>TERCEIRÃO</span><span class=l3>TERCEIRÃO</span><span class=l4>TERCEIRÃO</span></div>
 <div class=ano>2027</div>
@@ -69,18 +79,26 @@ document.fonts.ready.then(()=>{{const t=document.getElementById('t');let fs=300;
 </script></body></html>"""
 
 
-if __name__ == "__main__":
+def rodar(lista, pasta, inicio):
+    pasta.mkdir(parents=True, exist_ok=True)
     pngs = []
-    for i, (f, est, fano) in enumerate(MODELOS, 1):
+    for i, (f, est, fano) in enumerate(lista, inicio):
         nome = f"{i:02d}-{est.lower().replace(' ', '-')}"
-        h = OUT / f"_{nome}.html"
+        h = pasta / f"_{nome}.html"
         h.write_text(html(f, est, i, fano))
-        png = OUT / f"{nome}.png"
+        png = pasta / f"{nome}.png"
         subprocess.run(["node", str(AQUI.parent / "tools/html-to-png.js"), str(h), str(png), "1600", "1000", "1"], check=True)
         h.unlink(); pngs.append(png); print("ok", png.name)
-    # folha com todos
-    c = Image.new("RGB", (1600, 2500), "#0A0A0C")
+    linhas = (len(pngs) + 1) // 2
+    c = Image.new("RGB", (1600, 500 * linhas), "#0A0A0C")
     for k, p in enumerate(pngs):
-        im = Image.open(p).convert("RGB").resize((800, 500))
-        c.paste(im, ((k % 2) * 800, (k // 2) * 500))
-    c.save(OUT / "todos.jpg", quality=88)
+        c.paste(Image.open(p).convert("RGB").resize((800, 500)), ((k % 2) * 800, (k // 2) * 500))
+    c.save(pasta / "todos.jpg", quality=88)
+
+
+if __name__ == "__main__":
+    import sys
+    if "1" in sys.argv[1:] or len(sys.argv) == 1:
+        rodar(MODELOS, OUT, 1)
+    if "2" in sys.argv[1:] or len(sys.argv) == 1:
+        rodar(RODADA2, OUT / "rodada2", 11)
