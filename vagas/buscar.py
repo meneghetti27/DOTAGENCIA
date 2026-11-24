@@ -34,7 +34,7 @@ FORA = re.compile(r"engineer|developer|devops|sales|account exec|recruit|account
                   r"desenvolvedor|engenheir|programador|vendedor|vendas|comercial|estagi|trainee|aprendiz|jovem aprendiz|"
                   r"arquitet|t[ée]cnico|mec[âa]nic|el[ée]tric|hardware|interiores|interior design|industrial|moda|fashion|"
                   r"cal[çc]ado|j[óo]ia|joalheri|m[óo]veis|mobili|t[êe]xtil|instrucional|instructional|cad\b|revit|"
-                  r"professor|teacher|tutor|cozinh|confeit|cabeleire|costur|translat|tradu|locali[sz]ation|review lead|linguist", re.I)
+                  r"professor|teacher|tutor|cozinh|confeit|cabeleire|costur|translat|tradu|locali[sz]ation|review lead|linguist|verification|asic|fpga|chip", re.I)
 SENIOR_DEMAIS = re.compile(r"\b(vp|vice president|chief|cco|principal|staff)\b", re.I)   # diretor de arte/head ficam: a nota decide
 RUIM = re.compile(r"crypto|casino|gambl|betting|\bbet\b|apostas|cassino|adult|onlyfans|nsfw|web3|blockchain|"
                   r"marketing multin[íi]vel|\bmmn\b|pir[âa]mide", re.I)
@@ -205,6 +205,8 @@ def restricao(txt, local):
     if m and not re.search(r"brazil|brasil|latam|latin america", t, re.I): return "dura", m.group(0)
     m = EUA_LEVE.search(t) or UK_LEVE.search(t)
     if m and not ABRE.search(t): return "leve", m.group(0)
+    if not ABRE.search(t) and re.search(r"united states|\bu\.?s\.?\b|\busa\b|canada|united kingdom|\buk\b", local or "", re.I):
+        return "leve", f"o local diz '{(local or '')[:60]}'"
     if not ABRE.search(t) and re.fullmatch(r"\s*(remote|remoto)?\s*", local or "", re.I):
         return "leve", "só diz 'Remote', sem abrir para outros países"
     return "", ""
@@ -415,7 +417,7 @@ def filtra_br(v, desc):
         v["modelo"] = "Remoto"
     else:
         return "presencial"
-    if not sal: v.setdefault("etiquetas", []).append("salário não informado")
+    if not sal and not v.get("salario"): v.setdefault("etiquetas", []).append("salário não informado")
     if re.search(r"\bPJ\b|pessoa jur[íi]dica", txt): v.setdefault("etiquetas", []).append("PJ")
     if re.search(r"\bCLT\b", txt): v.setdefault("etiquetas", []).append("CLT")
     return ""
