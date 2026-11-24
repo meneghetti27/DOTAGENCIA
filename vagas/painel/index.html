@@ -1,0 +1,769 @@
+<title>Radar de Vagas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: radar de vagas à esquerda (lista que se lê de relance), kit de candidatura abre por cima em tela cheia com a identidade meio-tom CMYK do portfólio */
+:root{
+  --bg:#F6F6F9;--card:#FFFFFF;--ink:#16161B;--mut:#6B6B78;--line:#E2E2EA;
+  --mag:#D1007A;--cyan:#0098D6;--yel:#F2C200;--good:#0A8A47;--warn:#B76E00;--bad:#C4314B;
+  --sheet:#FBFBFD;--sheet-ink:#1D1D1F;
+  --display:"Syne","Instrument Sans",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D0D11;--card:#17171D;--ink:#F2F2F6;--mut:#9C9CAB;--line:#2A2A33;--mag:#FF4FAE;--cyan:#33B8F0;--yel:#FFD84D;--good:#36C97A;--warn:#F0A63A;--bad:#FF6B82;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D0D11;--card:#17171D;--ink:#F2F2F6;--mut:#9C9CAB;--line:#2A2A33;--mag:#FF4FAE;--cyan:#33B8F0;--yel:#FFD84D;--good:#36C97A;--warn:#F0A63A;--bad:#FF6B82;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mag);outline-offset:2px;border-radius:6px}
+
+/* topo */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.brand h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,56px);letter-spacing:-.045em;line-height:.95;margin:0;text-wrap:balance}
+.brand h1 i{font-style:normal;background:radial-gradient(circle,var(--mag) 2.2px,transparent 2.6px) 0 0/9px 9px,radial-gradient(circle,var(--cyan) 2.2px,transparent 2.6px) 4.5px 4.5px/9px 9px;-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand p{margin:8px 0 0;color:var(--mut);max-width:52ch}
+.radar{font-family:var(--mono);font-size:12px;color:var(--mut);display:flex;align-items:center;gap:8px}
+.radar b{width:9px;height:9px;border-radius:50%;background:var(--good);position:relative}
+.radar b::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--good);animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{to{transform:scale(2.8);opacity:0}}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.stat strong{display:block;font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--mut)}
+@media (max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;color:var(--mut)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.bar input,.bar select{font:inherit;font-size:14px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
+.bar input{flex:1;min-width:160px}
+.ghost{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;cursor:pointer;font-size:13px;font-weight:600}
+
+/* cartões de vaga */
+.list{display:grid;gap:10px}
+.job{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px}
+.job.top8{border-color:color-mix(in srgb,var(--mag) 45%,var(--line))}
+.score{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.04em;color:#fff;background:var(--mut)}
+.score.s8{background:linear-gradient(135deg,var(--mag),#8E2CC9)}
+.score.s6{background:var(--cyan)}
+.score.s0{background:color-mix(in srgb,var(--mut) 70%,var(--bg))}
+.job h3{margin:0;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.02em;line-height:1.2}
+.co{color:var(--mut);font-size:14px;margin-top:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pill.money{border-color:color-mix(in srgb,var(--good) 50%,var(--line));color:var(--good);font-weight:600}
+.pill.br{border-color:color-mix(in srgb,var(--good) 50%,var(--line))}
+.pill.st{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
+.resumo{margin:0;max-width:75ch}
+.why{margin:6px 0 0;color:var(--mut);font-size:14px;max-width:75ch}
+.flag{margin:6px 0 0;color:var(--warn);font-size:13px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.apply{border:0;cursor:pointer;background:var(--mag);color:#fff;font-weight:700;letter-spacing:.06em;font-size:13px;padding:9px 18px;border-radius:999px;position:relative;overflow:hidden}
+.apply::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(255,255,255,.35) 1.2px,transparent 1.6px) 0 0/6px 6px;opacity:.6}
+.apply span{position:relative}
+.apply:hover{filter:brightness(1.08)}
+.lnk{color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--line)}
+.small{font-size:12px;color:var(--mut)}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:32px;text-align:center;color:var(--mut)}
+.empty h3{color:var(--ink);font-family:var(--display);margin:0 0 6px}
+
+/* kit de candidatura */
+.kit{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px)}
+.kitbar{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kitbar .t{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.kitgrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;max-width:1280px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:980px){.kitgrid{grid-template-columns:minmax(0,1fr)}}
+.side{display:grid;gap:12px;align-content:start}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.box h4{margin:0 0 8px;font-family:var(--display);font-size:16px;letter-spacing:-.01em}
+.steps{margin:0;padding-left:20px;display:grid;gap:8px}
+.letter{white-space:pre-wrap;font-size:14px;line-height:1.55;max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.prog{font-family:var(--mono);font-size:13px;color:var(--mut);white-space:pre-wrap;max-height:220px;overflow:auto}
+.contact{width:100%;font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+
+/* a folha do portfólio sob medida: sempre clara, igual ao portfólio */
+.sheet{background:var(--sheet);color:var(--sheet-ink);border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
+.pg{padding:clamp(24px,5vw,56px);position:relative}
+.pg+.pg{border-top:1px solid #E6E6EC}
+.hero{min-height:420px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,251,253,.96) 0%,rgba(251,251,253,.75) 45%,rgba(251,251,253,.1) 75%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#C8007A;margin:0 0 14px}
+.hero h2{font-family:var(--display);font-weight:800;font-size:clamp(36px,5.6vw,72px);letter-spacing:-.05em;line-height:.95;margin:0;max-width:13ch;text-wrap:balance}
+.hero .lead{font-size:clamp(17px,1.8vw,20px);color:#45454C;max-width:44ch;margin:18px 0 0;font-weight:500}
+.who{display:flex;gap:10px;align-items:center;margin-top:22px;font-weight:600}
+.who svg{width:44px;height:28px}
+.secth{font-family:var(--display);font-weight:700;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;margin:0 0 18px}
+.secth::after{content:"";display:block;width:70px;height:9px;margin-top:10px;background:linear-gradient(90deg,#00ADEF,#EC008C,#FFD500);-webkit-mask:radial-gradient(circle,#000 2px,transparent 2.4px) 0 0/9px 9px;mask:radial-gradient(circle,#000 2px,transparent 2.4px) 0 0/9px 9px}
+.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.fitc{background:#fff;border:1px solid #E6E6EC;border-radius:16px;padding:16px}
+.fitc small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#C8007A;margin-bottom:6px}
+.fitc p{margin:0;font-size:15px;color:#2B2B31}
+.proj{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:22px;align-items:center}
+.proj+.proj{margin-top:34px}
+.proj:nth-child(even) .pimgs{order:2}
+@media (max-width:760px){.proj{grid-template-columns:minmax(0,1fr)}.proj:nth-child(even) .pimgs{order:0}}
+.pimgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pimgs img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;background:#eee}
+.pimgs img:only-child{grid-column:1/-1;aspect-ratio:4/3}
+.proj h3{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.03em;margin:0;line-height:1.1}
+.proj .role{color:#6E6E73;font-size:14px;margin:4px 0 12px}
+.proj p{margin:0;color:#2B2B31}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{font-size:12px;padding:4px 10px;border-radius:999px;background:#EFEFF4}
+.xp{display:grid;gap:10px}
+.xp div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;border-bottom:1px solid #E6E6EC;padding-bottom:10px}
+.xp b{font-weight:600}
+.xp span{color:#6E6E73;font-size:14px;font-variant-numeric:tabular-nums}
+.cta{text-align:left}
+.cta h3{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.045em;margin:0;line-height:1}
+.cta p{color:#45454C;margin:12px 0 0}
+.fila{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:40;display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--bg);padding:8px 8px 8px 18px;border-radius:999px;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
+.fila b{font-family:var(--display);font-size:18px}
+.fila .apply{white-space:nowrap}
+.sel{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;cursor:pointer;font-size:13px;font-weight:700}
+.sel[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill.ok{border-color:color-mix(in srgb,var(--good) 50%,var(--line));color:var(--good)}
+.insc{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px)}
+.inscin{max-width:860px;margin:0 auto;padding-block:20px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+.inscin h2{font-family:var(--display);font-size:clamp(28px,4vw,40px);letter-spacing:-.04em;margin:6px 0 0}
+.campos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.campos label{display:grid;gap:4px;font-size:13px;font-weight:600}
+.campos .full{grid-column:1/-1}
+.campos input,.campos textarea{font:inherit;font-size:14px;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+@media (max-width:600px){.campos{grid-template-columns:minmax(0,1fr)}}
+.frow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+.frow:last-child{border-bottom:0}
+.estado{font-size:12px;font-family:var(--mono);color:var(--mut)}
+.estado.pronto{color:var(--good)}
+.pedido{white-space:pre-wrap;font-family:var(--mono);font-size:12px;max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+.best{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:22px}
+@media (max-width:860px){.best{grid-template-columns:minmax(0,1fr)}}
+.best h2,.sect{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;margin:0 0 8px}
+.best .list{gap:8px}
+.best .job{padding:12px 14px}
+.best .job .resumo,.best .job .why{display:none}
+.pill.br2{border-color:color-mix(in srgb,var(--good) 55%,var(--line));color:var(--good);font-weight:600}
+.pill.gr{border-color:color-mix(in srgb,var(--cyan) 55%,var(--line));color:var(--cyan);font-weight:600}
+.pill.tag{color:var(--mut)}
+.pill.conta{border-color:color-mix(in srgb,var(--warn) 50%,var(--line));color:var(--warn)}
+.desc{margin:-8px 0 14px}
+@media (prefers-reduced-motion:reduce){.radar b::after{animation:none}}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Radar de <i>Vagas</i></h1>
+      <p>Vagas de design, motion, web e IA no Brasil e lá fora, achadas 2x por dia (7h40 e 16h40). Gringas: remotas e abertas a ti. Brasileiras: pagam mais de R$ 3 mil, remotas ou presenciais em Porto Alegre. No topo, as 3 melhores de cada lado. Marca as que quer, e o Claude no Chrome se inscreve por ti com um portfólio sob medida.</p>
+    </div>
+    <div class="radar" id="radar"><b></b><span>conectando…</span></div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+  <details class="small desc" id="descbox" hidden><summary style="cursor:pointer">Por que algumas vagas não entraram na última busca</summary><p id="desctxt" style="margin:6px 0 0"></p></details>
+
+  <div class="bar">
+    <div class="tabs" role="group" aria-label="Filtrar por status" id="tabs">
+      <button data-f="nova" aria-pressed="true">Novas</button>
+      <button data-f="salva" aria-pressed="false">Salvas</button>
+      <button data-f="fila" aria-pressed="false">Para inscrever</button>
+      <button data-f="aplicada" aria-pressed="false">Aplicadas</button>
+      <button data-f="descartada" aria-pressed="false">Descartadas</button>
+      <button data-f="todas" aria-pressed="false">Todas</button>
+    </div>
+    <input id="q" type="search" placeholder="Buscar cargo, empresa, país…" aria-label="Buscar">
+    <select id="orig" aria-label="Origem">
+      <option value="todas">Brasil + gringas</option>
+      <option value="br">Só Brasil</option>
+      <option value="gringa">Só gringas</option>
+    </select>
+    <select id="ord" aria-label="Ordenar">
+      <option value="nota">Melhor nota</option>
+      <option value="data">Mais recentes</option>
+    </select>
+  </div>
+
+  <details class="box" id="addbox" style="margin-bottom:14px">
+    <summary style="cursor:pointer;font-weight:700">＋ Adicionar vagas do LinkedIn (ou de qualquer site)</summary>
+    <p class="small">O LinkedIn bloqueia busca automática, então ela é feita pelo Claude no teu Chrome, logado na tua conta. Copia o pedido abaixo e cola no Claude do Chrome. Ele te devolve uma lista; cola a lista aqui e o painel dá nota e coloca no radar.</p>
+    <div class="btnrow"><button class="ghost" id="licopy">Copiar pedido de busca no LinkedIn</button></div>
+    <textarea id="addtxt" class="contact" rows="6" style="margin-top:10px" placeholder="Cola aqui: uma vaga por bloco, com link, cargo, empresa, local e o texto da vaga."></textarea>
+    <div class="btnrow"><button class="apply" id="addgo"><span>DAR NOTA E ADICIONAR</span></button></div>
+    <p class="small" id="addmsg"></p>
+  </details>
+
+  <div class="best" id="best" hidden>
+    <div><h2>🇧🇷 Melhores no Brasil</h2><div class="list" id="bestbr"></div></div>
+    <div><h2>🌎 Melhores lá fora</h2><div class="list" id="bestgr"></div></div>
+  </div>
+  <h2 class="sect" id="secttit" hidden>Todas as novas</h2>
+  <div class="list" id="list"></div>
+</div>
+
+<div class="kit" id="kit" hidden>
+  <div class="kitbar">
+    <button class="ghost" id="kclose">← Vagas</button>
+    <div class="t" id="ktitle"></div>
+    <a class="lnk" id="kjob" href="#" target="_blank" rel="noopener">Abrir vaga ↗</a>
+  </div>
+  <div class="kitgrid">
+    <div id="sheetwrap"></div>
+    <aside class="side">
+      <div class="box">
+        <h4>Como aplicar</h4>
+        <ol class="steps">
+          <li>Confere o portfólio ao lado (é esse que vai no PDF).</li>
+          <li><b>Baixar PDF</b> e anexa na candidatura.</li>
+          <li><b>Copiar carta</b> e cola no campo de cover letter.</li>
+          <li>Abre a vaga, aplica e marca aqui como aplicada.</li>
+        </ol>
+        <div class="btnrow">
+          <button class="apply" id="kpdf"><span>BAIXAR PDF</span></button>
+          <button class="ghost" id="kdone">Marquei: apliquei ✓</button>
+          <button class="ghost" id="kregen">Refazer kit</button>
+        </div>
+        <p class="small" id="kpdfmsg"></p>
+      </div>
+      <div class="box">
+        <h4>Cover letter</h4>
+        <div class="letter" id="kletter"></div>
+        <div class="btnrow"><button class="ghost" id="kcopy">Copiar carta</button><button class="ghost" id="kcopys">Copiar assunto</button></div>
+      </div>
+      <div class="box" id="kqa"></div>
+      <div class="box" id="ktips"></div>
+      <div class="box">
+        <h4>Contato no PDF</h4>
+        <p class="small">E-mail, WhatsApp ou LinkedIn que aparecem no fim do portfólio. Fica salvo.</p>
+        <input class="contact" id="kcontact" placeholder="seu@email.com · linkedin.com/in/…">
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="fila" id="fila" hidden><span><b id="filan">0</b> para inscrever</span><button class="apply" id="filago"><span>PREPARAR INSCRIÇÃO →</span></button></div>
+
+<div class="insc" id="insc" hidden>
+  <div class="kitbar"><button class="ghost" id="iclose">← Vagas</button><div class="t">Inscrição com o Claude no Chrome</div><span></span></div>
+  <div class="inscin">
+    <h2>3 passos e o Claude se inscreve por ti.</h2>
+    <div class="box">
+      <h4>1 · Teus dados (preenche uma vez, fica salvo)</h4>
+      <div class="campos" id="campos">
+        <label>Nome completo<input id="p_nome" autocomplete="name"></label>
+        <label>E-mail<input id="p_email" type="email" autocomplete="email"></label>
+        <label>Telefone com DDI<input id="p_tel" autocomplete="tel" placeholder="+55 51 9…"></label>
+        <label>LinkedIn<input id="p_linkedin" placeholder="linkedin.com/in/…"></label>
+        <label>Cidade e país<input id="p_cidade" placeholder="Porto Alegre, Brazil"></label>
+        <label>Pretensão salarial (USD)<input id="p_salario" placeholder="ex.: US$ 3.000/mês ou US$ 40k/ano"></label>
+        <label class="full">Visto / autorização de trabalho<input id="p_visto" placeholder="Brazilian citizen. Works as a contractor from Brazil. Would need visa sponsorship to relocate."></label>
+        <label class="full">Quando pode começar<input id="p_inicio" placeholder="2 weeks notice"></label>
+        <label>Empresa atual<input id="p_empresa"></label>
+        <label>Cargo atual<input id="p_cargo"></label>
+        <label>Pretensão em R$ (CLT)<input id="p_salario_brl"></label>
+        <label>Pretensão em € (Europa)<input id="p_salario_eur"></label>
+        <label>Anos de experiência total<input id="p_anos"></label>
+        <label>Anos em UX / produto digital<input id="p_anos_ux"></label>
+        <label>Idiomas<input id="p_idiomas"></label>
+        <label>Pronomes (opcional)<input id="p_pronomes"></label>
+        <label class="full">Autorização de trabalho (regra pronta)<textarea id="p_autorizacao" rows="4"></textarea></label>
+        <label class="full">Respostas padrão (parente na empresa, acessibilidade, termos, mudança…)<textarea id="p_padroes" rows="4"></textarea></label>
+        <label class="full">Projeto de crescimento/conversão com número (o que queria mover, o que mudou, resultado)<textarea id="p_r_growth" rows="3"></textarea></label>
+        <label class="full">Um experimento que não deu certo e o que aprendeu<textarea id="p_r_falha" rows="3"></textarea></label>
+        <label class="full">Experiência com produto digital / SaaS<textarea id="p_r_saas" rows="3"></textarea></label>
+        <label class="full">Design system / linguagem visual<textarea id="p_r_sistema" rows="3"></textarea></label>
+        <label class="full">Como usa IA no design (1–2 exemplos)<textarea id="p_r_ia" rows="3"></textarea></label>
+        <label class="full">Liderança de projeto ponta a ponta / trabalho com engenharia<textarea id="p_r_lideranca" rows="3"></textarea></label>
+      </div>
+      <div class="btnrow"><button class="ghost" id="psalva">Salvar dados</button></div>
+    </div>
+    <div class="box">
+      <h4>2 · Os PDFs das vagas</h4>
+      <p class="small">O painel monta o kit de cada vaga e baixa 2 PDFs por vaga (portfólio e cover letter). Deixa eles na pasta Downloads.</p>
+      <div id="ifila"></div>
+      <div class="btnrow"><button class="apply" id="iprep"><span>MONTAR KITS E BAIXAR PDFs</span></button></div>
+      <p class="small" id="iprog"></p>
+    </div>
+    <div class="box">
+      <h4>3 · Cola isso no Claude do Chrome</h4>
+      <p class="small">Abre o Claude in Chrome (ícone da extensão), cola o texto e manda. Ele abre cada formulário, preenche, anexa o PDF e envia. Se aparecer cadastro com senha, captcha ou entrevista em vídeo, ele pula aquela vaga e te avisa.</p>
+      <div class="pedido" id="ipedido">Os dados e os kits aparecem aqui quando estiverem prontos.</div>
+      <div class="btnrow"><button class="apply" id="icopy"><span>COPIAR PEDIDO</span></button><button class="ghost" id="idone">Já me inscrevi: marcar como aplicadas</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const PORTFOLIO_URL = "https://claude.ai/artifact/SzkpJxkCam8r5HVtsg2nZp";
+
+/* Quem é o Antônio: base factual para o Claude remontar o portfólio. Não inventar além disso. */
+const PERFIL = `Antônio Meneghetti — designer and art director based in Porto Alegre, Brazil (UTC-3). Freelancing since 2017.
+- Native-level English (Cambridge English First certificate). Portuguese native.
+- BA in Product Design, PUCRS (2021–2025).
+- 2026: Art director and designer at the City of Porto Alegre Social Communication Office — leads the city's visual communication; the work won a national award (Social Media Gov award, Identity category). Audience: 1M+ citizens.
+- 2026: Political communication advisor at Porto Alegre City Council — content, crisis management, design, video capture and editing, a full campaign.
+- 2026: Web Clinic — websites for clinics and doctors.
+- 2025–2026: All Education — sole designer: strategy and execution of visual communication, launch narratives and hooks for live events, ads, VSL editing, communication automation.
+- 2023–2025: Head designer at Schaeffer Digital — between design, creative direction and project management; led large projects end to end (incl. RenauxView, the largest company in its sector); team leadership.
+- 2023: Social media at Modulo Marketing. 2022–2023: Graphic designer at Nave Comunica. 2017–2023: Freelance designer at 2700 studios (graphic design, packaging, social media).
+- Very specialized in AI systems for design: builds AI-powered creative production pipelines (generative image prompting and compositing, automated carousel/post generators, data-driven templates), kinetic typography and collage reels in code (Remotion), interactive websites built with AI coding agents, and AI-assisted 3D/web experiences.
+- Tools: Adobe Illustrator, Photoshop, After Effects, Premiere, Figma, social media design, web design, UX/UI, HTML/CSS, AI image/video generators, Claude and other LLMs.
+- Portfolio: ${PORTFOLIO_URL}`;
+
+const PROJETOS = [
+  {id:"pmpa",nome:"City of Porto Alegre",papel:"Art direction & public campaigns · 2026",txt:"Art direction for the official communication of a city of 1.3M people: public services, education, waste, parks, transparency and civic dates, in one consistent visual language. National award, Identity category.",tags:["Art direction","Campaigns","Social media","Gov comms"],img:["img/7bffa1c7c1.webp","img/b02e403ec6.webp","img/390ed1c383.webp","img/94c81e28c2.webp"]},
+  {id:"ai",nome:"AI creative production systems",papel:"R&D for dot. agency · 2026",txt:"Pipelines that turn a brief into finished, on-brand pieces: AI-generated cinematic scenes composited with code, automatic carousel generators with layout rules, color grading and cut-outs, and kinetic reels rendered from code.",tags:["Generative AI","Automation","Art direction","Code"],img:["img/ai-1.webp","img/ai-2.webp","img/ai-3.webp","img/ai-4.webp"]},
+  {id:"plagio",nome:"plagio.zip",papel:"Self-initiated media brand · 2025–2026",txt:"An authorial culture and meme brand: concept, visual system, reels and posts. Over 250K monthly views.",tags:["Concept","Social media","Reels","Brand system"],img:["img/350ec8da26.webp","img/b7cd8db5b2.webp","img/0538c84000.webp","img/0cb0007df9.webp"]},
+  {id:"dreamz",nome:"Dreamz Gallery website",papel:"Interactive web design & build · 2026",txt:"A website that plays out as one sleepless night: the clock runs from 23:47 to 06:00 as you scroll, the sky turns to dawn, glass shatters on touch, and the brief arrives as a chat.",tags:["Web design","Interaction","UX/UI","Motion"],img:["img/dreamz-1.webp","img/dreamz-2.webp"]},
+  {id:"museus",nome:"Inter & Grêmio Museums",papel:"Campaign with the City · 2026",txt:"Campaign for the museums of the city's two rival football clubs: each one with its own personality inside a single campaign language.",tags:["Campaign","Art direction"],img:["img/62eb568f37.webp","img/721e599824.webp"]},
+  {id:"maratona",nome:"Olympikus × Porto Alegre Marathon",papel:"Event campaign · 2026",txt:"Final-call registration pieces for the Porto Alegre International Marathon, with Olympikus.",tags:["Sports","Campaign","Ads"],img:["img/8df309b71d.webp"]},
+  {id:"claire",nome:"Claire Fancin Cosmetics",papel:"Packaging & creative · 2021",txt:"Identity applications for a cosmetics line, from packaging to promotional pieces.",tags:["Packaging","Branding","Beauty"],img:["img/360e709719.webp","img/c5b46c9f8b.webp"]},
+  {id:"promais",nome:"Pro Mais Vans",papel:"Social media & ads · 2022",txt:"Content and performance ads for a van and utility vehicle specialist, built around trust and conversion.",tags:["Performance ads","Social media"],img:["img/ed0a77adcd.webp","img/f3770e6c6f.webp"]},
+  {id:"bte",nome:"BTE Grupo",papel:"Social media & copy · 2022",txt:"Business and marketing carousels with strong hooks that stop the scroll.",tags:["Carousels","Copywriting"],img:["img/95a58a45d5.webp","img/7b419cae91.webp"]}
+];
+const XP = [["2026","Art director & designer — City of Porto Alegre"],["2026","Communication advisor — Porto Alegre City Council"],["2026","Web designer — Web Clinic"],["2025–26","Sole designer — All Education"],["2023–25","Head designer — Schaeffer Digital"],["2022–23","Graphic designer — Nave Comunica"],["2017–23","Freelance designer — 2700 studios"],["2021–25","BA Product Design — PUCRS"]];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let db = null, vagas = [], filtro = "nova", kits = {}, atual = null, perfilDoc = {};
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2200)}
+function quando(iso){if(!iso)return"";const d=(Date.now()-new Date(iso))/864e5;if(d<1)return"hoje";if(d<2)return"ontem";return Math.floor(d)+" dias"}
+function cls(n){return n>=8?"s8":n>=6?"s6":"s0"}
+
+/* ---------- lista ---------- */
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const cont = {nova:0,salva:0,fila:0,aplicada:0,descartada:0,encerrada:0};
+  vagas.forEach(v => cont[v.status||"nova"] = (cont[v.status||"nova"]||0)+1);
+  const boas = vagas.filter(v => (v.status||"nova")==="nova" && (v.nota||0)>=8).length;
+  $("#stats").innerHTML = [["Novas",cont.nova],["Nota 8+ esperando",boas],["Para inscrever",cont.fila],["Aplicadas",cont.aplicada]]
+    .map(([l,n])=>`<div class="stat"><strong>${n}</strong><span>${l}</span></div>`).join("");
+  let L = vagas.filter(v => filtro==="todas" ? v.status!=="encerrada" : (v.status||"nova")===filtro);
+  const nf = cont.fila; $("#fila").hidden = !nf; $("#filan").textContent = nf + (nf===1?" vaga":" vagas");
+  const og = $("#orig").value;
+  if (og!=="todas") L = L.filter(v => origem(v)===og);
+  if (q) L = L.filter(v => [v.titulo,v.empresa,v.local,v.resumo,v.modelo,(v.etiquetas||[]).join(" ")].join(" ").toLowerCase().includes(q));
+  L.sort($("#ord").value==="data" ? (a,b)=>String(b.data||b.criada).localeCompare(String(a.data||a.criada)) : (a,b)=>(b.nota||0)-(a.nota||0));
+  // as 3 melhores de cada lado (Brasil e gringas), entre as vagas abertas que ele ainda não descartou
+  const mostraTop = filtro==="nova" && !q && og==="todas";
+  $("#best").hidden = !mostraTop; $("#secttit").hidden = !mostraTop || !L.length;
+  if (mostraTop){
+    const abertas = vagas.filter(v => ["nova","salva",undefined,""].includes(v.status)).sort((a,b)=>(b.nota||0)-(a.nota||0));
+    const top = o => abertas.filter(v => origem(v)===o).slice(0,3);
+    const vazio = t => `<div class="empty" style="padding:18px">${t}</div>`;
+    const tb = top("br"), tg = top("gringa");
+    $("#bestbr").innerHTML = tb.length ? tb.map(card).join("") : vazio("As vagas brasileiras chegam na próxima busca.");
+    $("#bestgr").innerHTML = tg.length ? tg.map(card).join("") : vazio("Nenhuma gringa aberta agora.");
+    const ja = new Set([...tb,...tg].map(v=>v.id)); L = L.filter(v => !ja.has(v.id));
+  }
+  if (!L.length){
+    if (mostraTop && vagas.length){ $("#list").innerHTML = ""; return; }
+    $("#list").innerHTML = vagas.length
+      ? `<div class="empty"><h3>Nada aqui.</h3>Troca o filtro ou a busca.</div>`
+      : `<div class="empty"><h3>O radar ainda está vazio.</h3>A próxima leva chega na busca automática (7h40 ou 16h40). Cada vaga vem com nota de 0 a 10 e resumo em português.</div>`;
+    return;
+  }
+  $("#list").innerHTML = L.map(card).join("");
+}
+function origem(v){ return v.origem==="br" ? "br" : "gringa"; }
+function card(v){ return `
+    <article class="job ${(v.nota||0)>=8?"top8":""}" data-id="${esc(v.id)}">
+      <div class="score ${cls(v.nota||0)}" title="Nota de encaixe">${v.nota ?? "–"}</div>
+      <div style="min-width:0">
+        <h3>${esc(v.titulo)}</h3>
+        <div class="co">${esc(v.empresa)} · ${esc(v.fonte)}${v.data?" · "+quando(v.data):""}</div>
+        <div class="meta">
+          ${v.status&&v.status!=="nova"?`<span class="pill st">${esc(v.status)}</span>`:""}
+          ${origem(v)==="br"?`<span class="pill br2">🇧🇷 Brasil${v.modelo?" · "+esc(v.modelo):""}</span>`:`<span class="pill gr">🌎 Gringa</span>`}
+          ${v.local && !(origem(v)==="br" && v.modelo)?`<span class="pill ${v.aceita_brasil?"br":""}">${v.aceita_brasil&&origem(v)!=="br"?"✓ aceita Brasil · ":""}${esc(v.local)}</span>`:""}
+          ${v.salario?`<span class="pill money">${esc(v.salario)}</span>`:""}
+          ${v.plataforma?(v.exige_conta?`<span class="pill conta">pede login · ${esc(v.plataforma)}</span>`:`<span class="pill ok">✓ ${/LinkedIn/.test(v.plataforma)?"":"sem cadastro · "}${esc(v.plataforma)}</span>`):""}
+          ${v.tipo?`<span class="pill">${esc(v.tipo)}</span>`:""}
+          ${v.area?`<span class="pill">${esc(v.area)}</span>`:""}
+          ${(v.etiquetas||[]).filter(t=>!/exige conta/.test(t)).map(t=>`<span class="pill tag">${esc(t)}</span>`).join("")}
+          ${kits[v.id]?`<span class="pill">kit pronto</span>`:""}
+        </div>
+        ${v.resumo?`<p class="resumo">${esc(v.resumo)}</p>`:""}
+        ${v.porque?`<p class="why"><b>Por que combina:</b> ${esc(v.porque)}</p>`:""}
+        ${v.alerta?`<p class="flag">⚠ ${esc(v.alerta)}</p>`:""}
+        <div class="acts">
+          <button class="sel" data-a="fila" aria-pressed="${v.status==="fila"}">${v.status==="fila"?"✓ Vou me inscrever":"＋ Quero me inscrever"}</button>
+          <button class="apply" data-a="aplicar"><span>VER KIT</span></button>
+          ${(v.status||"nova")!=="salva"?`<button class="ghost" data-a="salva">Salvar</button>`:""}
+          ${(v.status||"nova")!=="descartada"?`<button class="ghost" data-a="descartada">Descartar</button>`:`<button class="ghost" data-a="nova">Voltar pra novas</button>`}
+          <a class="lnk" href="${esc(v.url)}" target="_blank" rel="noopener">Ver vaga ↗</a>
+          ${v.recrutador?`<a class="lnk" href="${esc(v.recrutador)}" target="_blank" rel="noopener">Achar recrutador ↗</a>`:""}
+        </div>
+      </div>
+    </article>`; }
+$("#tabs").onclick = e => { const b=e.target.closest("button"); if(!b)return; filtro=b.dataset.f; [...$("#tabs").children].forEach(x=>x.setAttribute("aria-pressed",x===b)); render(); };
+$("#q").oninput = render; $("#ord").onchange = render; $("#orig").onchange = render;
+$("#app").onclick = async e => {
+  const b = e.target.closest(".job button[data-a]"); if(!b) return;
+  const id = b.closest(".job").dataset.id, v = vagas.find(x=>x.id===id);
+  if (b.dataset.a==="aplicar") return abrirKit(v);
+  if (b.dataset.a==="fila") return status(v, v.status==="fila" ? "salva" : "fila");
+  await status(v, b.dataset.a);
+};
+async function status(v, s){
+  if(!db){toast("Sem conexão com o banco do painel.");return}
+  try{ await db.collection("vagas").doc(v.id).update({status:s, status_em:new Date().toISOString()}); toast({descartada:"Descartada",salva:"Salva",aplicada:"Marcada como aplicada",fila:"Na lista para inscrever",nova:"Voltou pra novas"}[s]||"Feito"); }
+  catch(err){ toast(err.code==="permission_denied"?"Só o dono do painel pode mudar o status.":"Não salvou, tenta de novo."); }
+}
+
+/* ---------- kit / portfólio sob medida ---------- */
+function ptBR(v){ return origem(v)==="br" || v.idioma==="pt"; }
+function prompt(v){
+  const lang = ptBR(v) ? "Brazilian Portuguese (the job is in Brazil: write EVERY text field in natural PT-BR, 'você', no anglicisms that a Brazilian recruiter wouldn't use)" : "English";
+  return `You are a senior creative recruiter and portfolio strategist. Tailor Antônio's portfolio and application for ONE specific job.
+Rules: use ONLY facts from the profile and project list. Never invent clients, numbers, years or tools. Write in ${lang}. Mirror the job's own vocabulary where true.
+Writing rules (texts must not sound AI-written): short, direct sentences, the tone of someone writing to a team. No clichés ("passionate", "I am writing to express", "thrilled"), no dramatic closing line, no lists of three adjectives, no repeated expressions.
+Pick ONE main case (the project that best proves what this job needs) and build the cover letter around it; a second project can appear in one sentence.
+If the job asks for something he lacks, don't hide or invent it: say briefly it's where he'll grow and that he picks up new tools fast (true: he builds his own AI pipelines).
+Show ownership: he doesn't just execute pieces, he understands the business goal behind them (prove with a fact from the profile).
+
+PROFILE:
+${PERFIL}
+
+PROJECTS (id — name — role — description — tags):
+${PROJETOS.map(p=>`${p.id} — ${p.nome} — ${p.papel} — ${p.txt} — ${p.tags.join(", ")}`).join("\n")}
+
+JOB:
+Title: ${v.titulo}
+Company: ${v.empresa}
+Location: ${v.local||"n/a"} · Type: ${v.tipo||"n/a"} · Salary: ${v.salario||"n/a"}
+Description: ${(v.descricao||"").slice(0,3500)}
+
+Return ONLY JSON with this shape:
+{
+ "eyebrow": "short label like 'Portfolio for <Company> · <Role>' (max 60 chars)",
+ "headline": "punchy 3-7 word headline that positions Antônio for THIS role",
+ "lead": "2 sentences: who he is through the lens of this job",
+ "fit": [{"need":"a real requirement from the job (short)","proof":"1-2 sentences of concrete evidence from his profile"}] (exactly 3),
+ "projects": [{"id":"project id","role":"the project's role line, in the output language","angle":"2 sentences reframing this project for this job"}] (3 to 5, best first; always include 'ai' if the job touches AI, automation, video or volume production),
+ "skills": ["6-10 skills from his profile that match the job"],
+ "closing": "one-line closing headline for the last page (max 8 words)",
+ "cover_letter": "120-180 words, first person, addressed to the ${v.empresa} team, specific to the role, built around the main case, ends with a simple invitation to talk; sign as Antônio Meneghetti",
+ "email_subject": "subject line for an application email",
+ "qa": [{"q":"a likely application question for this job","a":"60-90 word answer"}] (2 items),
+ "dicas_pt": ["3 short tips IN BRAZILIAN PORTUGUESE on how to stand out for this job (what to emphasize, what to prepare, any red flag)"]${ptBR(v)?`,
+ "salario_pt": "one line IN PT-BR: what salary to ask for this job in BRL/month (job says: ${v.salario||"not informed"}; his floor is R$ 3.000), or empty"`:""}
+}`;
+}
+async function abrirKit(v){
+  atual = v;
+  $("#ktitle").textContent = `${v.titulo} · ${v.empresa}`;
+  $("#kjob").href = v.url;
+  $("#kit").hidden = false; document.body.style.overflow="hidden"; $("#kit").scrollTop = 0;
+  try{ location.hash = "kit"; }catch(e){}
+  if (kits[v.id]) return mostrarKit(v, kits[v.id]);
+  await gerarKit(v);
+}
+function fecharKit(){ $("#kit").hidden = true; document.body.style.overflow=""; atual=null; try{ if(location.hash==="#kit") history.replaceState(null,"",location.pathname+location.search) }catch(e){} }
+$("#kclose").onclick = fecharKit;
+addEventListener("keydown", e => { if(e.key==="Escape" && !$("#kit").hidden) fecharKit(); });
+
+async function gerarKit(v){
+  $("#sheetwrap").innerHTML = `<div class="box"><h4>Montando teu portfólio para ${esc(v.empresa)}…</h4><p class="small">Lendo a vaga, escolhendo os projetos certos e escrevendo a carta. Leva uns 30 a 60 segundos.</p><div class="prog" id="prog">Pensando…</div></div>`;
+  ["#kletter","#kqa","#ktips"].forEach(s=>$(s).innerHTML="");
+  const sample = await claude.use("sample");
+  if (!sample){ $("#sheetwrap").innerHTML = `<div class="box"><h4>Não deu pra chamar o Claude aqui.</h4><p class="small">Abre o painel pelo claude.ai (logado) para gerar o kit.</p></div>`; return; }
+  try{
+    const r = await sample(prompt(v), { modelTier:"complex", cache:false, onText:({text}) => { const p=$("#prog"); if(p) p.textContent = "Escrevendo… " + text.length + " caracteres"; } });
+    const kit = JSON.parse(r.text.slice(r.text.indexOf("{"), r.text.lastIndexOf("}")+1));
+    kit.feito = new Date().toISOString();
+    kits[v.id] = kit;
+    if (db) db.collection("kits").doc(v.id).set(kit).catch(()=>{});
+    if (db && (v.status||"nova")==="nova") db.collection("vagas").doc(v.id).update({status:"salva"}).catch(()=>{});
+    if (atual && atual.id===v.id) mostrarKit(v, kit);
+  }catch(e){
+    const msg = {not_granted:"Tu não liberou o Claude neste painel. Recarrega e aceita o pedido para gerar.",rate_limited:"Muitas gerações seguidas. Espera um minuto e toca em Refazer kit."}[e.code] || "A geração falhou. Toca em Refazer kit.";
+    $("#sheetwrap").innerHTML = `<div class="box"><h4>Não saiu dessa vez.</h4><p class="small">${esc(msg)}</p></div>`;
+  }
+}
+$("#kregen").onclick = () => atual && gerarKit(atual);
+$("#kdone").onclick = async () => { if(atual){ await status(atual,"aplicada"); } };
+
+const EYES = `<svg viewBox="0 0 46 28" aria-hidden="true"><circle cx="13" cy="13" r="13.1" fill="#111"/><circle cx="13" cy="13" r="10.5" fill="#fff"/><circle cx="13" cy="13" r="6.6" fill="#F7709A"/><circle cx="13" cy="13" r="5" fill="#111"/><circle cx="15.1" cy="10.75" r="1.5" fill="#fff"/><circle cx="33.5" cy="16.5" r="10.4" fill="#111"/><circle cx="33.5" cy="16.5" r="7.8" fill="#fff"/><circle cx="33.5" cy="16.5" r="4.9" fill="#F7709A"/><circle cx="33.5" cy="16.5" r="3.7" fill="#111"/><circle cx="35.05" cy="14.8" r="1.1" fill="#fff"/></svg>`;
+const XP_PT = [["2026","Diretor de arte e designer — Prefeitura de Porto Alegre"],["2026","Assessor de comunicação — Câmara de Porto Alegre"],["2026","Web designer — Web Clinic"],["2025–26","Designer único — All Education"],["2023–25","Designer chefe — Schaeffer Digital"],["2022–23","Designer gráfico — Nave Comunica"],["2017–23","Designer freelancer — 2700 studios"],["2021–25","Design de Produto — PUCRS"]];
+function mostrarKit(v, k){
+  const pt = ptBR(v);
+  const T = pt ? {who:"Antônio Meneghetti · Designer e Diretor de Arte · Porto Alegre", why:"Por que eu na "+v.empresa+".", work:"Trabalhos escolhidos para essa vaga.", xp:"Experiência.", xpl:"Inglês fluente (Cambridge English First) · Espanhol avançado · Porto Alegre, remoto ou presencial.", cta:"Bora fazer junto.", full:"Portfólio completo: ", ey:"Portfólio para "}
+               : {who:"Antônio Meneghetti · Designer & Art Director · Porto Alegre, Brazil", why:"Why I fit "+v.empresa+".", work:"Selected work for this role.", xp:"Experience.", xpl:"Native-level English (Cambridge English First) · Remote-ready, UTC-3.", cta:"Let's make it together.", full:"Full portfolio: ", ey:"Portfolio for "};
+  const proj = (k.projects||[]).map(p => ({...PROJETOS.find(x=>x.id===p.id), angle:p.angle, papel2:p.role})).filter(p=>p.id);
+  const contato = perfilDoc.contato || "";
+  $("#sheetwrap").innerHTML = `<div class="sheet" id="sheet">
+    <section class="pg hero"><canvas id="ht"></canvas>
+      <p class="eyebrow">${esc(k.eyebrow||(T.ey+v.empresa))}</p>
+      <h2>${esc(k.headline)}</h2>
+      <p class="lead">${esc(k.lead)}</p>
+      <div class="who">${EYES}<span>${T.who}</span></div>
+    </section>
+    <section class="pg"><h3 class="secth">${esc(T.why)}</h3>
+      <div class="fit">${(k.fit||[]).map(f=>`<div class="fitc"><small>${esc(f.need)}</small><p>${esc(f.proof)}</p></div>`).join("")}</div>
+      ${k.skills?.length?`<div class="chips" style="margin-top:18px">${k.skills.map(s=>`<span>${esc(s)}</span>`).join("")}</div>`:""}
+    </section>
+    <section class="pg"><h3 class="secth">${T.work}</h3>
+      ${proj.map(p=>`<div class="proj"><div class="pimgs">${p.img.slice(0,p.img.length>=4?4:2).map(s=>`<img src="${s}" alt="${esc(p.nome)}" crossorigin="anonymous">`).join("")}</div>
+        <div><h3>${esc(p.nome)}</h3><p class="role">${esc(p.papel2||p.papel)}</p><p>${esc(p.angle||p.txt)}</p><div class="chips">${p.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div></div></div>`).join("")}
+    </section>
+    <section class="pg"><h3 class="secth">${T.xp}</h3>
+      <div class="xp">${(pt?XP_PT:XP).map(([a,b])=>`<div><span>${a}</span><b>${esc(b)}</b></div>`).join("")}</div>
+      <p style="margin:16px 0 0;color:#45454C">${T.xpl}</p>
+    </section>
+    <section class="pg cta"><h3>${esc(k.closing||T.cta)}</h3>
+      <p>${T.full}${esc(PORTFOLIO_URL)}${contato?`<br>${esc(contato)}`:""}</p>
+    </section>
+  </div>`;
+  meioTom($("#ht"));
+  $("#kletter").textContent = k.cover_letter||"";
+  $("#kqa").innerHTML = `<h4>Respostas prontas</h4>` + (k.qa||[]).map(x=>`<p style="margin:0 0 4px"><b>${esc(x.q)}</b></p><p class="small" style="margin:0 0 12px;color:var(--ink)">${esc(x.a)}</p>`).join("");
+  $("#ktips").innerHTML = `<h4>Dicas pra essa vaga</h4><ul class="steps">${(k.dicas_pt||[]).map(d=>`<li>${esc(d)}</li>`).join("")}${k.salario_pt?`<li><b>Pretensão:</b> ${esc(k.salario_pt)}</li>`:""}</ul>`;
+  $("#kcontact").value = contato;
+}
+function meioTom(c){
+  if(!c) return; const r=c.getBoundingClientRect(), dpr=Math.min(2,devicePixelRatio||1);
+  c.width=r.width*dpr; c.height=r.height*dpr; const x=c.getContext("2d"); x.scale(dpr,dpr);
+  const cols=[["#00ADEF",0],["#EC008C",2.1],["#FFD500",4.2]], S=12;
+  x.globalCompositeOperation="multiply";
+  cols.forEach(([cor,f],i)=>{ x.fillStyle=cor; for(let yy=0;yy<r.height+S;yy+=S) for(let xx=0;xx<r.width+S;xx+=S){
+    const cx=xx+(i*4)%S, cy=yy+(i*6)%S, d=Math.hypot(cx-r.width*.82,cy-r.height*.42)/(r.width*.55);
+    const w=.5+.5*Math.sin(cx*.012+f)*Math.cos(cy*.015-f*.7); const rad=Math.max(0,(1-d)*w*S*.55);
+    if(rad>.3){x.beginPath();x.arc(cx,cy,rad,0,7);x.fill()} } });
+}
+$("#kcontact").onchange = async e => { perfilDoc.contato = e.target.value.trim(); if(db) await db.doc("meta/perfil").set(perfilDoc).catch(()=>{}); if(atual&&kits[atual.id]) mostrarKit(atual,kits[atual.id]); toast("Contato salvo"); };
+
+async function copiar(t){ try{ await navigator.clipboard.writeText(t); toast("Copiado"); }catch(e){ const r=document.createRange(); r.selectNodeContents($("#kletter")); getSelection().removeAllRanges(); getSelection().addRange(r); toast("Selecionei o texto: copia com Ctrl/Cmd+C"); } }
+$("#kcopy").onclick = () => atual && kits[atual.id] && copiar(kits[atual.id].cover_letter||"");
+$("#kcopys").onclick = () => atual && kits[atual.id] && copiar(kits[atual.id].email_subject||"");
+
+$("#kpdf").onclick = async () => {
+  if(!atual) return; const m = $("#kpdfmsg"); m.textContent = "Gerando o PDF…";
+  try{ const nome = await baixarPDF(atual); m.textContent = "PDF pronto: " + nome; }
+  catch(e){ m.textContent = e?.msg || (e?.code==="dismissed"||e?.code==="declined" ? "Download cancelado." : "Não consegui gerar o PDF. Tenta de novo."); }
+};
+function nomeCarta(v){ return `Antonio-Meneghetti-${ptBR(v)?"Carta":"Cover-Letter"}-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
+async function baixarCarta(v){
+  const k = kits[v.id]; if(!k?.cover_letter) return;
+  const downloads = await claude.use("downloads"); if(!downloads) return;
+  const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"pt",format:"a4"});
+  const p = perfilDoc;
+  pdf.setFont("helvetica","bold"); pdf.setFontSize(18); pdf.text(p.nome||"Antônio Meneghetti", 56, 72);
+  pdf.setFont("helvetica","normal"); pdf.setFontSize(10); pdf.setTextColor(110);
+  pdf.text([p.email, p.tel, p.linkedin, PORTFOLIO_URL].filter(Boolean).join("  ·  "), 56, 90, {maxWidth:480});
+  pdf.setTextColor(20); pdf.setFontSize(11.5);
+  pdf.text(pdf.splitTextToSize(k.cover_letter, 480), 56, 130, {lineHeightFactor:1.5});
+  await downloads.save({filename:nomeCarta(v), data:pdf.output("blob")});
+}
+function nomePDF(v){ return `Antonio-Meneghetti-${ptBR(v)?"Portfolio-PT":"Portfolio"}-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
+async function baixarPDF(v){
+  const sheet = $("#sheet"); if(!sheet) throw {msg:"Abre o kit primeiro."};
+  {
+    const downloads = await claude.use("downloads");
+    if(!downloads) throw {msg:"Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."};
+    const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"px",format:[1080,1350],hotfixes:["px_scaling"]});
+    const pages = [...sheet.querySelectorAll(".pg")]; const W = 1080;
+    const old = sheet.style.width; sheet.style.width = W+"px"; meioTom($("#ht"));
+    let first = true, y = 0, H = 1350;
+    for (const pg of pages){
+      const cv = await html2canvas(pg, {scale:1.5, backgroundColor:"#FBFBFD", useCORS:true, windowWidth:W});
+      const h = cv.height * (W/cv.width);
+      if (!first && y + h > H){ pdf.addPage([W,H]); y = 0; }
+      if (h > H){ // seção maior que a página: fatia
+        let off = 0; while(off < h){ if(!first||off>0){ if(y>0||off>0){pdf.addPage([W,H]); y=0;} }
+          const sh = Math.min(H, h-off), c2 = document.createElement("canvas"); c2.width=cv.width; c2.height=Math.round(sh*cv.width/W);
+          c2.getContext("2d").drawImage(cv,0,Math.round(off*cv.width/W),cv.width,c2.height,0,0,cv.width,c2.height);
+          pdf.addImage(c2.toDataURL("image/jpeg",.9),"JPEG",0,0,W,sh); off += sh; first=false; y = sh; }
+      } else { pdf.addImage(cv.toDataURL("image/jpeg",.9),"JPEG",0,y,W,h); y += h; first = false; }
+    }
+    sheet.style.width = old; meioTom($("#ht"));
+    const nome = nomePDF(v);
+    await downloads.save({filename:nome, data:pdf.output("blob")});
+    return nome;
+  }
+}
+
+/* ---------- adicionar vagas coladas (LinkedIn etc.) ---------- */
+const PEDIDO_LI = `Abre o LinkedIn Vagas (já estou logado) e procura vagas para mim. Faz várias buscas, uma por termo:
+"brand designer", "graphic designer", "visual designer", "motion designer", "product designer", "UI UX designer", "web designer", "AI designer", "creative designer", "designer gráfico", "social media designer".
+Filtros em cada busca: Remoto · Data do anúncio: últimas 24 horas (se vier pouco, última semana) · Candidatura simplificada (Easy Apply) ligada · Localização: primeiro "Brazil", depois "Latin America" e depois "Worldwide".
+Faz também buscas de vagas BRASILEIRAS: "designer gráfico", "diretor de arte", "motion designer", "social media", "designer" com Localização "Porto Alegre" (pode ser presencial ou híbrida) e com "Brasil" + Remoto. Brasileira só serve se pagar mais de R$ 3.000 por mês (se o salário não aparecer, serve se for pleno/sênior) e for remota ou em Porto Alegre.
+Gringa só serve em inglês, português ou espanhol, 100% remota, aberta a quem mora no Brasil ou no mundo todo, que ainda aceita candidaturas e que se aplica pela Candidatura simplificada, sem cadastro em outro site e sem teste ou entrevista em vídeo antes.
+Ignora: vagas de engenharia/vendas, estágio, cripto/apostas, agências de recrutamento sem nome do cliente, vaga repetida.
+Escolhe as 15 que mais combinam (umas 7 brasileiras e 8 gringas) com um designer e diretor de arte sênior (identidade visual, social media, campanhas, motion, sites, UX/UI e sistemas de IA para design).
+Me devolve em texto puro, uma vaga por bloco, neste formato:
+LINK: <link da vaga>
+CARGO: <cargo>
+EMPRESA: <empresa>
+LOCAL: <local / remoto / presencial>
+SALÁRIO: <se aparecer>
+PUBLICADA: <quando>
+TEXTO: <descrição da vaga resumida em até 1200 caracteres, no idioma original>
+---`;
+$("#licopy").onclick = async () => { try{ await navigator.clipboard.writeText(PEDIDO_LI); toast("Pedido copiado: cola no Claude do Chrome"); }catch(e){ $("#addtxt").value = PEDIDO_LI; $("#addtxt").select(); toast("Coloquei o pedido na caixa: copia com Ctrl/Cmd+C"); } };
+$("#addgo").onclick = async () => {
+  const txt = $("#addtxt").value.trim(), m = $("#addmsg"); if(!txt) return;
+  const sample = await claude.use("sample"); if(!sample||!db){ m.textContent = "Abre o painel pelo claude.ai logado."; return; }
+  m.textContent = "Lendo as vagas e dando nota… (até 1 minuto)";
+  const prompt = `You are screening job posts for Antônio, a Brazilian senior designer & art director (fluent/native English) who lives in Porto Alegre, Brazil.
+Two kinds of jobs serve him: (1) foreign jobs ("gringa"): remote and open to Brazil/LATAM/worldwide/EU (he is also an Italian and Portuguese citizen); (2) Brazilian jobs ("br"): pay more than R$ 3,000/month (if salary is hidden, only mid/senior level) AND are remote OR on-site/hybrid in Porto Alegre.
+Profile: ${PERFIL}
+Posts (pasted, may be messy):
+"""${txt.slice(0,30000)}"""
+For each distinct job return an object. Score 0-10. Gringa: +3 remote and open to Brazil/LATAM/worldwide, +3 design area match (brand, social, motion, web, UX/UI, generative AI), +2 reachable level, +1 easy apply / no signup, +1 strong company. Br: +3 area match, +2 salary (≥R$6k +2, R$3-6k +1, hidden 0), +2 remote (+1 if on-site in Porto Alegre), +2 reachable level, +1 strong company. Skip (omit) jobs that are not design, internships, crypto/gambling/adult, Brazilian jobs paying under R$3,000 or on-site outside Porto Alegre, foreign jobs not remote or not in English/Portuguese/Spanish.
+Return ONLY a JSON array: [{"url":"","titulo":"","empresa":"","local":"","data":"YYYY-MM-DD or empty","nota":0,"resumo":"PT-BR, 1-2 sentences","porque":"PT-BR","alerta":"PT-BR or empty","area":"UX/UI|Brand|Motion|Vídeo|Web|IA","aceita_brasil":true,"origem":"br|gringa","modelo":"for br: Remoto | Presencial · Porto Alegre | Híbrido · Porto Alegre, else empty","salario":"as written or empty","descricao":"the job text as pasted, max 3000 chars"}]`;
+  try{
+    const r = await sample(prompt, {modelTier:"default", cache:false});
+    const arr = JSON.parse(r.text.slice(r.text.indexOf("["), r.text.lastIndexOf("]")+1));
+    let n = 0;
+    for (const v of arr){
+      if(!v.url) continue;
+      const id = "manual-" + (v.url.match(/(\d{6,})/)?.[1] || btoa(unescape(encodeURIComponent(v.url))).replace(/[^A-Za-z0-9]/g,"").slice(-24));
+      if (vagas.some(x => x.id===id)) continue;
+      await db.collection("vagas").doc(id).set({...v, fonte: (v.empresa||"") + " · colada", plataforma: /linkedin/.test(v.url) ? "LinkedIn (Candidatura simplificada)" : "", link_aplicar: v.url, status:"nova", criada:new Date().toISOString(), recrutador:"https://www.linkedin.com/search/results/people/?keywords="+encodeURIComponent((v.empresa||"")+" recruiter design")});
+      n++;
+    }
+    m.textContent = n ? `${n} vagas adicionadas. Estão na aba Novas.` : "Nenhuma vaga nova que sirva (todas puladas ou repetidas).";
+    if(n) $("#addtxt").value = "";
+  }catch(e){ m.textContent = e?.code==="not_granted" ? "Libera o Claude no painel quando ele pedir." : "Não consegui ler as vagas. Tenta colar de novo."; }
+};
+
+/* ---------- inscrição em lote (Claude in Chrome) ---------- */
+const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","visto","inicio","empresa","cargo","salario_brl","salario_eur","anos","anos_ux","idiomas","pronomes","autorizacao","padroes","r_growth","r_falha","r_saas","r_sistema","r_ia","r_lideranca"];
+function filaVagas(){ return vagas.filter(v => v.status==="fila"); }
+function lerCampos(){ CAMPOS.forEach(k => { perfilDoc[k] = $("#p_"+k).value.trim(); }); }
+function pintarFila(){
+  const F = filaVagas();
+  $("#ifila").innerHTML = F.length ? F.map(v => `<div class="frow"><div style="min-width:0"><b>${esc(v.titulo)}</b><div class="small">${esc(v.empresa)} · ${esc(v.plataforma||v.fonte||"")}</div></div><span class="estado ${kits[v.id]?"pronto":""}">${kits[v.id]?"kit pronto":"sem kit"}</span></div>`).join("") : `<p class="small">Nenhuma vaga marcada. Volta e toca em "＋ Quero me inscrever".</p>`;
+  $("#ipedido").textContent = pedido();
+}
+function pedido(){
+  const F = filaVagas(), p = perfilDoc;
+  if(!F.length) return "Marca pelo menos uma vaga.";
+  const falta = ["nome","email"].filter(k => !p[k]);
+  if(falta.length) return "Preenche e salva teus dados no passo 1 (falta: " + falta.join(", ") + ").";
+  const linhas = F.map((v,i) => { const k = kits[v.id]||{};
+    return `### Vaga ${i+1}: ${v.titulo} — ${v.empresa}
+Formulário: ${v.link_aplicar||v.url}
+Arquivo para anexar (currículo/portfólio): ${nomePDF(v)} (está na minha pasta Downloads)
+Carta em PDF (se o campo de carta for upload): ${nomeCarta(v)}
+Cover letter (colar no campo de carta, se houver):
+${k.cover_letter||"(sem carta: escreve 3 frases curtas sobre por que combino, em inglês)"}
+${(k.qa||[]).length?"Respostas prontas:\n"+k.qa.map(x=>"- "+x.q+" → "+x.a).join("\n"):""}`; }).join("\n\n");
+  return `Me inscreve nestas ${F.length} vagas, uma por vez, em abas novas. Eu já revisei e aprovei todas, pode enviar.
+
+MEUS DADOS
+Nome: ${p.nome}
+E-mail: ${p.email}
+Telefone: ${p.tel||"-"}
+LinkedIn: ${p.linkedin||"-"}
+Portfólio / site: ${PORTFOLIO_URL}
+Cidade/país: ${p.cidade||"Porto Alegre, Brazil"}
+Empresa atual: ${p.empresa||"-"} · Cargo atual: ${p.cargo||"-"}
+Pretensão: em dólar ${p.salario||"open"} por mês (contractor) · em reais ${p.salario_brl||"-"} por mês (CLT) · em euro ${p.salario_eur||"-"}. Campo só número: usa só o número na moeda da vaga.
+Experiência: ${p.anos||"-"} anos no total · ${p.anos_ux||"-"} anos em UX/produto digital
+Idiomas: ${p.idiomas||"Português nativo, inglês fluente"}
+Pronomes: ${p.pronomes||"deixar em branco se opcional"}
+Início: ${p.inicio||"2 weeks"}
+
+AUTORIZAÇÃO DE TRABALHO (usar exatamente esta regra)
+${p.autorizacao||p.visto||""}
+
+RESPOSTAS PADRÃO
+${p.padroes||""}
+
+BANCO DE RESPOSTAS ABERTAS (adaptar à pergunta real, sem inventar números ou empresas)
+- Crescimento/conversão com métrica: ${p.r_growth||"-"}
+- Experimento que não deu certo: ${p.r_falha||"-"}
+- Produto digital / SaaS: ${p.r_saas||"-"}
+- Design system / linguagem visual: ${p.r_sistema||"-"}
+- IA no design: ${p.r_ia||"-"}
+- Liderança / engenharia: ${p.r_lideranca||"-"}
+
+REGRAS
+- Se o link for do LinkedIn: usa a Candidatura simplificada (Easy Apply) e envia o PDF indicado como currículo. Se o botão levar para o site da empresa, segue lá. Desmarca "Seguir empresa". Na tela de revisão, confere tudo (dados salvos da conta podem vir errados).
+- Vaga brasileira (Gupy, Trampos, InHire, Solides, Vagas.com): se eu já estiver logado, segue; se pedir para CRIAR conta nova com senha, pula e anota. Responde em português.
+- Mesma empresa já aplicada antes: só aplica se o cargo for diferente.
+- Em cada vaga: abre o link do formulário, preenche os campos com meus dados, anexa o PDF indicado no campo de currículo (Resume/CV) e, se houver campo de portfólio, usa o link do portfólio. Cola a cover letter no campo de carta.
+- Perguntas de diversidade (gênero, raça, deficiência, veterano): "Prefer not to say"/"Decline to self-identify".
+- Como soube da vaga: "Company careers page".
+- Antes de responder, lê TODAS as perguntas reais do formulário. Pergunta aberta: escreve a resposta em inglês (ou na língua do formulário) usando o banco de respostas e a cover letter, 60–120 palavras, sem inventar números, empresas ou ferramentas. Não pula vaga por pergunta aberta.
+- Pergunta de sim/não com padrão definido acima: usa o padrão. Termos de consentimento de dados (LGPD/GDPR): aceita.
+- Campo de cover letter que pede ARQUIVO: anexa o PDF da carta indicado na vaga.
+- Lista de países sem o meu: escolhe "Location not listed"/"Other" e escreve "Porto Alegre, Brazil (remote)".
+PEGADINHAS DE FORMULÁRIO (aprendidas na prática, segue sempre)
+- Anexa o PDF PRIMEIRO e só depois preenche o resto: em vários formulários (Ashby) o upload apaga campos já preenchidos.
+- Menu de opções com busca: digita parte da opção e CLICA na opção exata. Não aperta Enter (o filtro pega a errada: "Male" vira "Female", "Brazil" vira outro país).
+- Texto colado por script às vezes não registra (Ashby): digita de verdade. Depois de erro de validação a página recarrega os campos: confere tudo de novo.
+- Texto longo digitado perde letras: depois de colar carta ou resposta, lê o campo inteiro e corrige.
+- Em lista de checkbox/rádio o clique pode cair na linha de baixo: confere qual ficou marcada.
+- Campo de cidade/Location pode ser obrigatório sem aparecer como obrigatório: preenche "Porto Alegre, Brazil".
+- Currículo e carta são dois campos de arquivo diferentes: confere se cada PDF caiu no campo certo.
+- O navegador autocompleta o e-mail errado: confere o e-mail antes de enviar.
+- Lê o enunciado inteiro de cada pergunta aberta: algumas escondem itens obrigatórios no texto.
+- Se no envio pedir código de segurança mandado por e-mail (Greenhouse), abre meu e-mail, pega o código e digita.
+- ANTES DE ENVIAR: rola o formulário inteiro e confere campo por campo (nome, e-mail, telefone, arquivos, respostas). Só envia com tudo certo.
+- Depois de enviar: se aparecer mensagem de confirmação, é "enviada ✓". Se voltar para a vaga sem mensagem, é "enviada?" e confere no meu e-mail.
+- No fim de cada vaga, tenta clicar em Enviar. Se o navegador bloquear o clique, deixa a aba aberta e preenchida e me avisa pra eu clicar.
+- Só pula a vaga se pedir criar conta com senha, captcha que tu não consegue resolver, teste prático ou entrevista em vídeo antes do envio. Anota o motivo e segue.
+- Não anexar o PDF de uma vaga em outra.
+- No fim, me mostra uma lista: vaga → enviada ✓ / enviada? / pulada (motivo). Se der, abre meu e-mail (só leitura) e confere se chegou a confirmação de cada uma.
+
+${linhas}`;
+}
+$("#filago").onclick = () => { CAMPOS.forEach(k => $("#p_"+k).value = perfilDoc[k]||""); pintarFila(); $("#insc").hidden=false; document.body.style.overflow="hidden"; };
+$("#iclose").onclick = () => { $("#insc").hidden=true; document.body.style.overflow=""; };
+$("#psalva").onclick = async () => { lerCampos(); if(db){ try{ await db.doc("meta/perfil").set(perfilDoc); toast("Dados salvos"); }catch(e){ toast("Não salvou, tenta de novo."); } } pintarFila(); };
+CAMPOS.forEach(k => $("#p_"+k).addEventListener("input", () => { lerCampos(); $("#ipedido").textContent = pedido(); }));
+$("#iprep").onclick = async () => {
+  const F = filaVagas(); if(!F.length) return; const pr = $("#iprog");
+  $("#insc").hidden = true;
+  try{
+    for (const [i,v] of F.entries()){
+      pr.textContent = `Vaga ${i+1} de ${F.length}: ${v.empresa}…`;
+      await abrirKit(v);                       // gera o kit se faltar e mostra a folha
+      if(!kits[v.id]) throw {msg:`Não consegui montar o kit de ${v.empresa}.`};
+      await new Promise(r => setTimeout(r, 900));
+      await baixarPDF(v);
+      await baixarCarta(v);
+    }
+    pr.textContent = "Pronto: " + F.length + " PDFs baixados. Agora copia o pedido do passo 3.";
+  }catch(e){ pr.textContent = e?.msg || (e?.code ? "Download cancelado ou falhou ("+e.code+")." : "Algo falhou. Tenta de novo."); }
+  fecharKit(); $("#insc").hidden = false; document.body.style.overflow="hidden"; pintarFila();
+};
+$("#icopy").onclick = async () => { const t = pedido(); try{ await navigator.clipboard.writeText(t); toast("Pedido copiado: cola no Claude do Chrome"); }catch(e){ const r=document.createRange(); r.selectNodeContents($("#ipedido")); getSelection().removeAllRanges(); getSelection().addRange(r); toast("Selecionei o texto: copia com Ctrl/Cmd+C"); } };
+$("#idone").onclick = async () => { for (const v of filaVagas()) await status(v, "aplicada"); toast("Marcadas como aplicadas"); $("#insc").hidden=true; document.body.style.overflow=""; };
+
+/* ---------- conexão com o banco ---------- */
+render();
+(async () => {
+  const timer = setTimeout(()=>{ $("#radar span").textContent = "sem conexão com o banco (abre pelo claude.ai logado)"; }, 10000);
+  db = await claude.use("db");
+  if(!db){ clearTimeout(timer); $("#radar span").textContent = "abre pelo claude.ai logado para ver as vagas"; return; }
+  db.collection("vagas").orderBy("criada","desc").limit(600).onSnapshot(s => {
+    clearTimeout(timer);
+    vagas = s.docs.map(d => ({id:d.id, ...d.data()}));
+    render(); if(!$("#insc").hidden) pintarFila();
+  }, () => { $("#radar span").textContent = "erro ao ler as vagas, recarrega a página"; });
+  db.collection("kits").onSnapshot(s => { kits = {}; s.docs.forEach(d => kits[d.id] = d.data()); render(); }, ()=>{});
+  db.doc("meta/radar").onSnapshot(s => { const d = s.data()||{}; $("#radar span").textContent = d.ultima ? `última busca ${new Date(d.ultima).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})} · ${d.novas ?? 0} novas${d.novas_br!=null?` (${d.novas_br} 🇧🇷 · ${d.novas_gringas} 🌎)`:""}` : "radar ligado · primeira busca em breve";
+    const NOMES = {local:"restrição de país", presencial:"presencial fora de POA", salario:"salário até R$ 3 mil", senioridade:"nível (VP/staff)", velha:"publicada há muito tempo", fechada:"já fechou", "nao-e-vaga":"banco de talentos / treino de IA", setor:"setor (cripto, apostas…)", idioma:"idioma", repost:"repost de vaga já aplicada", "nao-e-design":"não é design"};
+    const D = Object.entries(d.descartes||{}).filter(([k])=>k!=="nao-e-design" && k!=="velha").sort((a,b)=>b[1]-a[1]);
+    $("#descbox").hidden = !D.length;
+    $("#desctxt").textContent = D.map(([k,n])=>`${NOMES[k]||k}: ${n}`).join(" · ") + (d.falhas && Object.keys(d.falhas).length ? " · ⚠ fonte com falha: " + Object.keys(d.falhas).join(", ") : "");
+  }, ()=>{});
+  db.doc("meta/perfil").onSnapshot(s => { perfilDoc = s.data()||{}; if(!$("#insc").hidden) $("#ipedido").textContent = pedido(); }, ()=>{});
+})();
+</script>
