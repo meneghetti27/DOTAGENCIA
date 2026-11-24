@@ -92,6 +92,10 @@ No site, o único exemplo de cliente é a **Dra. Victoria** (prints em `site/img
 Fundo **claro** (branco/gelo), azul `#2D7FF0` + navy, Poppins, vetores 2D próprios, fotos do Pexels.
 As regras de fundo escuro / League Gothic / Anton deste arquivo valem **só para a dot**.
 
+## MOLETOM TERCEIRÃO (cliente do dono, NÃO segue as cores da dot)
+Tudo em **`moletom-terceirao/`**, receita em `moletom-terceirao/COMO-FAZER.md`. Cor do moletom lilás `#996BB3` (fixa).
+Turma quer **grafite (não pixação)**, referências só de letra, **sem animal**. Artes geradas em vetor por `gerar.py`.
+
 ## A agência
 
 - Nome: **dot.** (sempre minúsculo, com o ponto azul no final)
