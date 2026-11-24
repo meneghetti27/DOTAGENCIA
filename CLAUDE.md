@@ -93,7 +93,7 @@ Fundo **claro** (branco/gelo), azul `#2D7FF0` + navy, Poppins, vetores 2D própr
 As regras de fundo escuro / League Gothic / Anton deste arquivo valem **só para a dot**.
 
 ## Radar de vagas (para o Antônio: design no Brasil e lá fora)
-Tudo em `vagas/COMO-FAZER.md`: painel https://claude.ai/artifact/A7oWm5gPpGMQZcaEEU8Sjq, agente 2x/dia (`vagas/AGENTE.md`),
+Tudo em `vagas/COMO-FAZER.md`: painel https://claude.ai/artifact/A7oWm5gPpGMQZcaEEU8Sjq, agente 1x/dia (7h40) (`vagas/AGENTE.md`),
 3 melhores brasileiras + 3 melhores gringas no topo. Brasileira só se pagar mais de R$ 3 mil e for remota ou em Porto Alegre.
 
 ## A agência

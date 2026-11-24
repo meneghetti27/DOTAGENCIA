@@ -57,3 +57,4 @@
   - carta sem cara de IA: frases curtas, 1 case principal por vaga, lacuna assumida como "onde vou crescer", ownership.
 - `checar.py` agora fecha vagas do LinkedIn, Trampos e Remotar, e não fecha mais as coladas à mão (`manual-`) sem motivo.
 - A tarefa agendada lê o branch `claude/great-albattani-fy4j41`.
+- 24/11: busca passou para **1x por dia, 7h40** (pedido do dono).

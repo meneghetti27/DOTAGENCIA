@@ -1,4 +1,4 @@
-# Agente "Radar de vagas" (roda 2x por dia sozinho)
+# Agente "Radar de vagas" (roda 1x por dia sozinho, 7h40)
 
 Painel: https://claude.ai/artifact/A7oWm5gPpGMQZcaEEU8Sjq (privado, banco `db` do artifact).
 Coleções: `vagas/<id>` (uma por vaga), `kits/<id>` (portfólio sob medida, gerado pelo botão no painel),

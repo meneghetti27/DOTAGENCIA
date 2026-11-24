@@ -165,7 +165,7 @@ button{font:inherit;color:inherit}
   <header class="top">
     <div class="brand">
       <h1>Radar de <i>Vagas</i></h1>
-      <p>Vagas de design, motion, web e IA no Brasil e lá fora, achadas 2x por dia (7h40 e 16h40). Gringas: remotas e abertas a ti. Brasileiras: pagam mais de R$ 3 mil, remotas ou presenciais em Porto Alegre. No topo, as 3 melhores de cada lado. Marca as que quer, e o Claude no Chrome se inscreve por ti com um portfólio sob medida.</p>
+      <p>Vagas de design, motion, web e IA no Brasil e lá fora, achadas todo dia às 7h40. Gringas: remotas e abertas a ti. Brasileiras: pagam mais de R$ 3 mil, remotas ou presenciais em Porto Alegre. No topo, as 3 melhores de cada lado. Marca as que quer, e o Claude no Chrome se inscreve por ti com um portfólio sob medida.</p>
     </div>
     <div class="radar" id="radar"><b></b><span>conectando…</span></div>
   </header>
@@ -372,7 +372,7 @@ function render(){
     if (mostraTop && vagas.length){ $("#list").innerHTML = ""; return; }
     $("#list").innerHTML = vagas.length
       ? `<div class="empty"><h3>Nada aqui.</h3>Troca o filtro ou a busca.</div>`
-      : `<div class="empty"><h3>O radar ainda está vazio.</h3>A próxima leva chega na busca automática (7h40 ou 16h40). Cada vaga vem com nota de 0 a 10 e resumo em português.</div>`;
+      : `<div class="empty"><h3>O radar ainda está vazio.</h3>A próxima leva chega na busca automática (todo dia às 7h40). Cada vaga vem com nota de 0 a 10 e resumo em português.</div>`;
     return;
   }
   $("#list").innerHTML = L.map(card).join("");
