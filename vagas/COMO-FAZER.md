@@ -58,3 +58,4 @@
 - `checar.py` agora fecha vagas do LinkedIn, Trampos e Remotar, e não fecha mais as coladas à mão (`manual-`) sem motivo.
 - A tarefa agendada lê o branch `claude/great-albattani-fy4j41`.
 - 24/11: busca passou para **1x por dia, 7h40** (pedido do dono).
+- 24/11: pedido do Chrome sem o bloco de visto/autorização (dono pediu); só a cidadania (BR, IT, PT). PDFs da inscrição saem num ZIP só (uma confirmação de download), pasta Radar-Candidaturas-AAAA-MM-DD.

@@ -265,7 +265,6 @@ button{font:inherit;color:inherit}
         <label>LinkedIn<input id="p_linkedin" placeholder="linkedin.com/in/…"></label>
         <label>Cidade e país<input id="p_cidade" placeholder="Porto Alegre, Brazil"></label>
         <label>Pretensão salarial (USD)<input id="p_salario" placeholder="ex.: US$ 3.000/mês ou US$ 40k/ano"></label>
-        <label class="full">Visto / autorização de trabalho<input id="p_visto" placeholder="Brazilian citizen. Works as a contractor from Brazil. Would need visa sponsorship to relocate."></label>
         <label class="full">Quando pode começar<input id="p_inicio" placeholder="2 weeks notice"></label>
         <label>Empresa atual<input id="p_empresa"></label>
         <label>Cargo atual<input id="p_cargo"></label>
@@ -275,7 +274,6 @@ button{font:inherit;color:inherit}
         <label>Anos em UX / produto digital<input id="p_anos_ux"></label>
         <label>Idiomas<input id="p_idiomas"></label>
         <label>Pronomes (opcional)<input id="p_pronomes"></label>
-        <label class="full">Autorização de trabalho (regra pronta)<textarea id="p_autorizacao" rows="4"></textarea></label>
         <label class="full">Respostas padrão (parente na empresa, acessibilidade, termos, mudança…)<textarea id="p_padroes" rows="4"></textarea></label>
         <label class="full">Projeto de crescimento/conversão com número (o que queria mover, o que mudou, resultado)<textarea id="p_r_growth" rows="3"></textarea></label>
         <label class="full">Um experimento que não deu certo e o que aprendeu<textarea id="p_r_falha" rows="3"></textarea></label>
@@ -288,7 +286,7 @@ button{font:inherit;color:inherit}
     </div>
     <div class="box">
       <h4>2 · Os PDFs das vagas</h4>
-      <p class="small">O painel monta o kit de cada vaga e baixa 2 PDFs por vaga (portfólio e cover letter). Deixa eles na pasta Downloads.</p>
+      <p class="small">O painel monta o kit de cada vaga e baixa <b>um ZIP só</b> com todos os PDFs (portfólio e carta de cada vaga). Abre o ZIP na pasta Downloads: vira uma pasta com tudo dentro.</p>
       <div id="ifila"></div>
       <div class="btnrow"><button class="apply" id="iprep"><span>MONTAR KITS E BAIXAR PDFs</span></button></div>
       <p class="small" id="iprog"></p>
@@ -305,6 +303,7 @@ button{font:inherit;color:inherit}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
 const PORTFOLIO_URL = "https://claude.ai/artifact/SzkpJxkCam8r5HVtsg2nZp";
 
@@ -556,8 +555,12 @@ $("#kpdf").onclick = async () => {
 };
 function nomeCarta(v){ return `Antonio-Meneghetti-${ptBR(v)?"Carta":"Cover-Letter"}-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
 async function baixarCarta(v){
-  const k = kits[v.id]; if(!k?.cover_letter) return;
+  const blob = cartaBlob(v); if(!blob) return;
   const downloads = await claude.use("downloads"); if(!downloads) return;
+  await downloads.save({filename:nomeCarta(v), data:blob});
+}
+function cartaBlob(v){
+  const k = kits[v.id]; if(!k?.cover_letter) return null;
   const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"pt",format:"a4"});
   const p = perfilDoc;
   pdf.setFont("helvetica","bold"); pdf.setFontSize(18); pdf.text(p.nome||"Antônio Meneghetti", 56, 72);
@@ -565,14 +568,19 @@ async function baixarCarta(v){
   pdf.text([p.email, p.tel, p.linkedin, PORTFOLIO_URL].filter(Boolean).join("  ·  "), 56, 90, {maxWidth:480});
   pdf.setTextColor(20); pdf.setFontSize(11.5);
   pdf.text(pdf.splitTextToSize(k.cover_letter, 480), 56, 130, {lineHeightFactor:1.5});
-  await downloads.save({filename:nomeCarta(v), data:pdf.output("blob")});
+  return pdf.output("blob");
 }
 function nomePDF(v){ return `Antonio-Meneghetti-${ptBR(v)?"Portfolio-PT":"Portfolio"}-${(v.empresa||"vaga").replace(/[^\w]+/g,"-")}.pdf`; }
 async function baixarPDF(v){
+  const downloads = await claude.use("downloads");
+  if(!downloads) throw {msg:"Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."};
+  const blob = await portfolioBlob(v), nome = nomePDF(v);
+  await downloads.save({filename:nome, data:blob});
+  return nome;
+}
+async function portfolioBlob(v){
   const sheet = $("#sheet"); if(!sheet) throw {msg:"Abre o kit primeiro."};
   {
-    const downloads = await claude.use("downloads");
-    if(!downloads) throw {msg:"Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."};
     const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:"px",format:[1080,1350],hotfixes:["px_scaling"]});
     const pages = [...sheet.querySelectorAll(".pg")]; const W = 1080;
     const old = sheet.style.width; sheet.style.width = W+"px"; meioTom($("#ht"));
@@ -589,11 +597,10 @@ async function baixarPDF(v){
       } else { pdf.addImage(cv.toDataURL("image/jpeg",.9),"JPEG",0,y,W,h); y += h; first = false; }
     }
     sheet.style.width = old; meioTom($("#ht"));
-    const nome = nomePDF(v);
-    await downloads.save({filename:nome, data:pdf.output("blob")});
-    return nome;
+    return pdf.output("blob");
   }
 }
+function pastaZip(){ return "Radar-Candidaturas-" + new Date().toISOString().slice(0,10); }
 
 /* ---------- adicionar vagas coladas (LinkedIn etc.) ---------- */
 const PEDIDO_LI = `Abre o LinkedIn Vagas (já estou logado) e procura vagas para mim. Faz várias buscas, uma por termo:
@@ -641,7 +648,7 @@ Return ONLY a JSON array: [{"url":"","titulo":"","empresa":"","local":"","data":
 };
 
 /* ---------- inscrição em lote (Claude in Chrome) ---------- */
-const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","visto","inicio","empresa","cargo","salario_brl","salario_eur","anos","anos_ux","idiomas","pronomes","autorizacao","padroes","r_growth","r_falha","r_saas","r_sistema","r_ia","r_lideranca"];
+const CAMPOS = ["nome","email","tel","linkedin","cidade","salario","inicio","empresa","cargo","salario_brl","salario_eur","anos","anos_ux","idiomas","pronomes","padroes","r_growth","r_falha","r_saas","r_sistema","r_ia","r_lideranca"];
 function filaVagas(){ return vagas.filter(v => v.status==="fila"); }
 function lerCampos(){ CAMPOS.forEach(k => { perfilDoc[k] = $("#p_"+k).value.trim(); }); }
 function pintarFila(){
@@ -657,7 +664,7 @@ function pedido(){
   const linhas = F.map((v,i) => { const k = kits[v.id]||{};
     return `### Vaga ${i+1}: ${v.titulo} — ${v.empresa}
 Formulário: ${v.link_aplicar||v.url}
-Arquivo para anexar (currículo/portfólio): ${nomePDF(v)} (está na minha pasta Downloads)
+Arquivo para anexar (currículo/portfólio): ${nomePDF(v)} (na pasta Downloads/${pastaZip()})
 Carta em PDF (se o campo de carta for upload): ${nomeCarta(v)}
 Cover letter (colar no campo de carta, se houver):
 ${k.cover_letter||"(sem carta: escreve 3 frases curtas sobre por que combino, em inglês)"}
@@ -678,8 +685,7 @@ Idiomas: ${p.idiomas||"Português nativo, inglês fluente"}
 Pronomes: ${p.pronomes||"deixar em branco se opcional"}
 Início: ${p.inicio||"2 weeks"}
 
-AUTORIZAÇÃO DE TRABALHO (usar exatamente esta regra)
-${p.autorizacao||p.visto||""}
+CIDADANIA: brasileiro, italiano e português (cidadão da União Europeia). Trabalho remoto a partir do Brasil, como contractor/PJ quando for vaga de fora.
 
 RESPOSTAS PADRÃO
 ${p.padroes||""}
@@ -729,17 +735,24 @@ $("#psalva").onclick = async () => { lerCampos(); if(db){ try{ await db.doc("met
 CAMPOS.forEach(k => $("#p_"+k).addEventListener("input", () => { lerCampos(); $("#ipedido").textContent = pedido(); }));
 $("#iprep").onclick = async () => {
   const F = filaVagas(); if(!F.length) return; const pr = $("#iprog");
+  const downloads = await claude.use("downloads");
+  if(!downloads || !window.JSZip){ pr.textContent = "Download indisponível nesta tela. Abre o painel no navegador pelo claude.ai."; return; }
   $("#insc").hidden = true;
   try{
+    // todos os PDFs num ZIP só: uma confirmação de download em vez de uma por arquivo
+    const zip = new JSZip(), pasta = zip.folder(pastaZip());
     for (const [i,v] of F.entries()){
       pr.textContent = `Vaga ${i+1} de ${F.length}: ${v.empresa}…`;
       await abrirKit(v);                       // gera o kit se faltar e mostra a folha
       if(!kits[v.id]) throw {msg:`Não consegui montar o kit de ${v.empresa}.`};
       await new Promise(r => setTimeout(r, 900));
-      await baixarPDF(v);
-      await baixarCarta(v);
+      pasta.file(nomePDF(v), await portfolioBlob(v));
+      const c = cartaBlob(v); if(c) pasta.file(nomeCarta(v), c);
     }
-    pr.textContent = "Pronto: " + F.length + " PDFs baixados. Agora copia o pedido do passo 3.";
+    pr.textContent = "Juntando os PDFs num arquivo só…";
+    const blob = await zip.generateAsync({type:"blob"});
+    await downloads.save({filename: pastaZip() + ".zip", data: blob});
+    pr.textContent = `Pronto: 1 arquivo ZIP com os PDFs das ${F.length} vagas. Abre o ZIP na pasta Downloads (vira a pasta ${pastaZip()}) e copia o pedido do passo 3.`;
   }catch(e){ pr.textContent = e?.msg || (e?.code ? "Download cancelado ou falhou ("+e.code+")." : "Algo falhou. Tenta de novo."); }
   fecharKit(); $("#insc").hidden = false; document.body.style.overflow="hidden"; pintarFila();
 };
