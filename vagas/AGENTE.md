@@ -9,6 +9,9 @@ Desde 24/11/2026 o radar traz **gringas e brasileiras** (campo `origem`: "gringa
 3 melhores de cada lado.
 
 ## Passo a passo de cada rodada
+**Regra de ouro: a rodada só termina depois do passo 6 (gravar no painel).** Rode `buscar.py` em PRIMEIRO PLANO (Bash normal,
+timeout 600000), nunca com `run_in_background`: a tarefa agendada não volta sozinha depois que a resposta termina, e as vagas se perdem
+(aconteceu em 24/11). Se o limite de uso acabar no meio, não tem o que fazer: a próxima rodada pega as vagas de novo.
 0. **Fecha as vagas que sumiram**: `ArtifactData query vagas` com where status in ["nova","salva","fila"] → salve os ids em
    `/tmp/abertas.json` → `python3 vagas/checar.py /tmp/abertas.json` → para cada id devolvido, `update` {status:"encerrada"}
    (com `if_version`).
