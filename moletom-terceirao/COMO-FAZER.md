@@ -35,3 +35,9 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
   04 Bloco gordo (graffiti_youth), 09 Old school (grime_slime). Gosto: letra **gorda, legível, bloco/bolha**.
 - `python3 modelos.py 2` → 20 novos modelos numerados 11–30 em `modelos-escrita/rodada2/` (+ `todos.jpg`).
 - Fonte .otf/.ttf: conferir a extensão real em `fontes/dafont/` (fonte que não carrega vira serifada no PNG).
+
+## Rodada 4 — escolhidas 12, 26, 29 → arte das costas
+- Dono escolheu **12 Wild leve (break_rebel)**, **26 Bloco inclinado (street_shade)**, **29 Bloco pesado (thomas_2)** (também em `favoritos/`).
+- `python3 costas.py` → `costas/<n>-<fonte>.png` (1500×1800 no preto) + `-transparente.png` + `comparar.jpg`.
+  Cada linha (TER/CEI/RÃO) é medida pelo desenho real da letra (canvas measureText) e tem ~860 px; 2027 e MÃE DE DEUS centralizados embaixo.
+- Til da break_rebel vira bolha preta: `til=True` em ESCOLHIDAS desenha um til grafitado à mão por cima do A.
