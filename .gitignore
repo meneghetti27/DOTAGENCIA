@@ -3,3 +3,4 @@ tools/render3d/models/
 tools/render3d/*.hdr
 node_modules
 tools/render3d/scene.html
+__pycache__/
