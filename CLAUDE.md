@@ -84,7 +84,7 @@ Título atrás do animal: as pontas das orelhas cobrem só a base da 2ª linha (
 Texto com atitude ligado ao animal ("A DOT CAÇA / CLIENTE PRA VOCÊ.").
 
 ## Jogo Block Office (Block Hunt)
-Tudo em `block-office/COMO-FAZER.md`. 1ª versão reprovada (Louis horrível, loja genérica): refazer com Louis estilizado caprichado e fotos reais da loja.
+Agora é um **arcade quebra-tijolo da collab BLOCK OFFICE × HARD JEANS SANTO**: ideia em `block-office/ARCADE-IDEIA.md` (o Block Hunt 3D foi substituído; histórico em `block-office/COMO-FAZER.md`).
 
 ## Radar de vagas gringas (para o Antônio)
 Tudo em `vagas/COMO-FAZER.md`: painel https://claude.ai/artifact/A7oWm5gPpGMQZcaEEU8Sjq, agente 2x/dia (`vagas/AGENTE.md`), botão APLICAR monta portfólio sob medida.
