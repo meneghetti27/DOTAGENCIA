@@ -26,7 +26,8 @@ ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
 GAP = 0.02
 TIL_D = 'M-150 40 C-140 -60 -60 -90 0 -20 C40 25 80 30 110 -50 L165 -25 C150 90 60 110 0 40 C-40 -5 -80 -10 -95 65 Z'
 TIL_ROT, TIL_JOIN, TIL_FILL = -6, 'round', 'url(#gt)'
-TIL_ESC = 1.0  # respiro extra entre CEI e RÃO (fração da fonte)
+TIL_ESC = 1.0
+ANO_FONTE, ANO_TAM = None, 170  # fonte e tamanho do 2027  # respiro extra entre CEI e RÃO (fração da fonte)
 LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 140)]  # texto, giro, deslocamento x
 
 
@@ -40,6 +41,7 @@ def html(fonte, fundo=True, til=False):
           else "background:transparent")
     return f"""<!doctype html><html><head><meta charset=utf-8><style>
 @font-face{{font-family:G;src:url('{FD}/{fonte}')}}
+@font-face{{font-family:A;src:url('{FD}/{ANO_FONTE or fonte}')}}
 html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
 .ln{{position:absolute;left:0;top:0;font-family:G;white-space:nowrap;line-height:1;font-size:400px}}
 .ln span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
@@ -49,7 +51,7 @@ html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
 .l3{{z-index:3;background:linear-gradient(180deg,{CLARO} 0%,{ROXO} 50%,{ESCURO} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}}
 .l4{{z-index:4;color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.55) 0 11%,transparent 11.5%);-webkit-background-clip:text;background-clip:text;opacity:.6}}
 .fantasma{{visibility:hidden;position:static!important;padding:0!important}}
-.ano{{position:absolute;font-family:G;font-size:170px;color:#fff;-webkit-text-stroke:.15em #0A0A0C;paint-order:stroke fill;
+.ano{{position:absolute;font-family:A;font-size:{ANO_TAM}px;color:#fff;-webkit-text-stroke:.15em #0A0A0C;paint-order:stroke fill;
       filter:drop-shadow(6px 7px 0 {ROXO});transform:rotate(-5deg)}}
 .esc{{position:absolute;font:700 40px/1 Arial,sans-serif;letter-spacing:.45em;color:{ROXO};transform:rotate(-5deg)}}
 .st{{position:absolute;width:var(--s);height:var(--s);background:var(--c);
@@ -115,7 +117,7 @@ document.fonts.ready.then(()=>{{
       rot:+l.dataset.rot,ox:f.offsetWidth/2,oy:f.offsetHeight/2,
       til:(()=>{{const sv=l.querySelector('svg');return sv?{{x:parseFloat(sv.style.left),y:parseFloat(sv.style.top)}}:null}})()}};}});
   const an=document.getElementById('ano'), es=document.getElementById('esc');
-  cv.font='170px G'; const ma=cv.measureText('2027');
+  cv.font='{ANO_TAM}px A'; const ma=cv.measureText('2027');
   document.body.dataset.layout=JSON.stringify({{linhas:L,
     ano:{{x:an.offsetLeft,y:an.offsetTop,w:an.offsetWidth,h:an.offsetHeight,FA:ma.fontBoundingBoxAscent,FD:ma.fontBoundingBoxDescent}},
     esc:{{x:es.offsetLeft,y:es.offsetTop,w:es.offsetWidth,h:es.offsetHeight}}}});
