@@ -54,3 +54,4 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
 ## ✅ ESCOLHIDA: 04 Bloco gordo (graffiti_youth.otf)
 Arte final em `identidade/04-graffiti_youth/` + `costas/04-graffiti_youth*.png`. Til à mão menor (0.40 da fonte), entre CEI e RÃO.
 Pendente: lista de nomes real (forro) e PDF completo.
+- Ajuste: RÃO centralizado (LINHAS dx pequenos) e til novo: forma gorda preenchida com o mesmo acabamento das letras, num respiro entre CEI e RÃO (o til de traço fino foi reprovado: "horrível").

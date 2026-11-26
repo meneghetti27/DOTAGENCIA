@@ -23,7 +23,7 @@ ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
     (29, "thomas_2.otf", "Bloco pesado", False),
 ]
 
-LINHAS = [("TER", -6, -40), ("CEI", -3, 40), ("RÃO", -5, -10)]  # texto, giro, deslocamento x
+LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 0)]  # texto, giro, deslocamento x
 
 
 def html(fonte, fundo=True, til=False):
@@ -65,6 +65,7 @@ document.fonts.ready.then(()=>{{
   const med=(t,fs)=>{{cv.font=fs+'px G';const m=cv.measureText(t);return {{
     L:m.actualBoundingBoxLeft,R:m.actualBoundingBoxRight,A:m.actualBoundingBoxAscent,D:m.actualBoundingBoxDescent,
     FA:m.fontBoundingBoxAscent,FD:m.fontBoundingBoxDescent}};}};
+  const TIL={'true' if til else 'false'};
   const LARG=860, SOBRE=0.0;   // largura do desenho de cada linha e quanto uma linha encosta na outra
   let info=ls.map(l=>{{const t=l.dataset.t;let m=med(t,400);const fs=400*LARG/(m.L+m.R);return {{l,t,fs,m:med(t,fs)}};}});
   let alt0=info.map(o=>o.m.A+o.m.D).reduce((a,b)=>a+b,0)*(1-SOBRE);
@@ -77,7 +78,7 @@ document.fonts.ready.then(()=>{{
     const base=(fs-(m.FA+m.FD))/2+m.FA;           // linha de base dentro da caixa (line-height 1)
     l.style.top=(y-(base-m.A))+'px';
     l.style.left=(750-(m.R-m.L)/2+(+l.dataset.dx))+'px';
-    y+=(m.A+m.D)*(1-SOBRE);}});
+    y+=(m.A+m.D)*(1-SOBRE)+(i==1&&TIL?info[2].fs*0.20:0);}});
   const ano=document.getElementById('ano'), esc=document.getElementById('esc');
   const fim=y+alturas[2]*SOBRE;
   const ar=ano.getBoundingClientRect(), er=esc.getBoundingClientRect();
@@ -87,14 +88,15 @@ document.fonts.ready.then(()=>{{
     const o=info[2], cvw=t=>{{cv.font=o.fs+'px G';return cv.measureText(t).width;}};
     const ax=(cvw('R')+cvw('RA'))/2, base=(o.fs-(o.m.FA+o.m.FD))/2+o.m.FA;
     cv.font=o.fs+'px G'; const aA=cv.measureText('A').actualBoundingBoxAscent;
-    const w=o.fs*0.40, h=w*0.32, d=`M${{-w/2}} ${{h*0.3}} C${{-w*0.32}} ${{-h*0.9}} ${{-w*0.1}} ${{-h*0.7}} 0 0 C${{w*0.1}} ${{h*0.7}} ${{w*0.32}} ${{h*0.9}} ${{w/2}} ${{-h*0.3}}`;
-    const sw=h*0.85, svg=`<svg style="position:absolute;z-index:5;overflow:visible;left:${{ax}}px;top:${{base-aA-h*1.1}}px" width=1 height=1>
-      <g transform="rotate(-8)" fill=none stroke-linecap=round>
-      <path d="${{d}}" stroke="{UVA}" stroke-width="${{sw+o.fs*0.15}}" transform="translate(7 8)"/>
-      <path d="${{d}}" stroke="#fff" stroke-width="${{sw+o.fs*0.15}}"/>
-      <path d="${{d}}" stroke="#0A0A0C" stroke-width="${{sw+o.fs*0.075}}"/>
-      <path d="${{d}}" stroke="{ROXO}" stroke-width="${{sw}}"/>
-      <path d="${{d}}" stroke="{CLARO}" stroke-width="${{sw*0.25}}" transform="translate(0 ${{-sw*0.2}})" opacity=.7/></g></svg>`;
+    // til gordo preenchido (mesmo acabamento das letras)
+    const k=o.fs/520, d='M-150 40 C-140 -60 -60 -90 0 -20 C40 25 80 30 110 -50 L165 -25 C150 90 60 110 0 40 C-40 -5 -80 -10 -95 65 Z';
+    const svg=`<svg style="position:absolute;z-index:5;overflow:visible;left:${{ax}}px;top:${{base-aA-o.fs*0.15}}px" width=1 height=1>
+      <defs><linearGradient id=gt x1=0 y1=-90 x2=0 y2=110 gradientUnits=userSpaceOnUse><stop offset=0 stop-color="{CLARO}"/><stop offset=.5 stop-color="{ROXO}"/><stop offset=1 stop-color="{ESCURO}"/></linearGradient></defs>
+      <g transform="scale(${{k}}) rotate(-6)" stroke-linejoin=round>
+      <path d="${{d}}" fill="{UVA}" stroke="{UVA}" stroke-width="150" transform="translate(18 21)"/>
+      <path d="${{d}}" fill="#fff" stroke="#fff" stroke-width="150"/>
+      <path d="${{d}}" fill="#0A0A0C" stroke="#0A0A0C" stroke-width="75"/>
+      <path d="${{d}}" fill="url(#gt)"/></g></svg>`;
     o.l.insertAdjacentHTML('beforeend', svg);
   }}
   // mesmo plano: gira cada camada em volta do centro da linha (sem criar camada por linha)

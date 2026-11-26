@@ -49,13 +49,14 @@ document.fonts.load('300px G').then(()=>document.fonts.ready).then(()=>{
    if(o.til){ // til grafitado à mão por cima do A
      const i=t.indexOf('A'), pre=t.slice(0,i), wpre=med(pre,fs).W, wa=med(pre+'A',fs).W, ax=(wpre+wa)/2;
      cv.font=fs+'px G'; const aA=cv.measureText('A').actualBoundingBoxAscent;
-     const w=(wa-wpre)*1.05, h=w*0.3, p=`M${-w/2} ${h*0.3} C${-w*0.32} ${-h*0.9} ${-w*0.1} ${-h*0.7} 0 0 C${w*0.1} ${h*0.7} ${w*0.32} ${h*0.9} ${w/2} ${-h*0.3}`;
-     const sw=h*0.85, chap=lay.length==1;
-     d.insertAdjacentHTML('beforeend',`<svg style="position:absolute;overflow:visible;left:${ax}px;top:${base-aA-h*0.9}px" width=1 height=1>
-      <g transform="rotate(-8)" fill=none stroke-linecap=round>${chap?`<path d="${p}" stroke="${o.cor||'#996BB3'}" stroke-width="${sw}"/>`:
-      `<path d="${p}" stroke="#3E2353" stroke-width="${sw+fs*0.15}" transform="translate(${fs*.018} ${fs*.021})"/>
-      <path d="${p}" stroke="#fff" stroke-width="${sw+fs*0.15}"/><path d="${p}" stroke="#0A0A0C" stroke-width="${sw+fs*0.075}"/>
-      <path d="${p}" stroke="#996BB3" stroke-width="${sw}"/>`}</g></svg>`);
+     const k=(wa-wpre)/330, p='M-150 40 C-140 -60 -60 -90 0 -20 C40 25 80 30 110 -50 L165 -25 C150 90 60 110 0 40 C-40 -5 -80 -10 -95 65 Z';
+     const chap=lay.length==1;
+     d.insertAdjacentHTML('beforeend',`<svg style="position:absolute;z-index:5;overflow:visible;left:${ax}px;top:${base-aA-fs*0.13}px" width=1 height=1>
+      <defs><linearGradient id=gt x1=0 y1=-90 x2=0 y2=110 gradientUnits=userSpaceOnUse><stop offset=0 stop-color="#E4CFF7"/><stop offset=.5 stop-color="#996BB3"/><stop offset=1 stop-color="#7A4C99"/></linearGradient></defs>
+      <g transform="scale(${k}) rotate(-6)" stroke-linejoin=round>${chap?`<path d="${p}" fill="#996BB3"/>`:
+      `<path d="${p}" fill="#3E2353" stroke="#3E2353" stroke-width="150" transform="translate(18 21)"/>
+      <path d="${p}" fill="#fff" stroke="#fff" stroke-width="150"/><path d="${p}" fill="#0A0A0C" stroke="#0A0A0C" stroke-width="75"/>
+      <path d="${p}" fill="url(#gt)"/>`}</g></svg>`);
    }
  });
 });
