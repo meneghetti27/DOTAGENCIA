@@ -39,11 +39,11 @@ def html(fonte, fundo=True, til=False):
 html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
 .ln{{position:absolute;left:0;top:0;font-family:G;white-space:nowrap;line-height:1;font-size:400px}}
 .ln span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
-.l1{{-webkit-text-stroke:.15em #fff;color:#fff;paint-order:stroke fill;
+.l1{{z-index:1;-webkit-text-stroke:.15em #fff;color:#fff;paint-order:stroke fill;
      filter:drop-shadow(7px 8px 0 {UVA}) drop-shadow(7px 8px 0 {UVA}) drop-shadow(6px 7px 0 {UVA}) drop-shadow(5px 6px 0 #000)}}
-.l2{{-webkit-text-stroke:.075em #0A0A0C;color:#0A0A0C;paint-order:stroke fill}}
-.l3{{background:linear-gradient(180deg,{CLARO} 0%,{ROXO} 50%,{ESCURO} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}}
-.l4{{color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.55) 0 11%,transparent 11.5%);-webkit-background-clip:text;background-clip:text;opacity:.6}}
+.l2{{z-index:2;-webkit-text-stroke:.075em #0A0A0C;color:#0A0A0C;paint-order:stroke fill}}
+.l3{{z-index:3;background:linear-gradient(180deg,{CLARO} 0%,{ROXO} 50%,{ESCURO} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}}
+.l4{{z-index:4;color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.55) 0 11%,transparent 11.5%);-webkit-background-clip:text;background-clip:text;opacity:.6}}
 .fantasma{{visibility:hidden;position:static!important;padding:0!important}}
 .ano{{position:absolute;font-family:G;font-size:170px;color:#fff;-webkit-text-stroke:.15em #0A0A0C;paint-order:stroke fill;
       filter:drop-shadow(6px 7px 0 {ROXO});transform:rotate(-5deg)}}
@@ -65,7 +65,7 @@ document.fonts.ready.then(()=>{{
   const med=(t,fs)=>{{cv.font=fs+'px G';const m=cv.measureText(t);return {{
     L:m.actualBoundingBoxLeft,R:m.actualBoundingBoxRight,A:m.actualBoundingBoxAscent,D:m.actualBoundingBoxDescent,
     FA:m.fontBoundingBoxAscent,FD:m.fontBoundingBoxDescent}};}};
-  const LARG=860, SOBRE=0.06;   // largura do desenho de cada linha e quanto uma linha encosta na outra
+  const LARG=860, SOBRE=0.0;   // largura do desenho de cada linha e quanto uma linha encosta na outra
   let info=ls.map(l=>{{const t=l.dataset.t;let m=med(t,400);const fs=400*LARG/(m.L+m.R);return {{l,t,fs,m:med(t,fs)}};}});
   let alt0=info.map(o=>o.m.A+o.m.D).reduce((a,b)=>a+b,0)*(1-SOBRE);
   const k=Math.min(1,1180/alt0);   // se ficar alto demais, encolhe tudo junto
@@ -77,7 +77,6 @@ document.fonts.ready.then(()=>{{
     const base=(fs-(m.FA+m.FD))/2+m.FA;           // linha de base dentro da caixa (line-height 1)
     l.style.top=(y-(base-m.A))+'px';
     l.style.left=(750-(m.R-m.L)/2+(+l.dataset.dx))+'px';
-    l.style.transform=`rotate(${{l.dataset.rot}}deg)`;
     y+=(m.A+m.D)*(1-SOBRE);}});
   const ano=document.getElementById('ano'), esc=document.getElementById('esc');
   const fim=y+alturas[2]*SOBRE;
@@ -89,7 +88,7 @@ document.fonts.ready.then(()=>{{
     const ax=(cvw('R')+cvw('RA'))/2, base=(o.fs-(o.m.FA+o.m.FD))/2+o.m.FA;
     cv.font=o.fs+'px G'; const aA=cv.measureText('A').actualBoundingBoxAscent;
     const w=o.fs*0.58, h=w*0.3, d=`M${{-w/2}} ${{h*0.3}} C${{-w*0.32}} ${{-h*0.9}} ${{-w*0.1}} ${{-h*0.7}} 0 0 C${{w*0.1}} ${{h*0.7}} ${{w*0.32}} ${{h*0.9}} ${{w/2}} ${{-h*0.3}}`;
-    const sw=h*0.85, svg=`<svg style="position:absolute;overflow:visible;left:${{ax}}px;top:${{base-aA-h*1.1}}px" width=1 height=1>
+    const sw=h*0.85, svg=`<svg style="position:absolute;z-index:5;overflow:visible;left:${{ax}}px;top:${{base-aA-h*1.1}}px" width=1 height=1>
       <g transform="rotate(-8)" fill=none stroke-linecap=round>
       <path d="${{d}}" stroke="{UVA}" stroke-width="${{sw+o.fs*0.15}}" transform="translate(7 8)"/>
       <path d="${{d}}" stroke="#fff" stroke-width="${{sw+o.fs*0.15}}"/>
@@ -98,6 +97,11 @@ document.fonts.ready.then(()=>{{
       <path d="${{d}}" stroke="{CLARO}" stroke-width="${{sw*0.25}}" transform="translate(0 ${{-sw*0.2}})" opacity=.7/></g></svg>`;
     o.l.insertAdjacentHTML('beforeend', svg);
   }}
+  // mesmo plano: gira cada camada em volta do centro da linha (sem criar camada por linha)
+  ls.forEach(l=>{{const f=l.querySelector('.fantasma');const ox=f.offsetWidth/2, oy=f.offsetHeight/2;
+    [...l.children].forEach(c=>{{if(c.classList.contains('fantasma'))return;
+      const cx=ox-(c.offsetLeft||0), cy=oy-(c.offsetTop||0);
+      c.style.transformOrigin=cx+'px '+cy+'px'; c.style.transform='rotate('+l.dataset.rot+'deg)';}});}});
 }});
 </script></body></html>"""
 

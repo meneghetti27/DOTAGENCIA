@@ -49,3 +49,4 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
 - Lições: medir com canvas só depois de `document.fonts.load('300px G')` (senão mede a fonte errada);
   camadas com `padding:0 .5em; left:-.5em` pro degradê cobrir a ponta de letra inclinada;
   `tools/html-to-png-exato.js` recorta a janela exata (fullPage aumentava a imagem).
+- **Mesmo plano (dono pediu):** as 3 linhas viram um adesivo só: todas as camadas brancas atrás, depois pretas, depois roxo (z-index por camada, rotação em cada camada, sem camada por linha). Nunca uma linha com contorno por cima da outra.
