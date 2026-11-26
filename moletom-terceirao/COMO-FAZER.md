@@ -55,3 +55,4 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
 Arte final em `identidade/04-graffiti_youth/` + `costas/04-graffiti_youth*.png`. Til à mão menor (0.40 da fonte), entre CEI e RÃO.
 Pendente: lista de nomes real (forro) e PDF completo.
 - Ajuste: RÃO centralizado (LINHAS dx pequenos) e til novo: forma gorda preenchida com o mesmo acabamento das letras, num respiro entre CEI e RÃO (o til de traço fino foi reprovado: "horrível").
+- **Só mexer no que o dono pediu.** TER (-5°, -15) e CEI (-3°, +15) estão aprovados; o ajuste de centro é só no RÃO (-5°, +20).

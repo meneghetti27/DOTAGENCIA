@@ -23,7 +23,7 @@ ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
     (29, "thomas_2.otf", "Bloco pesado", False),
 ]
 
-LINHAS = [("TER", -4, 0), ("CEI", -4, 0), ("RÃO", -4, 0)]  # texto, giro, deslocamento x
+LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 20)]  # texto, giro, deslocamento x
 
 
 def html(fonte, fundo=True, til=False):
