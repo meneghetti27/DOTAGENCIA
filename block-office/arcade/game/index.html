@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>HARD × BLOCK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
@@ -67,7 +68,7 @@ function spr(n,x,y,w,h){const i=IMG[n];if(i&&i.ok){cx.drawImage(i,Math.round(x),
 function txt(s,x,y,sz,c,al='center',f='Silkscreen'){cx.font=`${f==='P'?'400':'400'} ${sz}px ${f==='P'?"'Pirata One'":'Silkscreen'}`;cx.textAlign=al;cx.textBaseline='middle';cx.fillStyle='#0b0b0f';cx.fillText(s,x+1,y+1);cx.fillStyle=c;cx.fillText(s,x,y)}
 
 // ---------- estado ----------
-let st='menu',tState=0,fase=1,pontos=0,vidas=3,blocks=[],balls=[],pws=[],parts=[],fogos=[],boss=null,shake=0,luz=0,largo=0,curto=0,semPad=0,peca=0,prodShow=0,chuva=[],paused=false,speed=230,base=230,hits=0,dropShow=null,pwShow=null,tempo=0;const BR=11;
+let st='menu',tState=0,fase=1,pontos=0,vidas=3,blocks=[],balls=[],pws=[],parts=[],fogos=[],boss=null,shake=0,luz=0,largo=0,curto=0,semPad=0,peca=0,prodShow=0,chuva=[],paused=false,speed=230,base=230,hits=0,dropShow=null,pwShow=null,tempo=0;const BR=11;const DBG={pwSpawn:0,breaks:0,pick:{},padHits:0,swaps:0,deaths:0,faseT:[],stuck:0};
 const PWN={drop:'DROP DUPLO',andaime:'ANDAIME',touca:'+1 VIDA',encolhe:'ENCOLHEU!',luz:'APAGÃO!'};
 const pad={x:W/2,y:440,w:48};
 let alvoX=W/2,keys={};
@@ -101,17 +102,17 @@ function bater(o,b){
  if(o.tipo==='boss'){if(o.hit>0.15||st!=='boss')return;o.hp--;o.hit=.35;shake=5;sfx('chefe-dano');vib(30);debris({x:b.x-4,y:b.y-4,w:8,h:8},'#f4f2ea');
   if(o.hp<=0){o.ok=false;pontos+=2000;morteChefe()}return}
  o.hp--;shake=Math.max(shake,o.max>1?2:1.5);
- if(o.hp<=0){o.ok=false;pontos+=o.pts;sfx('quebra');vib(15);debris(o);if(o.tipo==='caixa'&&fase===2)dropShow={p:Math.random()*8|0,x:o.x+o.w/2,y:o.y+o.h/2,t:1.6};if(Math.random()<.3)soltaPw(o)}else sfx('duro');
+ if(o.hp<=0){o.ok=false;pontos+=o.pts;sfx('quebra');vib(15);debris(o);if(o.tipo==='caixa'&&fase===2)dropShow={p:Math.random()*8|0,x:o.x+o.w/2,y:o.y+o.h/2,t:1.6};DBG.breaks++;if(Math.random()<.3)soltaPw(o)}else sfx('duro');
 }
-function soltaPw(o){const L=['drop','drop','drop','andaime','andaime','andaime','touca','touca','encolhe','luz'],t=L[Math.random()*L.length|0];pws.push({x:o.x+o.w/2-7,y:o.y,t})}
-function pegaPw(p){pwShow={n:PWN[p.t],t:1,mal:p.t==='encolhe'||p.t==='luz'};if(p.t==='drop'){const base=balls.find(b=>!b.preso)||balls[0];for(let k=0;k<2;k++){const a=-Math.PI/2+(k?.5:-.5);balls.push({x:base.x,y:base.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,preso:false,rot:0,p:(peca+k+1)%8})}sfx('poder')}
+function soltaPw(o){const L=['drop','drop','drop','andaime','andaime','andaime','touca','touca','encolhe','luz'],t=L[Math.random()*L.length|0];DBG.pwSpawn++;pws.push({x:o.x+o.w/2-7,y:o.y,t})}
+function pegaPw(p){DBG.pick[p.t]=(DBG.pick[p.t]||0)+1;pwShow={n:PWN[p.t],t:1,mal:p.t==='encolhe'||p.t==='luz'};if(p.t==='drop'){const base=balls.find(b=>!b.preso)||balls[0];for(let k=0;k<2;k++){const a=-Math.PI/2+(k?.5:-.5);balls.push({x:base.x,y:base.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,preso:false,rot:0,p:(peca+k+1)%8})}sfx('poder')}
  if(p.t==='andaime'){largo=10;curto=0;sfx('poder')} if(p.t==='touca'){vidas=Math.min(5,vidas+1);sfx('vida')}
  if(p.t==='encolhe'){curto=8;largo=0;sfx('armadilha')} if(p.t==='luz'){luz=8;sfx('armadilha')} vib(20)}
 
 function morteChefe(){st='explode';tState=4.5;sfx('explode');mus(null);shake=10;vib([60,40,120]);balls=[];fogos=[];
  chuva=[];for(let i=0;i<40;i++)chuva.push({x:boss.x+36,y:boss.y+30,vx:(Math.random()-.5)*220,vy:-60-Math.random()*200,r:Math.random()*6,vr:(Math.random()-.5)*8,p:i%8});debris({x:boss.x,y:boss.y,w:72,h:60},'#f4f2ea');debris({x:boss.x,y:boss.y,w:72,h:60},'#c7261f')}
 
-function perdeVida(){vidas--;sfx('perdeu');vib(200);shake=6;largo=curto=luz=0;
+function perdeVida(){DBG.deaths++;vidas--;sfx('perdeu');vib(200);shake=6;largo=curto=luz=0;
  if(vidas<=0){fimDeJogo();return} novaBola()}
 
 // colisão círculo × retângulo
@@ -131,7 +132,7 @@ function passo(dt){
    // plataforma
    if(semPad<=0&&b.vy>0&&b.y+BR>=pad.y&&b.y<pad.y+padH()*.7&&b.x>pad.x-pad.w/2-6&&b.x<pad.x+pad.w/2+6){
     const rel=Math.max(-1,Math.min(1,(b.x-pad.x)/(pad.w/2+4))),a=-Math.PI/2+rel*1.05,sp=(hits++,speed=base*Math.min(1.25,1+Math.floor(hits/10)*.05));
-    b.vx=Math.cos(a)*sp;b.vy=Math.sin(a)*sp;b.y=pad.y-BR;b.p=(b.p+1)%8;peca=b.p;puff(b.x,b.y);sfx('troca');prodShow=2}
+    b.vx=Math.cos(a)*sp;b.vy=Math.sin(a)*sp;b.y=pad.y-BR;DBG.padHits++;{const o=b.p;b.p=(b.p+1)%8;if(b.p!==o)DBG.swaps++}peca=b.p;puff(b.x,b.y);sfx('troca');prodShow=2}
    for(const o of blocks)if(o.ok&&colRect(b,o)){bater(o,b);break}
    if(boss&&boss.ok&&colRect(b,boss))bater(boss,b);
   }
@@ -268,6 +269,6 @@ $('story').addEventListener('click',async()=>{const bt=$('story');bt.disabled=tr
   bt.textContent='PRONTO! POSTA AÍ'}catch(e){bt.textContent='NÃO DEU, TENTA DE NOVO'}bt.disabled=false;setTimeout(()=>bt.textContent='POSTAR NOS STORIES',3000)});
 $('denovo').addEventListener('click',()=>{fim.classList.remove('on');gesto();iniciarJogo()});
 
-window.__hxb={gameOver(){fimDeJogo(false)},next(){if(fase<2){blocks.forEach(o=>o.ok=false);if(boss)boss.ok=false;st='clear';tState=.1}else if(boss){morteChefe()}},launch:()=>acao(),state:()=>({st,fase,pontos,vidas,balls:balls.length})};
+window.__hxb={gameOver(){fimDeJogo(false)},next(){if(fase<2){blocks.forEach(o=>o.ok=false);if(boss)boss.ok=false;st='clear';tState=.1}else if(boss){morteChefe()}},launch:()=>acao(),setX(x){alvoX=x},dbg:()=>({st,fase,tempo,vidas,pontos,pad:{x:pad.x,y:pad.y,w:pad.w},balls:balls.map(b=>({x:b.x,y:b.y,vx:b.vx,vy:b.vy,preso:b.preso})),pws:pws.map(p=>({x:p.x,y:p.y,t:p.t})),fogos:fogos.map(f=>({x:f.x,y:f.y})),blocks:blocks.filter(o=>o.ok).length,boss:boss&&boss.ok?boss.hp:0,DBG}),state:()=>({st,fase,pontos,vidas,balls:balls.length})};
 })();
 </script>
