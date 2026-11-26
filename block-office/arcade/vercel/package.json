@@ -1,0 +1,1 @@
+{ "name": "hard-x-block", "private": true, "dependencies": { "@vercel/blob": "0.27.3" } }
