@@ -68,9 +68,35 @@ def bloco(w, h, nfuros, rachado=False, seed=1):
         c.r(1, h-2, 3, h-1, K1, 0); c.a[h-2:, :3, 3] = 0  # canto lascado
     return c
 
-bloco(48, 12, 2).save('paddle.png')
-bloco(72, 12, 3).save('paddle-largo.png')
-bloco(32, 12, 2).save('paddle-curto.png')
+# ---------------- PADDLE: tijolo de concreto vazado (cinder block) ----------------
+def tijolo_pad(w, h=16, nfuros=2, seed=5):
+    rnd = random.Random(seed); c = C(w, h)
+    for y in range(h):
+        for x in range(w):
+            col = K5 if (x+y*3) % 7 else K4
+            n = rnd.random()
+            if n < .14: col = K6
+            elif n < .30: col = K4
+            elif n < .36: col = K3
+            c.p(x, y, col)
+    c.r(0, 0, w-1, 0, K7); c.r(0, 1, w-1, 1, K6)          # topo claro
+    c.r(0, h-3, w-1, h-3, K3); c.r(0, h-2, w-1, h-1, K2)  # sombra embaixo
+    c.r(0, 0, 0, h-1, K6); c.r(w-1, 0, w-1, h-1, K3)
+    c.r(0, h-1, w-1, h-1, K0)
+    gap = 4; fw = (w - gap*(nfuros+1))//nfuros
+    for i in range(nfuros):
+        x0 = gap + i*(fw+gap); x1 = x0+fw-1; y0, y1 = 4, h-6
+        c.r(x0, y0, x1, y1, K0)
+        c.r(x0, y0, x1, y0+1, K1)           # sombra interna em cima
+        c.r(x0, y0, x0, y1, K1)
+        c.r(x0+1, y1, x1, y1, K2)
+        c.r(x0, y1+1, x1+1, y1+1, K7)       # aresta de baixo iluminada
+        c.r(x1+1, y0, x1+1, y1, K6)
+    c.a[0, 0, 3] = 0; c.a[0, w-1, 3] = 0
+    return c
+tijolo_pad(52, 16, 2).save('paddle.png')
+tijolo_pad(76, 16, 3).save('paddle-largo.png')
+tijolo_pad(36, 16, 2).save('paddle-curto.png')
 bloco(24, 12, 2, seed=3).save('f1-bloco.png')
 bloco(24, 12, 2, True, seed=3).save('f1-bloco-rachado.png')
 
@@ -352,22 +378,6 @@ def d_luz(c):
     c.p(9, 3, K4)
 ficha(VC, d_drop, 'pw-drop.png'); ficha(AM, d_andaime, 'pw-andaime.png'); ficha(RC, d_touca, 'pw-touca.png')
 ficha(VM, d_encolhe, 'pw-encolhe.png', True); ficha(VM, d_luz, 'pw-luz.png', True)
-def d_ima(c):  # ímã em U vermelho com pontas prata
-    for y in range(3, 9): c.p(3, y, VM); c.p(4, y, VM); c.p(9, y, VM); c.p(10, y, VM)
-    c.r(4, 9, 9, 10, VM); c.r(5, 8, 8, 8, VM); c.r(3, 2, 4, 3, K6); c.r(9, 2, 10, 3, K6); c.p(4, 5, LR)
-def d_corrente(c):  # elos da corrente da escada
-    for i, (x, y) in enumerate(((2, 8), (5, 6), (8, 4))):
-        col = K6 if i % 2 else K4
-        c.r(x, y, x+3, y, col); c.r(x, y+2, x+3, y+2, col); c.p(x, y+1, col); c.p(x+3, y+1, col)
-    c.p(11, 3, K7)
-def d_fogo(c):  # vela gótica acesa
-    c.r(5, 6, 8, 11, K7); c.r(5, 11, 8, 11, K4); c.p(6, 5, K0)
-    c.p(6, 2, AM); c.r(6, 3, 7, 4, AM); c.p(7, 2, LR); c.p(6, 1, LR); c.p(5, 7, K5)
-def d_neon(c):  # tijolo com tiros de neon
-    c.r(3, 8, 10, 10, K5); c.r(4, 9, 5, 9, K1); c.r(8, 9, 9, 9, K1)
-    for y in range(2, 7): c.p(5, y, (150, 230, 255)); c.p(8, y, (150, 230, 255))
-    c.p(5, 1, K7); c.p(8, 1, K7)
-ficha(LR, d_ima, 'pw-ima.png'); ficha(K6, d_corrente, 'pw-corrente.png'); ficha(AM, d_fogo, 'pw-fogo.png'); ficha((150, 230, 255), d_neon, 'pw-neon.png')
 
 def vida():
     c = C(10, 10)
@@ -824,15 +834,6 @@ def mini(c, x, y, ch, col):
             if F[yy][xx] == '1': c.p(x+xx, y+yy, col)
 mini(c, 2, 4, 'H', K0); mini(c, 6, 4, 'x', VM); mini(c, 16, 4, 'B', K0); mini(c, 19, 4, 'x', K1) if False else None
 c.save('t-caixa.png')
-c = C(24, 16); cartaz(c, 1, 1, 'p4.png', 21, 14, random.Random(3)) if False else None
-c = C(24, 16, (232, 226, 210)); c.r(0, 0, 23, 3, K0)
-c.r(0, 15, 23, 15, K3); c.r(23, 0, 23, 15, K3)
-pinta(c, hard_mask(22)[:3], 1, 0, K7)
-im = Image.open(os.path.join(AQ, 'pecas', 'p4.png')); im = im.resize((max(1, im.width*11//im.height), 11), Image.NEAREST); A = np.asarray(im)
-for yy in range(A.shape[0]):
-    for xx in range(A.shape[1]):
-        if A[yy, xx, 3]: c.p((24-A.shape[1])//2+xx, 4+yy, tuple(A[yy, xx, :3]))
-c.p(0, 4, VM); c.p(23, 4, VM); c.save('t-cartaz.png')
 
 # --- banner e logo collab ---
 def collab(w, h, hw, bw, bg):
