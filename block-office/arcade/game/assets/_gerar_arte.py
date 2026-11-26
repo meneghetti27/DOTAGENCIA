@@ -756,11 +756,11 @@ hm = hard_mask(110); pinta(c, hm, 38, 53-hm.shape[0]//2, K0)
 texto(c, 156, 47, 'x', VM, 2)
 blk, wht = block_mask(20); pinta(c, blk, 176, 44, K0)
 texto(c, 199, 50, 'BLOCK', K0)
-hm = hard_mask(250); g = hm  # pichação grande da HARD (spray com escorridos)
-pinta(c, g, 10, 96, K7, 110)
+hm = hard_mask(160); g = hm  # pichação grande da HARD (spray com escorridos)
+pinta(c, g, 55, 212, K6, 45)
 ys, xs = np.where(g[-1:])
 for xx in xs[::7]:
-    for k in range(random.Random(int(xx)).randrange(4, 18)): c.p(10+xx, 96+g.shape[0]+k, K7, 90)
+    for k in range(random.Random(int(xx)).randrange(4, 18)): c.p(55+xx, 212+g.shape[0]+k, K6, 35)
 cartaz(c, 4, 300, 'p2.png', 30, 44); cartaz(c, W-34, 330, 'p6.png', 30, 44)
 neon_block(c, W-44, 120, 36, (255, 120, 90)) if False else neon_block(c, W-42, 94+60, 34)
 c.save('bg2.png')
@@ -786,7 +786,7 @@ fim = xs[0]
 while fim < len(col) and col[fim]: fim += 1
 L = m[:, xs[0]:fim]; ys = np.where(L.any(1))[0]; L = L[ys[0]:ys[-1]+1]
 sc = 9/L.shape[0]; L = np.asarray(Image.fromarray((L*255).astype(np.uint8)).resize((max(1, int(L.shape[1]*sc)), 9), Image.BOX)) > 90
-pinta(c, L, (24-L.shape[1])//2, 1, K7); c.save('t-hard.png')
+pinta(c, L, (24-L.shape[1])//2, 1, K7); c.r(0,0,23,0,K5); c.r(0,11,23,11,K5); c.r(0,0,0,11,K5); c.r(23,0,23,11,K5); c.save('t-hard.png')
 c = tijolo(24, 12, K6)
 blk, wht = block_mask(13); pinta(c, blk, (24-blk.shape[1])//2, (12-blk.shape[0])//2, K0); pinta(c, wht, (24-blk.shape[1])//2, (12-blk.shape[0])//2, K7)
 c.save('t-block.png')
@@ -899,4 +899,21 @@ def folha():
         im = Image.open(os.path.join(AQ, b)); sh.paste(im, (10 + i*290, y), im)
         p = Image.open(os.path.join(AQ, 'paddle.png')); sh.paste(p, (10+i*290+111, y+440), p)
     sh.save(os.path.join(AQ, '_folha.png')); print(sh.size)
+folha()
+
+# ---------------- REVISÃO 2b: plataforma = tijolo do logo da BLOCK (16 px de altura) ----------------
+def paddle_block(w, h, nome):  # hexágono achatado preto, contorno branco grosso, vão em "C" como no logo da Block
+    c = C(w, h); ch = 5
+    def dentro(x, y, m=0):
+        return m <= y < h-m and m <= x < w-m and (x-m) + (y-m) >= ch-m*0 and (x-m) + (h-1-m-y) >= ch and (w-1-m-x) + (y-m) >= ch and (w-1-m-x) + (h-1-m-y) >= ch
+    for y in range(h):
+        for x in range(w):
+            if dentro(x, y): c.p(x, y, K7)
+            if dentro(x, y, 2): c.p(x, y, K0 if (x+y) % 7 else K1)
+    x0 = int(w*.52)  # vão em C: caixa com contorno branco aberta para a direita
+    c.r(x0, 4, w-3, h-5, K7); c.r(x0+2, 6, w-1, h-7, K0)
+    c.r(w-3, 6, w-1, h-7, K0)
+    c.r(x0-int(w*.12), 4, x0-int(w*.12)+1, h-5, K3)  # aresta da face
+    c.save(nome)
+paddle_block(52, 16, 'paddle.png'); paddle_block(76, 16, 'paddle-largo.png'); paddle_block(36, 16, 'paddle-curto.png')
 folha()
