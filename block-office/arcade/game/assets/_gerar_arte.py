@@ -791,7 +791,7 @@ c = tijolo(24, 12, K6)
 blk, wht = block_mask(13); pinta(c, blk, (24-blk.shape[1])//2, (12-blk.shape[0])//2, K0); pinta(c, wht, (24-blk.shape[1])//2, (12-blk.shape[0])//2, K7)
 c.save('t-block.png')
 c = tijolo(24, 12, (176, 128, 74))
-c.r(10, 0, 13, 11, (212, 176, 120)); c.r(1, 3, 22, 3, (140, 98, 52), 120)
+c.r(10, 0, 12, 11, (212, 176, 120)); c.r(1, 3, 22, 3, (140, 98, 52), 120)
 texto(c, 1, 3, 'H', K0) if False else None
 for i, ch in enumerate('HxB'): pass
 def mini(c, x, y, ch, col):
@@ -799,7 +799,7 @@ def mini(c, x, y, ch, col):
     for yy in range(5):
         for xx in range(3):
             if F[yy][xx] == '1': c.p(x+xx, y+yy, col)
-mini(c, 2, 4, 'H', K0); mini(c, 6, 4, 'x', VM); mini(c, 15, 4, 'B', K0); mini(c, 19, 4, 'x', K1) if False else None
+mini(c, 2, 4, 'H', K0); mini(c, 6, 4, 'x', VM); mini(c, 16, 4, 'B', K0); mini(c, 19, 4, 'x', K1) if False else None
 c.save('t-caixa.png')
 c = C(24, 16); cartaz(c, 1, 1, 'p4.png', 21, 14, random.Random(3)) if False else None
 c = C(24, 16, (232, 226, 210)); c.r(0, 0, 23, 3, K0)
@@ -827,9 +827,57 @@ c = collab(270, 36, 150, 34, K0)
 c.r(0, 0, 269, 0, VM); c.r(0, 35, 269, 35, VM)
 for xx in range(0, 270, 6): c.p(xx, 2, K3); c.p(xx+3, 33, K3)
 c.save('banner.png')
-c = collab(240, 90, 150, 56, None)
+c = collab(240, 90, 136, 50, None)
 a = c.a; outline(a, K0); outline(a, K0)
 c.save('logo-collab.png')
+
+
+# ---------------- velas góticas ----------------
+CERA, CERA2, CH1, CH2 = (240, 236, 222), (196, 190, 176), (255, 236, 160), LR
+def vela(c, x, y, h, fr=0, halo=True):  # x = centro, y = base
+    if halo:
+        for yy in range(-14, 15):
+            for xx in range(-14, 15):
+                d = math.hypot(xx, yy*1.1)/14
+                if d < 1 and (1-d)*.9 > BAYER[(y+yy) % 4, (x+xx) % 4]: c.p(x+xx, y-h-4+yy, (255, 150, 60), int(70*(1-d)))
+    c.r(x-2, y-h, x+1, y, CERA); c.r(x+1, y-h, x+1, y, CERA2)
+    c.r(x-3, y-h, x+2, y-h, CERA)
+    for k, dx in enumerate((-3, 2, -1)):
+        L = 2 + (h*(k+1)) % 5
+        c.r(x+dx, y-h, x+dx, y-h+L, CERA if dx < 1 else CERA2)
+    c.p(x, y-h-1, K0)
+    fl = [(0, -2), (0, -3), (0, -4), (-1, -2), (1, -2), (0, -5) if fr == 0 else (1, -5), (0, -6) if fr == 0 else (-1, -4)]
+    for dx, dy in fl: c.p(x+dx, y-h+dy-1, CH2)
+    c.p(x, y-h-3, CH1); c.p(x, y-h-4, CH1)
+def castical(c, x, y, h=10):
+    c.r(x-4, y+1, x+3, y+2, K0); c.r(x-1, y-1, x, y, K0); c.r(x-3, y-2, x+2, y-2, K0)
+    vela(c, x, y-3, h)
+def candelabro(c, cx, y, larg=30, hv=9):
+    c.r(cx-1, y, cx, y+40, K0); c.r(cx-6, y+40, cx+5, y+42, K0); c.r(cx-3, y+20, cx+2, y+22, K0)
+    for t in range(-larg, larg+1):
+        yy = y + int(10*(t/larg)**2) * -1 + 10
+        c.p(cx+t, yy, K0); c.p(cx+t, yy+1, K0)
+    for t in (-larg, -larg//2, 0, larg//2, larg):
+        yy = y + 10 - int(10*(t/larg)**2)
+        c.r(cx+t-2, yy-2, cx+t+2, yy-1, K0); vela(c, cx+t, yy-3, hv+(0 if t else 4))
+def pendente(c, cx, y, r=22):  # lustre de ferro pendurado
+    for yy in range(0, y): c.p(cx, yy, K0)
+    for t in range(-r, r+1): c.p(cx+t, y+abs(t)//4, K0); c.p(cx+t, y+1+abs(t)//4, K0)
+    for t in range(-r, r+1, r//2): vela(c, cx+t, y-1+abs(t)//4, 7)
+for i in (1, 2):
+    c = C(10, 20); c.r(2, 18, 7, 19, K0); c.r(4, 16, 5, 17, K0); c.r(3, 15, 6, 15, K0)
+    vela(c, 5, 14, 7, i-1, halo=False); c.save(f'vela-{i}.png')
+c = carrega('bg1.png'); castical(c, 50, 398, 12); castical(c, 60, 398, 7); castical(c, 222, 398, 10)
+candelabro(c, 236, 220, 14, 7); c.save('bg1.png')
+c = carrega('bg2.png')
+for x in range(16, W, 50): castical(c, x, 69, 6 + x % 3*2)  # velas no parapeito do mezanino
+castical(c, 20, 398, 12); castical(c, 250, 398, 9); castical(c, 240, 398, 5); c.save('bg2.png')
+c = carrega('bg3.png')
+pendente(c, 135, 92, 30)
+candelabro(c, 26, 330, 18, 8); candelabro(c, W-26, 320, 18, 8)
+for x in (6, 64, 200, 262): c.r(x-8, 270 + (x % 7), x+8, 272 + (x % 7), K0); castical(c, x, 268 + (x % 7), 6 + x % 4)  # prateleiras
+for x in range(10, W, 23): castical(c, x, 404, 5 + (x*7) % 9)
+c.save('bg3.png')
 
 # ---------------- folha de contato ----------------
 def folha():

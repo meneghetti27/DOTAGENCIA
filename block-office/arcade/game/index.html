@@ -10,7 +10,7 @@ body{font-family:Silkscreen,monospace;-webkit-user-select:none;user-select:none}
 #cv{display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none;cursor:none}
 #mute{position:absolute;top:calc(37/480*100%);right:4px;z-index:5;background:rgba(11,11,15,.8);color:#f4f2ea;border:2px solid #55555f;font:700 11px Silkscreen,monospace;padding:1px 6px;cursor:pointer}
 #fim .lc{width:min(240px,70%);image-rendering:pixelated;margin-top:4px}
-#fim{position:absolute;inset:0;z-index:4;display:none;flex-direction:column;align-items:center;overflow-y:auto;background:rgba(11,11,15,.88);padding:14px 16px 20px;box-sizing:border-box;text-align:center}
+#fim{position:absolute;inset:0;z-index:4;display:none;flex-direction:column;align-items:center;overflow-y:auto;background:rgba(11,11,15,.72);padding:14px 16px 20px;box-sizing:border-box;text-align:center}
 #fim.on{display:flex}
 #fim h1{font:400 44px/1 'Pirata One',serif;margin:6px 0 2px;letter-spacing:1px}
 #fim h1 b{color:#f0662a;font-weight:400}
@@ -57,7 +57,7 @@ const A=()=>window.HXB_AUDIO;
 const sfx=n=>{try{A()?.sfx?.(n)}catch(e){}}, mus=n=>{try{A()?.musica?.(n)}catch(e){}};
 const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
 const PROD=[["MOLETOM REVOLTA","R$408"],["MOLETOM ENTIDADES","R$408"],["CAMISETA REVOLTA","R$161,50"],["CAMISETA VENENO","R$161,50"],["JAQUETA ARTEFATO M.C","R$807,50"],["CALÇA DILACERADO","R$552,50"],["RAGLAN VENENO 3/4","R$212,50"],["BABY TEE AMULETO","R$110,50"]];
-const COR={bg1:'#34343d',bg2:'#5a4a12',bg3:'#2a0d10',paddle:'#a6a6ae','paddle-largo':'#a6a6ae','paddle-curto':'#a6a6ae','f1-bloco':'#7b7b86','f1-bloco-rachado':'#55555f','f1-arara':'#f0662a','f1-placa':'#f4f2ea','f2-assento':'#1d1d24','f2-guarda':'#a6a6ae','f2-guarda-torto':'#7b7b86','f2-moto':'#ffc23d','f2-moto-dano':'#f0662a','f3-cupula':'#a77be0','f3-cupula-acesa':'#d4b8ff','f3-caveira-1':'#f4f2ea','f3-caveira-2':'#d4d4d8','f3-caveira-dano':'#c7261f','f3-fogo':'#f0662a','pw-drop':'#6fd16a','pw-andaime':'#ffc23d','pw-touca':'#a77be0','pw-encolhe':'#c7261f','pw-luz':'#34343d',vida:'#c7261f',puff1:'#d4d4d8',puff2:'#a6a6ae',puff3:'#7b7b86','t-hard':'#0b0b0f','t-block':'#d4d4d8','t-caixa':'#a8743a','t-cartaz':'#c7261f',banner:'#1d1d24','logo-collab':'#f4f2ea'};
+const COR={bg1:'#34343d',bg2:'#5a4a12',bg3:'#2a0d10',paddle:'#a6a6ae','paddle-largo':'#a6a6ae','paddle-curto':'#a6a6ae','f1-bloco':'#7b7b86','f1-bloco-rachado':'#55555f','f1-arara':'#f0662a','f1-placa':'#f4f2ea','f2-assento':'#1d1d24','f2-guarda':'#a6a6ae','f2-guarda-torto':'#7b7b86','f2-moto':'#ffc23d','f2-moto-dano':'#f0662a','f3-cupula':'#a77be0','f3-cupula-acesa':'#d4b8ff','f3-caveira-1':'#f4f2ea','f3-caveira-2':'#d4d4d8','f3-caveira-dano':'#c7261f','f3-fogo':'#f0662a','pw-drop':'#6fd16a','pw-andaime':'#ffc23d','pw-touca':'#a77be0','pw-encolhe':'#c7261f','pw-luz':'#34343d',vida:'#c7261f',puff1:'#d4d4d8',puff2:'#a6a6ae',puff3:'#7b7b86','t-hard':'#0b0b0f','t-block':'#d4d4d8','t-caixa':'#a8743a','t-cartaz':'#c7261f',banner:'#1d1d24','logo-collab':'#f4f2ea','vela-1':'#ffc23d','vela-2':'#f0662a'};
 const IMG={};
 const names=[...Object.keys(COR),'logo-hard','logo-block',...[1,2,3,4,5,6,7,8].map(i=>'pecas/p'+i)];
 names.forEach(n=>{const i=new Image();i.onload=()=>i.ok=true;i.src='assets/'+n+'.png';IMG[n]=i;});
@@ -94,7 +94,8 @@ function nivel(n){blocks=[];boss=null;const ox=15;
 function novaBola(){balls=[{x:pad.x,y:pad.y-12,vx:0,vy:0,preso:true,rot:0,p:peca}]}
 function iniciarJogo(){fase=1;pontos=0;vidas=3;peca=0;largo=curto=luz=semPad=0;comecarFase()}
 function comecarFase(){nivel(fase);pws=[];fogos=[];parts=[];base=speed=[0,230,260,290][fase];hits=0;dropShow=null;novaBola();st='intro';tState=2.2;sfx('fase');mus('fase'+fase);prodShow=0}
-function padW(){return largo>0?72:curto>0?32:(fase===1?56:48)}
+function padW(){const i=IMG[padImg()];if(i&&i.ok&&i.naturalWidth)return i.naturalWidth;return largo>0?76:curto>0?36:52}
+function padH(){const i=IMG[padImg()];return i&&i.ok&&i.naturalHeight?i.naturalHeight:16}
 function padImg(){return largo>0?'paddle-largo':curto>0?'paddle-curto':'paddle'}
 
 function lancar(){for(const b of balls)if(b.preso){b.preso=false;const a=-Math.PI/2+(Math.random()-.5)*.6;b.vx=Math.cos(a)*speed;b.vy=Math.sin(a)*speed}}
@@ -134,7 +135,7 @@ function passo(dt){
   for(let s=0;s<n;s++){b.x+=b.vx*dt/n;b.y+=b.vy*dt/n;
    if(b.x<BR){b.x=BR;b.vx=Math.abs(b.vx);sfx('rebate')}if(b.x>W-BR){b.x=W-BR;b.vx=-Math.abs(b.vx);sfx('rebate')}if(b.y<50+BR){b.y=50+BR;b.vy=Math.abs(b.vy);sfx('rebate')}
    // plataforma
-   if(semPad<=0&&b.vy>0&&b.y+BR>=pad.y&&b.y<pad.y+8&&b.x>pad.x-pad.w/2-6&&b.x<pad.x+pad.w/2+6){
+   if(semPad<=0&&b.vy>0&&b.y+BR>=pad.y&&b.y<pad.y+padH()*.7&&b.x>pad.x-pad.w/2-6&&b.x<pad.x+pad.w/2+6){
     const rel=Math.max(-1,Math.min(1,(b.x-pad.x)/(pad.w/2+4))),a=-Math.PI/2+rel*1.05,sp=(hits++,speed=base*Math.min(1.25,1+Math.floor(hits/10)*.05));
     b.vx=Math.cos(a)*sp;b.vy=Math.sin(a)*sp;b.y=pad.y-BR;b.p=(b.p+1)%8;peca=b.p;puff(b.x,b.y);sfx('troca');prodShow=2}
    for(const o of blocks)if(o.ok&&colRect(b,o)){bater(o,b);break}
@@ -172,13 +173,14 @@ function drawBall(b,x,y,r,p,sz){const n='pecas/p'+(p+1),i=IMG[n];cx.save();cx.tr
  if(i&&i.ok){const h=sz||40,w=i.width*h/i.height;cx.drawImage(i,-w/2,-h/2,w,h)}else{const k=(sz||40)/40;cx.scale(k,k);cx.fillStyle=PCOR[p];cx.fillRect(-15,-20,30,40);cx.strokeStyle='#f4f2ea';cx.lineWidth=1;cx.strokeRect(-14.5,-19.5,29,39);cx.fillStyle='#f4f2ea';cx.font='8px Silkscreen';cx.textAlign='center';cx.textBaseline='middle';cx.fillText(p+1,0,0)}cx.restore()}
 function draw(){cx.save();if(shake>0)cx.translate((Math.random()-.5)*shake|0,(Math.random()-.5)*shake|0);
  const bg='bg'+(st==='menu'?1:fase);spr(bg,0,0,W,H);
- if(st==='menu'){drawMenu();cx.restore();return}
+ if(st==='menu'){drawMenu();velas('menu');cx.restore();return}
+ velas(st==='fim'?'menu':fase);
  for(const o of blocks)if(o.ok){const im=(o.img2&&o.hp<o.max&&(o.tipo!=='cupula'))?o.img2:(o.tipo==='cupula'&&(performance.now()/400+o.x/20|0)%5===0?o.img2:o.img);spr(im,o.x,o.y,o.w,o.h);if(o.tipo==='placa'&&!IMG['f1-placa'].ok)txt('349',o.x+18,o.y+7,9,'#0b0b0f')}
  if(boss&&boss.ok){const im=boss.hit>0?'f3-caveira-dano':((boss.t*3|0)%2?'f3-caveira-2':'f3-caveira-1');spr(im,boss.x,boss.y,72,60);
   cx.fillStyle='#1d1d24';cx.fillRect(boss.x+6,boss.y-7,60,4);cx.fillStyle='#c7261f';cx.fillRect(boss.x+6,boss.y-7,60*boss.hp/12,4)}
  for(const f of fogos)spr('f3-fogo',f.x-4,f.y,8,12);
  for(const p of pws)spr('pw-'+p.t,p.x,p.y,14,14);
- if(semPad<=0||(performance.now()/80|0)%2)spr(padImg(),pad.x-pad.w/2,pad.y,pad.w,12);
+ if(semPad<=0||(performance.now()/80|0)%2)spr(padImg(),pad.x-pad.w/2,pad.y,pad.w,padH());
  for(const b of balls)drawBall(b,b.x,b.y,b.rot,b.p);
  for(const c of chuva)drawBall(c,c.x,c.y,c.r,c.p);
  for(const p of parts){if(p.puff){const k=Math.min(2,p.t/.12|0);spr('puff'+(k+1),p.x-10,p.y-10,20,20)}else{cx.fillStyle=p.c;cx.fillRect(p.x|0,p.y|0,p.s,p.s)}}
@@ -191,6 +193,10 @@ function draw(){cx.save();if(shake>0)cx.translate((Math.random()-.5)*shake|0,(Ma
  if(paused){cx.fillStyle='rgba(11,11,15,.7)';cx.fillRect(0,0,W,H);txt('PAUSADO',W/2,240,14,'#f4f2ea')}
  if(st==='playing'||st==='boss'){if(balls.some(b=>b.preso))txt('TOQUE PRA LANÇAR',W/2,400,8,'#d4d4d8')}
 }
+const VEL={1:[[3,160],[257,160],[3,300],[257,300]],2:[[3,130],[257,130],[3,250],[257,250],[3,370],[257,370]],3:[[3,100],[257,100],[3,190],[257,190],[3,280],[257,280],[3,370],[257,370],[14,410],[246,410]],menu:[[60,150],[200,150],[40,190],[220,190],[76,240],[184,240]]};
+function velas(k){const t=performance.now()/1000;for(const[x,y]of VEL[k]||[]){const f=Math.sin(t*9+x*.7+y)*.5+Math.sin(t*23+y)*.3,q=((t*6+x+y)|0)%2;
+ cx.save();cx.globalCompositeOperation='lighter';const g=cx.createRadialGradient(x+5,y+3,0,x+5,y+3,16+f*2);g.addColorStop(0,'rgba(255,150,40,.45)');g.addColorStop(1,'rgba(255,90,20,0)');cx.fillStyle=g;cx.fillRect(x-14,y-16,38,38);cx.restore();
+ const i=IMG['vela-'+(q+1)];if(i&&i.ok)cx.drawImage(i,x,Math.round(y+f*.6),10,20);else{cx.fillStyle='#d4d4d8';cx.fillRect(x+3,y+8,4,12);cx.fillStyle=q?'#ffc23d':'#f0662a';cx.fillRect(x+4,Math.round(y+3+f),2,5)}}}
 function logoC(x,y,w){const i=IMG['logo-collab'];if(i&&i.ok){const h=i.height*w/i.width;cx.drawImage(i,x-w/2|0,y-h/2|0,w|0,h|0);return true}txt('HARD × BLOCK',x,y,26,'#f4f2ea','center','P');return false}
 function hud(){const bi=IMG.banner;if(bi&&bi.ok)cx.drawImage(bi,0,0,W,36);else{cx.fillStyle='#1d1d24';cx.fillRect(0,0,W,36);txt('HARD × BLOCK',W/2,18,24,'#f4f2ea','center','P')}
  cx.fillStyle='rgba(11,11,15,.85)';cx.fillRect(0,36,W,14);txt(String(pontos).padStart(5,'0'),6,43,10,'#ffc23d','left');
