@@ -54,8 +54,8 @@ document.fonts.load('300px G').then(()=>document.fonts.ready).then(()=>{
      d.insertAdjacentHTML('beforeend',`<svg style="position:absolute;z-index:5;overflow:visible;left:${ax}px;top:${base-aA-fs*0.13}px" width=1 height=1>
       <defs><linearGradient id=gt x1=0 y1=-90 x2=0 y2=110 gradientUnits=userSpaceOnUse><stop offset=0 stop-color="#E4CFF7"/><stop offset=.5 stop-color="#996BB3"/><stop offset=1 stop-color="#7A4C99"/></linearGradient></defs>
       <g transform="scale(${k}) rotate(-6)" stroke-linejoin=round>${chap?`<path d="${p}" fill="#996BB3"/>`:
-      `<path d="${p}" fill="#3E2353" stroke="#3E2353" stroke-width="150" transform="translate(18 21)"/>
-      <path d="${p}" fill="#fff" stroke="#fff" stroke-width="150"/><path d="${p}" fill="#0A0A0C" stroke="#0A0A0C" stroke-width="75"/>
+      `<path d="${p}" fill="#3E2353" stroke="#3E2353" stroke-width="78" transform="translate(18 21)"/>
+      <path d="${p}" fill="#fff" stroke="#fff" stroke-width="78"/><path d="${p}" fill="#0A0A0C" stroke="#0A0A0C" stroke-width="39"/>
       <path d="${p}" fill="url(#gt)"/>`}</g></svg>`);
    }
  });

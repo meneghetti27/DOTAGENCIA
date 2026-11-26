@@ -23,7 +23,7 @@ ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
     (29, "thomas_2.otf", "Bloco pesado", False),
 ]
 
-LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 0)]  # texto, giro, deslocamento x
+LINHAS = [("TER", -4, 0), ("CEI", -4, 0), ("RÃO", -4, 0)]  # texto, giro, deslocamento x
 
 
 def html(fonte, fundo=True, til=False):
@@ -93,9 +93,9 @@ document.fonts.ready.then(()=>{{
     const svg=`<svg style="position:absolute;z-index:5;overflow:visible;left:${{ax}}px;top:${{base-aA-o.fs*0.15}}px" width=1 height=1>
       <defs><linearGradient id=gt x1=0 y1=-90 x2=0 y2=110 gradientUnits=userSpaceOnUse><stop offset=0 stop-color="{CLARO}"/><stop offset=.5 stop-color="{ROXO}"/><stop offset=1 stop-color="{ESCURO}"/></linearGradient></defs>
       <g transform="scale(${{k}}) rotate(-6)" stroke-linejoin=round>
-      <path d="${{d}}" fill="{UVA}" stroke="{UVA}" stroke-width="150" transform="translate(18 21)"/>
-      <path d="${{d}}" fill="#fff" stroke="#fff" stroke-width="150"/>
-      <path d="${{d}}" fill="#0A0A0C" stroke="#0A0A0C" stroke-width="75"/>
+      <path d="${{d}}" fill="{UVA}" stroke="{UVA}" stroke-width="78" transform="translate(18 21)"/>
+      <path d="${{d}}" fill="#fff" stroke="#fff" stroke-width="78"/>
+      <path d="${{d}}" fill="#0A0A0C" stroke="#0A0A0C" stroke-width="39"/>
       <path d="${{d}}" fill="url(#gt)"/></g></svg>`;
     o.l.insertAdjacentHTML('beforeend', svg);
   }}
