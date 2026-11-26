@@ -37,15 +37,17 @@ V = [  # (amp, grossa, ondas, ponta, forma, larg, incl, giro, junta, recheio)
  (60,70,1,"redonda","bolha",300,0,-3,"round",B), (50,85,1,"redonda","curva",280,0,-6,"round",G), (25,55,1,"redonda","curva",340,0,-3,"round",G),
  (45,45,1,"seta","zigue",340,0,-6,"miter",G), (50,60,1,"gota","bolha",300,0,-8,"round",G), (40,50,2,"fina","curva",380,0,-4,"round",G),
 ]
-ims = []
-for i, (a, g, o, pt, fo, lg, inc, rot, j, fill) in enumerate(V, 1):
-    costas.TIL_D = faixa(a, g, o, pt, fo, lg, inc); costas.TIL_ROT, costas.TIL_JOIN, costas.TIL_FILL = rot, j, fill
-    h = P / f"_{i}.html"; h.write_text(costas.html("graffiti_youth.otf", True, True))
-    png = P / f"{i:02d}.png"; costas.render(h, png); h.unlink(); ims.append(png)
-ft = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 44)
-c = Image.new("RGB", (6 * 400, 5 * 400), "#0A0A0C")
-for k, p in enumerate(ims):   # recorte no miolo (CEI / til / RÃO) pra ver o til grande
-    im = Image.open(p).convert("RGB").crop((250, 450, 1250, 1450)).resize((400, 400))
-    ImageDraw.Draw(im).text((10, 6), f"{k+1:02d}", font=ft, fill="#FFD84D")
-    c.paste(im, ((k % 6) * 400, (k // 6) * 400))
-c.save(P / "todos.jpg", quality=85)
+if __name__ == "__main__":
+    ims = []
+    for i, (a, g, o, pt, fo, lg, inc, rot, j, fill) in enumerate(V, 1):
+        costas.TIL_D = faixa(a, g, o, pt, fo, lg, inc); costas.TIL_ROT, costas.TIL_JOIN, costas.TIL_FILL = rot, j, fill
+        h = P / f"_{i}.html"; h.write_text(costas.html("graffiti_youth.otf", True, True))
+        png = P / f"{i:02d}.png"; costas.render(h, png); h.unlink(); ims.append(png)
+    ft = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 44)
+    c = Image.new("RGB", (6 * 400, 5 * 400), "#0A0A0C")
+    for k, p in enumerate(ims):   # recorte no miolo (CEI / til / RÃO) pra ver o til grande
+        im = Image.open(p).convert("RGB").crop((250, 450, 1250, 1450)).resize((400, 400))
+        ImageDraw.Draw(im).text((10, 6), f"{k+1:02d}", font=ft, fill="#FFD84D")
+        c.paste(im, ((k % 6) * 400, (k // 6) * 400))
+    c.save(P / "todos.jpg", quality=85)
+    

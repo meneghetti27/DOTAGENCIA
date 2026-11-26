@@ -25,7 +25,8 @@ ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
 
 GAP = 0.02
 TIL_D = 'M-150 40 C-140 -60 -60 -90 0 -20 C40 25 80 30 110 -50 L165 -25 C150 90 60 110 0 40 C-40 -5 -80 -10 -95 65 Z'
-TIL_ROT, TIL_JOIN, TIL_FILL = -6, 'round', 'url(#gt)'  # respiro extra entre CEI e RÃO (fração da fonte)
+TIL_ROT, TIL_JOIN, TIL_FILL = -6, 'round', 'url(#gt)'
+TIL_ESC = 1.0  # respiro extra entre CEI e RÃO (fração da fonte)
 LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 140)]  # texto, giro, deslocamento x
 
 
@@ -92,7 +93,7 @@ document.fonts.ready.then(()=>{{
     const ax=(cvw('R')+cvw('RA'))/2, base=(o.fs-(o.m.FA+o.m.FD))/2+o.m.FA;
     cv.font=o.fs+'px G'; const aA=cv.measureText('A').actualBoundingBoxAscent;
     // til gordo preenchido (mesmo acabamento das letras)
-    const k=o.fs/520, d='{TIL_D}';
+    const k=o.fs/520*{TIL_ESC}, d='{TIL_D}';
     const svg=`<svg style="position:absolute;z-index:5;overflow:visible;left:${{ax}}px;top:${{base-aA-o.fs*0.15}}px" width=1 height=1>
       <defs><linearGradient id=gt x1=0 y1=-90 x2=0 y2=110 gradientUnits=userSpaceOnUse><stop offset=0 stop-color="{CLARO}"/><stop offset=.5 stop-color="{ROXO}"/><stop offset=1 stop-color="{ESCURO}"/></linearGradient></defs>
       <g transform="scale(${{k}}) rotate({TIL_ROT})" stroke-linejoin={TIL_JOIN}>
