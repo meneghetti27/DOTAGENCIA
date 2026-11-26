@@ -29,4 +29,13 @@ mas com nome, arte e sons 100% originais: nada do BlackBerry).
 - A peça **troca a cada batida na plataforma** (puff de fumaça); parede/alvo não troca. Hitbox circular igual pra todas.
 - **Produtos em pixel art** (pedido do dono: JPEG não combina): `arcade/sprites/gerar_sprites.py` recorta, reduz a 48/64 px, paleta de 16 cores,
   contorno claro (peças pretas sumiam no fundo escuro) e usa o lado com a estampa mais forte. Prévia: `arcade/sprites/previa.png`.
-- Sem resposta (usar padrão, confirmar): ranking só com apelido; sem prêmio por enquanto; "VER O DROP" leva à peça que mais pontuou; textos em inglês arcade.
+
+## Decisões finais (26/11, 2ª rodada) — é um JOGO PROMOCIONAL pra divulgar o drop
+- Nome no jogo: **HARD × BLOCK**. Textos em **português**. Pixel **16-bit detalhado**; fonte gótica pixelada nos títulos + pixel clássica nos números.
+- Ranking **só geral**, com o **@ do Instagram** (avisar que fica público). Sem prêmio por enquanto.
+- Botão final leva pra **coleção inteira**: https://blockoffice.com.br/search/?q=hardxblock
+- **Card pros Stories** (9:16, pixel art, score + peça + logos, marcando @block.office e @hardjeanssanto).
+- Poderes: **Drop** (multi-peça), **Andaime** (plataforma larga), **Touca** (vida extra). Armadilhas: **plataforma encolhe**, **luz apaga**.
+- Tela inicial: **logos Hard × Block piscando** + "APERTE PRA COMEÇAR". Vibração curta no Android.
+- Louis **não aparece**. Partida de **3 a 5 min**. Caveira morre → **explode em chuva das 8 peças** → tela de pontuação.
+- Publicar **primeiro como artifact pra teste**; Vercel (link próprio, ranking público) só depois do ok.
