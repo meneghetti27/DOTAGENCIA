@@ -62,3 +62,4 @@ Pendente: lista de nomes real (forro) e PDF completo.
 ## PDF editável (Illustrator)
 `python3 exportar_pdf.py` (o PDF do cairosvg abre EM BRANCO no Illustrator: usar o PDF do Chromium via `tools/svg-to-pdf.js`, + SVG e EPS) → `pdf/terceirao-costas-editavel.pdf` (1 página por til: 30 a 72%, 26 a 85%) + SVGs. Tudo vetor (letras em contorno via harfbuzz+fontTools, posições lidas do layout do navegador), grupos por camada; strokes editáveis; fundo preto num grupo pra apagar.
 - Favoritos do 2027 salvos em `costas/ano-favoritos/`: 40 estilos nº25 (à direita) e nº30 (27 grande), e emendado nº25. Nenhum fechado ainda.
+- Favorito do dono no ano: emendado nº25. Testando o "40 estilos 25" menor em 30 posições: `costas/ano25-menor/`.
