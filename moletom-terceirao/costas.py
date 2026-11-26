@@ -129,7 +129,11 @@ document.fonts.ready.then(()=>{{
     [...d.children].forEach(c=>{{if(c.classList.contains('fantasma'))return;
       c.style.transformOrigin=(w/2-c.offsetLeft)+'px '+(h/2-c.offsetTop)+'px'; c.style.transform='rotate('+AI.rot+'deg)';
       if(AI.cor=='branco'&&c.classList.contains('l3')){{c.style.background='none';c.style.color='#fff';}}
-      if(AI.cor=='branco'&&c.classList.contains('l4'))c.style.display='none';}});
+      if(AI.cor=='branco'&&c.classList.contains('l4'))c.style.display='none';
+      if(AI.cor=='meio'&&c.classList.contains('l3')){{c.style.background='linear-gradient(180deg,#fff 0 52%,#996BB3 52% 100%)';c.style.webkitBackgroundClip='text';c.style.backgroundClip='text';}}
+      if(AI.cor=='lilas'&&c.classList.contains('l3')){{c.style.background='linear-gradient(180deg,#fff,#E4CFF7 60%,#C9A8E6)';c.style.webkitBackgroundClip='text';c.style.backgroundClip='text';}}
+      if(AI.cor=='preto'&&c.classList.contains('l3')){{c.style.background='none';c.style.color='#0A0A0C';}}
+      if(AI.cor=='preto'&&c.classList.contains('l2')){{c.style.webkitTextStroke='.075em #996BB3';c.style.color='#996BB3';}}}});
     const db=d.querySelector('.l1').getBoundingClientRect();
     E.style.top=(Math.max(db.bottom,R.bottom)+AI.esc_dy)+'px';
     E.style.left=(750-E.offsetWidth/2+40)+'px';
