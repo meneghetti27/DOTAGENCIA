@@ -425,7 +425,9 @@ def sprite(path, Hh):
     h = Hh-2; w = max(1, round(a.shape[1]*h/a.shape[0]))
     small = np.asarray(Image.fromarray(a.astype(np.uint8)).resize((w, h), Image.LANCZOS)).astype(int)
     ms = np.asarray(Image.fromarray((m*255).astype(np.uint8)).resize((w, h), Image.BOX)) > 110
-    d = ((small[:, :, None, :]-pal[None, None])**2).sum(3); q = pal[d.argmin(2)]
+    from PIL import ImageEnhance
+    si = Image.fromarray(small.astype(np.uint8)); si = ImageEnhance.Contrast(si).enhance(1.35); si = ImageEnhance.Color(si).enhance(1.3)
+    q = np.asarray(si.quantize(14, method=Image.MEDIANCUT, dither=Image.NONE).convert('RGB')).astype(int)
     out = np.zeros((h+2, w+2, 4), np.uint8); out[1:-1, 1:-1, :3] = q; out[1:-1, 1:-1, 3] = ms*255
     mm = out[..., 3] > 0; cont = nd.binary_dilation(mm) & ~mm; out[cont] = [244, 242, 234, 255]
     bi = mm & ~nd.binary_erosion(mm); out[bi & (out[..., :3].sum(2) < 120)] = [85, 85, 95, 255]
@@ -433,7 +435,7 @@ def sprite(path, Hh):
 LADO = {'01': '02', '02': '02', '03': '02', '04': '02', '05': '02', '07': '02'}
 for i, d in enumerate(sorted(glob.glob(os.path.join(ARC, 'drop', '0*')))):
     k = os.path.basename(d)[:2]
-    sprite(os.path.join(d, f"foto-{LADO.get(k, '01')}.webp"), 26).save(os.path.join(AQ, 'pecas', f'p{i+1}.png'))
+    sprite(os.path.join(d, f"foto-{LADO.get(k, '01')}.webp"), 40).save(os.path.join(AQ, 'pecas', f'p{i+1}.png'))
 
 # ---------------- fundos 270x480 ----------------
 W, HH = 270, 480
@@ -662,6 +664,172 @@ def bg3():
     escurece_centro(c, .3, 120, 400)
     c.save('bg3.png')
 bg1(); bg2(); bg3()
+# ---------------- REVISÃO 2: marcas BLOCK x HARD JEANS SANTO ----------------
+_HM = None
+def hard_mask(w):
+    global _HM
+    if _HM is None:
+        a = np.asarray(Image.open(os.path.join(ARC, 'marca', 'hard-jeans-santo.jpg')).convert('L')) > 128
+        ys, xs = np.where(a); _HM = a[ys.min():ys.max()+1, xs.min():xs.max()+1]
+    h = max(1, round(_HM.shape[0]*w/_HM.shape[1]))
+    return np.asarray(Image.fromarray((_HM*255).astype(np.uint8)).resize((w, h), Image.BOX)) > 100
+_BM = None
+def block_mask(w):  # devolve (preto=corpo do bloco, branco=furos/faces)
+    global _BM
+    if _BM is None: _BM = Image.open(os.path.join(ARC, 'marca', 'block-logo.webp')).convert('RGBA')
+    h = max(1, round(_BM.height*w/_BM.width))
+    sm = np.asarray(_BM.resize((w, h), Image.BOX)).astype(int)
+    al = sm[..., 3] > 120; lum = sm[..., :3].mean(2)
+    return al & (lum < 128), al & (lum >= 128)
+FONT = {  # 5x7
+ 'H':"10001 10001 10001 11111 10001 10001 10001",'A':"01110 10001 10001 11111 10001 10001 10001",
+ 'R':"11110 10001 10001 11110 10100 10010 10001",'D':"11110 10001 10001 10001 10001 10001 11110",
+ 'B':"11110 10001 10001 11110 10001 10001 11110",'L':"10000 10000 10000 10000 10000 10000 11111",
+ 'O':"01110 10001 10001 10001 10001 10001 01110",'C':"01110 10001 10000 10000 10000 10001 01110",
+ 'K':"10001 10010 10100 11000 10100 10010 10001",'x':"00000 10001 01010 00100 01010 10001 00000",
+ '3':"11110 00001 00001 01110 00001 00001 11110",'4':"00010 00110 01010 10010 11111 00010 00010",
+ '9':"01110 10001 10001 01111 00001 00010 01100",'P':"11110 10001 10001 11110 10000 10000 10000",
+ ' ':"00000 00000 00000 00000 00000 00000 00000",'N':"10001 11001 10101 10011 10001 10001 10001",
+ 'E':"11111 10000 10000 11110 10000 10000 11111",'S':"01111 10000 10000 01110 00001 00001 11110",
+ 'T':"11111 00100 00100 00100 00100 00100 00100",'.':"00000 00000 00000 00000 00000 00000 00100"}
+def texto(c, x, y, t, col, esc=1, a=255):
+    for ch in t:
+        g = FONT[ch].split()
+        for yy in range(7):
+            for xx in range(5):
+                if g[yy][xx] == '1': c.r(x+xx*esc, y+yy*esc, x+xx*esc+esc-1, y+yy*esc+esc-1, col, a)
+        x += 6*esc
+    return x
+def tw(t, esc=1): return len(t)*6*esc - esc
+def pinta(c, m, x, y, col, a=255):
+    ys, xs = np.where(m)
+    for yy, xx in zip(ys, xs): c.p(x+xx, y+yy, col, a)
+def brilho(c, m, x, y, col, raio=3, a=70):
+    d = nd.distance_transform_edt(~np.pad(m, raio))
+    ys, xs = np.where((d > 0) & (d <= raio))
+    for yy, xx in zip(ys, xs):
+        t = 1-d[yy, xx]/(raio+1)
+        if t > BAYER[yy % 4, xx % 4]*.8: c.p(x+xx-raio, y+yy-raio, col, int(a*t))
+def neon_block(c, x, y, w, col=(150, 230, 255)):
+    blk, wht = block_mask(w)
+    borda = blk & ~nd.binary_erosion(blk)
+    brilho(c, borda, x, y, col, 4, 90); pinta(c, blk, x, y, K0, 200); pinta(c, borda, x, y, col)
+    pinta(c, borda & (np.add.outer(np.arange(blk.shape[0]), np.arange(blk.shape[1])) % 5 == 0), x, y, (255, 255, 255))
+def lambe(c, x, y, w, h, papel=(226, 220, 204), rnd=random.Random(5)):
+    for yy in range(h):
+        for xx in range(w):
+            col = papel if rnd.random() > .08 else mix(papel, K4, .4)
+            c.p(x+xx, y+yy, col)
+    for k in range(w//3): c.p(x+rnd.randrange(w), y+h-1, K2)  # rasgos
+    c.r(x+w, y+1, x+w, y+h, K0, 140); c.r(x+1, y+h, x+w, y+h, K0, 140)
+def cartaz(c, x, y, peca, w=34, h=50, rnd=random.Random(7)):
+    lambe(c, x, y, w, h, (232, 226, 210), rnd)
+    c.r(x, y, x+w-1, y+8, K0)
+    m = hard_mask(w-4); pinta(c, m[:7], x+2, y+1, K7)
+    im = Image.open(os.path.join(AQ, 'pecas', peca)); sc = (h-20)/im.height
+    im = im.resize((max(1, int(im.width*sc)), h-20), Image.NEAREST); A = np.asarray(im)
+    ox = x + (w-im.width)//2
+    for yy in range(im.height):
+        for xx in range(im.width):
+            if A[yy, xx, 3] > 0: c.p(ox+xx, y+10+yy, tuple(A[yy, xx, :3]))
+    texto(c, x+(w-tw('349'))//2, y+h-8, '349', VM)
+    c.r(x-1, y-1, x+3, y+1, (220, 210, 170), 200); c.r(x+w-4, y-1, x+w, y+1, (220, 210, 170), 200)
+def carrega(n): return C.__new__(C) if False else _de(Image.open(os.path.join(AQ, n)).convert('RGBA'))
+def _de(im):
+    c = C(im.width, im.height); c.a = np.array(im); return c
+
+# --- fundos ---
+c = carrega('bg1.png')  # O SALÃO DA BLOCK
+neon_block(c, 12, 44, 46)
+texto(c, 12, 84, 'BLOCK', (150, 230, 255)); brilho(c, np.ones((7, 29), bool), 12, 84, (150, 230, 255), 2, 40)
+x = W-58; c.r(x-2, 40, x+50, 58, K0); c.r(x-2, 40, x+50, 40, K4)
+texto(c, x+3, 43, '349', (255, 90, 70), 2); brilho(c, np.ones((14, 34), bool), x+3, 43, VM, 3, 50)
+cartaz(c, 4, 150, 'p1.png'); cartaz(c, W-38, 140, 'p3.png'); cartaz(c, W-40, 200, 'p5.png', 34, 46)
+m = hard_mask(76); pinta(c, m, 2, 330, K7, 150)   # lambe da HARD na parede, embaixo da arara
+m = hard_mask(70); pinta(c, m, W-72, 300, K6, 120)
+c.save('bg1.png')
+
+c = carrega('bg2.png')  # HARD NA PAREDE
+c.r(30, 42, W-31, 64, K0); c.r(31, 43, W-32, 63, (236, 232, 220))   # faixa no mezanino
+for xx in range(30, W-30, 4): c.p(xx, 64+(xx//4) % 2, K0)
+hm = hard_mask(110); pinta(c, hm, 38, 53-hm.shape[0]//2, K0)
+texto(c, 156, 47, 'x', VM, 2)
+blk, wht = block_mask(20); pinta(c, blk, 176, 44, K0)
+texto(c, 199, 50, 'BLOCK', K0)
+hm = hard_mask(250); g = hm  # pichação grande da HARD (spray com escorridos)
+pinta(c, g, 10, 96, K7, 110)
+ys, xs = np.where(g[-1:])
+for xx in xs[::7]:
+    for k in range(random.Random(int(xx)).randrange(4, 18)): c.p(10+xx, 96+g.shape[0]+k, K7, 90)
+cartaz(c, 4, 300, 'p2.png', 30, 44); cartaz(c, W-34, 330, 'p6.png', 30, 44)
+neon_block(c, W-44, 120, 36, (255, 120, 90)) if False else neon_block(c, W-42, 94+60, 34)
+c.save('bg2.png')
+
+c = carrega('bg3.png')  # INFERNO SANTO
+hm = hard_mask(230)
+brilho(c, hm, 20, 8, LR, 4, 110); pinta(c, hm, 20, 8, (255, 220, 150))
+pinta(c, hm & np.roll(hm, -2, 0) == False, 20, 8, VM) if False else None
+yy = np.arange(hm.shape[0])[:, None]
+pinta(c, hm & (yy > hm.shape[0]*.6), 20, 8, LR)
+neon_block(c, 6, 300, 30, (255, 150, 90)); neon_block(c, W-36, 280, 30, (255, 150, 90))
+cartaz(c, 4, 200, 'p7.png', 28, 42); cartaz(c, W-32, 190, 'p8.png', 28, 42)
+x = (W-tw('HARD x BLOCK'))//2; texto(c, x, 64, 'HARD x BLOCK', (255, 200, 120), 1, 220)
+c.save('bg3.png')
+
+# --- alvos ---
+def tijolo(w, h, base):
+    c = C(w, h, base); c.r(0, 0, w-1, 0, mix(base, K7, .25)); c.r(0, h-1, w-1, h-1, mix(base, K0, .5))
+    c.r(0, 0, 0, h-1, mix(base, K7, .15)); c.r(w-1, 0, w-1, h-1, mix(base, K0, .5)); return c
+c = tijolo(24, 12, K1)
+m = hard_mask(80); col = m.any(0); xs = np.where(col)[0]
+fim = xs[0]
+while fim < len(col) and col[fim]: fim += 1
+L = m[:, xs[0]:fim]; ys = np.where(L.any(1))[0]; L = L[ys[0]:ys[-1]+1]
+sc = 9/L.shape[0]; L = np.asarray(Image.fromarray((L*255).astype(np.uint8)).resize((max(1, int(L.shape[1]*sc)), 9), Image.BOX)) > 90
+pinta(c, L, (24-L.shape[1])//2, 1, K7); c.save('t-hard.png')
+c = tijolo(24, 12, K6)
+blk, wht = block_mask(13); pinta(c, blk, (24-blk.shape[1])//2, (12-blk.shape[0])//2, K0); pinta(c, wht, (24-blk.shape[1])//2, (12-blk.shape[0])//2, K7)
+c.save('t-block.png')
+c = tijolo(24, 12, (176, 128, 74))
+c.r(10, 0, 13, 11, (212, 176, 120)); c.r(1, 3, 22, 3, (140, 98, 52), 120)
+texto(c, 1, 3, 'H', K0) if False else None
+for i, ch in enumerate('HxB'): pass
+def mini(c, x, y, ch, col):
+    F = {'H': "101 101 111 101 101", 'B': "110 101 110 101 110", 'x': "000 101 010 101 000"}[ch].split()
+    for yy in range(5):
+        for xx in range(3):
+            if F[yy][xx] == '1': c.p(x+xx, y+yy, col)
+mini(c, 2, 4, 'H', K0); mini(c, 6, 4, 'x', VM); mini(c, 15, 4, 'B', K0); mini(c, 19, 4, 'x', K1) if False else None
+c.save('t-caixa.png')
+c = C(24, 16); cartaz(c, 1, 1, 'p4.png', 21, 14, random.Random(3)) if False else None
+c = C(24, 16, (232, 226, 210)); c.r(0, 0, 23, 3, K0)
+c.r(0, 15, 23, 15, K3); c.r(23, 0, 23, 15, K3)
+pinta(c, hard_mask(22)[:3], 1, 0, K7)
+im = Image.open(os.path.join(AQ, 'pecas', 'p4.png')); im = im.resize((max(1, im.width*11//im.height), 11), Image.NEAREST); A = np.asarray(im)
+for yy in range(A.shape[0]):
+    for xx in range(A.shape[1]):
+        if A[yy, xx, 3]: c.p((24-A.shape[1])//2+xx, 4+yy, tuple(A[yy, xx, :3]))
+c.p(0, 4, VM); c.p(23, 4, VM); c.save('t-cartaz.png')
+
+# --- banner e logo collab ---
+def collab(w, h, hw, bw, bg):
+    c = C(w, h, bg) if bg else C(w, h)
+    hm = hard_mask(hw); blk, wht = block_mask(bw)
+    xw = 14 if h < 50 else 22
+    tot = hw + 10 + xw + 10 + bw; x0 = (w-tot)//2
+    pinta(c, hm, x0, (h-hm.shape[0])//2, K7)
+    xx = x0+hw+10; e = 2 if h < 50 else 3
+    texto(c, xx + (xw-5*e)//2, (h-7*e)//2, 'x', VM, e)
+    bx = xx+xw+10; by = (h-blk.shape[0])//2
+    pinta(c, blk, bx, by, K7); pinta(c, wht, bx, by, K1)
+    return c
+c = collab(270, 36, 150, 34, K0)
+c.r(0, 0, 269, 0, VM); c.r(0, 35, 269, 35, VM)
+for xx in range(0, 270, 6): c.p(xx, 2, K3); c.p(xx+3, 33, K3)
+c.save('banner.png')
+c = collab(240, 90, 150, 56, None)
+a = c.a; outline(a, K0); outline(a, K0)
+c.save('logo-collab.png')
 
 # ---------------- folha de contato ----------------
 def folha():
