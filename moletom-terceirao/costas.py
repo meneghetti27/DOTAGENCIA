@@ -35,7 +35,7 @@ LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 140)]  # texto, giro, 
 
 def html(fonte, fundo=True, til=False):
     LN = [(t.replace('Ã', 'A') if til else t, r, dx) for t, r, dx in LINHAS]
-    ANO_HTML = (f'<div class="ano anoL" id=ano><span class=fantasma>{ANO_TXT}</span>' + ''.join(f'<span class={c}>{ANO_TXT}</span>' for c in ('l1','l2','l3','l4')) + '</div>') if ANO_ESTILO == 'letras' else f'<div class=ano id=ano>{ANO_TXT}</div>'
+    ANO_HTML = (f'<div class="ano anoL{" anoB" if ANO_ESTILO == "letras-branco" else ""}" id=ano><span class=fantasma>{ANO_TXT}</span>' + ''.join(f'<span class={c}>{ANO_TXT}</span>' for c in ('l1','l2','l3','l4')) + '</div>') if ANO_ESTILO in ('letras', 'letras-branco') else f'<div class=ano id=ano>{ANO_TXT}</div>'
     camadas = lambda t: "".join(f'<span class="{c}">{t}</span>' for c in ("l1", "l2", "l3", "l4"))
     linhas = "".join(
         f'<div class=ln data-t="{t}" data-rot="{r}" data-dx="{dx}"><span class=fantasma>{t}</span>{camadas(t)}</div>'
@@ -49,6 +49,7 @@ html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
 .ln{{position:absolute;left:0;top:0;font-family:G;white-space:nowrap;line-height:1;font-size:400px}}
 .ln span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
 .anoL{{color:transparent!important;-webkit-text-stroke:0!important;filter:none!important;line-height:1;white-space:nowrap}}
+.anoB .l3{{background:none!important;color:#FFFFFF!important}} .anoB .l4{{display:none}}
 .anoL span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
 .l1{{z-index:1;-webkit-text-stroke:.15em #fff;color:#fff;paint-order:stroke fill;
      filter:drop-shadow(7px 8px 0 {UVA}) drop-shadow(7px 8px 0 {UVA}) drop-shadow(6px 7px 0 {UVA}) drop-shadow(5px 6px 0 #000)}}
