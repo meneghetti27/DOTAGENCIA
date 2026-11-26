@@ -50,3 +50,7 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
   camadas com `padding:0 .5em; left:-.5em` pro degradê cobrir a ponta de letra inclinada;
   `tools/html-to-png-exato.js` recorta a janela exata (fullPage aumentava a imagem).
 - **Mesmo plano (dono pediu):** as 3 linhas viram um adesivo só: todas as camadas brancas atrás, depois pretas, depois roxo (z-index por camada, rotação em cada camada, sem camada por linha). Nunca uma linha com contorno por cima da outra.
+
+## ✅ ESCOLHIDA: 04 Bloco gordo (graffiti_youth.otf)
+Arte final em `identidade/04-graffiti_youth/` + `costas/04-graffiti_youth*.png`. Til à mão menor (0.40 da fonte), entre CEI e RÃO.
+Pendente: lista de nomes real (forro) e PDF completo.

@@ -87,7 +87,7 @@ document.fonts.ready.then(()=>{{
     const o=info[2], cvw=t=>{{cv.font=o.fs+'px G';return cv.measureText(t).width;}};
     const ax=(cvw('R')+cvw('RA'))/2, base=(o.fs-(o.m.FA+o.m.FD))/2+o.m.FA;
     cv.font=o.fs+'px G'; const aA=cv.measureText('A').actualBoundingBoxAscent;
-    const w=o.fs*0.58, h=w*0.3, d=`M${{-w/2}} ${{h*0.3}} C${{-w*0.32}} ${{-h*0.9}} ${{-w*0.1}} ${{-h*0.7}} 0 0 C${{w*0.1}} ${{h*0.7}} ${{w*0.32}} ${{h*0.9}} ${{w/2}} ${{-h*0.3}}`;
+    const w=o.fs*0.40, h=w*0.32, d=`M${{-w/2}} ${{h*0.3}} C${{-w*0.32}} ${{-h*0.9}} ${{-w*0.1}} ${{-h*0.7}} 0 0 C${{w*0.1}} ${{h*0.7}} ${{w*0.32}} ${{h*0.9}} ${{w/2}} ${{-h*0.3}}`;
     const sw=h*0.85, svg=`<svg style="position:absolute;z-index:5;overflow:visible;left:${{ax}}px;top:${{base-aA-h*1.1}}px" width=1 height=1>
       <g transform="rotate(-8)" fill=none stroke-linecap=round>
       <path d="${{d}}" stroke="{UVA}" stroke-width="${{sw+o.fs*0.15}}" transform="translate(7 8)"/>

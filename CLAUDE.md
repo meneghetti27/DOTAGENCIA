@@ -94,7 +94,7 @@ As regras de fundo escuro / League Gothic / Anton deste arquivo valem **só para
 
 ## MOLETOM TERCEIRÃO (cliente do dono, NÃO segue as cores da dot)
 Tudo em **`moletom-terceirao/`**, receita em `moletom-terceirao/COMO-FAZER.md`. **Moletom preto**; roxo `#996BB3` = cor das artes. Fazer **identidade visual (gráficos)**, sem mockup no moletom.
-Turma quer **grafite (não pixação)**, referências só de letra, **sem animal**. Artes geradas em vetor por `gerar.py`.
+Turma quer **grafite (não pixação)**, referências só de letra, **sem animal**. **Letra escolhida: 04 Bloco gordo (graffiti_youth)**, kit em `moletom-terceirao/identidade/04-graffiti_youth/`.
 
 ## A agência
 
