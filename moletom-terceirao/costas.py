@@ -23,7 +23,8 @@ ESCOLHIDAS = [  # (número do modelo, fonte, nome, til à mão)
     (29, "thomas_2.otf", "Bloco pesado", False),
 ]
 
-LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 20)]  # texto, giro, deslocamento x
+GAP = 0.20  # respiro extra entre CEI e RÃO (fração da fonte)
+LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 140)]  # texto, giro, deslocamento x
 
 
 def html(fonte, fundo=True, til=False):
@@ -78,7 +79,7 @@ document.fonts.ready.then(()=>{{
     const base=(fs-(m.FA+m.FD))/2+m.FA;           // linha de base dentro da caixa (line-height 1)
     l.style.top=(y-(base-m.A))+'px';
     l.style.left=(750-(m.R-m.L)/2+(+l.dataset.dx))+'px';
-    y+=(m.A+m.D)*(1-SOBRE)+(i==1&&TIL?info[2].fs*0.20:0);}});
+    y+=(m.A+m.D)*(1-SOBRE)+(i==1&&TIL?info[2].fs*{GAP}:0);}});
   const ano=document.getElementById('ano'), esc=document.getElementById('esc');
   const fim=y+alturas[2]*SOBRE;
   const ar=ano.getBoundingClientRect(), er=esc.getBoundingClientRect();

@@ -56,3 +56,4 @@ Arte final em `identidade/04-graffiti_youth/` + `costas/04-graffiti_youth*.png`.
 Pendente: lista de nomes real (forro) e PDF completo.
 - Ajuste: RÃO centralizado (LINHAS dx pequenos) e til novo: forma gorda preenchida com o mesmo acabamento das letras, num respiro entre CEI e RÃO (o til de traço fino foi reprovado: "horrível").
 - **Só mexer no que o dono pediu.** TER (-5°, -15) e CEI (-3°, +15) estão aprovados; o ajuste de centro é só no RÃO (-5°, +20).
+- RÃO posição aprovada: 12 das 20 (dx 140). Espaçamento CEI↔RÃO: 20 opções em `costas/rao-espaco/` (GAP 0.00–0.38, passo 0.02) aguardando escolha.
