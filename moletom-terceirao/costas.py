@@ -3,7 +3,7 @@
 uso: python3 costas.py [arquivo-da-fonte ...]  -> costas/<n>-<fonte>.png (1500x1800, fundo preto)
                                                  + costas/<n>-<fonte>-transparente.png (pra estampa)
 """
-import subprocess, sys
+import json, subprocess, sys
 from pathlib import Path
 from PIL import Image
 
@@ -29,7 +29,8 @@ TIL_ROT, TIL_JOIN, TIL_FILL = -6, 'round', 'url(#gt)'
 TIL_ESC = 1.0
 ANO_FONTE, ANO_TAM = None, 170  # fonte e tamanho do 2027
 ANO_ESTILO = 'branco'  # 'branco' ou 'letras' (mesmo acabamento roxo das letras)
-ANO_TXT = '2027'  # respiro extra entre CEI e RÃO (fração da fonte)
+ANO_TXT = '2027'
+ANO_INT = None  # dict(txt, fam 'G'|'A', tam, ax, ay, rot, cor 'roxo'|'branco', esc_dy): ano no mesmo plano do adesivo  # respiro extra entre CEI e RÃO (fração da fonte)
 LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 140)]  # texto, giro, deslocamento x
 
 
@@ -116,6 +117,23 @@ document.fonts.ready.then(()=>{{
     [...l.children].forEach(c=>{{if(c.classList.contains('fantasma'))return;
       const cx=ox-(c.offsetLeft||0), cy=oy-(c.offsetTop||0);
       c.style.transformOrigin=cx+'px '+cy+'px'; c.style.transform='rotate('+l.dataset.rot+'deg)';}});}});
+  const AI={json.dumps(ANO_INT) if ANO_INT else 'null'};
+  if(AI){{ document.getElementById('ano').style.display='none';
+    const R=ls[2].getBoundingClientRect(), E=document.getElementById('esc');
+    const d=document.createElement('div'); d.className='ln'; d.style.fontFamily=AI.fam; d.style.fontSize=AI.tam+'px';
+    const lay=['l1','l2','l3','l4'];
+    d.innerHTML='<span class=fantasma>'+AI.txt+'</span>'+lay.map(c=>'<span class='+c+'>'+AI.txt+'</span>').join('');
+    document.body.appendChild(d);
+    const f=d.querySelector('.fantasma'), w=f.offsetWidth, h=f.offsetHeight;
+    d.style.left=(R.left+R.width*AI.ax-w/2)+'px'; d.style.top=(R.bottom-h*0.5+AI.ay)+'px';
+    [...d.children].forEach(c=>{{if(c.classList.contains('fantasma'))return;
+      c.style.transformOrigin=(w/2-c.offsetLeft)+'px '+(h/2-c.offsetTop)+'px'; c.style.transform='rotate('+AI.rot+'deg)';
+      if(AI.cor=='branco'&&c.classList.contains('l3')){{c.style.background='none';c.style.color='#fff';}}
+      if(AI.cor=='branco'&&c.classList.contains('l4'))c.style.display='none';}});
+    const db=d.querySelector('.l1').getBoundingClientRect();
+    E.style.top=(Math.max(db.bottom,R.bottom)+AI.esc_dy)+'px';
+    E.style.left=(750-E.offsetWidth/2+40)+'px';
+  }}
   // layout pra exportar em vetor (exportar_pdf.py)
   const L=ls.map((l,i)=>{{const o=info[i];const f=l.querySelector('.fantasma');
     const base=(o.fs-(o.m.FA+o.m.FD))/2+o.m.FA;
