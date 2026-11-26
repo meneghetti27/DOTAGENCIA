@@ -27,12 +27,15 @@ GAP = 0.02
 TIL_D = 'M-150 40 C-140 -60 -60 -90 0 -20 C40 25 80 30 110 -50 L165 -25 C150 90 60 110 0 40 C-40 -5 -80 -10 -95 65 Z'
 TIL_ROT, TIL_JOIN, TIL_FILL = -6, 'round', 'url(#gt)'
 TIL_ESC = 1.0
-ANO_FONTE, ANO_TAM = None, 170  # fonte e tamanho do 2027  # respiro extra entre CEI e RÃO (fração da fonte)
+ANO_FONTE, ANO_TAM = None, 170  # fonte e tamanho do 2027
+ANO_ESTILO = 'branco'  # 'branco' ou 'letras' (mesmo acabamento roxo das letras)
+ANO_TXT = '2027'  # respiro extra entre CEI e RÃO (fração da fonte)
 LINHAS = [("TER", -5, -15), ("CEI", -3, 15), ("RÃO", -5, 140)]  # texto, giro, deslocamento x
 
 
 def html(fonte, fundo=True, til=False):
     LN = [(t.replace('Ã', 'A') if til else t, r, dx) for t, r, dx in LINHAS]
+    ANO_HTML = (f'<div class="ano anoL" id=ano><span class=fantasma>{ANO_TXT}</span>' + ''.join(f'<span class={c}>{ANO_TXT}</span>' for c in ('l1','l2','l3','l4')) + '</div>') if ANO_ESTILO == 'letras' else f'<div class=ano id=ano>{ANO_TXT}</div>'
     camadas = lambda t: "".join(f'<span class="{c}">{t}</span>' for c in ("l1", "l2", "l3", "l4"))
     linhas = "".join(
         f'<div class=ln data-t="{t}" data-rot="{r}" data-dx="{dx}"><span class=fantasma>{t}</span>{camadas(t)}</div>'
@@ -45,6 +48,8 @@ def html(fonte, fundo=True, til=False):
 html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
 .ln{{position:absolute;left:0;top:0;font-family:G;white-space:nowrap;line-height:1;font-size:400px}}
 .ln span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
+.anoL{{color:transparent!important;-webkit-text-stroke:0!important;filter:none!important;line-height:1;white-space:nowrap}}
+.anoL span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
 .l1{{z-index:1;-webkit-text-stroke:.15em #fff;color:#fff;paint-order:stroke fill;
      filter:drop-shadow(7px 8px 0 {UVA}) drop-shadow(7px 8px 0 {UVA}) drop-shadow(6px 7px 0 {UVA}) drop-shadow(5px 6px 0 #000)}}
 .l2{{z-index:2;-webkit-text-stroke:.075em #0A0A0C;color:#0A0A0C;paint-order:stroke fill}}
@@ -58,7 +63,7 @@ html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
      clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%)}}
 </style></head><body>
 {linhas}
-<div class=ano id=ano>2027</div><div class=esc id=esc>MÃE DE DEUS</div>
+{ANO_HTML}<div class=esc id=esc>MÃE DE DEUS</div>
 <i class=st style="--s:90px;--c:#fff;left:120px;top:250px"></i>
 <i class=st style="--s:60px;--c:{ROXO};left:1310px;top:200px"></i>
 <i class=st style="--s:70px;--c:#fff;left:1330px;top:1000px"></i>
