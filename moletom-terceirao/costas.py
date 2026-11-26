@@ -108,6 +108,17 @@ document.fonts.ready.then(()=>{{
     [...l.children].forEach(c=>{{if(c.classList.contains('fantasma'))return;
       const cx=ox-(c.offsetLeft||0), cy=oy-(c.offsetTop||0);
       c.style.transformOrigin=cx+'px '+cy+'px'; c.style.transform='rotate('+l.dataset.rot+'deg)';}});}});
+  // layout pra exportar em vetor (exportar_pdf.py)
+  const L=ls.map((l,i)=>{{const o=info[i];const f=l.querySelector('.fantasma');
+    const base=(o.fs-(o.m.FA+o.m.FD))/2+o.m.FA;
+    return {{t:l.querySelector('.l3').textContent,fs:o.fs,x:parseFloat(l.style.left),y:parseFloat(l.style.top),base,
+      rot:+l.dataset.rot,ox:f.offsetWidth/2,oy:f.offsetHeight/2,
+      til:(()=>{{const sv=l.querySelector('svg');return sv?{{x:parseFloat(sv.style.left),y:parseFloat(sv.style.top)}}:null}})()}};}});
+  const an=document.getElementById('ano'), es=document.getElementById('esc');
+  cv.font='170px G'; const ma=cv.measureText('2027');
+  document.body.dataset.layout=JSON.stringify({{linhas:L,
+    ano:{{x:an.offsetLeft,y:an.offsetTop,w:an.offsetWidth,h:an.offsetHeight,FA:ma.fontBoundingBoxAscent,FD:ma.fontBoundingBoxDescent}},
+    esc:{{x:es.offsetLeft,y:es.offsetTop,w:es.offsetWidth,h:es.offsetHeight}}}});
 }});
 </script></body></html>"""
 

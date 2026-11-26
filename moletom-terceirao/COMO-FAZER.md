@@ -58,3 +58,6 @@ Pendente: lista de nomes real (forro) e PDF completo.
 - **Só mexer no que o dono pediu.** TER (-5°, -15) e CEI (-3°, +15) estão aprovados; o ajuste de centro é só no RÃO (-5°, +20).
 - RÃO posição aprovada: 12 das 20 (dx 140). Espaçamento CEI↔RÃO: 20 opções em `costas/rao-espaco/` (GAP 0.00–0.38, passo 0.02) aguardando escolha.
 - Espaço CEI↔RÃO aprovado: opção 2 (GAP 0.02). Tils: 30 opções em `costas/tils/` (`tils.py`, lista V), aguardando escolha.
+
+## PDF editável (Illustrator)
+`python3 exportar_pdf.py` → `pdf/terceirao-costas-editavel.pdf` (1 página por til: 30 a 72%, 26 a 85%) + SVGs. Tudo vetor (letras em contorno via harfbuzz+fontTools, posições lidas do layout do navegador), grupos por camada; strokes editáveis; fundo preto num grupo pra apagar.
