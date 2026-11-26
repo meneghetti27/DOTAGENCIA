@@ -80,11 +80,11 @@ function mk(x,y,w,h,tipo,hp,pts,img,img2){return{x,y,w,h,tipo,hp,max:hp,pts,img,
 function nivel(n){blocks=[];boss=null;const ox=15;
  if(n===1){blocks.push(mk(4,64,48,28,'moto',4,250,'f2-moto','f2-moto-dano'));blocks.push(mk(W-52,64,48,28,'moto',4,250,'f2-moto','f2-moto-dano'));
   palavra('HARD',(W-156)/2,58,12,9,4,(x,y,w,h)=>blocks.push(mk(x,y,w-1,h-1,'thard',1,75,'t-hard')));
-  for(let r=0;r<4;r++)for(let c=0;c<10;c++){const y=112+r*13,x=ox+c*24;
+  for(let r=0;r<3;r++)for(let c=0;c<10;c++){const y=112+r*13,x=ox+c*24;
    if(r%2===0)blocks.push(mk(x,y,24,12,'guarda',2,100,'f2-guarda','f2-guarda-torto'));else if((c+r)%3)blocks.push(mk(x,y,24,12,'assento',1,50,'f2-assento'));else blocks.push(mk(x,y,24,12,'caixa',1,50,'t-caixa'))}}
  if(n===2){for(let c=0;c<10;c++){const k=c%3,y=130+(c%2?2:0);blocks.push(k===1?mk(ox+c*24,y,24,12,'caixa',1,50,'t-caixa'):k===0?mk(ox+c*24,y,24,12,'thard',2,150,'t-hard'):mk(ox+c*24,y,24,12,'tblock',2,150,'t-block'))}
   for(let r=1;r<2;r++)for(let c=0;c<12;c++)blocks.push(c%5===2&&r===1?mk(15+c*20,152+r*16,20,14,'caixa',1,50,'t-caixa'):mk(15+c*20,152+r*16,20,14,'cupula',1,50,'f3-cupula','f3-cupula-acesa'));
-  boss={x:W/2-36,y:62,w:72,h:60,hp:8,vx:40,t:0,hit:0,cd:2,ok:true,tipo:'boss'}}
+  boss={x:W/2-36,y:62,w:72,h:60,hp:14,max:14,vx:40,t:0,hit:0,cd:2,ok:true,tipo:'boss'}}
 }
 function novaBola(){balls=[{x:pad.x,y:pad.y-12,vx:0,vy:0,preso:true,rot:0,p:peca}]}
 function iniciarJogo(){tempo=0;fase=1;pontos=0;vidas=3;peca=0;largo=curto=luz=semPad=0;comecarFase()}
@@ -104,7 +104,7 @@ function bater(o,b){
  o.hp--;shake=Math.max(shake,o.max>1?2:1.5);
  if(o.hp<=0){o.ok=false;pontos+=o.pts;sfx('quebra');vib(15);debris(o);if(o.tipo==='caixa'&&fase===2)dropShow={p:Math.random()*8|0,x:o.x+o.w/2,y:o.y+o.h/2,t:1.6};DBG.breaks++;if(Math.random()<.3)soltaPw(o)}else sfx('duro');
 }
-function soltaPw(o){const L=['drop','drop','drop','andaime','andaime','andaime','touca','touca','encolhe','luz'],t=L[Math.random()*L.length|0];DBG.pwSpawn++;pws.push({x:o.x+o.w/2-7,y:o.y,t})}
+function soltaPw(o){const L=['drop','drop','drop','andaime','andaime','andaime','touca','encolhe','luz'],t=L[Math.random()*L.length|0];DBG.pwSpawn++;pws.push({x:o.x+o.w/2-7,y:o.y,t})}
 function pegaPw(p){DBG.pick[p.t]=(DBG.pick[p.t]||0)+1;pwShow={n:PWN[p.t],t:1,mal:p.t==='encolhe'||p.t==='luz'};if(p.t==='drop'){const base=balls.find(b=>!b.preso)||balls[0];for(let k=0;k<2;k++){const a=-Math.PI/2+(k?.5:-.5);balls.push({x:base.x,y:base.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,preso:false,rot:0,p:(peca+k+1)%8})}sfx('poder')}
  if(p.t==='andaime'){largo=10;curto=0;sfx('poder')} if(p.t==='touca'){vidas=Math.min(5,vidas+1);sfx('vida')}
  if(p.t==='encolhe'){curto=8;largo=0;sfx('armadilha')} if(p.t==='luz'){luz=8;sfx('armadilha')} vib(20)}
@@ -144,8 +144,8 @@ function passo(dt){
  // poderes
  for(const p of pws){p.y+=70*dt;if(p.y+14>=pad.y&&p.y<pad.y+12&&p.x+14>pad.x-pad.w/2&&p.x<pad.x+pad.w/2){p.done=1;pegaPw(p)}}pws=pws.filter(p=>!p.done&&p.y<H);
  // chefe
- if(boss&&boss.ok){boss.t+=dt;boss.hit=Math.max(0,boss.hit-dt);const sp=45+(8-boss.hp)*7;boss.x+=Math.sign(boss.vx)*sp*dt;if(boss.x<8){boss.x=8;boss.vx=1}if(boss.x>W-80){boss.x=W-80;boss.vx=-1}
-  boss.cd-=dt;if(boss.cd<=0){boss.cd=1.3+Math.random()*1.4-(8-boss.hp)*.08;const fx=boss.x+36,fy=boss.y+52,dx=pad.x-fx,dy=pad.y-fy,d=Math.hypot(dx,dy);fogos.push({x:fx,y:fy,vx:dx/d*110,vy:dy/d*110});sfx('fogo')}
+ if(boss&&boss.ok){boss.t+=dt;boss.hit=Math.max(0,boss.hit-dt);const sp=45+(boss.max-boss.hp)*4;boss.x+=Math.sign(boss.vx)*sp*dt;if(boss.x<8){boss.x=8;boss.vx=1}if(boss.x>W-80){boss.x=W-80;boss.vx=-1}
+  boss.cd-=dt;if(boss.cd<=0){boss.cd=1.3+Math.random()*1.4-(boss.max-boss.hp)*.05;const fx=boss.x+36,fy=boss.y+52,dx=pad.x-fx,dy=pad.y-fy,d=Math.hypot(dx,dy);fogos.push({x:fx,y:fy,vx:dx/d*110,vy:dy/d*110});sfx('fogo')}
   if(st==='playing'&&!blocks.some(o=>o.ok)){} }
  for(const f of fogos){f.x+=f.vx*dt;f.y+=f.vy*dt;if(semPad<=0&&f.y+12>=pad.y&&f.y<pad.y+12&&f.x+8>pad.x-pad.w/2&&f.x<pad.x+pad.w/2){f.done=1;semPad=1;shake=4;vib(80);sfx('armadilha')}}fogos=fogos.filter(f=>!f.done&&f.y<H);
  // fim de fase
@@ -160,7 +160,7 @@ function update(dt){shake=Math.max(0,shake-dt*20);prodShow=Math.max(0,prodShow-d
  if(st==='menu'||st==='fim'){tState+=dt;return}
  if(st==='intro'){tState-=dt;passoPad(dt);if(tState<=0)st=(fase===2?'boss':'playing'),fase===2&&mus('chefe');return}
  if(st==='clear'){tState-=dt;if(tState<=0){if(fase<2){fase++;comecarFase()}}return}
- if(st==='explode'){tState-=dt;if(tState<=0){pontos+=vidas*500+Math.max(0,Math.round((140-tempo)*25));fimDeJogo(true)}return}
+ if(st==='explode'){tState-=dt;if(tState<=0){pontos+=vidas*500+Math.max(0,Math.round((120-tempo)*25));fimDeJogo(true)}return}
  passo(dt)}
 function passoPad(dt){if(keys.l)alvoX-=260*dt;if(keys.r)alvoX+=260*dt;pad.w=padW();alvoX=Math.max(pad.w/2,Math.min(W-pad.w/2,alvoX));pad.x+=(alvoX-pad.x)*Math.min(1,dt*30);for(const b of balls)if(b.preso){b.x=pad.x;b.y=pad.y-BR-1}}
 
@@ -173,7 +173,7 @@ function draw(){cx.save();if(shake>0)cx.translate((Math.random()-.5)*shake|0,(Ma
  velas(st==='fim'?'menu':fase+1);
  for(const o of blocks)if(o.ok){const im=(o.img2&&o.hp<o.max&&(o.tipo!=='cupula'))?o.img2:(o.tipo==='cupula'&&(performance.now()/400+o.x/20|0)%5===0?o.img2:o.img);spr(im,o.x,o.y,o.w,o.h);if(o.tipo==='placa'&&!IMG['f1-placa'].ok)txt('349',o.x+18,o.y+7,9,'#0b0b0f')}
  if(boss&&boss.ok){const im=boss.hit>0?'f3-caveira-dano':((boss.t*3|0)%2?'f3-caveira-2':'f3-caveira-1');spr(im,boss.x,boss.y,72,60);
-  cx.fillStyle='#1d1d24';cx.fillRect(boss.x+6,boss.y-7,60,4);cx.fillStyle='#c7261f';cx.fillRect(boss.x+6,boss.y-7,60*boss.hp/8,4)}
+  cx.fillStyle='#1d1d24';cx.fillRect(boss.x+6,boss.y-7,60,4);cx.fillStyle='#c7261f';cx.fillRect(boss.x+6,boss.y-7,60*boss.hp/boss.max,4)}
  for(const f of fogos)spr('f3-fogo',f.x-4,f.y,8,12);
  for(const p of pws)spr('pw-'+p.t,p.x,p.y,14,14);
  if(semPad<=0||(performance.now()/80|0)%2)spr(padImg(),pad.x-pad.w/2,pad.y,pad.w,padH());
