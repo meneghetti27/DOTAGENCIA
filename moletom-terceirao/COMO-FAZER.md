@@ -70,3 +70,4 @@ Pendente: lista de nomes real (forro) e PDF completo.
   negativo principal, variações em negativo, cores e fontes) + `midiakit/png/` (cada variação: fundo-preto, transparente, negativo, negativo-transparente).
 - Negativo = pra fundo claro: inverte só os neutros (branco↔preto), roxos ficam; feito sobre o recorte transparente (senão a vinheta vira cinza).
 - Correções: apóstrofo do '27 removido (caía no pé do R); negativo agora é desenhado nativo (`favoritos.py`), não invertido pixel a pixel (a inversão sujava o brilho e deixava o contorno fraco).
+- Buracos das letras (R, A, O, 0) **brancos** com linha preta fina em volta (dono pediu): `favoritos.py` acha as contraformas pela máscara do recheio e pinta de branco.

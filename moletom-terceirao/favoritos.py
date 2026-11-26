@@ -6,6 +6,9 @@ uso: python3 favoritos.py  -> costas/ano-favoritos/<nome>.png e <nome>-negativo.
   estrelas brancas viram pretas.
 """
 import costas, tils
+import numpy as np
+from PIL import Image
+from scipy import ndimage
 
 P = costas.OUT / "ano-favoritos"
 a, g, o, pt, fo, lg, inc, rot, j, fill = tils.V[25]
@@ -39,6 +42,29 @@ def negativo(html):
     return html
 
 
+MASCARA = ("</style>", ".l1,.l2,.l4,.st,.esc,svg{visibility:hidden!important}"
+           ".l3{background:none!important;color:#f00!important;-webkit-text-fill-color:#f00!important}"
+           "html,body{background:#000!important}</style>")
+
+
+def buracos(nome):
+    """máscara dos buracos de dentro das letras (contraforma), menos uma borda fina pra manter a linha preta"""
+    h = P / f"_{nome}-m.html"
+    h.write_text(costas.html("graffiti_youth.otf", True, True).replace(*MASCARA))
+    png = P / f"_{nome}-m.png"; costas.render(h, png); h.unlink()
+    a = np.asarray(Image.open(png).convert("RGB")).astype(int); png.unlink()
+    F = (a[..., 0] > 120) & (a[..., 1] < 90)
+    lab, n = ndimage.label(ndimage.binary_fill_holes(F) & ~F)
+    tam = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
+    H = np.isin(lab, [i + 1 for i, t in enumerate(tam) if t < 40000])
+    return ndimage.binary_erosion(H, iterations=7)
+
+
+def pinta(arq, H):
+    im = np.asarray(Image.open(arq).convert("RGB")).copy(); im[H] = 255
+    Image.fromarray(im).save(arq)
+
+
 if __name__ == "__main__":
     for nome, (f, v) in FAV.items():
         costas.ANO_FONTE, costas.ANO_INT = f, v
@@ -46,4 +72,6 @@ if __name__ == "__main__":
         for suf, html in (("", base), ("-negativo", negativo(base))):
             h = P / f"_{nome}{suf}.html"; h.write_text(html)
             costas.render(h, P / f"{nome}{suf}.png"); h.unlink()
+        H = buracos(nome)
+        for suf in ("", "-negativo"): pinta(P / f"{nome}{suf}.png", H)
         print("ok", nome)
