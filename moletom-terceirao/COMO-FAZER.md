@@ -60,4 +60,4 @@ Pendente: lista de nomes real (forro) e PDF completo.
 - Espaço CEI↔RÃO aprovado: opção 2 (GAP 0.02). Tils: 30 opções em `costas/tils/` (`tils.py`, lista V), aguardando escolha.
 
 ## PDF editável (Illustrator)
-`python3 exportar_pdf.py` → `pdf/terceirao-costas-editavel.pdf` (1 página por til: 30 a 72%, 26 a 85%) + SVGs. Tudo vetor (letras em contorno via harfbuzz+fontTools, posições lidas do layout do navegador), grupos por camada; strokes editáveis; fundo preto num grupo pra apagar.
+`python3 exportar_pdf.py` (o PDF do cairosvg abre EM BRANCO no Illustrator: usar o PDF do Chromium via `tools/svg-to-pdf.js`, + SVG e EPS) → `pdf/terceirao-costas-editavel.pdf` (1 página por til: 30 a 72%, 26 a 85%) + SVGs. Tudo vetor (letras em contorno via harfbuzz+fontTools, posições lidas do layout do navegador), grupos por camada; strokes editáveis; fundo preto num grupo pra apagar.
