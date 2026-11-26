@@ -352,6 +352,22 @@ def d_luz(c):
     c.p(9, 3, K4)
 ficha(VC, d_drop, 'pw-drop.png'); ficha(AM, d_andaime, 'pw-andaime.png'); ficha(RC, d_touca, 'pw-touca.png')
 ficha(VM, d_encolhe, 'pw-encolhe.png', True); ficha(VM, d_luz, 'pw-luz.png', True)
+def d_ima(c):  # ímã em U vermelho com pontas prata
+    for y in range(3, 9): c.p(3, y, VM); c.p(4, y, VM); c.p(9, y, VM); c.p(10, y, VM)
+    c.r(4, 9, 9, 10, VM); c.r(5, 8, 8, 8, VM); c.r(3, 2, 4, 3, K6); c.r(9, 2, 10, 3, K6); c.p(4, 5, LR)
+def d_corrente(c):  # elos da corrente da escada
+    for i, (x, y) in enumerate(((2, 8), (5, 6), (8, 4))):
+        col = K6 if i % 2 else K4
+        c.r(x, y, x+3, y, col); c.r(x, y+2, x+3, y+2, col); c.p(x, y+1, col); c.p(x+3, y+1, col)
+    c.p(11, 3, K7)
+def d_fogo(c):  # vela gótica acesa
+    c.r(5, 6, 8, 11, K7); c.r(5, 11, 8, 11, K4); c.p(6, 5, K0)
+    c.p(6, 2, AM); c.r(6, 3, 7, 4, AM); c.p(7, 2, LR); c.p(6, 1, LR); c.p(5, 7, K5)
+def d_neon(c):  # tijolo com tiros de neon
+    c.r(3, 8, 10, 10, K5); c.r(4, 9, 5, 9, K1); c.r(8, 9, 9, 9, K1)
+    for y in range(2, 7): c.p(5, y, (150, 230, 255)); c.p(8, y, (150, 230, 255))
+    c.p(5, 1, K7); c.p(8, 1, K7)
+ficha(LR, d_ima, 'pw-ima.png'); ficha(K6, d_corrente, 'pw-corrente.png'); ficha(AM, d_fogo, 'pw-fogo.png'); ficha((150, 230, 255), d_neon, 'pw-neon.png')
 
 def vida():
     c = C(10, 10)
