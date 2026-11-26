@@ -14,3 +14,9 @@ mas com nome, arte e sons 100% originais: nada do BlackBerry).
 - Pixel art anos 2000, chiptune, celular (arrastar o dedo) e computador (mouse/setas).
 - **Material que o dono vai mandar**: logo da Hard Jeans Santo, fotos dos produtos do drop, paleta da collab, link de compra.
 - Referências da loja: `ARCADE-IDEIA.md` + `referencias/` + dossiê (Jogo_Block_Office_dossie_completo.pdf, enviado em 26/11).
+
+## Material recebido (26/11)
+- `arcade/marca/hard-jeans-santo.jpg` (logo gótico branco no preto) e `arcade/marca/block-logo.webp` (bloco hexagonal vazado).
+- `arcade/drop/`: 8 peças (frente `foto-01`, costas `foto-02`) + `produtos.json` com nome, preço e link de cada uma.
+- Cores: tiradas das peças (blackwork preto/branco, verde e roxo das asas "Veneno", vermelho/laranja das chamas) + concreto da Block.
+- Ajuste proposto: fase 2 com peças atrás de grades ("Revolta"), fase 3 vira "INFERNO" (chamas do raglan) com as Suzukis de chefão.
