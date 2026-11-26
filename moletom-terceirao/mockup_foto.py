@@ -19,6 +19,8 @@ K = 4  # ampliação
 
 def estampa(base, arte, cx, cy, larg, giro=0.0, forca_sombra=1.0, desloc=6.0):
     arte = arte.crop(arte.getbbox())
+    m = int(arte.width * 0.06)   # margem: a deformação não pode puxar pixel de fora (cortava o topo do TER)
+    pad = Image.new('RGBA', (arte.width + 2 * m, arte.height + 2 * m), (0, 0, 0, 0)); pad.paste(arte, (m, m)); arte = pad
     h = int(arte.height * larg / arte.width)
     arte = arte.resize((larg, h), Image.LANCZOS).rotate(giro, Image.BICUBIC, expand=True)
     x0, y0 = int(cx - arte.width / 2), int(cy - arte.height / 2)
@@ -45,9 +47,9 @@ if __name__ == "__main__":
     base = foto.resize((foto.width * K, foto.height * K), Image.LANCZOS).filter(ImageFilter.UnsharpMask(2, 60, 2)).convert("RGBA")
     arte = Image.open(ART).convert("RGBA")
     # costas (moletom da direita): centro do tronco, abaixo do capuz
-    estampa(base, arte, cx=468 * K, cy=200 * K, larg=128 * K, giro=0, desloc=1.2 * K)
+    estampa(base, arte, cx=468 * K, cy=200 * K, larg=int(128 * 1.12) * K, giro=0, desloc=0.6 * K)
     # frente (moletom da esquerda): peito esquerdo de quem veste = direita na foto
-    estampa(base, arte, cx=213 * K, cy=128 * K, larg=34 * K, giro=0, desloc=2)
+    estampa(base, arte, cx=213 * K, cy=128 * K, larg=int(34 * 1.12) * K, giro=0, desloc=2)
     base.convert("RGB").save(OUT / "moletom-mockup.png")
     # recortes de detalhe
     base.crop((330 * K, 20 * K, 610 * K, 340 * K)).convert("RGB").save(OUT / "moletom-mockup-costas.png")

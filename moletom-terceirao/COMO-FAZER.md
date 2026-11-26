@@ -79,3 +79,12 @@ Tudo em **`final/`**:
 - `aplicacoes/`: **mockup em FOTO real** (`mockup_foto.py`, foto do dono em `referencias/mockups/`) + story, adesivo, faixa, ingresso (`aplicacoes.py`).
 - ❌ Moletom/camiseta desenhados em vetor foram reprovados ("muito ruim"): sempre usar foto real de mockup.
 - Mídia kit anterior continua em `midiakit/`.
+
+### Como o mockup em foto é feito (`mockup_foto.py`)
+1. Foto do mockup (vinda do dono) em `referencias/mockups/`, ampliada 4× (Lanczos + nitidez).
+2. Arte = `midiakit/png/integrado-25-transparente.png`, recortada no conteúdo e com **margem de 6% em volta**
+   (sem margem a deformação puxa pixel de fora e **corta o topo do TER** — erro já cometido).
+3. Sombreamento: luminância local da foto (borrada) ÷ mediana do tecido multiplica a arte → dobras e luz do pano.
+4. Deformação leve pelo gradiente do relevo (`desloc` ≈ 0,6×K; mais que isso entorta o MÃE DE DEUS).
+5. Grão de tinta + 96% de opacidade; alpha só onde é tecido (luminância < 150, erodido) → nada vaza pro fundo branco.
+6. Costas: centro (468,200)×K, largura ≈143×K. Peito: (213,128)×K, largura ≈38×K. Coordenadas da foto original 661×360.
