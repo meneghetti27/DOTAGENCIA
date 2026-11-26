@@ -71,3 +71,11 @@ Pendente: lista de nomes real (forro) e PDF completo.
 - Negativo = pra fundo claro: inverte só os neutros (branco↔preto), roxos ficam; feito sobre o recorte transparente (senão a vinheta vira cinza).
 - Correções: apóstrofo do '27 removido (caía no pé do R); negativo agora é desenhado nativo (`favoritos.py`), não invertido pixel a pixel (a inversão sujava o brilho e deixava o contorno fraco).
 - Buracos das letras (R, A, O, 0) **brancos** com linha preta fina em volta (dono pediu): `favoritos.py` acha as contraformas pela máscara do recheio e pinta de branco.
+
+## ✅ VERSÃO FINAL (dono: "salve todas essas versões, elas serão as finais")
+Tudo em **`final/`**:
+- `terceirao-2027-manual-de-marca.pdf` (10 págs: capa, conceito, arte principal, mockup, variações, negativo, cores, tipografia, aplicações, bom uso) — `python3 marca.py`
+- `arte-principal/` (transparente + fundo preto), `variacoes-ano/` (8), `negativo/`, `vetor/` (SVG/PDF/EPS das letras)
+- `aplicacoes/`: **mockup em FOTO real** (`mockup_foto.py`, foto do dono em `referencias/mockups/`) + story, adesivo, faixa, ingresso (`aplicacoes.py`).
+- ❌ Moletom/camiseta desenhados em vetor foram reprovados ("muito ruim"): sempre usar foto real de mockup.
+- Mídia kit anterior continua em `midiakit/`.

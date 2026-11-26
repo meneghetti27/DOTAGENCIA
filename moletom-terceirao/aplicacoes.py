@@ -32,14 +32,6 @@ CAMISETA = """<svg viewBox="-520 -40 1040 1140" width="{w}" style="position:abso
 <path d="M-150 0 C-90 60 90 60 150 0" fill="none" stroke="#000" stroke-opacity=".15" stroke-width="10"/></svg>"""
 
 PECAS = {
-    "01-moletom-preto-costas": (1600, 1600, f"""<body style="background:radial-gradient(circle at 50% 40%,#ECE6F2,#C9C0D3)">
-{MOLETOM.format(w=1100, x=250, y=120, cor="#141216")}
-<img src="{ART}" style="position:absolute;left:545px;top:400px;width:510px">
-<div style="position:absolute;left:60px;bottom:50px;font-size:22px;letter-spacing:.3em;color:#5d5566">MOLETOM PRETO · COSTAS</div></body>"""),
-    "02-camiseta-branca": (1600, 1600, f"""<body style="background:radial-gradient(circle at 50% 40%,#3A2E44,#120E16)">
-{CAMISETA.format(w=1150, x=225, y=160, cor="#F7F5F8")}
-<img src="{NEG}" style="position:absolute;left:590px;top:420px;width:420px">
-<div style="position:absolute;left:60px;bottom:50px;font-size:22px;letter-spacing:.3em;color:#a99fb3">CAMISETA BRANCA · VERSÃO NEGATIVO</div></body>"""),
     "03-story-instagram": (1080, 1920, f"""<body style="background:radial-gradient(ellipse 70% 50% at 50% 45%,#2A1838,#0A0A0C 75%)">
 <div style="position:absolute;top:120px;width:100%;text-align:center;font-size:30px;letter-spacing:.5em;color:{ROXO};font-weight:700">CONTAGEM REGRESSIVA</div>
 <img src="{ART}" style="position:absolute;left:140px;top:260px;width:800px">
