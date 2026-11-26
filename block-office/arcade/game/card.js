@@ -82,7 +82,7 @@
       texto(c, pts, W / 2 + 2, 152, "32px " + PF, "#c7261f");
       texto(c, pts, W / 2, 150, "32px " + PF, "#ffc23d");
       if (opts.arroba) texto(c, String(opts.arroba), W / 2, 168, "8px " + PF, "#6fd16a", "#0b0b0f");
-      texto(c, "chegou at\u00e9 a fase " + (opts.fase || 1), W / 2, 182, "8px " + PF, "#d4d4d8", "#0b0b0f");
+      texto(c, opts.venceu ? "derrubou a caveira!" : "chegou at\u00e9 a fase " + (opts.fase || 1), W / 2, 182, "8px " + PF, "#d4d4d8", "#0b0b0f");
 
       // peça
       var cy = 270;
@@ -101,7 +101,12 @@
       c.fillStyle = "rgba(11,11,15,0.8)"; c.fillRect(0, 372, W, 46);
       c.fillStyle = "#c7261f"; c.fillRect(0, 372, W, 1); c.fillRect(0, 417, W, 1);
       texto(c, "@block.office \u00d7 @hardjeanssanto", W / 2, 390, "8px " + PF, "#f4f2ea");
-      texto(c, "JOGUE: " + (opts.link || ""), W / 2, 406, "8px " + PF, "#ffc23d");
+      var lk = String(opts.link || "").replace(/^https?:\/\//, "").replace(/[?#].*$/, "");
+      if (/^file:/.test(lk)) lk = "";
+      var lt = lk ? "JOGUE: " + lk : "JOGUE O HARD \u00d7 BLOCK", fs = 8;
+      c.font = fs + "px " + PF; while (fs > 5 && c.measureText(lt).width > W - 12) { fs--; c.font = fs + "px " + PF; }
+      if (c.measureText(lt).width > W - 12) { while (lt.length > 8 && c.measureText(lt + "\u2026").width > W - 12) lt = lt.slice(0, -1); lt += "\u2026"; }
+      texto(c, lt, W / 2, 406, fs + "px " + PF, "#ffc23d");
 
       var out = document.createElement("canvas"); out.width = W * S; out.height = H * S;
       var o = out.getContext("2d"); o.imageSmoothingEnabled = false;
