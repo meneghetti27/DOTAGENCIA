@@ -14,9 +14,9 @@ FAV = AQUI / "costas/ano-favoritos"
 OUT = AQUI / "midiakit"; (OUT / "png").mkdir(parents=True, exist_ok=True)
 FUNDO = np.array([10, 10, 12])
 
-VARS = [("integrado-25", "Principal · '27 emendado (Grime Slime, branco)"),
-        ("ano30-01", "'27 branco"), ("ano30-03", "'27 lilás claro"), ("ano30-07", "'27 no canto"),
-        ("ano30-11", "'27 King Jack"), ("ano30-19", "2027 branco"), ("ano30-22", "2027 branco centralizado"),
+VARS = [("integrado-25", "Principal · 27 emendado (Grime Slime, branco)"),
+        ("ano30-01", "27 branco"), ("ano30-03", "27 lilás claro"), ("ano30-07", "27 no canto"),
+        ("ano30-11", "27 King Jack"), ("ano30-19", "2027 branco"), ("ano30-22", "2027 branco centralizado"),
         ("ano30-23", "2027 branco no canto"), ("ano30-30", "27 meio branco / meio roxo")]
 
 
@@ -44,10 +44,11 @@ for nome, _ in VARS:
     im.save(OUT / "png" / f"{nome}-fundo-preto.png")
     rgb, alpha = recorta_fundo(im)
     Image.fromarray(np.dstack([rgb, alpha]).astype(np.uint8), "RGBA").save(OUT / "png" / f"{nome}-transparente.png")
-    neg = np.asarray(negativo(Image.fromarray(rgb.astype(np.uint8)))).astype(int)
-    Image.fromarray(np.dstack([neg, alpha]).astype(np.uint8), "RGBA").save(OUT / "png" / f"{nome}-negativo-transparente.png")
-    branco = Image.new("RGBA", im.size, "#FFFFFF"); branco.alpha_composite(Image.fromarray(np.dstack([neg, alpha]).astype(np.uint8), "RGBA"))
-    branco.convert("RGB").save(OUT / "png" / f"{nome}-negativo.png")
+    # negativo nativo (favoritos.py): fundo claro #F4F1F7 -> transparente
+    ng = Image.open(FAV / f"{nome}-negativo.png").convert("RGB"); ng.save(OUT / "png" / f"{nome}-negativo.png")
+    na = np.asarray(ng).astype(int); dn = np.abs(na - np.array([244, 241, 247])).sum(-1)
+    an = np.clip((dn - 12) * 8, 0, 255).astype(np.uint8)
+    Image.fromarray(np.dstack([na, an]).astype(np.uint8), "RGBA").save(OUT / "png" / f"{nome}-negativo-transparente.png")
 
 R = (OUT / "png").resolve().as_uri()
 ROXO, CLARO, ESCURO, UVA = "#996BB3", "#E4CFF7", "#7A4C99", "#3E2353"
@@ -79,7 +80,7 @@ principal = f"""<div class=p style="display:grid;grid-template-columns:1fr 1fr;g
 <div><h1>ARTE PRINCIPAL</h1><h2 style="font-size:46px">Costas do moletom</h2>
 <p style="font-size:19px;color:#b9b0c4;line-height:1.7;margin-top:30px">TER / CEI / RÃO no mesmo plano (um adesivo só), fonte Graffiti Youth,
 recheio em degradê roxo, contorno preto, linha branca e sombra 3D uva. Til desenhado à mão.
-Ano '27 emendado no RÃO.</p>
+Ano 27 emendado no RÃO (sem apóstrofo).</p>
 <p style="font-size:16px;color:#8d7f99;margin-top:30px">Arquivos: png/integrado-25-transparente.png (estampa) · -fundo-preto · -negativo</p></div>
 <img src="{R}/integrado-25-transparente.png" style="height:860px;justify-self:center">
 <div class=rod>02 · ARTE PRINCIPAL</div></div>"""
@@ -97,7 +98,7 @@ def pagina_lado(titulo, n):
 
 negativo_principal = f"""<div class="p cl" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
 <div><h1>VERSÃO EM NEGATIVO</h1><h2 style="font-size:46px">Pra fundo claro</h2>
-<p style="font-size:19px;color:#5d5566;line-height:1.7;margin-top:30px">Contornos brancos viram pretos e vice-versa; os roxos ficam.
+<p style="font-size:19px;color:#5d5566;line-height:1.7;margin-top:30px">Contorno de fora preto, brilho branco e roxos iguais; estrelas pretas.
 Use em camiseta branca, convite, papel e posts com fundo claro.</p></div>
 <img src="{R}/integrado-25-negativo-transparente.png" style="height:860px;justify-self:center">
 <div class=rod>05 · NEGATIVO</div></div>"""
@@ -107,7 +108,7 @@ paleta = f"""<div class=p><h1>CORES E FONTES</h1>
  [("Roxo turma", ROXO), ("Lilás claro", CLARO), ("Roxo escuro", ESCURO), ("Uva (sombra)", UVA), ("Branco", "#FFFFFF"), ("Preto", "#0A0A0C")])}</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:70px;font-size:20px;line-height:1.8;color:#b9b0c4">
 <div><b style="color:#fff;font-size:26px">Graffiti Youth</b><br>TERCEIRÃO (letras principais)<br>
-<b style="color:#fff;font-size:26px">Grime Slime / King Jack Style</b><br>ano ('27 / 2027)</div>
+<b style="color:#fff;font-size:26px">Grime Slime / King Jack Style</b><br>ano (27 / 2027)</div>
 <div><b style="color:#fff;font-size:26px">Arial Bold</b><br>MÃE DE DEUS (espaçado)<br>
 <span style="color:#8d7f99">Fontes do dafont: grátis pra uso pessoal; pra vender o moletom, comprar a licença comercial com o autor.</span></div></div>
 <div class=rod>07 · CORES E FONTES</div></div>"""

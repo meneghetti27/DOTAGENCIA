@@ -69,3 +69,4 @@ Pendente: lista de nomes real (forro) e PDF completo.
 - `python3 midiakit.py` → `midiakit/terceirao-2027-midia-kit.pdf` (7 págs: capa, principal, variações no preto, preto×negativo,
   negativo principal, variações em negativo, cores e fontes) + `midiakit/png/` (cada variação: fundo-preto, transparente, negativo, negativo-transparente).
 - Negativo = pra fundo claro: inverte só os neutros (branco↔preto), roxos ficam; feito sobre o recorte transparente (senão a vinheta vira cinza).
+- Correções: apóstrofo do '27 removido (caía no pé do R); negativo agora é desenhado nativo (`favoritos.py`), não invertido pixel a pixel (a inversão sujava o brilho e deixava o contorno fraco).
