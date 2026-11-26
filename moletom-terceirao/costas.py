@@ -38,13 +38,13 @@ def html(fonte, fundo=True, til=False):
 @font-face{{font-family:G;src:url('{FD}/{fonte}')}}
 html,body{{margin:0;width:1500px;height:1800px;overflow:hidden;{bg}}}
 .ln{{position:absolute;left:0;top:0;font-family:G;white-space:nowrap;line-height:1;font-size:400px}}
-.ln span{{position:absolute;left:0;top:0;white-space:nowrap}}
+.ln span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
 .l1{{-webkit-text-stroke:.15em #fff;color:#fff;paint-order:stroke fill;
      filter:drop-shadow(7px 8px 0 {UVA}) drop-shadow(7px 8px 0 {UVA}) drop-shadow(6px 7px 0 {UVA}) drop-shadow(5px 6px 0 #000)}}
 .l2{{-webkit-text-stroke:.075em #0A0A0C;color:#0A0A0C;paint-order:stroke fill}}
 .l3{{background:linear-gradient(180deg,{CLARO} 0%,{ROXO} 50%,{ESCURO} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}}
 .l4{{color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.55) 0 11%,transparent 11.5%);-webkit-background-clip:text;background-clip:text;opacity:.6}}
-.fantasma{{visibility:hidden;position:static!important}}
+.fantasma{{visibility:hidden;position:static!important;padding:0!important}}
 .ano{{position:absolute;font-family:G;font-size:170px;color:#fff;-webkit-text-stroke:.15em #0A0A0C;paint-order:stroke fill;
       filter:drop-shadow(6px 7px 0 {ROXO});transform:rotate(-5deg)}}
 .esc{{position:absolute;font:700 40px/1 Arial,sans-serif;letter-spacing:.45em;color:{ROXO};transform:rotate(-5deg)}}

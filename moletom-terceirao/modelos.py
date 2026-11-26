@@ -47,13 +47,13 @@ body{{background:radial-gradient(ellipse 60% 50% at 50% 48%,#1E1229 0%,#0A0A0C 7
 .palco{{position:absolute;left:0;top:0;width:1600px;height:1000px}}
 .t{{position:absolute;left:50%;top:430px;transform:translate(-50%,-50%) rotate(-4deg);font-family:G;
    white-space:nowrap;line-height:1;font-size:300px}}
-.t span{{position:absolute;left:0;top:0;white-space:nowrap}}
+.t span{{position:absolute;left:-.5em;top:0;padding:0 .5em;white-space:nowrap}}
 .l1{{-webkit-text-stroke:.17em #fff;color:#fff;paint-order:stroke fill;
      filter:drop-shadow(5px 6px 0 {UVA}) drop-shadow(5px 6px 0 {UVA}) drop-shadow(5px 6px 0 {UVA}) drop-shadow(4px 5px 0 #000)}}
 .l2{{-webkit-text-stroke:.085em #0A0A0C;color:#0A0A0C;paint-order:stroke fill}}
 .l3{{background:linear-gradient(180deg,{CLARO} 0%,{ROXO} 48%,{ESCURO} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}}
 .l4{{color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.55) 0 12%,transparent 12.5%);-webkit-background-clip:text;background-clip:text;opacity:.6}}
-.fantasma{{visibility:hidden;position:static!important}}
+.fantasma{{visibility:hidden;position:static!important;padding:0!important}}
 .ano{{position:absolute;right:220px;top:640px;transform:rotate(-4deg);font-family:A;font-size:130px;color:#fff;
       -webkit-text-stroke:.16em #0A0A0C;paint-order:stroke fill;filter:drop-shadow(5px 6px 0 {ROXO})}}
 .esc{{position:absolute;left:230px;top:700px;transform:rotate(-4deg);font:600 30px/1 Inter,Arial,sans-serif;letter-spacing:.42em;color:{ROXO}}}

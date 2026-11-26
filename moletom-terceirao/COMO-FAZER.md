@@ -42,3 +42,10 @@ Ajuste de letras: lista `jit` (dx, dy, tamanho, giro por letra) em `versao_bolha
 - `python3 costas.py` → `costas/<n>-<fonte>.png` (1500×1800 no preto) + `-transparente.png` + `comparar.jpg`.
   Cada linha (TER/CEI/RÃO) é medida pelo desenho real da letra (canvas measureText) e tem ~860 px; 2027 e MÃE DE DEUS centralizados embaixo.
 - Til da break_rebel vira bolha preta: `til=True` em ESCOLHIDAS desenha um til grafitado à mão por cima do A.
+
+## Rodada 5 — kit da identidade nos 7 favoritos
+- `python3 identidade.py [n ...]` → `identidade/<n>-<fonte>/` com horizontal, peito (3 + capelo), manga (2027 vertical),
+  forro (nomes de EXEMPLO em `NOMES`), tudo transparente, + `painel.jpg`; `identidade/todos.jpg` junta os 7.
+- Lições: medir com canvas só depois de `document.fonts.load('300px G')` (senão mede a fonte errada);
+  camadas com `padding:0 .5em; left:-.5em` pro degradê cobrir a ponta de letra inclinada;
+  `tools/html-to-png-exato.js` recorta a janela exata (fullPage aumentava a imagem).
