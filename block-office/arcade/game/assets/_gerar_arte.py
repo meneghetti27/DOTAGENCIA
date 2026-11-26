@@ -607,6 +607,28 @@ def bg2():
         c.r(x, 36, x+2, 70, K0)
     # luz quente vindo do mezanino
     for sx in (60, 210): cone(c, sx, 81, 110, 30, (255, 200, 120), 55)
+    # escada metálica preta vazada subindo do piso até o mezanino (lado esquerdo, estreita)
+    x0, y0, steps = 40, 400, 15
+    dy = (y0-80)/steps
+    for i in range(steps+1):
+        x = int(x0 - i*2.2); y = int(y0 - i*dy)
+        c.r(x-26, y, x, y+2, K0); c.r(x-26, y, x, y, K4); c.p(x-26, y+3, K1)
+    for t in range(0, 321):
+        x = x0 + 1 - t*2.2/dy; y = y0 - t
+        c.p(int(x), y, K0); c.p(int(x)+1, y, K3)
+        x2 = x0 - 27 - t*2.2/dy
+        c.p(int(x2), y, K0); c.p(int(x2)-1, y, K1)
+    for i in range(0, steps, 2):
+        x = int(x0 - i*2.2); y = int(y0 - i*dy)
+        for yy in range(y-28, y): c.p(x+3, yy, K0)
+    for t in range(0, 292):
+        c.p(int(x0 + 3 - t*2.2/dy), y0-28-t, K0); c.p(int(x0 + 3 - t*2.2/dy), y0-29-t, K4)
+    # corrente pendurada do mezanino (lado direito)
+    for y in range(81, 230):
+        x = 252 + int(2*math.sin(y/30))
+        if (y//3) % 2: c.p(x-1, y, K5); c.p(x+1, y, K3)
+        else: c.p(x, y, K6); c.p(x, y+1, K4)
+    c.r(248, 228, 256, 232, K4); c.r(249, 233, 255, 234, K3)
     # duas Suzukis na parede (embaixo do mezanino)
     def suzuki_wrap(ox, oy):
         # cintas presas na viga do mezanino
