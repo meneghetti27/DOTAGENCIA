@@ -57,7 +57,7 @@ const A=()=>window.HXB_AUDIO;
 const sfx=n=>{try{A()?.sfx?.(n)}catch(e){}}, mus=n=>{try{A()?.musica?.(n)}catch(e){}};
 const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
 const PROD=[["MOLETOM REVOLTA","R$408"],["MOLETOM ENTIDADES","R$408"],["CAMISETA REVOLTA","R$161,50"],["CAMISETA VENENO","R$161,50"],["JAQUETA ARTEFATO M.C","R$807,50"],["CALÇA DILACERADO","R$552,50"],["RAGLAN VENENO 3/4","R$212,50"],["BABY TEE AMULETO","R$110,50"]];
-const COR={bg1:'#34343d',bg2:'#5a4a12',bg3:'#2a0d10',paddle:'#a6a6ae','paddle-largo':'#a6a6ae','paddle-curto':'#a6a6ae','f1-bloco':'#7b7b86','f1-bloco-rachado':'#55555f','f1-arara':'#f0662a','f1-placa':'#f4f2ea','f2-assento':'#1d1d24','f2-guarda':'#a6a6ae','f2-guarda-torto':'#7b7b86','f2-moto':'#ffc23d','f2-moto-dano':'#f0662a','f3-cupula':'#a77be0','f3-cupula-acesa':'#d4b8ff','f3-caveira-1':'#f4f2ea','f3-caveira-2':'#d4d4d8','f3-caveira-dano':'#c7261f','f3-fogo':'#f0662a','pw-drop':'#6fd16a','pw-andaime':'#ffc23d','pw-touca':'#a77be0','pw-encolhe':'#c7261f','pw-luz':'#34343d',vida:'#c7261f',puff1:'#d4d4d8',puff2:'#a6a6ae',puff3:'#7b7b86','t-hard':'#0b0b0f','t-block':'#d4d4d8','t-caixa':'#a8743a','t-cartaz':'#c7261f',banner:'#1d1d24','logo-collab':'#f4f2ea','vela-1':'#ffc23d','vela-2':'#f0662a'};
+const COR={bg1:'#34343d',bg2:'#5a4a12',bg3:'#2a0d10',paddle:'#a6a6ae','paddle-largo':'#a6a6ae','paddle-curto':'#a6a6ae','f1-bloco':'#7b7b86','f1-bloco-rachado':'#55555f','f1-arara':'#f0662a','f1-placa':'#f4f2ea','f2-assento':'#1d1d24','f2-guarda':'#a6a6ae','f2-guarda-torto':'#7b7b86','f2-moto':'#ffc23d','f2-moto-dano':'#f0662a','f3-cupula':'#a77be0','f3-cupula-acesa':'#d4b8ff','f3-caveira-1':'#f4f2ea','f3-caveira-2':'#d4d4d8','f3-caveira-dano':'#c7261f','f3-fogo':'#f0662a','pw-drop':'#6fd16a','pw-andaime':'#ffc23d','pw-touca':'#a77be0','pw-encolhe':'#c7261f','pw-luz':'#34343d',vida:'#c7261f',puff1:'#d4d4d8',puff2:'#a6a6ae',puff3:'#7b7b86','t-hard':'#0b0b0f','t-block':'#d4d4d8','t-caixa':'#a8743a',banner:'#1d1d24','logo-collab':'#f4f2ea','vela-1':'#ffc23d','vela-2':'#f0662a'};
 const IMG={};
 const names=[...Object.keys(COR),'logo-hard','logo-block',...[1,2,3,4,5,6,7,8].map(i=>'pecas/p'+i)];
 names.forEach(n=>{const i=new Image();i.onload=()=>i.ok=true;i.src='assets/'+n+'.png';IMG[n]=i;});
@@ -87,7 +87,7 @@ function nivel(n){blocks=[];boss=null;const ox=15;
   palavra('HARD',(W-156)/2,58,12,9,4,(x,y,w,h)=>blocks.push(mk(x,y,w-1,h-1,'thard',1,75,'t-hard')));
   for(let r=0;r<5;r++)for(let c=0;c<10;c++){const y=112+r*13,x=ox+c*24;
    if(r%2===0)blocks.push(mk(x,y,24,12,'guarda',2,100,'f2-guarda','f2-guarda-torto'));else if((c+r)%3)blocks.push(mk(x,y,24,12,'assento',1,50,'f2-assento'));else blocks.push(mk(x,y,24,12,'caixa',1,50,'t-caixa'))}}
- if(n===3){for(let c=0;c<10;c++)blocks.push(mk(ox+c*24,130,24,16,'cartaz',2,150,'t-cartaz'));
+ if(n===3){for(let c=0;c<10;c++){const k=c%3,y=130+(c%2?2:0);blocks.push(k===1?mk(ox+c*24,y,24,12,'caixa',1,50,'t-caixa'):k===0?mk(ox+c*24,y,24,12,'thard',2,150,'t-hard'):mk(ox+c*24,y,24,12,'tblock',2,150,'t-block'))}
   for(let r=0;r<2;r++)for(let c=0;c<12;c++)blocks.push(c%5===2&&r===1?mk(15+c*20,152+r*16,20,14,'caixa',1,50,'t-caixa'):mk(15+c*20,152+r*16,20,14,'cupula',1,50,'f3-cupula','f3-cupula-acesa'));
   boss={x:W/2-36,y:62,w:72,h:60,hp:12,vx:40,t:0,hit:0,cd:2,ok:true,tipo:'boss'}}
 }
@@ -107,7 +107,7 @@ function bater(o,b){
  if(o.tipo==='boss'){if(o.hit>0.15||st!=='boss')return;o.hp--;o.hit=.35;shake=5;sfx('chefe-dano');vib(30);debris({x:b.x-4,y:b.y-4,w:8,h:8},'#f4f2ea');
   if(o.hp<=0){o.ok=false;pontos+=2000;morteChefe()}return}
  o.hp--;shake=Math.max(shake,o.max>1?2:1.5);
- if(o.hp<=0){o.ok=false;pontos+=o.pts;sfx('quebra');vib(15);debris(o);if(o.tipo==='cartaz')dropShow={p:Math.random()*8|0,x:o.x+o.w/2,y:o.y+o.h/2,t:1.6};if(Math.random()<.12)soltaPw(o)}else sfx('duro');
+ if(o.hp<=0){o.ok=false;pontos+=o.pts;sfx('quebra');vib(15);debris(o);if(o.tipo==='caixa'&&fase===3)dropShow={p:Math.random()*8|0,x:o.x+o.w/2,y:o.y+o.h/2,t:1.6};if(Math.random()<.12)soltaPw(o)}else sfx('duro');
 }
 function soltaPw(o){const t=['drop','andaime','touca','encolhe','luz'][[0,0,1,1,2,3,3,4][Math.random()*8|0]];pws.push({x:o.x+o.w/2-7,y:o.y,t})}
 function pegaPw(p){if(p.t==='drop'){const base=balls.find(b=>!b.preso)||balls[0];for(let k=0;k<2;k++){const a=-Math.PI/2+(k?.5:-.5);balls.push({x:base.x,y:base.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,preso:false,rot:0,p:(peca+k+1)%8})}sfx('poder')}

@@ -738,13 +738,20 @@ def carrega(n): return C.__new__(C) if False else _de(Image.open(os.path.join(AQ
 def _de(im):
     c = C(im.width, im.height); c.a = np.array(im); return c
 
+def picho(c, x, y, w, palavra=None, cor=None):  # pichação pequena da HARD JEANS SANTO na parede (sem cartaz)
+    cor = cor or K6
+    if palavra: texto(c, x+(w-tw(palavra))//2, y, palavra, cor, 1, 110)
+    else:
+        m = hard_mask(w); pinta(c, m, x, y, cor, 90)
+        for xx in range(0, w, 6):
+            for k in range(random.Random(x+xx).randrange(2, 9)): c.p(x+xx+2, y+m.shape[0]+k, cor, 60)
 # --- fundos ---
 c = carrega('bg1.png')  # O SALÃO DA BLOCK
 neon_block(c, 12, 44, 46)
 texto(c, 12, 84, 'BLOCK', (150, 230, 255)); brilho(c, np.ones((7, 29), bool), 12, 84, (150, 230, 255), 2, 40)
 x = W-58; c.r(x-2, 40, x+50, 58, K0); c.r(x-2, 40, x+50, 40, K4)
 texto(c, x+3, 43, '349', (255, 90, 70), 2); brilho(c, np.ones((14, 34), bool), x+3, 43, VM, 3, 50)
-cartaz(c, 4, 150, 'p1.png'); cartaz(c, W-38, 140, 'p3.png'); cartaz(c, W-40, 200, 'p5.png', 34, 46)
+picho(c, 4, 160, 34); picho(c, W-38, 150, 34, 'SANTO'); picho(c, W-40, 210, 34)
 m = hard_mask(76); pinta(c, m, 2, 330, K7, 150)   # lambe da HARD na parede, embaixo da arara
 m = hard_mask(70); pinta(c, m, W-72, 300, K6, 120)
 c.save('bg1.png')
@@ -761,7 +768,7 @@ pinta(c, g, 55, 212, K6, 45)
 ys, xs = np.where(g[-1:])
 for xx in xs[::7]:
     for k in range(random.Random(int(xx)).randrange(4, 18)): c.p(55+xx, 212+g.shape[0]+k, K6, 35)
-cartaz(c, 4, 300, 'p2.png', 30, 44); cartaz(c, W-34, 330, 'p6.png', 30, 44)
+picho(c, 4, 310, 30, 'SANTO'); picho(c, W-34, 340, 30)
 neon_block(c, W-44, 120, 36, (255, 120, 90)) if False else neon_block(c, W-42, 94+60, 34)
 c.save('bg2.png')
 
@@ -772,7 +779,7 @@ pinta(c, hm & np.roll(hm, -2, 0) == False, 20, 8, VM) if False else None
 yy = np.arange(hm.shape[0])[:, None]
 pinta(c, hm & (yy > hm.shape[0]*.6), 20, 8, LR)
 neon_block(c, 6, 300, 30, (255, 150, 90)); neon_block(c, W-36, 280, 30, (255, 150, 90))
-cartaz(c, 4, 200, 'p7.png', 28, 42); cartaz(c, W-32, 190, 'p8.png', 28, 42)
+picho(c, 4, 210, 28, None, LR); picho(c, W-32, 200, 28, 'SANTO', LR)
 x = (W-tw('HARD x BLOCK'))//2; texto(c, x, 64, 'HARD x BLOCK', (255, 200, 120), 1, 220)
 c.save('bg3.png')
 
@@ -915,5 +922,26 @@ def paddle_block(w, h, nome):  # hexágono achatado preto, contorno branco gross
     c.r(w-3, 6, w-1, h-7, K0)
     c.r(x0-int(w*.12), 4, x0-int(w*.12)+1, h-5, K3)  # aresta da face
     c.save(nome)
-paddle_block(52, 16, 'paddle.png'); paddle_block(76, 16, 'paddle-largo.png'); paddle_block(36, 16, 'paddle-curto.png')
+def paddle_tijolo(w, h, nome):  # REVISÃO 3: bloco de concreto vazado de verdade, visto de frente
+    c = C(w, h); rnd = random.Random(w)
+    base, cla, esc = (150, 150, 156), (196, 196, 200), (92, 92, 100)
+    for y in range(h):
+        for x in range(w):
+            col = base
+            r = rnd.random()
+            if r < .12: col = mix(base, K7, .3)
+            elif r < .24: col = mix(base, K0, .25)
+            c.p(x, y, col)
+    c.r(0, 0, w-1, 0, K0); c.r(0, h-1, w-1, h-1, K0); c.r(0, 0, 0, h-1, K0); c.r(w-1, 0, w-1, h-1, K0)
+    c.r(1, 1, w-2, 2, cla); c.r(1, 1, 1, h-2, cla)                  # luz no topo
+    c.r(1, h-3, w-2, h-2, esc); c.r(w-2, 1, w-2, h-2, esc)          # sombra embaixo
+    n = 2 if w < 60 else 3; m = 4; tw_ = w - 2*m; vw = (tw_ - (n-1)*4)//n
+    for i in range(n):                                            # vazados
+        x0 = m + i*(vw+4); x1 = x0 + vw - 1
+        c.r(x0, 4, x1, h-6, (28, 28, 34)); c.r(x0, 4, x1, 5, K0)     # fundo escuro, sombra interna no topo
+        c.r(x0, h-6, x1, h-6, mix(base, K0, .4)); c.r(x1, 5, x1, h-6, (60, 60, 68))
+        c.r(x0-1, 3, x1+1, 3, esc); c.r(x0-1, h-5, x1+1, h-5, cla)   # bisel
+    for k in range(w//8): c.p(rnd.randrange(2, w-2), rnd.randrange(3, h-3), mix(base, K0, .45))
+    c.save(nome)
+paddle_tijolo(52, 16, 'paddle.png'); paddle_tijolo(76, 16, 'paddle-largo.png'); paddle_tijolo(36, 16, 'paddle-curto.png')
 folha()
