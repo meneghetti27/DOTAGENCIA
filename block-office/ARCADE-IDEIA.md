@@ -20,3 +20,13 @@ mas com nome, arte e sons 100% originais: nada do BlackBerry).
 - `arcade/drop/`: 8 peças (frente `foto-01`, costas `foto-02`) + `produtos.json` com nome, preço e link de cada uma.
 - Cores: tiradas das peças (blackwork preto/branco, verde e roxo das asas "Veneno", vermelho/laranja das chamas) + concreto da Block.
 - Ajuste proposto: fase 2 com peças atrás de grades ("Revolta"), fase 3 vira "INFERNO" (chamas do raglan) com as Suzukis de chefão.
+
+## Decisões de 26/11 (rodada de perguntas)
+- **Fase 1 · Salão + escada** (DENTRO da Block): concreto descascado, escada preta com corrente, spots; alvos = blocos vazados, araras de andaime, placa 349.
+- **Fase 2 · Motos e mezanino**: parede das 2 Suzukis amarelas e o mezanino (guarda-corpo de metal, assentos de moto). Corredor OÜS com grades foi reprovado.
+- **Fase 3 · Inferno** (noite das cúpulas, chamas): **chefão = caveira do grafite** (gigante, selo vermelho, anda de lado e cospe chamas).
+- Celular **em pé**; **3 vidas, médio**; **chiptune + efeitos** com mudo.
+- A peça **troca a cada batida na plataforma** (puff de fumaça); parede/alvo não troca. Hitbox circular igual pra todas.
+- **Produtos em pixel art** (pedido do dono: JPEG não combina): `arcade/sprites/gerar_sprites.py` recorta, reduz a 48/64 px, paleta de 16 cores,
+  contorno claro (peças pretas sumiam no fundo escuro) e usa o lado com a estampa mais forte. Prévia: `arcade/sprites/previa.png`.
+- Sem resposta (usar padrão, confirmar): ranking só com apelido; sem prêmio por enquanto; "VER O DROP" leva à peça que mais pontuou; textos em inglês arcade.
