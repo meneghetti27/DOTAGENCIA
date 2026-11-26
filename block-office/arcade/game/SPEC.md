@@ -59,3 +59,19 @@ Jogo promocional do drop HARD JEANS SANTO × BLOCK OFFICE. Textos em **portuguê
 - `HXB_CARD.gerar({pontos, arroba, fase, pecaImg, logoHard, logoBlock, fonteTitulo, fontePixel})` → `Promise<Blob>` PNG 1080×1920 (Stories),
   pixel art, com "HARD × BLOCK", a pontuação grande, a peça, os 2 logos, "@block.office × @hardjeanssanto" e "JOGUE: <link>" (link vem em `opts.link`).
   O motor salva com `const d = await claude.use("downloads"); d.save({filename:"hard-x-block-score.png", data: blob})`.
+
+## REVISÃO 2 (pedido do dono: "aumentar as peças, mais rápido, mais temático: tem que ficar evidente que é BLOCK × HARD JEANS SANTO")
+ARTE (só assets/):
+- `pecas/p1..p8.png` agora com **altura 40 px** (era 26), estampa mais legível (mais contraste, usar a cor real das estampas).
+- Marca em tudo: nos 3 fundos colocar elementos das duas marcas pintados na cena: logo "HARD JEANS SANTO" gótico grande pichado/lambe na parede,
+  bloco hexagonal da Block em neon/placa, cartazes do drop (as peças) colados na parede, faixa "HARD × BLOCK" no mezanino, letreiro "349".
+  Sem cobrir o miolo jogável (manter centro e base escuros).
+- Novos alvos com marca: `t-hard.png` 24×12 (tijolo preto com letra gótica branca), `t-block.png` 24×12 (bloquinho hexagonal da Block),
+  `t-caixa.png` 24×12 (caixa de papelão "HARD × BLOCK"), `t-cartaz.png` 24×16 (cartaz do drop, 2 batidas).
+- Novo `banner.png` 270×36: faixa "HARD × BLOCK" com os dois logos (para topo do HUD/telas). `logo-collab.png` ~240×90: os dois logos com "×" no meio.
+MOTOR (só index.html):
+- Peça desenhada com 40 px de altura; colisor raio 11. Velocidades novas: fase1 230, fase2 260, fase3 290 (+ leve aceleração a cada 10 rebatidas, teto +25%).
+- Layouts escrevem as marcas: fase 1 forma a palavra "BLOCK" com t-block/f1-bloco; fase 2 forma "HARD" com t-hard entre as motos; fase 3 tem fileira de t-cartaz acima das cúpulas.
+  Misturar t-caixa nos layouts. Alvos t-hard/t-block 1 batida (75 pts), t-cartaz 2 batidas (150), t-caixa 1 (50).
+- HUD com `banner.png` no topo; telas de início/entre fases/fim usam `logo-collab.png`; texto das fases: "FASE 1 · O SALÃO DA BLOCK", "FASE 2 · HARD NA PAREDE", "FASE 3 · INFERNO SANTO".
+- A cada peça trocada, mostrar nome + preço maior (faixa embaixo por 2 s) e, ao quebrar t-cartaz, soltar a peça do cartaz por um instante ("NOVA PEÇA DO DROP").
