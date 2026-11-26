@@ -63,3 +63,9 @@ Pendente: lista de nomes real (forro) e PDF completo.
 `python3 exportar_pdf.py` (o PDF do cairosvg abre EM BRANCO no Illustrator: usar o PDF do Chromium via `tools/svg-to-pdf.js`, + SVG e EPS) → `pdf/terceirao-costas-editavel.pdf` (1 página por til: 30 a 72%, 26 a 85%) + SVGs. Tudo vetor (letras em contorno via harfbuzz+fontTools, posições lidas do layout do navegador), grupos por camada; strokes editáveis; fundo preto num grupo pra apagar.
 - Favoritos do 2027 salvos em `costas/ano-favoritos/`: 40 estilos nº25 (à direita) e nº30 (27 grande), e emendado nº25. Nenhum fechado ainda.
 - Favorito do dono no ano: emendado nº25. Testando o "40 estilos 25" menor em 30 posições: `costas/ano25-menor/`.
+
+## Mídia kit (PDF)
+- Favoritos do ano (dono apagou 40-estilos 25 e 30): `costas/ano-favoritos/` = emendado 25 (**arte principal**) + novos 01, 03, 07, 11, 19, 22, 23, 30.
+- `python3 midiakit.py` → `midiakit/terceirao-2027-midia-kit.pdf` (7 págs: capa, principal, variações no preto, preto×negativo,
+  negativo principal, variações em negativo, cores e fontes) + `midiakit/png/` (cada variação: fundo-preto, transparente, negativo, negativo-transparente).
+- Negativo = pra fundo claro: inverte só os neutros (branco↔preto), roxos ficam; feito sobre o recorte transparente (senão a vinheta vira cinza).
