@@ -141,3 +141,4 @@ símbolo, mínimo, não fazer) · 02 Cores (cartões em degradê com sombra + pr
 - Moletom: costas menor (larg 112×1.12). Camiseta: estampa no peito à esquerda de quem olha.
 - **Revisar TODAS as páginas em tamanho grande antes de enviar** (dono cobrou logo cortado na pág. 28 do v2).
 - Pendente: 5 mockups de moletom diferentes — precisa de foto (dono manda) ou créditos ElevenLabs.
+- Mockups nas fotos do dono: **só o close (dono-2) ficou aprovado**. Remoção de estampa em foto de preview com JPG baixo/estampa grande deu resultado quebrado (True Romance ficou com manchas e logo flutuando: dono reclamou). NÃO entregar sem olhar cada um em tamanho grande. Melhor caminho: PSD/foto lisa.
