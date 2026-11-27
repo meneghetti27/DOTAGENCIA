@@ -71,3 +71,46 @@ def foto14():
 
 if __name__ == "__main__":
     foto11(); foto15(); foto14(); print("ok")
+
+
+def generico(n, roupa, estampas, aplic, recolor=False, crop=None, saida=None):
+    """roupa(a)->máscara do tecido; estampas(a, roupa)->máscara a apagar; aplic=[(cx,cy,larg)] em px da foto original"""
+    im0 = Image.open(D / f"{n}.jpg").convert("RGB")
+    K = 3 if im0.width < 1200 else 1
+    im0 = im0.resize((im0.width * K, im0.height * K), Image.LANCZOS)
+    a = np.asarray(im0).astype(float)
+    R = ndimage.binary_fill_holes(ndimage.binary_closing(roupa(a), iterations=8))
+    m = ndimage.binary_dilation(estampas(a, R), iterations=4 * K) & R
+    a = preencher(a, m, 10 * K)
+    if recolor:
+        L = a.mean(-1); base = np.median(L[R])
+        a = np.where(R[..., None], np.clip(L / base, .3, 1.8)[..., None] * np.array([30, 29, 33]), a)
+    im = Image.fromarray(a.clip(0, 255).astype(np.uint8)).convert("RGBA")
+    for cx, cy, lg in aplic:
+        estampa(im, ART, cx=cx * K, cy=cy * K, larg=lg * K, desloc=K)
+    if crop: im = im.crop(tuple(c * K for c in crop))
+    im.convert("RGB").save(OUT / saida)
+
+
+def lote2():
+    lum = lambda a: a.mean(-1)
+    # 20: preto em fundo branco — True Romance
+    generico(20, lambda a: lum(a) < 90, lambda a, R: lum(a) > 70,
+             [(592, 262, 140), (225, 245, 62)], crop=(0, 100, 808, 632), saida="dono-4-relaxed.png")
+    # 18: creme de costas -> preto
+    sat = lambda a: a.max(-1) - a.min(-1)
+    generico(18, lambda a: lum(a) > 120, lambda a, R: (sat(a) > 45) | (lum(a) < 150),
+             [(540, 760, 400)], recolor=True, saida="dono-5-costas.png")
+    # 17: preto com estampa e texto grande — tudo claro/colorido dentro da roupa
+    generico(17, lambda a: (lum(a) < 70), lambda a, R: (lum(a) > 55) | (sat(a) > 35),
+             [(505, 260, 170), (250, 230, 55)], saida="dono-6-bundle.png")
+    # 19: verde/roxo -> preto
+    generico(19, lambda a: (sat(a) > 18) & (lum(a) > 45), lambda a, R: (lum(a) > 120) | (sat(a) < 12),
+             [(255, 380, 230), (640, 300, 70)], recolor=True, crop=(0, 120, 808, 632), saida="dono-7-oversize.png")
+    # 16: meio zíper branco -> preto
+    generico(16, lambda a: lum(a) > 150, lambda a, R: lum(a) < 140,
+             [(440, 360, 150)], recolor=True, crop=(0, 90, 808, 540), saida="dono-8-ziper.png")
+
+
+if __name__ == "__main__":
+    lote2(); print("ok2")
