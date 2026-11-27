@@ -11,7 +11,7 @@ def base(f):
     return im.resize((im.width * K, im.height * K), Image.LANCZOS).filter(ImageFilter.UnsharpMask(2, 50, 2)).convert("RGBA")
 b = base("camiseta-preta.jpg"); estampa(b, ART, cx=670 * K, cy=360 * K, larg=250 * K, desloc=0.6 * K)
 b.convert("RGB").save(OUT / "camiseta-mockup.png")
-b = base("camiseta-preta.jpg"); estampa(b, ART, cx=790 * K, cy=225 * K, larg=62 * K, desloc=0.4 * K)
+b = base("camiseta-preta.jpg"); estampa(b, ART, cx=775 * K, cy=265 * K, larg=125 * K, desloc=0.4 * K)
 b.convert("RGB").save(OUT / "camiseta-time.png")
 b = base("bone-preto.jpg"); estampa(b, S27, cx=688 * K, cy=420 * K, larg=190 * K, giro=0, desloc=0.5 * K)
 b.convert("RGB").save(OUT / "bone-mockup.png")

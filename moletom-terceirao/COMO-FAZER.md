@@ -165,3 +165,4 @@ objetos 3D flutuando com desfoque, rodapé com logo branco + @, texto vertical "
 - Kit da formatura refeito em flat lay (envelope com lacre 27, convite frente/verso, ingresso, crachá, adesivo).
 - **Convites de festa** (Graffiti Youth + Space Grotesk): festa, baile 27, 100 dias, último sinal → `final/convites/`.
 - Páginas de aplicação: cartão 16:9 (1090×613) mostra a cena inteira; close em cartão quadrado.
+- Camiseta time: escudo no peito com ~10 cm reais (larg=125 px na foto 1376), não miniatura (dono: "tenha noção da realidade").
