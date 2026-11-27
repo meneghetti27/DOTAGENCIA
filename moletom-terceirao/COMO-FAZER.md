@@ -167,3 +167,11 @@ objetos 3D flutuando com desfoque, rodapé com logo branco + @, texto vertical "
 - Páginas de aplicação: cartão 16:9 (1090×613) mostra a cena inteira; close em cartão quadrado.
 - Camiseta time: escudo no peito com ~10 cm reais (larg=125 px na foto 1376), não miniatura (dono: "tenha noção da realidade").
 - **PDF agora é montado a partir de imagens de cada página** (screenshot 1.5x → PDF via Pillow): o PDF vetorial do Chromium gerava riscos/retângulos de sombra no leitor do iPhone por causa de blur/drop-shadow. Adesivos em superfície: grade 2×2 de cenas 16:9 inteiras (nada colado na borda).
+
+## ⭐ Versão com MOTION (site de rolagem) — https://claude.ai/artifact/94aMUkTkiveophiTZtuTdX
+Fonte: `motion/src.html` (a fonte Graffiti Youth entra em base64 no lugar de `__FONTE__` → `motion/index.html`), imagens em `motion/img/`.
+Mesma linguagem dos sites (webclinic): Lenis (rolagem suave) + GSAP ScrollTrigger. Cenas: intro com contador 00→27, título entrando
+palavra por palavra, orbe girando, manifesto que acende palavra a palavra, **revelação presa** (2027 gigante + logo saindo do desfoque),
+versões e aplicações na **horizontal presas no scroll** (parallax dentro dos quadros), 27 girando, cores que expandem no hover,
+alfabeto embaralhando, convites abrindo em leque, cursor próprio, botão magnético, cartão com tilt 3D, grão animado e partículas.
+Republicar: mesmo `file_path` com `root=motion` e a lista de `img/*` em `files`.
