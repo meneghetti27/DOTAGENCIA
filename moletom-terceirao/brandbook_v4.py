@@ -127,9 +127,9 @@ for i, (pl, h, t, src, fit, bg) in enumerate(APS):
 pag(bloco("Festas", "Convites<br><em>da turma.</em>", "Graffiti Youth no impacto, Space Grotesk na informação.", w=480, y=300)
     + '<div style="position:absolute;left:640px;right:110px;top:290px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px">'
     + "".join(f'<div class=card style="aspect-ratio:1080/1500"><img class=img src="{U(F/"convites"/f"convite-{n}.png")}"></div>' for n in ["festa", "baile", "100dias", "ultimo"]) + "</div>")
-pag(f'<div style="position:absolute;left:110px;right:110px;top:130px;bottom:130px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">'
-    + "".join(f'<div class=card><img class=img src="{U(KV/(n+".png"))}"></div>' for n in ["ad2-muro-tijolo", "ad3-mesa-madeira", "ad4-asfalto"]) + "</div>"
-    + '<div style="position:absolute;left:110px;top:70px"><div class=pill><i></i>Adesivos em superfícies reais</div></div>')
+pag(bloco("Adesivos", "Em qualquer<br><em>superfície.</em>", "Concreto, tijolo, madeira e asfalto: o recorte branco destaca a marca em qualquer fundo.", w=520, y=330)
+    + '<div style="position:absolute;left:700px;right:110px;top:230px;display:grid;grid-template-columns:1fr 1fr;gap:22px">'
+    + "".join(f'<div class=card style="aspect-ratio:16/9"><img class=img src="{U(KV/(n+".png"))}"></div>' for n in ["ad1-muro-concreto", "ad2-muro-tijolo", "ad3-mesa-madeira", "ad4-asfalto"]) + "</div>")
 # cuidados (perto do fim)
 erros = [("errado-esticar", "Esticar"), ("errado-cor", "Trocar cores"), ("errado-girar", "Girar"), ("errado-fundo", "Fundo poluído"), ("errado-claro", "Principal no claro"), ("errado-transparencia", "Transparência")]
 pag(bloco("Cuidados", "O que<br><em>não fazer.</em>", "Tamanho mínimo: 8 cm impresso e 180 px na tela. O símbolo 27: 3 cm / 48 px.", w=560)
@@ -141,8 +141,15 @@ pag(bloco("Turma 2027", "Obrigado<br><em>pela atenção.</em>", "Colégio Mãe d
 
 html = f"<!doctype html><html><head><meta charset=utf-8><style>{CSS}</style></head><body>{''.join(pags)}</body></html>"
 h = F / "_bb4.html"; h.write_text(html)
-js = ("const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage();"
+# PDF montado a partir de imagens de cada página: sem os riscos/retângulos que o PDF vetorial gerava com blur e sombra
+OUTP = F / "_paginas"; OUTP.mkdir(exist_ok=True)
+js = ("const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();"
+      "const p=await b.newPage({viewport:{width:1920,height:1080},deviceScaleFactor:1.5});"
       "await p.goto('file://'+process.argv[1]);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(1500);"
-      "await p.pdf({path:process.argv[2],width:'1920px',height:'1080px',printBackground:true});await b.close();})()")
-subprocess.run(["node", "-e", js, str(h.resolve()), str(F / "terceirao-2027-brandbook.pdf")], check=True)
-h.unlink(); print("ok", len(pags), "páginas")
+      "const els=await p.$$('.p');for(let i=0;i<els.length;i++){await els[i].screenshot({path:process.argv[2]+'/p'+String(i+1).padStart(2,'0')+'.png'});}"
+      "await b.close();})()")
+subprocess.run(["node", "-e", js, str(h.resolve()), str(OUTP)], check=True)
+from PIL import Image as _I
+ims = [_I.open(f).convert("RGB") for f in sorted(OUTP.glob("p*.png"))[:len(pags)]]
+ims[0].save(F / "terceirao-2027-brandbook.pdf", save_all=True, append_images=ims[1:], resolution=144, quality=92)
+print("ok", len(pags), "páginas")

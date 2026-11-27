@@ -166,3 +166,4 @@ objetos 3D flutuando com desfoque, rodapé com logo branco + @, texto vertical "
 - **Convites de festa** (Graffiti Youth + Space Grotesk): festa, baile 27, 100 dias, último sinal → `final/convites/`.
 - Páginas de aplicação: cartão 16:9 (1090×613) mostra a cena inteira; close em cartão quadrado.
 - Camiseta time: escudo no peito com ~10 cm reais (larg=125 px na foto 1376), não miniatura (dono: "tenha noção da realidade").
+- **PDF agora é montado a partir de imagens de cada página** (screenshot 1.5x → PDF via Pillow): o PDF vetorial do Chromium gerava riscos/retângulos de sombra no leitor do iPhone por causa de blur/drop-shadow. Adesivos em superfície: grade 2×2 de cenas 16:9 inteiras (nada colado na borda).
