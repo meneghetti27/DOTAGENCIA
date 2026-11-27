@@ -98,3 +98,13 @@ tipografia (Graffiti Youth + Inter + Space Mono), elementos, estampa corrida, 6 
 - Mockups em foto: moletom (foto do dono) + **camiseta e boné gerados no ElevenLabs** (`gemini-3.1-flash-lite-image`, 206 créditos cada;
   `bytedance-seedream-5-pro` custa 818). Fotos em `referencias/mockups/`, aplicação em `mockups_ia.py`.
 - Impressos/digital (`aplicacoes.py`): story, adesivo, faixa, ingresso, posts do feed, credencial, convite.
+
+## ⭐ BRAND BOOK v2 — editorial/conceitual (dono: "muito mais premium, profissional, conceitual, com profundidade")
+`python3 brandbook_v2.py` → `final/terceirao-2027-brandbook.pdf` (36 págs). Substitui o v1 (`manual_premium.py` fica como histórico).
+- Narrativa em 5 capítulos: **I O Muro** (manifesto, valores Atitude/União/Legado, território) · **II A Tag** (processo 150→30→7→1,
+  ajuste fino, assinatura, anatomia com 9 marcações, close, construção, versões, símbolo, mínimos) · **III A Cor** (roxo full-bleed,
+  paleta HEX/RGB/CMYK/PMS, equilíbrio 60/25/10/5) · **IV A Voz** (tipografia, tom de voz com frases, pattern, elementos, 6 usos proibidos)
+  · **V A Rua** (moletom, camiseta, boné em foto sangrada; impressos; digital; calendário do ano) + contracapa "até o último sinal."
+- Linguagem: grão SVG em todas as páginas, Inter Black + Playfair Italic (citações) + Space Mono (rótulos) + Graffiti Youth;
+  divisórias com luz roxa + pattern 27 a 7% (NÃO usar foto do boné de fundo: aparecia o boné repetido).
+- Anatomia: pinos em coordenadas reais da arte (px da arte 1503×1800), não chutar porcentagem.
