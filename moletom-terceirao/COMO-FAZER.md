@@ -151,3 +151,17 @@ objetos 3D flutuando com desfoque, rodapé com logo branco + @, texto vertical "
   (camiseta voltou pra arte grande na frente, um pouco à esquerda: cx=670).
 - Texto com degradê via background-clip gera caixa/linha no PDF: usar cor sólida.
 - @terceirao.mdd é placeholder (trocar pelo @ real da turma).
+
+### v4 — ajustes aprovados/pedidos (dono: "muito melhor, salve isso")
+- **Logo só aparece na pág. 3 (revelação)**: capa sem logo (círculos + orbe de luz), rodapé sem logo nas págs. 1–2.
+- Versões 1 cor: contorno preto **e sombra uva** viram vazio (`derivados.py`, limiar max<110) — antes empastava.
+- "Não fazer" vai **perto do fim** (antes do obrigado). Telão removido. Fim = "Obrigado pela atenção."
+- Capa das aplicações = mosaico de cartões inclinados com as aplicações reais.
+- Moletom: costas mais alto (cy=178), peito esquerdo de quem veste (cx=224, cy=120 na foto 661×360).
+- Camiseta grande aprovada ("show") + **versão time** (assinatura pequena no peito): `camiseta-time.png`.
+- Close: **cordões do capuz por cima da arte** (traçados à mão, preenchidos com o próprio cordão onde havia letra antiga;
+  textura do tecido devolvida na área apagada).
+- Pulseiras sem se cruzar (espaçamento 3). Cartela de adesivos refeita (`kits.py`): meio-corte, frases da turma.
+- Kit da formatura refeito em flat lay (envelope com lacre 27, convite frente/verso, ingresso, crachá, adesivo).
+- **Convites de festa** (Graffiti Youth + Space Grotesk): festa, baile 27, 100 dias, último sinal → `final/convites/`.
+- Páginas de aplicação: cartão 16:9 (1090×613) mostra a cena inteira; close em cartão quadrado.

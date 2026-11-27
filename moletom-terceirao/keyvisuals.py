@@ -55,7 +55,6 @@ CENAS = {
 <div class=titulo style="left:0;right:0;top:170px;font-size:520px;opacity:.95">2027</div>
 <img src="{U(R/'arte3d.png')}" style="position:absolute;left:50%;top:60px;height:960px;transform:translateX(-50%);filter:drop-shadow(0 40px 60px rgba(0,0,0,.7))">
 {particulas(70, 1920, 1080)}
-<div class=lbl style="position:absolute;left:90px;bottom:70px;font-size:15px;color:{LILAS};opacity:.7">Terceirão · Colégio Mãe de Deus</div>
 <div class=fx vin></div><div class="fx grao"></div></body>"""),
     "kv02-simbolo": (1920, 1080, f"""<body>
 <div class=fx style="background:radial-gradient(ellipse 50% 65% at 62% 48%,#33204A,{PRETO} 72%)"></div>
@@ -194,8 +193,8 @@ CENAS.update({
 })
 
 CENAS.update({
- "kv16-pulseiras": (1920, 1080, f"""<body>{fundo(50,48,'#2E1A40')}{holofote(50,o=.2)}{chao(745)}
-<img src="{U(R/'pulseiras-crop.png')}" style="position:absolute;left:160px;top:330px;width:1600px">
+ "kv16-pulseiras": (1920, 1080, f"""<body>{fundo(50,48,'#2E1A40')}{holofote(50,o=.2)}{chao(690)}
+<img src="{U(R/'pulseiras-crop.png')}" style="position:absolute;left:140px;top:350px;width:1640px">
 {nevoa(ROXO,50,85,60,18,.45)}{particulas(40,1920,1080,51)}{FIM}"""),
  "kv17-impressos": (1920, 1080, f"""<body>{fundo(50,45,'#2A1838')}
 <div style="position:absolute;left:250px;top:150px;width:520px;height:740px;border-radius:10px;background:radial-gradient(ellipse at 50% 35%,#2E1A40,#0A0A0C 75%);box-shadow:0 50px 80px rgba(0,0,0,.7);transform:rotate(-3deg)">

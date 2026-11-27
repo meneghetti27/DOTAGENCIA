@@ -69,7 +69,7 @@ if (modo === 'pulseira') {
     const t = await load(imgs[i]); t.wrapS = THREE.RepeatWrapping;
     const m = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.25, .62, 160, 1, true, 0, Math.PI * 1.93),
       new THREE.MeshPhysicalMaterial({map: t, roughness: .55, sheen: .5, side: THREE.DoubleSide}));
-    m.rotation.set(.22 - i * .05, -2.4 + i * .35, .12 - i * .12); m.position.set(-2.1 + i * 2.1, 0, -i * .2); m.castShadow = true; obj.add(m);
+    m.rotation.set(.22 - i * .05, -2.4 + i * .35, .12 - i * .12); m.position.set(-3 + i * 3, 0, -i * .15); m.castShadow = true; obj.add(m);
     const cl = new THREE.Mesh(new THREE.BoxGeometry(.18, .44, .1), new THREE.MeshPhysicalMaterial({color: 0xd6d1db, metalness: .8, roughness: .3}));
     cl.position.set(1.35, 0, 0); m.add(cl);
   }

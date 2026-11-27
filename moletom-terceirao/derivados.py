@@ -15,7 +15,7 @@ for d in ("versoes-1cor", "padrao", "_manual"): (F / d).mkdir(exist_ok=True)
 def uma_cor(im, cor):
     """tudo que não é o contorno preto vira a cor; o preto vira buraco (cor do tecido) -> serigrafia 1 cor"""
     a = np.asarray(im).astype(int)
-    preto = (a[..., :3].max(-1) < 45)
+    preto = (a[..., :3].max(-1) < 110)  # contorno preto + sombra uva viram vazio
     alpha = np.where(preto, 0, a[..., 3]).astype(np.uint8)
     rgb = np.zeros_like(a[..., :3]); rgb[:] = Image.new("RGB", (1, 1), cor).getpixel((0, 0))
     return Image.fromarray(np.dstack([rgb, alpha]).astype(np.uint8), "RGBA")

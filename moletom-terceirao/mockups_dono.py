@@ -46,10 +46,35 @@ def foto15():
     L = a.mean(-1)
     m = (L > 70) & (np.arange(a.shape[1])[None, :] < 1700) & (np.arange(a.shape[0])[:, None] > 250)
     m = ndimage.binary_dilation(m, iterations=6)
+    a0 = a.copy()
     a = preencher(a, m, 22)
+    # devolve a textura do tecido (tirada de área lisa) na área apagada
+    tex = a0[300:1000, 1200:1900] - ndimage.gaussian_filter(a0[300:1000, 1200:1900], (4, 4, 0))
+    H, W = a.shape[:2]; T = np.tile(tex, (H // 700 + 1, W // 700 + 1, 1))[:H, :W]
+    base = np.median(a0[300:1000, 1200:1900].mean(-1)); viz = ndimage.gaussian_filter(np.where(m, np.nan, L), 1)
+    a = np.where(m[..., None], a + T, a)
     im = Image.fromarray(a.clip(0, 255).astype(np.uint8)).convert("RGBA")
     estampa(im, ART, cx=1000, cy=1250, larg=1250, desloc=4)
-    im.convert("RGB").save(OUT / "dono-2-close.png")
+    # cordões do capuz por CIMA da arte (traçados à mão sobre a foto original)
+    from PIL import ImageDraw, ImageFilter
+    orig = Image.open(D / "15.jpg").convert("RGB")
+    mk = Image.new("L", orig.size, 0); dr = ImageDraw.Draw(mk)
+    for pts in [[(50,490),(80,670),(120,750),(200,830),(280,890),(360,970),(400,1050),(410,1150),(420,1250),(424,1370),(430,1470)],
+                [(410,480),(410,510),(450,650),(520,750),(600,830),(660,930),(690,1050),(700,1170),(696,1290),(690,1470)]]:
+        dr.line(pts, fill=255, width=40, joint="curve")
+        for x, y in pts: dr.ellipse((x-20, y-20, x+20, y+20), fill=255)
+    lum = np.asarray(orig.convert("L")).astype(float)
+    cm = np.asarray(mk) > 0
+    ok = cm & (lum < 50)                       # pixels de cordão de verdade
+    o = np.asarray(orig).astype(float); fill = o.copy()
+    for sg in (12, 5):                          # onde a letra antiga aparecia, recompõe com o próprio cordão
+        num = np.dstack([ndimage.gaussian_filter(o[..., c] * ok, sg) for c in range(3)])
+        den = ndimage.gaussian_filter(ok.astype(float), sg)[..., None] + 1e-6
+        fill = np.where((cm & ~ok)[..., None], num / den, fill)
+    orig = Image.fromarray(fill.clip(0, 255).astype(np.uint8))
+    mk = Image.fromarray((ndimage.binary_erosion(cm, iterations=3) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.5))
+    out = im.convert("RGB"); out.paste(orig, (0, 0), mk)
+    out.save(OUT / "dono-2-close.png")
 
 
 def foto14():
