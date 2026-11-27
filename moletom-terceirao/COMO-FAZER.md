@@ -119,3 +119,12 @@ tipografia (Graffiti Youth + Inter + Space Mono), elementos, estampa corrida, 6 
   partículas, vinheta, grão, frase de 1 linha com virada em roxo.
 - Títulos com acento: `padding-top:.14em` no texto com background-clip (senão o acento some).
 - Brand book v2 agora com 43 págs (key visuals sangrados no capítulo V).
+
+## Rodada "mais visual, menos texto" (dono)
+- **Sem "MÃE DE DEUS" embaixo do TERCEIRÃO** (favoritos.py esconde `.esc`). Reprocessar tudo: favoritos → midiakit → marca → derivados → mockups → render3d → keyvisuals → aplicacoes → brandbook_v2.
+- **Pattern 27 removido** ("não faz sentido"): não usar estampa corrida em lugar nenhum.
+- **Boné excluído** ("horrível"). Peito do moletom mais à esquerda (cx=197).
+- **Caneca branca** = arte NEGATIVO (`cor=%23F2EEF5`), preta = arte principal.
+- Brand book: parágrafos escondidos (`.t{display:none}`), só títulos + imagens. 49 págs.
+- Novas cenas premium (kv07–kv15): canecas preta+branca, chaveiro acrílico 3D, kit de adesivos 3D com desfoque,
+  capa de celular, caderno, pulseiras do baile, letreiro neon 27, telão da formatura com plateia, bandeira da turma.

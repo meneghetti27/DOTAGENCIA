@@ -68,7 +68,7 @@ def pinta(arq, H):
 if __name__ == "__main__":
     for nome, (f, v) in FAV.items():
         costas.ANO_FONTE, costas.ANO_INT = f, v
-        base = costas.html("graffiti_youth.otf", True, True)
+        base = costas.html("graffiti_youth.otf", True, True).replace("</style>", ".esc{display:none!important}</style>", 1)
         for suf, html in (("", base), ("-negativo", negativo(base))):
             h = P / f"_{nome}{suf}.html"; h.write_text(html)
             costas.render(h, P / f"{nome}{suf}.png"); h.unlink()

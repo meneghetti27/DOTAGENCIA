@@ -48,7 +48,7 @@ body{{font-family:I;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 .h{{font-family:I;font-weight:900;font-size:96px;line-height:.92;letter-spacing:-.04em}}
 .s{{font-family:S;font-style:italic;font-weight:400;letter-spacing:-.01em}}
 .hg{{font-family:G;line-height:.88;color:#fff;-webkit-text-stroke:.15em {PRETO};paint-order:stroke fill;filter:drop-shadow(.05em .06em 0 {ROXO})}}
-.t{{font-size:20px;line-height:1.7;opacity:.72;max-width:500px}}
+.t{{display:none}}
 .k{{color:{ROXO}}} .rule{{height:1px;background:currentColor;opacity:.18}}
 .img{{position:absolute;overflow:hidden}} .img img{{width:100%;height:100%;object-fit:cover;display:block}}
 .cap{{font-family:M;font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-top:14px}}
@@ -66,7 +66,7 @@ def pag(cls, corpo, secao="", rod=True):
 br = lambda l: "".join(f'<i class=br style="--s:{s}px;--c:{c};left:{x}px;top:{y}px"></i>' for x, y, s, c in l)
 def capitulo(rom, nome, frase):
     pag("", f"""<div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 70% 0%,#3A2350 0%,#160F1C 45%,{PRETO} 75%)"></div>
-<img src="{PAT}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.07">
+
 <div style="position:absolute;left:0;right:0;bottom:0;height:420px;background:linear-gradient(0deg,{PRETO},transparent)"></div>
 <div style="position:absolute;left:110px;top:150px" class="lbl k">Capítulo {rom}</div>
 <div class=hg style="position:absolute;left:100px;top:300px;font-size:300px">{nome}</div>
@@ -178,7 +178,7 @@ pag("", f"""<div style="position:absolute;left:110px;top:150px" class="lbl k">Ta
 
 # ============ III · A COR ============
 capitulo("III", "A COR", "Roxo não é a cor da escola. É a cor da turma.")
-pag("rx", f"""<img src="{PAT}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.13;mix-blend-mode:multiply">
+pag("rx", f"""
 <div style="position:absolute;left:110px;top:200px"><div class=lbl style="opacity:.7">Cor principal</div>
 <div class=h style="font-size:220px;margin-top:20px">Roxo<br>turma.</div></div>
 <div style="position:absolute;right:110px;bottom:150px;font-family:M;font-size:20px;line-height:2.1;text-align:right">HEX #996BB3<br>RGB 153 · 107 · 179<br>CMYK 40 · 60 · 0 · 0<br>PANTONE ≈ 2577 C</div>
@@ -212,11 +212,6 @@ pag("", f"""<div style="position:absolute;left:110px;top:150px" class="lbl k">To
  f'<div class=hg style="font-size:118px;color:{c}">{f}</div>' for f, c in frases)}</div>
 <div style="position:absolute;right:110px;top:300px;width:460px"><p class=t style="font-size:22px;max-width:none">Frases curtas, em maiúsculas, com ponto final. Tom de orgulho e despedida, nunca de nostalgia triste. Humor permitido, deboche não.</p>
 <div class=rule style="margin:36px 0"></div><div class=cap style="opacity:.75">Sim · “Último ano.” “Turma 27.”<br><br>Não · “Saudades eternas” “Melhor turma de todas”</div></div>""", "Voz")
-pag("", f"""<img src="{PAT}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-<div style="position:absolute;inset:0;background:linear-gradient(90deg,{PRETO} 0,{PRETO}c0 38%,transparent 70%)"></div>
-<div style="position:absolute;left:110px;top:300px;width:560px"><div class="lbl k">Estampa corrida</div>
-<div class=h style="margin-top:30px">Pattern 27.</div>
-<p class=t style="margin-top:40px">Forro do capuz, verso de credencial, papel de presente, wallpaper de celular. O número repetido vira textura de turma.</p></div>""", "Pattern")
 pag("cl", f"""<div style="position:absolute;left:110px;top:300px;width:520px"><div class="lbl k">Elementos</div>
 <div class=h style="margin-top:30px">Brilhos<br>e figurinhas.</div>
 <p class=t style="margin-top:40px">Brilho de 4 pontas em branco, roxo e lilás, sempre em volta e nunca por cima das letras. O 27 e o til podem aparecer soltos, como adesivos.</p></div>
@@ -238,8 +233,6 @@ pag("cl", f"""<div class=img style="inset:0"><img src="{U(A/'moletom-mockup.png'
 <div style="position:absolute;left:110px;bottom:130px" class=lbl>Moletom · costas e peito</div>""", "Vestuário")
 pag("", f"""<div class=img style="inset:0"><img src="{U(A/'camiseta-mockup.png')}"></div>
 <div style="position:absolute;left:110px;bottom:130px" class=lbl>Camiseta oversized · assinatura principal</div>""", "Vestuário")
-pag("", f"""<div class=img style="inset:0"><img src="{U(A/'bone-mockup.png')}"></div>
-<div style="position:absolute;left:110px;bottom:130px" class=lbl>Boné · símbolo 27</div>""", "Vestuário")
 pag("cl", f"""<div class=img style="left:110px;top:150px;width:1040px;height:800px"><img src="{U(A/'09-convite.png')}"></div>
 <div class=img style="left:1180px;top:150px;width:630px;height:390px"><img src="{U(A/'06-ingresso-formatura.png')}"></div>
 <div class=img style="left:1180px;top:560px;width:630px;height:390px"><img src="{U(A/'08-credencial.png')}"></div>""", "Impressos")
@@ -252,7 +245,6 @@ pag("", f"""<div class=img style="left:110px;top:150px;width:520px;height:800px"
 <div style="position:absolute;left:1260px;top:600px;width:520px"><div class="lbl k">Digital</div>
 <p class=t style="margin-top:20px">Story de contagem regressiva, grade de feed alternando preto, roxo e claro, e adesivos pra notebook e garrafa.</p></div>""", "Digital")
 pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv02-simbolo.png')}"></div>""", "Símbolo em 3D", rod=False)
-pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv03-caneca.png')}"></div>""", "Objetos", rod=False)
 pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv04-bottons.png')}"></div>""", "Objetos", rod=False)
 pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv06-celular.png')}"></div>
 <div style="position:absolute;left:110px;bottom:120px" class=lbl>Wallpapers · lock screen e home</div>""", "Digital")
@@ -260,6 +252,15 @@ pag("", f"""<div style="position:absolute;left:110px;top:150px" class="lbl k">In
 <div class=h style="position:absolute;left:110px;top:220px;font-size:58px">Posts com<br>profundidade.</div>
 <p class=t style="position:absolute;left:110px;top:420px;width:380px">Título gigante atrás do objeto 3D, luz roxa, névoa e partículas. Frase de apoio em 1 linha com a virada em roxo.</p>
 <div style="position:absolute;left:560px;right:110px;top:190px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">{''.join(f'<div class=img style="position:relative;aspect-ratio:4/5"><img src="{U(AQUI/"final/keyvisuals"/(n+".png"))}"></div>' for n in ["post01-ultimo-ano","post02-moletom","post03-contagem"])}</div>""", "Digital")
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv07-canecas.png')}"></div>""", "Objetos", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv08-chaveiro.png')}"></div>""", "Objetos", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv09-adesivos.png')}"></div>""", "Objetos", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv10-capa-celular.png')}"></div>""", "Objetos", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv11-caderno.png')}"></div>""", "Papelaria", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv12-pulseiras.png')}"></div>""", "Baile", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv15-bandeira.png')}"></div>""", "Turma", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv13-neon.png')}"></div>""", "Ambiente", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv14-telao.png')}"></div>""", "Formatura", rod=False)
 cal = [("FEV", "Volta às aulas", "Lançamento da marca"), ("MAR", "Moletom", "Pedido e entrega"), ("JUN", "Festa junina", "Adesivos e camisetas"),
        ("AGO", "100 dias", "Faixa e story"), ("NOV", "Baile", "Convite e ingresso"), ("DEZ", "Formatura", "Credencial e foto oficial")]
 pag("", f"""<div style="position:absolute;left:110px;top:150px" class="lbl k">O ano da marca</div>

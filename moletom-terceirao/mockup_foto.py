@@ -49,7 +49,7 @@ if __name__ == "__main__":
     # costas (moletom da direita): centro do tronco, abaixo do capuz
     estampa(base, arte, cx=468 * K, cy=200 * K, larg=int(128 * 1.12) * K, giro=0, desloc=0.6 * K)
     # frente (moletom da esquerda): peito esquerdo de quem veste = direita na foto
-    estampa(base, arte, cx=213 * K, cy=128 * K, larg=int(34 * 1.12) * K, giro=0, desloc=2)
+    estampa(base, arte, cx=197 * K, cy=130 * K, larg=int(34 * 1.12) * K, giro=0, desloc=2)
     base.convert("RGB").save(OUT / "moletom-mockup.png")
     # recortes de detalhe
     base.crop((330 * K, 20 * K, 610 * K, 340 * K)).convert("RGB").save(OUT / "moletom-mockup-costas.png")

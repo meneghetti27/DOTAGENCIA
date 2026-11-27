@@ -75,7 +75,7 @@ CENAS = {
 <div class=fx vin></div><div class="fx grao"></div></body>"""),
     "kv04-bottons": (1920, 1080, f"""<body>
 <div class=fx style="background:radial-gradient(ellipse 60% 70% at 50% 50%,#2A1838,{PRETO} 75%)"></div>
-<img src="{PAT}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.08">
+
 {nevoa(ROXO, 50, 50, 50, 50, .4)}
 <img src="{U(R/'bottonarte.png')}" style="position:absolute;left:300px;top:150px;width:720px;transform:rotate(-12deg);filter:drop-shadow(30px 40px 40px rgba(0,0,0,.7))">
 <img src="{U(R/'botton27.png')}" style="position:absolute;left:930px;top:300px;width:620px;transform:rotate(14deg);filter:drop-shadow(30px 40px 40px rgba(0,0,0,.7))">
@@ -94,7 +94,7 @@ CENAS = {
 <div class=fx style="background:radial-gradient(ellipse 55% 70% at 50% 50%,#2A1838,{PRETO} 75%)"></div>{nevoa(ROXO, 50, 55, 45, 50, .5)}
 <div style="position:absolute;left:560px;top:110px;width:400px;height:860px;border-radius:64px;background:#08070a;padding:16px;transform:rotate(-8deg);box-shadow:0 60px 90px rgba(0,0,0,.8),inset 0 0 0 3px #2b2630">
  <div style="width:100%;height:100%;border-radius:50px;overflow:hidden;position:relative;background:{PRETO}">
-  <img src="{PAT}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 70%,#3A2350,#0A0A0C 70%)"></div>
   <div style="position:absolute;top:90px;width:100%;text-align:center;font-family:I;font-weight:900;font-size:96px;color:#fff;letter-spacing:-.04em">07:27</div>
   <img src="{U(R/'t27.png')}" style="position:absolute;left:40px;bottom:120px;width:290px"></div></div>
 <div style="position:absolute;left:1000px;top:150px;width:400px;height:860px;border-radius:64px;background:#08070a;padding:16px;transform:rotate(6deg);box-shadow:0 60px 90px rgba(0,0,0,.8),inset 0 0 0 3px #2b2630">
@@ -132,6 +132,66 @@ CENAS = {
 <div class=lbl style="position:absolute;bottom:64px;width:100%;text-align:center;font-size:13px;color:#8d7f99">Turma 2027</div>
 <div class=fx vin></div><div class="fx grao"></div></body>"""),
 }
+
+
+NEG = U(AQUI/'final/negativo/terceirao-2027-principal-negativo-transparente.png')
+ARTP = U(AQUI/'final/arte-principal/terceirao-2027-principal-transparente.png')
+def fundo(cx=50, cy=50, c1="#2E1A40"):
+    return f'<div class=fx style="background:radial-gradient(ellipse 60% 70% at {cx}% {cy}%,{c1},{PRETO} 75%)"></div>'
+FIM = '<div class="fx vin"></div><div class="fx grao"></div></body>'
+CENAS.update({
+ "kv07-canecas": (1920, 1080, f"""<body>{fundo(50,50)}{holofote(50,o=.2)}{chao(830)}
+<img src="{U(R/'caneca.png')}" style="position:absolute;left:250px;top:60px;width:900px">
+<img src="{U(R/'caneca-branca.png')}" style="position:absolute;left:820px;top:60px;width:900px">
+{nevoa(ROXO,50,92,60,16,.5)}{particulas(40,1920,1080,31)}{FIM}"""),
+ "kv08-chaveiro": (1920, 1080, f"""<body>{fundo(55,45,'#33204A')}{holofote(55,o=.28)}
+<div style="position:absolute;left:1040px;top:-20px;width:3px;height:170px;background:linear-gradient(#0000,#cfcad4)"></div>
+<img src="{U(R/'chaveiro.png')}" style="position:absolute;left:560px;top:40px;width:1000px;filter:drop-shadow(0 50px 60px rgba(0,0,0,.8))">
+<div class=titulo style="left:90px;top:640px;font-size:150px;text-align:left;opacity:.9">LEVA<br>CONTIGO.</div>
+{particulas(45,1920,1080,33)}{FIM}"""),
+ "kv09-adesivos": (1920, 1080, f"""<body>{fundo(50,55,'#2A1838')}
+<img src="{U(R/'sticker-a.png')}" style="position:absolute;left:120px;top:80px;width:820px;filter:drop-shadow(20px 40px 30px rgba(0,0,0,.7))">
+<img src="{U(R/'sticker-b.png')}" style="position:absolute;left:820px;top:380px;width:700px;filter:drop-shadow(20px 40px 30px rgba(0,0,0,.7))">
+<img src="{U(R/'sticker-c.png')}" style="position:absolute;left:1250px;top:-60px;width:720px;filter:blur(4px) drop-shadow(20px 40px 30px rgba(0,0,0,.6))">
+<img src="{U(R/'t27.png')}" style="position:absolute;left:-80px;top:700px;width:460px;filter:blur(6px);opacity:.8">
+{nevoa(ROXO,50,50,55,50,.35)}{particulas(50,1920,1080,35)}{FIM}"""),
+ "kv10-capa-celular": (1920, 1080, f"""<body>{fundo(50,50,'#2E1A40')}{holofote(50,o=.22)}
+<div style="position:absolute;left:740px;top:90px;width:440px;height:900px;border-radius:70px;background:linear-gradient(135deg,#1b1720,#0b0a0d 60%);transform:rotate(-10deg);box-shadow:0 70px 100px rgba(0,0,0,.85),inset 0 0 0 3px #2c2733,inset 6px 6px 18px rgba(255,255,255,.06)">
+ <div style="position:absolute;left:34px;top:34px;width:170px;height:170px;border-radius:44px;background:#0d0c10;box-shadow:inset 0 0 0 3px #2c2733">
+  <i style="position:absolute;left:22px;top:22px;width:58px;height:58px;border-radius:50%;background:radial-gradient(#2d2a35,#050506);box-shadow:0 0 0 5px #1f1c24"></i>
+  <i style="position:absolute;left:92px;top:92px;width:58px;height:58px;border-radius:50%;background:radial-gradient(#2d2a35,#050506);box-shadow:0 0 0 5px #1f1c24"></i></div>
+ <img src="{U(R/'t27.png')}" style="position:absolute;left:40px;top:330px;width:360px"></div>
+{nevoa(ROXO,50,90,50,20,.45)}{particulas(40,1920,1080,37)}{FIM}"""),
+ "kv11-caderno": (1920, 1080, f"""<body>{fundo(50,50,'#2A1838')}{chao(880)}
+<div style="position:absolute;left:560px;top:120px;width:640px;height:820px;transform:perspective(1800px) rotateY(-18deg) rotateX(6deg);transform-origin:left">
+ <div style="position:absolute;inset:0;border-radius:10px 26px 26px 10px;background:linear-gradient(120deg,#a77cc1,#996BB3 40%,#6e4789);box-shadow:30px 50px 80px rgba(0,0,0,.75)"></div>
+ <div style="position:absolute;left:0;top:0;bottom:0;width:46px;background:linear-gradient(90deg,#4b2c63,#7a4c99);border-radius:10px 0 0 10px"></div>
+ <img src="{ARTP}" style="position:absolute;left:120px;top:110px;width:440px;filter:drop-shadow(0 20px 20px rgba(0,0,0,.35))">
+ <div style="position:absolute;right:0;top:12px;bottom:12px;width:14px;background:repeating-linear-gradient(#f2eef5 0 3px,#d9d2e1 3px 6px);border-radius:0 6px 6px 0"></div></div>
+{particulas(35,1920,1080,39)}{FIM}"""),
+ "kv12-pulseiras": (1920, 1080, f"""<body>{fundo(50,50,'#2E1A40')}{holofote(50,o=.18)}
+{''.join(f'<div style="position:absolute;left:{x}px;top:{y}px;width:1300px;height:110px;border-radius:14px;transform:rotate({r}deg);background:{c};box-shadow:0 30px 40px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.25);display:flex;align-items:center;gap:60px;padding-left:70px;overflow:hidden;font-family:G;font-size:64px;color:{t};-webkit-text-stroke:8px #0A0A0C;paint-order:stroke fill;white-space:nowrap">TERCEIRÃO 27 <span style="font-family:M;font-size:22px;letter-spacing:.4em;-webkit-text-stroke:0;color:{t}">ACESSO · BAILE · 2027</span> TERCEIRÃO 27</div>' for x,y,r,c,t in [(300,250,-14,ROXO,'#fff'),(250,470,-6,'#F2EEF5',ROXO),(330,690,4,'#141018','#E4CFF7')])}
+{particulas(40,1920,1080,41)}{FIM}"""),
+ "kv13-neon": (1920, 1080, f"""<body><div class=fx style="background:#0c0a0f"></div>
+<div class=fx style="background:repeating-linear-gradient(0deg,#0000 0 58px,rgba(255,255,255,.035) 58px 62px),repeating-linear-gradient(90deg,#0000 0 118px,rgba(255,255,255,.03) 118px 122px)"></div>
+{nevoa(ROXO,50,48,45,45,.7)}
+<div style="position:absolute;left:0;right:0;top:170px;text-align:center;font-family:G;font-size:520px;line-height:1;color:#fff;-webkit-text-stroke:0;
+ text-shadow:0 0 8px #fff,0 0 30px #E4CFF7,0 0 70px {ROXO},0 0 140px {ROXO},0 0 220px #7A4C99">27</div>
+<div class=lbl style="position:absolute;width:100%;bottom:150px;text-align:center;font-size:26px;color:#E4CFF7;text-shadow:0 0 18px {ROXO}">TERCEIRÃO · 2027</div>
+{FIM}"""),
+ "kv14-telao": (1920, 1080, f"""<body><div class=fx style="background:linear-gradient(180deg,#0b090e,#140d1a)"></div>
+{holofote(30,o=.16)}{holofote(70,o=.16)}
+<div style="position:absolute;left:360px;top:110px;width:1200px;height:675px;border-radius:8px;background:radial-gradient(ellipse at 50% 45%,#3A2350,#0A0A0C 75%);box-shadow:0 0 140px rgba(153,107,179,.55),0 0 0 6px #1a1520">
+ <img src="{ARTP}" style="position:absolute;left:50%;top:30px;height:615px;transform:translateX(-50%)"></div>
+<div class=fx style="top:760px;background:radial-gradient(ellipse 70% 60% at 50% 100%,#000 40%,transparent 75%)"></div>
+{''.join(f'<i style="position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{w*1.5:.0f}px;border-radius:50% 50% 30% 30%;background:#050406"></i>' for x,y,w in [(80,900,120),(260,880,140),(470,910,120),(660,870,150),(880,900,130),(1080,875,145),(1290,905,125),(1480,880,140),(1680,900,130)])}
+{particulas(60,1920,800,43)}{FIM}"""),
+ "kv15-bandeira": (1920, 1080, f"""<body>{fundo(50,40,'#2E1A40')}{holofote(50,o=.22)}
+<div style="position:absolute;left:560px;top:40px;width:800px;height:24px;border-radius:12px;background:linear-gradient(#cfcad4,#7d7885)"></div>
+<div style="position:absolute;left:600px;top:60px;width:720px;height:940px;background:linear-gradient(90deg,#6e4789,#996BB3 18%,#7a4c99 32%,#a67fc0 50%,#7a4c99 66%,#996BB3 82%,#6e4789);clip-path:polygon(0 0,100% 0,100% 86%,50% 100%,0 86%);box-shadow:0 40px 80px rgba(0,0,0,.6)">
+ <img src="{ARTP}" style="position:absolute;left:110px;top:60px;width:500px;filter:drop-shadow(0 20px 20px rgba(0,0,0,.4))"></div>
+{particulas(40,1920,1080,45)}{FIM}"""),
+})
 
 if __name__ == "__main__":
     for nome, (w, h, corpo) in CENAS.items():

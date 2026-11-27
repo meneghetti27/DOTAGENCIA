@@ -59,7 +59,6 @@ PECAS = {
     "07-posts-feed": (2400, 800, f"""<body style="background:#0A0A0C;display:flex;gap:0">
 <div style="width:800px;height:800px;background:radial-gradient(ellipse 60% 55% at 50% 50%,#2A1838,#0A0A0C 75%);position:relative"><img src="{ART}" style="position:absolute;left:190px;top:20px;height:760px"></div>
 <div style="width:800px;height:800px;background:{ROXO};position:relative;overflow:hidden">
- <img src="{PNG}/../../final/padrao/estampa-corrida-27.png" style="position:absolute;inset:0;width:800px;opacity:.22;mix-blend-mode:multiply">
  <div style="position:absolute;left:60px;top:70px;font-size:26px;letter-spacing:.4em;color:#0A0A0C;font-weight:700">SAVE THE DATE</div>
  <div style="position:absolute;left:55px;top:140px;font-family:G;font-size:200px;line-height:.9;color:#fff;-webkit-text-stroke:26px #0A0A0C;paint-order:stroke fill;filter:drop-shadow(10px 12px 0 {UVA})">BAILE<br>27</div>
  <div style="position:absolute;left:60px;bottom:70px;font-size:30px;color:#0A0A0C;font-weight:700;letter-spacing:.1em">DEZ · 2027 · MÃE DE DEUS</div></div>
@@ -69,7 +68,6 @@ PECAS = {
 <div style="position:absolute;left:640px;top:0;width:120px;height:330px;background:repeating-linear-gradient(90deg,{ROXO} 0 40px,#0A0A0C 40px 80px);"></div>
 <div style="position:absolute;left:670px;top:300px;width:60px;height:70px;border-radius:12px;background:#c9c3cf;border:6px solid #8a8490"></div>
 <div style="position:absolute;left:450px;top:350px;width:500px;height:760px;border-radius:30px;background:#0A0A0C;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);border:2px solid #2a2530">
- <img src="{PNG}/../../final/padrao/estampa-corrida-27.png" style="position:absolute;inset:0;width:500px;opacity:.5">
  <div style="position:absolute;left:0;right:0;top:0;height:100%;background:linear-gradient(180deg,rgba(10,10,12,.2),#0A0A0C 70%)"></div>
  <img src="{ART}" style="position:absolute;left:95px;top:30px;width:310px">
  <div style="position:absolute;left:40px;bottom:150px;font-family:G;font-size:64px;color:#fff;-webkit-text-stroke:12px #0A0A0C;paint-order:stroke fill;filter:drop-shadow(4px 5px 0 {ROXO})">NOME DO ALUNO</div>

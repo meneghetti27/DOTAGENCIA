@@ -50,13 +50,23 @@ function rotulo(img, larg = 2048, alt = 1024, fundo = '#121014', esc = .82, pos 
   c.save(); c.translate(larg * pos, alt / 2); c.rotate(giro); c.drawImage(img, -w / 2, -h / 2, w, h); c.restore();
   const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 }
-const preto = (r = .38) => new THREE.MeshPhysicalMaterial({color: 0x121014, roughness: r, clearcoat: .6, clearcoatRoughness: .25});
+const COR = q.get('cor') ? new THREE.Color(q.get('cor')) : null;
+const preto = (r = .38) => COR ? new THREE.MeshPhysicalMaterial({color: COR, roughness: .3, clearcoat: 1, clearcoatRoughness: .1}) : new THREE.MeshPhysicalMaterial({color: 0x121014, roughness: r, clearcoat: .6, clearcoatRoughness: .25});
 let obj;
 if (modo === 'slab') { obj = await slab(q.get('img'), +(q.get('alt') || 4.2), +(q.get('esp') || .32)); obj.rotation.set(+(q.get('rx') || 0), +(q.get('ry') || 0), +(q.get('rz') || 0)); }
+if (modo === 'chaveiro') {
+  obj = new THREE.Group(); const sl = await slab(q.get('img'), 3, .22); obj.add(sl);
+  const acr = new THREE.Mesh(new THREE.BoxGeometry(3.3 * +(q.get('asp') || 1), 3.3, .08), new THREE.MeshPhysicalMaterial({color: 0xffffff, transmission: 1, roughness: .05, thickness: .3, ior: 1.5, clearcoat: 1, transparent: true, opacity: .35}));
+  acr.position.z = .07; obj.add(acr);
+  const met = new THREE.MeshPhysicalMaterial({color: 0xdad6de, metalness: 1, roughness: .18});
+  const arg = new THREE.Mesh(new THREE.TorusGeometry(.55, .07, 24, 64), met); arg.position.set(0, 2.25, 0); obj.add(arg);
+  const elo = new THREE.Mesh(new THREE.TorusGeometry(.18, .045, 16, 48), met); elo.position.set(0, 1.72, 0); elo.rotation.y = Math.PI / 2; obj.add(elo);
+  obj.rotation.set(-.1, +(q.get('ry') || .45), +(q.get('rz') || .08)); obj.traverse(o => o.castShadow = true);
+}
 if (modo === 'caneca') {
   const t = await load(q.get('img')); obj = new THREE.Group();
   const corpo = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.18, 2.9, 128, 1, true),
-    new THREE.MeshPhysicalMaterial({map: rotulo(t.image, 2048, 1024, '#141216', .8, .25), roughness: .3, clearcoat: 1, clearcoatRoughness: .1, side: THREE.DoubleSide}));
+    new THREE.MeshPhysicalMaterial({map: rotulo(t.image, 2048, 1024, q.get('cor') || '#141216', .8, .25), roughness: .3, clearcoat: 1, clearcoatRoughness: .1, side: THREE.DoubleSide}));
   corpo.rotation.y = Math.PI * .5 + (+(q.get('gira') || 0)); obj.add(corpo);
   const fundo = new THREE.Mesh(new THREE.CircleGeometry(1.18, 64), preto()); fundo.rotation.x = Math.PI / 2; fundo.position.y = -1.45; obj.add(fundo);
   const dentro = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.1, 2.8, 96, 1, true), new THREE.MeshStandardMaterial({color: 0x996bb3, roughness: .4, side: THREE.BackSide}));
