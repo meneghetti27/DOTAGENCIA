@@ -98,6 +98,7 @@ pag("", f"""<div style="position:absolute;left:100px;right:100px;top:180px;displ
 divisoria("04", "Aplicações")
 cena(KV / "kv05-moletom.png", "Aplicações")
 pag("", f'<div style="position:absolute;inset:0;background:#fff"></div><img src="{U(A/"moletom-mockup.png")}" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:1800px">', "Aplicações")
+cena(A / "dono-2-close.png", "Aplicações")
 cena(A / "camiseta-mockup.png", "Aplicações")
 for nome in ["ad1-muro-concreto", "ad2-muro-tijolo", "ad3-mesa-madeira", "ad4-asfalto"]:
     cena(KV / f"{nome}.png", "Adesivos")
