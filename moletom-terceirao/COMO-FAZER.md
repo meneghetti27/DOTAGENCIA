@@ -88,3 +88,13 @@ Tudo em **`final/`**:
 4. Deformação leve pelo gradiente do relevo (`desloc` ≈ 0,6×K; mais que isso entorta o MÃE DE DEUS).
 5. Grão de tinta + 96% de opacidade; alpha só onde é tecido (luminância < 150, erodido) → nada vaza pro fundo branco.
 6. Costas: centro (468,200)×K, largura ≈143×K. Peito: (213,128)×K, largura ≈38×K. Coordenadas da foto original 661×360.
+
+## ⭐ BRAND BOOK PREMIUM (`final/terceirao-2027-brandbook.pdf`, 26 págs) — `python3 manual_premium.py`
+Estrutura de brand book de marca grande: capa, índice, 5 capítulos com divisória roxa + pattern (Essência, Marca, Cor & Tipo,
+Linguagem, Aplicações), manifesto ("A gente não pichou a escola. A gente assinou."), construção/área de proteção (x = altura do 27),
+versões (principal, negativo, 1 cor branco/roxo), símbolo 27, tamanhos mínimos, paleta com HEX/RGB/CMYK/PMS aprox., proporção 60/25/10/5,
+tipografia (Graffiti Youth + Inter + Space Mono), elementos, estampa corrida, 6 usos incorretos, aplicações, contracapa.
+- Peças novas: `final/simbolo/` (27 sozinho), `final/versoes-1cor/`, `final/padrao/estampa-corrida-27.png` (`derivados.py`).
+- Mockups em foto: moletom (foto do dono) + **camiseta e boné gerados no ElevenLabs** (`gemini-3.1-flash-lite-image`, 206 créditos cada;
+  `bytedance-seedream-5-pro` custa 818). Fotos em `referencias/mockups/`, aplicação em `mockups_ia.py`.
+- Impressos/digital (`aplicacoes.py`): story, adesivo, faixa, ingresso, posts do feed, credencial, convite.

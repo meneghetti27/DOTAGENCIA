@@ -56,6 +56,33 @@ PECAS = {
  <div style="position:absolute;right:0;top:0;width:360px;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff">
   <div style="font-family:G;font-size:150px;color:{ROXO}">27</div><div style="font-size:22px;letter-spacing:.4em;color:#8d7f99">Nº 0001</div></div>
 </div></body>"""),
+    "07-posts-feed": (2400, 800, f"""<body style="background:#0A0A0C;display:flex;gap:0">
+<div style="width:800px;height:800px;background:radial-gradient(ellipse 60% 55% at 50% 50%,#2A1838,#0A0A0C 75%);position:relative"><img src="{ART}" style="position:absolute;left:190px;top:20px;height:760px"></div>
+<div style="width:800px;height:800px;background:{ROXO};position:relative;overflow:hidden">
+ <img src="{PNG}/../../final/padrao/estampa-corrida-27.png" style="position:absolute;inset:0;width:800px;opacity:.22;mix-blend-mode:multiply">
+ <div style="position:absolute;left:60px;top:70px;font-size:26px;letter-spacing:.4em;color:#0A0A0C;font-weight:700">SAVE THE DATE</div>
+ <div style="position:absolute;left:55px;top:140px;font-family:G;font-size:200px;line-height:.9;color:#fff;-webkit-text-stroke:26px #0A0A0C;paint-order:stroke fill;filter:drop-shadow(10px 12px 0 {UVA})">BAILE<br>27</div>
+ <div style="position:absolute;left:60px;bottom:70px;font-size:30px;color:#0A0A0C;font-weight:700;letter-spacing:.1em">DEZ · 2027 · MÃE DE DEUS</div></div>
+<div style="width:800px;height:800px;background:#F4F1F7;position:relative"><img src="{PNG}/../../final/simbolo/simbolo-27-roxo.png" style="position:absolute;left:80px;top:120px;width:640px">
+ <div style="position:absolute;width:100%;bottom:90px;text-align:center;font-size:30px;letter-spacing:.45em;color:{UVA};font-weight:700">ÚLTIMO ANO.</div></div></body>"""),
+    "08-credencial": (1400, 1400, f"""<body style="background:radial-gradient(circle at 50% 30%,#3a2e44,#120e16)">
+<div style="position:absolute;left:640px;top:0;width:120px;height:330px;background:repeating-linear-gradient(90deg,{ROXO} 0 40px,#0A0A0C 40px 80px);"></div>
+<div style="position:absolute;left:670px;top:300px;width:60px;height:70px;border-radius:12px;background:#c9c3cf;border:6px solid #8a8490"></div>
+<div style="position:absolute;left:450px;top:350px;width:500px;height:760px;border-radius:30px;background:#0A0A0C;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);border:2px solid #2a2530">
+ <img src="{PNG}/../../final/padrao/estampa-corrida-27.png" style="position:absolute;inset:0;width:500px;opacity:.5">
+ <div style="position:absolute;left:0;right:0;top:0;height:100%;background:linear-gradient(180deg,rgba(10,10,12,.2),#0A0A0C 70%)"></div>
+ <img src="{ART}" style="position:absolute;left:95px;top:30px;width:310px">
+ <div style="position:absolute;left:40px;bottom:150px;font-family:G;font-size:64px;color:#fff;-webkit-text-stroke:12px #0A0A0C;paint-order:stroke fill;filter:drop-shadow(4px 5px 0 {ROXO})">NOME DO ALUNO</div>
+ <div style="position:absolute;left:40px;bottom:110px;font-size:20px;letter-spacing:.35em;color:{ROXO};font-weight:700">FORMANDO · 3º ANO</div>
+ <div style="position:absolute;left:0;right:0;bottom:0;height:80px;background:{ROXO};display:flex;align-items:center;justify-content:center;font-size:24px;letter-spacing:.5em;color:#0A0A0C;font-weight:900">ACESSO TOTAL</div></div></body>"""),
+    "09-convite": (1800, 1200, f"""<body style="background:#D9D2E1">
+<div style="position:absolute;left:180px;top:150px;width:640px;height:900px;background:#0A0A0C;transform:rotate(-4deg);box-shadow:0 30px 60px rgba(0,0,0,.3);overflow:hidden">
+ <img src="{ART}" style="position:absolute;left:95px;top:80px;width:450px"><div style="position:absolute;width:100%;bottom:60px;text-align:center;font-size:20px;letter-spacing:.5em;color:{ROXO};font-weight:700">VOCÊ É NOSSO CONVIDADO</div></div>
+<div style="position:absolute;left:900px;top:170px;width:640px;height:900px;background:#F7F4FA;transform:rotate(3deg);box-shadow:0 30px 60px rgba(0,0,0,.25);padding:80px 70px">
+ <div style="font-size:20px;letter-spacing:.45em;color:{ROXO};font-weight:700">CERIMÔNIA DE FORMATURA</div>
+ <div style="font-family:G;font-size:110px;line-height:.95;color:{ROXO};margin-top:40px;-webkit-text-stroke:14px #0A0A0C;paint-order:stroke fill">TURMA<br>2027</div>
+ <div style="font-size:26px;line-height:1.9;color:#3a3240;margin-top:60px">Os formandos do 3º ano do<br><b>Colégio Mãe de Deus</b><br>convidam você para celebrar<br>o fim desse capítulo.</div>
+ <div style="position:absolute;left:70px;bottom:80px;font-size:22px;letter-spacing:.3em;color:#0A0A0C;font-weight:700">DATA · HORA · LOCAL</div></div></body>"""),
 }
 
 if __name__ == "__main__":
