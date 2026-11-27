@@ -9,7 +9,7 @@ K = 2
 def base(f):
     im = Image.open(R / f).convert("RGB")
     return im.resize((im.width * K, im.height * K), Image.LANCZOS).filter(ImageFilter.UnsharpMask(2, 50, 2)).convert("RGBA")
-b = base("camiseta-preta.jpg"); estampa(b, ART, cx=700 * K, cy=360 * K, larg=250 * K, desloc=0.6 * K)
+b = base("camiseta-preta.jpg"); estampa(b, ART, cx=600 * K, cy=250 * K, larg=150 * K, desloc=0.6 * K)
 b.convert("RGB").save(OUT / "camiseta-mockup.png")
 b = base("bone-preto.jpg"); estampa(b, S27, cx=688 * K, cy=420 * K, larg=190 * K, giro=0, desloc=0.5 * K)
 b.convert("RGB").save(OUT / "bone-mockup.png")

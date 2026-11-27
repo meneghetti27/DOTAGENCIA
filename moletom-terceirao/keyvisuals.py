@@ -53,7 +53,7 @@ CENAS = {
 <div class=fx style="background:radial-gradient(ellipse 60% 70% at 50% 45%,#2E1A40 0%,#120B18 50%,{PRETO} 80%)"></div>
 {holofote(50, o=.18)}{nevoa(ROXO, 50, 55, 55, 40, .45)}
 <div class=titulo style="left:0;right:0;top:170px;font-size:520px;opacity:.95">2027</div>
-<img src="{U(R/'arte3d.png')}" style="position:absolute;left:50%;top:40px;height:1000px;transform:translateX(-50%);filter:drop-shadow(0 40px 60px rgba(0,0,0,.7))">
+<img src="{U(R/'arte3d.png')}" style="position:absolute;left:50%;top:60px;height:960px;transform:translateX(-50%);filter:drop-shadow(0 40px 60px rgba(0,0,0,.7))">
 {particulas(70, 1920, 1080)}
 <div class=lbl style="position:absolute;left:90px;bottom:70px;font-size:15px;color:{LILAS};opacity:.7">Terceirão · Colégio Mãe de Deus</div>
 <div class=fx vin></div><div class="fx grao"></div></body>"""),
@@ -191,6 +191,31 @@ CENAS.update({
 <div style="position:absolute;left:600px;top:60px;width:720px;height:940px;background:linear-gradient(90deg,#6e4789,#996BB3 18%,#7a4c99 32%,#a67fc0 50%,#7a4c99 66%,#996BB3 82%,#6e4789);clip-path:polygon(0 0,100% 0,100% 86%,50% 100%,0 86%);box-shadow:0 40px 80px rgba(0,0,0,.6)">
  <img src="{ARTP}" style="position:absolute;left:110px;top:60px;width:500px;filter:drop-shadow(0 20px 20px rgba(0,0,0,.4))"></div>
 {particulas(40,1920,1080,45)}{FIM}"""),
+})
+
+CENAS.update({
+ "kv16-pulseiras": (1920, 1080, f"""<body>{fundo(50,48,'#2E1A40')}{holofote(50,o=.2)}{chao(745)}
+<img src="{U(R/'pulseiras-crop.png')}" style="position:absolute;left:160px;top:330px;width:1600px">
+{nevoa(ROXO,50,85,60,18,.45)}{particulas(40,1920,1080,51)}{FIM}"""),
+ "kv17-impressos": (1920, 1080, f"""<body>{fundo(50,45,'#2A1838')}
+<div style="position:absolute;left:250px;top:150px;width:520px;height:740px;border-radius:10px;background:radial-gradient(ellipse at 50% 35%,#2E1A40,#0A0A0C 75%);box-shadow:0 50px 80px rgba(0,0,0,.7);transform:rotate(-3deg)">
+ <img src="{U(AQUI/'final/versoes-1cor/terceirao-1cor-branco.png')}" style="position:absolute;left:110px;top:90px;width:300px">
+ <div class=lbl style="position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:14px;color:{LILAS}">Convite · Formatura 2027</div></div>
+<div style="position:absolute;left:840px;top:190px;width:820px;height:330px;border-radius:14px;background:linear-gradient(120deg,#996BB3,#7A4C99);box-shadow:0 40px 70px rgba(0,0,0,.65);transform:rotate(2deg);overflow:hidden">
+ <div style="position:absolute;right:200px;top:0;bottom:0;border-left:4px dashed rgba(10,10,12,.35)"></div>
+ <img src="{U(AQUI/'render3d/img/arte-sb.png')}" style="position:absolute;left:40px;top:25px;height:280px">
+ <div style="position:absolute;left:300px;top:70px;font-family:I;font-weight:900;font-size:64px;color:#fff;letter-spacing:-.03em;line-height:.95">BAILE<br>2027</div>
+ <div class=lbl style="position:absolute;left:304px;bottom:60px;font-size:14px;color:#0A0A0C">Ingresso · Nº 0001</div>
+ <div style="position:absolute;right:0;top:0;width:200px;height:100%;display:flex;align-items:center;justify-content:center;font-family:G;font-size:110px;color:#fff;-webkit-text-stroke:14px #0A0A0C;paint-order:stroke fill">27</div></div>
+<div style="position:absolute;left:1000px;top:580px;width:300px;height:430px;border-radius:20px;background:#F2EEF5;box-shadow:0 40px 70px rgba(0,0,0,.6);transform:rotate(-6deg);overflow:hidden">
+ <div style="height:130px;background:linear-gradient(120deg,#996BB3,#3E2353)"></div>
+ <img src="{U(AQUI/'render3d/img/arte-sb.png')}" style="position:absolute;left:85px;top:40px;width:130px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))">
+ <div style="position:absolute;left:0;right:0;top:250px;text-align:center;font-family:I;font-weight:900;font-size:30px;color:#0A0A0C">NOME DO ALUNO</div>
+ <div class=lbl style="position:absolute;left:0;right:0;top:296px;text-align:center;font-size:11px;color:#7A4C99">Formando · 3º ano</div>
+ <div style="position:absolute;left:0;right:0;bottom:0;height:56px;background:#0A0A0C;display:flex;align-items:center;justify-content:center" class=lbl><span style="font-size:12px;color:#E4CFF7">Acesso total</span></div></div>
+<div style="position:absolute;left:1380px;top:600px;width:330px;height:330px;border-radius:50%;background:#996BB3;box-shadow:0 40px 70px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center">
+ <img src="{U(AQUI/'final/simbolo/simbolo-27-branco.png')}" style="width:240px"></div>
+{particulas(30,1920,1080,53)}{FIM}"""),
 })
 
 if __name__ == "__main__":

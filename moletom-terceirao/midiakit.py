@@ -43,7 +43,7 @@ for nome, _ in VARS:
     im = Image.open(FAV / f"{nome}.png").convert("RGB")
     im.save(OUT / "png" / f"{nome}-fundo-preto.png")
     rgb, alpha = recorta_fundo(im)
-    Image.fromarray(np.dstack([rgb, alpha]).astype(np.uint8), "RGBA").save(OUT / "png" / f"{nome}-transparente.png")
+    Image.open(FAV / f"{nome}-transparente.png").save(OUT / "png" / f"{nome}-transparente.png")  # renderizado sem fundo
     # negativo nativo (favoritos.py): fundo claro #F4F1F7 -> transparente
     ng = Image.open(FAV / f"{nome}-negativo.png").convert("RGB"); ng.save(OUT / "png" / f"{nome}-negativo.png")
     na = np.asarray(ng).astype(int); dn = np.abs(na - np.array([244, 241, 247])).sum(-1)

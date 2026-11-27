@@ -61,7 +61,7 @@ def buracos(nome):
 
 
 def pinta(arq, H):
-    im = np.asarray(Image.open(arq).convert("RGB")).copy(); im[H] = 255
+    im = np.asarray(Image.open(arq).convert("RGBA")).copy(); im[H] = 255
     Image.fromarray(im).save(arq)
 
 
@@ -72,6 +72,9 @@ if __name__ == "__main__":
         for suf, html in (("", base), ("-negativo", negativo(base))):
             h = P / f"_{nome}{suf}.html"; h.write_text(html)
             costas.render(h, P / f"{nome}{suf}.png"); h.unlink()
+        # transparente de verdade (renderizado sem fundo): mantém o contorno preto das letras
+        tr = costas.html("graffiti_youth.otf", False, True).replace("</style>", ".esc{display:none!important}</style>", 1)
+        h = P / f"_{nome}-t.html"; h.write_text(tr); costas.render(h, P / f"{nome}-transparente.png"); h.unlink()
         H = buracos(nome)
-        for suf in ("", "-negativo"): pinta(P / f"{nome}{suf}.png", H)
+        for suf in ("", "-negativo", "-transparente"): pinta(P / f"{nome}{suf}.png", H)
         print("ok", nome)

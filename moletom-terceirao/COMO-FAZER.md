@@ -128,3 +128,16 @@ tipografia (Graffiti Youth + Inter + Space Mono), elementos, estampa corrida, 6 
 - Brand book: parágrafos escondidos (`.t{display:none}`), só títulos + imagens. 49 págs.
 - Novas cenas premium (kv07–kv15): canecas preta+branca, chaveiro acrílico 3D, kit de adesivos 3D com desfoque,
   capa de celular, caderno, pulseiras do baile, letreiro neon 27, telão da formatura com plateia, bandeira da turma.
+
+## ⭐ BRAND BOOK v3 — institucional (`python3 brandbook_v3.py`, 29 págs). v1/v2 ficam como histórico.
+Dono reprovou: textos de "muro / a gente não pichou", capa escura, páginas de processo (150 fontes, ajuste fino), til/close,
+espaço pra respirar (construção), voz, brilhos/figurinhas, bottons, celular, posts, chaveiro, caderno, bandeira, boné.
+Estrutura atual: capa em **degradê roxo com letra branca** (logo 1 cor branco) · sumário · 01 Marca (assinatura, logo 3D, versões,
+símbolo, mínimo, não fazer) · 02 Cores (cartões em degradê com sombra + proporção) · 03 Tipografia (Graffiti Youth + Inter) ·
+04 Aplicações (moletom cena + foto, camiseta, 4 adesivos colados em superfície real, kit 3D, canecas, pulseiras 3D, impressos, neon, telão) · contracapa.
+- **BUG corrigido:** PNG transparente da arte tirava o contorno preto (chroma key no preto). Agora `favoritos.py` renderiza sem fundo.
+- **Adesivos colados** (`adesivo_cenas.py`): texturas Poly Haven 2K (`referencias/texturas/`), recorte branco, relevo da superfície,
+  sombra, perspectiva; brilhos da arte removidos (`sem_brilhos`). 3D usa `render3d/img/arte-sb.png` (sem brilhos).
+- Moletom: costas menor (larg 112×1.12). Camiseta: estampa no peito à esquerda de quem olha.
+- **Revisar TODAS as páginas em tamanho grande antes de enviar** (dono cobrou logo cortado na pág. 28 do v2).
+- Pendente: 5 mockups de moletom diferentes — precisa de foto (dono manda) ou créditos ElevenLabs.

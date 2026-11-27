@@ -63,6 +63,17 @@ if (modo === 'chaveiro') {
   const elo = new THREE.Mesh(new THREE.TorusGeometry(.18, .045, 16, 48), met); elo.position.set(0, 1.72, 0); elo.rotation.y = Math.PI / 2; obj.add(elo);
   obj.rotation.set(-.1, +(q.get('ry') || .45), +(q.get('rz') || .08)); obj.traverse(o => o.castShadow = true);
 }
+if (modo === 'pulseira') {
+  obj = new THREE.Group(); const imgs = (q.get('imgs') || '').split(',');
+  for (let i = 0; i < imgs.length; i++) {
+    const t = await load(imgs[i]); t.wrapS = THREE.RepeatWrapping;
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.25, .62, 160, 1, true, 0, Math.PI * 1.93),
+      new THREE.MeshPhysicalMaterial({map: t, roughness: .55, sheen: .5, side: THREE.DoubleSide}));
+    m.rotation.set(.22 - i * .05, -2.4 + i * .35, .12 - i * .12); m.position.set(-2.1 + i * 2.1, 0, -i * .2); m.castShadow = true; obj.add(m);
+    const cl = new THREE.Mesh(new THREE.BoxGeometry(.18, .44, .1), new THREE.MeshPhysicalMaterial({color: 0xd6d1db, metalness: .8, roughness: .3}));
+    cl.position.set(1.35, 0, 0); m.add(cl);
+  }
+}
 if (modo === 'caneca') {
   const t = await load(q.get('img')); obj = new THREE.Group();
   const corpo = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.18, 2.9, 128, 1, true),
