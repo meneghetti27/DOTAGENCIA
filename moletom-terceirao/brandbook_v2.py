@@ -231,6 +231,9 @@ pag("", f"""<div style="position:absolute;left:110px;top:150px" class=lbl><span 
 
 # ============ V · A RUA ============
 capitulo("V", "A RUA", "Onde a marca vive: no corpo, no papel e na tela.")
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv01-heroi.png')}"></div>""", "Key visual", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv05-moletom.png')}"></div>
+<div style="position:absolute;left:110px;bottom:120px" class=lbl>Moletom · peça principal</div>""", "Vestuário")
 pag("cl", f"""<div class=img style="inset:0"><img src="{U(A/'moletom-mockup.png')}" style="object-fit:cover"></div>
 <div style="position:absolute;left:110px;bottom:130px" class=lbl>Moletom · costas e peito</div>""", "Vestuário")
 pag("", f"""<div class=img style="inset:0"><img src="{U(A/'camiseta-mockup.png')}"></div>
@@ -248,6 +251,15 @@ pag("", f"""<div class=img style="left:110px;top:150px;width:520px;height:800px"
 <div class=img style="left:660px;top:563px;width:560px;height:387px"><img src="{U(A/'04-adesivo.png')}"></div>
 <div style="position:absolute;left:1260px;top:600px;width:520px"><div class="lbl k">Digital</div>
 <p class=t style="margin-top:20px">Story de contagem regressiva, grade de feed alternando preto, roxo e claro, e adesivos pra notebook e garrafa.</p></div>""", "Digital")
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv02-simbolo.png')}"></div>""", "Símbolo em 3D", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv03-caneca.png')}"></div>""", "Objetos", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv04-bottons.png')}"></div>""", "Objetos", rod=False)
+pag("", f"""<div class=img style="inset:0"><img src="{U(AQUI/'final/keyvisuals/kv06-celular.png')}"></div>
+<div style="position:absolute;left:110px;bottom:120px" class=lbl>Wallpapers · lock screen e home</div>""", "Digital")
+pag("", f"""<div style="position:absolute;left:110px;top:150px" class="lbl k">Instagram · feed</div>
+<div class=h style="position:absolute;left:110px;top:220px;font-size:58px">Posts com<br>profundidade.</div>
+<p class=t style="position:absolute;left:110px;top:420px;width:380px">Título gigante atrás do objeto 3D, luz roxa, névoa e partículas. Frase de apoio em 1 linha com a virada em roxo.</p>
+<div style="position:absolute;left:560px;right:110px;top:190px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">{''.join(f'<div class=img style="position:relative;aspect-ratio:4/5"><img src="{U(AQUI/"final/keyvisuals"/(n+".png"))}"></div>' for n in ["post01-ultimo-ano","post02-moletom","post03-contagem"])}</div>""", "Digital")
 cal = [("FEV", "Volta às aulas", "Lançamento da marca"), ("MAR", "Moletom", "Pedido e entrega"), ("JUN", "Festa junina", "Adesivos e camisetas"),
        ("AGO", "100 dias", "Faixa e story"), ("NOV", "Baile", "Convite e ingresso"), ("DEZ", "Formatura", "Credencial e foto oficial")]
 pag("", f"""<div style="position:absolute;left:110px;top:150px" class="lbl k">O ano da marca</div>

@@ -108,3 +108,14 @@ tipografia (Graffiti Youth + Inter + Space Mono), elementos, estampa corrida, 6 
 - Linguagem: grão SVG em todas as páginas, Inter Black + Playfair Italic (citações) + Space Mono (rótulos) + Graffiti Youth;
   divisórias com luz roxa + pattern 27 a 7% (NÃO usar foto do boné de fundo: aparecia o boné repetido).
 - Anatomia: pinos em coordenadas reais da arte (px da arte 1503×1800), não chutar porcentagem.
+
+## ⭐ Imagens premium / key visuals (dono: "imagens mais profissionais, profundidade, gradiente, premium")
+- **3D real** em `render3d/` (three.js 0.170, `cena.html` + `node shot.js "query" out.png W H`, sem servidor: Playwright intercepta
+  `http://cena.local/`). Modos: `slab` (adesivo grosso 2.5D da arte/27), `caneca` (`gira=3.1416`), `botton` (`tg=-1.5708`).
+  Garrafa ficou distorcida (UV do lathe): não usar.
+- `python3 keyvisuals.py` → `final/keyvisuals/`: kv01 herói (2027 atrás da assinatura 3D), kv02 ÚLTIMO ANO + 27 3D com reflexo,
+  kv03 caneca, kv04 bottons, kv05 moletom recortado com TURMA 27 atrás, kv06 dois celulares com wallpaper; posts 1080×1350
+  (ÚLTIMO ANO., CHEGOU., FALTAM 200) no estilo dos posts da dot: título gigante em degradê atrás do objeto, holofote, névoa,
+  partículas, vinheta, grão, frase de 1 linha com virada em roxo.
+- Títulos com acento: `padding-top:.14em` no texto com background-clip (senão o acento some).
+- Brand book v2 agora com 43 págs (key visuals sangrados no capítulo V).
