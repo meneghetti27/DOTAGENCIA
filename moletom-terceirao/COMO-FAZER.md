@@ -142,3 +142,12 @@ símbolo, mínimo, não fazer) · 02 Cores (cartões em degradê com sombra + pr
 - **Revisar TODAS as páginas em tamanho grande antes de enviar** (dono cobrou logo cortado na pág. 28 do v2).
 - Pendente: 5 mockups de moletom diferentes — precisa de foto (dono manda) ou créditos ElevenLabs.
 - Mockups nas fotos do dono: **só o close (dono-2) ficou aprovado**. Remoção de estampa em foto de preview com JPG baixo/estampa grande deu resultado quebrado (True Romance ficou com manchas e logo flutuando: dono reclamou). NÃO entregar sem olhar cada um em tamanho grande. Melhor caminho: PSD/foto lisa.
+
+## ⭐ BRAND BOOK v4 — estilo apresentação moderna (`python3 brandbook_v4.py`, 21 págs)
+Referência do dono: deck "MKT Digital" (escuro com brilho roxo embaixo/canto, faixa de letreiro no topo, pílula ○ rótulo,
+título Space Grotesk em 2 tons — 2ª linha lilás #B88FD6, texto curto, botão com ↗, cartões de vidro com número em quadrado,
+objetos 3D flutuando com desfoque, rodapé com logo branco + @, texto vertical "○ Turma 2027" na lateral).
+- Dono cobrou: **ter explicação curta em cada página** (v3 sem texto foi reprovado) e **não mudar o que ele não pediu**
+  (camiseta voltou pra arte grande na frente, um pouco à esquerda: cx=670).
+- Texto com degradê via background-clip gera caixa/linha no PDF: usar cor sólida.
+- @terceirao.mdd é placeholder (trocar pelo @ real da turma).
